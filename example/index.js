@@ -1,3 +1,12 @@
-const { Test } = require('@greencoast/discord.js-extended');
+require('dotenv').config();
+const { ExtendedClient } = require('@greencoast/discord.js-extended');
 
-new Test();
+const client = new ExtendedClient({
+  prefix: '?',
+  owner: '123',
+  debug: true
+});
+
+client.registerDefaultEvents();
+
+client.login(process.env.DISCORD_TOKEN);
