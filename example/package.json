@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}
