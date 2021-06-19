@@ -5,8 +5,13 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "lint": "eslint ./src",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "lint": "eslint ./src ./test",
+    "test": "jest --watchAll --silent",
+    "test:showlogs": "jest --watchAll",
+    "test:once": "jest --silent",
+    "test:once-showlogs": "jest",
+    "build": "tsc --build"
   },
   "repository": {
     "type": "git",
@@ -20,12 +25,17 @@
   },
   "homepage": "https://github.com/greencoast-studios/discord.js-extended#readme",
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.12.4",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
+    "babel-jest": "^27.0.2",
     "discord.js": "^12.5.3",
     "eslint": "^7.29.0",
     "eslint-config-greencoast": "0.0.2",
+    "jest": "^27.0.4",
+    "text-encoding": "^0.7.0",
+    "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.4"
   },
