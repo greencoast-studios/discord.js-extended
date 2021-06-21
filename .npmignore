@@ -1,4 +1,7 @@
 example/
 src/
+test/
+.github/
 .eslintrc
 .eslintignore
+jest.config.js

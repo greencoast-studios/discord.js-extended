@@ -1,11 +1,10 @@
-import logger from '@greencoast/logger';
+import ExtendedClient from './classes/ExtendedClient';
+import ClientDefaultHandlers from './classes/events/ClientDefaultHandlers';
 
-class Test {
-  constructor() {
-    logger.info('construct test');
-  }
-}
+import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
 
 export {
-  Test
+  ExtendedClient,
+  ClientDefaultHandlers,
+  ExtendedClientOptions
 };
