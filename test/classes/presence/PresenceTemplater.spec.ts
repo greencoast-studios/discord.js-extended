@@ -17,7 +17,9 @@ jest.mock('discord.js', () => ({
       this.once = jest.fn();
       this.guilds = {
         cache: {
-          reduce: (fn: any) => [1, 2, 3].reduce(fn)
+          reduce: (fn: any, initial: any) => {
+            return [{ memberCount: 10 }, { memberCount: 5 }, { memberCount: 2 }].reduce(fn, initial);
+          }
         }
       };
       this.users = {
@@ -80,6 +82,10 @@ describe('Classes: Presence: PresenceTemplater', () => {
 
     it('should return the string for key: ready_time.', () => {
       expect(templater.get('ready_time')).toBe('Sun, 13/08/71 @22:08:PM');
+    });
+
+    it('should return the string for key: num_members.', () => {
+      expect(templater.get('num_members')).toBe('17');
     });
   });
 });

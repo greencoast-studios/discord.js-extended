@@ -20,7 +20,8 @@ class PresenceTemplater extends Templater {
       'owner_name',
       'client_name',
       'uptime',
-      'ready_time'
+      'ready_time',
+      'num_members'
     ]);
 
     this.client = client;
@@ -42,6 +43,8 @@ class PresenceTemplater extends Templater {
         return this.getUptime();
       case 'ready_time':
         return this.getReadyTime();
+      case 'num_members':
+        return this.getNumberOfMembers();
       default:
         throw new Error('Unknown key inserted in PresenceTemplater.');
     }
@@ -115,6 +118,14 @@ class PresenceTemplater extends Templater {
     }
 
     return dayjs(this.client.readyTimestamp).format('ddd, DD/MM/YY @HH:MM:A');
+  }
+
+  /**
+   * Get the total number of members across all the guilds that the client is connected to.
+   * @returns The number of members.
+   */
+  private getNumberOfMembers(): string {
+    return this.client.guilds.cache.reduce((sum, guild) => sum + guild.memberCount, 0).toString();
   }
 }
 
