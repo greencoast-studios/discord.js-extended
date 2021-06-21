@@ -1,38 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
-
-jest.mock('discord.js', () => ({
-  Client: class ClientClassMock {
-    public options: any;
-    public once: jest.Mock<any, any>
-    public guilds: any;
-    public users: any;
-    public user: any;
-    public uptime: number;
-    public readyTimestamp: number;
-  
-    constructor(options: any) {
-      this.options = options;
-      this.once = jest.fn();
-      this.guilds = {
-        cache: {
-          reduce: (fn: any, initial: any) => {
-            return [{ memberCount: 10 }, { memberCount: 5 }, { memberCount: 2 }].reduce(fn, initial);
-          }
-        }
-      };
-      this.users = {
-        cache: {
-          get: () => ({ username: 'owner' })
-        }
-      };
-      this.user = { username: 'client' };
-      this.uptime = 15341235221;
-      this.readyTimestamp = 123123123123123;
-    }
-  }
-}));
 
 const clientMock = new ExtendedClient({ prefix: '?', owner: '123' });
 

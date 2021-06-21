@@ -2,6 +2,7 @@ example/
 src/
 test/
 .github/
+__mocks__/
 .eslintrc
 .eslintignore
 jest.config.js
