@@ -26,6 +26,10 @@ describe('Classes: ExtendedClient', () => {
     expect(client).toHaveProperty('owner');
   });
 
+  it('should have a config property.', () => {
+    expect(client).toHaveProperty('config');
+  });
+
   describe('constructor', () => {
     let onceSpy: jest.Mock<any, any>;
     let fetchSpy: jest.Mock<any, any>;

@@ -1,11 +1,13 @@
 import Discord from 'discord.js';
+import ConfigProvider from '../classes/config/ConfigProvider';
 import PresenceManagerOptions from './PresenceManagerOptions';
 
 interface ExtendedClientOptions extends Discord.ClientOptions {
   prefix?: string,
   owner?: string | null,
   debug?: boolean,
-  presence?: PresenceManagerOptions
+  presence?: PresenceManagerOptions,
+  config?: ConfigProvider
 }
 
 export default ExtendedClientOptions;
