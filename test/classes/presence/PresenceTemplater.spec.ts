@@ -9,6 +9,8 @@ jest.mock('discord.js', () => ({
     public guilds: any;
     public users: any;
     public user: any;
+    public uptime: number;
+    public readyTimestamp: number;
   
     constructor(options: any) {
       this.options = options;
@@ -24,6 +26,8 @@ jest.mock('discord.js', () => ({
         }
       };
       this.user = { username: 'client' };
+      this.uptime = 15341235221;
+      this.readyTimestamp = 123123123123123;
     }
   }
 }));
@@ -34,13 +38,13 @@ jest.mock('../../../package.json', () => ({
 
 const clientMock = new ExtendedClient({ prefix: '?', owner: '123' });
 
-const dateToLocaleTimeStringSpy = jest.spyOn(Date.prototype, 'toLocaleTimeString');
+const dateToLocaleTimeStringSpy = jest.spyOn(Date.prototype, 'getTime');
 
 describe('Classes: Presence: PresenceTemplater', () => {
   let templater: PresenceTemplater;
 
   beforeAll(() => {
-    dateToLocaleTimeStringSpy.mockReturnValue('11:00PM');
+    dateToLocaleTimeStringSpy.mockReturnValue(1293872389);
   });
 
   beforeEach(() => {
@@ -63,7 +67,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
     });
 
     it('should return the string for key: cur_time.', () => {
-      expect(templater.get('cur_time')).toBe('11:00PM');
+      expect(templater.get('cur_time')).toBe('06:24:32 PM');
     });
 
     it('should return the string for key: owner_name.', () => {
@@ -76,6 +80,14 @@ describe('Classes: Presence: PresenceTemplater', () => {
 
     it('should return the string for key: version.', () => {
       expect(templater.get('version')).toBe('1.x');
+    });
+
+    it('should return the string for key: uptime.', () => {
+      expect(templater.get('uptime')).toBe('177 days, 13 hours and 27 minutes');
+    });
+
+    it('should return the string for key: ready_time.', () => {
+      expect(templater.get('ready_time')).toBe('Sun, 13/08/71 @22:08:PM');
     });
   });
 });

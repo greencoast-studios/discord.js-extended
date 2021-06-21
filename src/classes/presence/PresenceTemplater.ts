@@ -1,3 +1,5 @@
+import humanizeDuration from 'humanize-duration';
+import dayjs from 'dayjs';
 import ExtendedClient from '../ExtendedClient';
 import Templater from '../abstract/Templater';
 import { version } from '../../';
@@ -18,7 +20,9 @@ class PresenceTemplater extends Templater {
       'cur_time',
       'owner_name',
       'client_name',
-      'version'
+      'version',
+      'uptime',
+      'ready_time'
     ]);
 
     this.client = client;
@@ -38,6 +42,10 @@ class PresenceTemplater extends Templater {
         return this.getClientName();
       case 'version':
         return this.getVersion();
+      case 'uptime':
+        return this.getUptime();
+      case 'ready_time':
+        return this.getReadyTime();
       default:
         throw new Error('Unknown key inserted in PresenceTemplater.');
     }
@@ -64,7 +72,7 @@ class PresenceTemplater extends Templater {
    * @returns The current time.
    */
   private getCurrentTime(): string {
-    return new Date().toLocaleTimeString();
+    return dayjs(new Date().getTime()).format('hh:mm:ss A');
   }
 
   /**
@@ -89,6 +97,36 @@ class PresenceTemplater extends Templater {
    */
   private getVersion(): string {
     return version;
+  }
+
+  /**
+   * Get the client's uptime since last ready event emitted in a human-readable shape. Returns 'null' if no uptime is available.
+   * @returns The client's uptime.
+   */
+  private getUptime(): string {
+    if (!this.client.uptime) {
+      return 'null';
+    }
+
+    return humanizeDuration(this.client.uptime, {
+      largest: 3,
+      units: ['d', 'h', 'm'],
+      round: true,
+      conjunction: ' and ',
+      serialComma: false
+    });
+  }
+
+  /**
+   * Get the client's time at which the last ready event was emitted. Returns 'null' if no readyAt timestamp is available.
+   * @returns The time the client has gone ready.
+   */
+  private getReadyTime(): string {
+    if (!this.client.readyTimestamp) {
+      return 'null';
+    }
+
+    return dayjs(this.client.readyTimestamp).format('ddd, DD/MM/YY @HH:MM:A');
   }
 }
 
