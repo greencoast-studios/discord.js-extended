@@ -50,7 +50,10 @@ class ClientMock {
       resolve: jest.fn(),
       fetch: jest.fn(() => Promise.resolve())
     };
-    this.user = { username: 'client' };
+    this.user = {
+      username: 'client',
+      setPresence: jest.fn(() => Promise.resolve())
+    };
     this.uptime = 15341235221;
     this.readyTimestamp = 123123123123123;
   }
