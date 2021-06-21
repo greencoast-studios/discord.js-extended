@@ -32,10 +32,6 @@ jest.mock('discord.js', () => ({
   }
 }));
 
-jest.mock('../../../package.json', () => ({
-  version: '1.x'
-}), { virtual: true });
-
 const clientMock = new ExtendedClient({ prefix: '?', owner: '123' });
 
 const dateToLocaleTimeStringSpy = jest.spyOn(Date.prototype, 'getTime');
@@ -76,10 +72,6 @@ describe('Classes: Presence: PresenceTemplater', () => {
 
     it('should return the string for key: client_name.', () => {
       expect(templater.get('client_name')).toBe('client');
-    });
-
-    it('should return the string for key: version.', () => {
-      expect(templater.get('version')).toBe('1.x');
     });
 
     it('should return the string for key: uptime.', () => {
