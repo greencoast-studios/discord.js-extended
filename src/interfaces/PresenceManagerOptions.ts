@@ -2,7 +2,7 @@ import PresenceData from './PresenceData';
 
 interface PresenceManagerOptions extends PresenceData {
   templates?: string[],
-  refreshInterval?: number
+  refreshInterval?: number | null
 }
 
 export default PresenceManagerOptions;

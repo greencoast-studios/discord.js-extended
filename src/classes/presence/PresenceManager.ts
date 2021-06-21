@@ -1,6 +1,8 @@
+/* eslint-disable max-statements */
 import logger from '@greencoast/logger';
 import ExtendedClient from '../ExtendedClient';
 import PresenceTemplater from './PresenceTemplater';
+import { randomArrayItem } from '../../utils/array';
 import PresenceManagerOptions from '../../interfaces/PresenceManagerOptions';
 import PresenceData from '../../interfaces/PresenceData';
 
@@ -11,6 +13,7 @@ class PresenceManager {
   public readonly client: ExtendedClient;
   public readonly templater: PresenceTemplater;
   public options: PresenceManagerOptions;
+  private refreshIntervalHandle: NodeJS.Timeout | null;
 
   /**
    * @param client The ExtendedClient for this PresenceManager.
@@ -33,6 +36,8 @@ class PresenceManager {
       options.afk = false;
     }
     this.options = options;
+    this.refreshIntervalHandle = null;
+    this.setRefreshInterval(options.refreshInterval);
   }
 
   /**
@@ -60,6 +65,50 @@ class PresenceManager {
         logger.error('Could not update presence!');
         logger.error(error);
       });
+  }
+
+  /**
+   * Set the refresh interval at which the presences should update.
+   * @param refreshInterval The interval. Must be a positive integer.
+   */
+  public setRefreshInterval(refreshInterval: number | null = null): void {
+    if (!refreshInterval) {
+      this.options.refreshInterval = null;
+      
+      if (this.refreshIntervalHandle) {
+        clearInterval(this.refreshIntervalHandle);
+      }
+      this.refreshIntervalHandle = null;
+
+      if (this.client.debug) {
+        logger.debug(`Refresh interval has been disabled.`);
+      }
+
+      return;
+    }
+
+    if (refreshInterval < 0) {
+      throw new Error('Interval should be a positive integer!');
+    }
+
+    this.options.refreshInterval = refreshInterval;
+
+    if (this.refreshIntervalHandle) {
+      clearInterval(this.refreshIntervalHandle);
+    }
+    this.refreshIntervalHandle = setInterval(() => this.randomlyUpdate(), refreshInterval);
+    
+    if (this.client.debug) {
+      logger.debug(`Refresh interval updated, presence will be updated every ${refreshInterval}ms.`);
+    }
+  }
+
+  /**
+   * Update the client's presence with a presence randomly chosen from the templates specified.
+   * @returns Promise that fulfills on presence update.
+   */
+  private randomlyUpdate(): Promise<void> | undefined {
+    return this.update(randomArrayItem(this.options.templates!));
   }
 }
 
