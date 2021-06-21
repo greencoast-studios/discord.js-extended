@@ -2,9 +2,15 @@ import Discord from 'discord.js';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 
+/**
+ * A Discord.js Client extension.
+ */
 class ExtendedClient extends Discord.Client {
   public override options!: ExtendedClientOptions;
 
+  /**
+   * @param options The client's options. Defaults to an empty object.
+   */
   constructor(options: ExtendedClientOptions = {}) {
     if (!options.prefix) {
       options.prefix = '!';

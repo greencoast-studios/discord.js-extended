@@ -1,6 +1,9 @@
 import Discord from 'discord.js';
 import logger from '@greencoast/logger';
 
+/**
+ * The default event handlers for ExtendedClient.
+ */
 class ClientDefaultHandlers {
   /**
    * Log the client's debug messages.
