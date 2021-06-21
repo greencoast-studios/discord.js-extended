@@ -1,5 +1,6 @@
 import Discord from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
+import ConfigProvider from './config/ConfigProvider';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 
@@ -65,6 +66,17 @@ class ExtendedClient extends Discord.Client {
     }
 
     return this.users.cache.get(this.options.owner);
+  }
+
+  /**
+   * The client's config provider (if any).
+   *
+   * @readonly
+   * @type {(ConfigProvider | undefined)}
+   * @memberof ExtendedClient
+   */
+  get config(): ConfigProvider | undefined {
+    return this.options.config;
   }
 
   /**
