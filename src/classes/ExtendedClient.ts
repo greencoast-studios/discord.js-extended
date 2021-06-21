@@ -5,12 +5,15 @@ import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 class ExtendedClient extends Discord.Client {
   public override options!: ExtendedClientOptions;
 
-  constructor(options: ExtendedClientOptions = { prefix: '!', debug: false }) {
+  constructor(options: ExtendedClientOptions = {}) {
     if (!options.prefix) {
       options.prefix = '!';
     }
     if (!options.debug) {
       options.debug = false;
+    }
+    if (!options.owner) {
+      options.owner = null;
     }
     super(options);
 
@@ -25,7 +28,7 @@ class ExtendedClient extends Discord.Client {
    * @memberof ExtendedClient
    */
   get prefix(): string {
-    return this.options.prefix;
+    return this.options.prefix!; // Default value in constructor.
   }
 
   /**
@@ -36,7 +39,7 @@ class ExtendedClient extends Discord.Client {
    * @memberof ExtendedClient
    */
   get debug(): boolean {
-    return this.options.debug;
+    return this.options.debug!; // Default value in constructor.
   }
 
   /**
@@ -106,7 +109,7 @@ class ExtendedClient extends Discord.Client {
     }
 
     this.once('ready', () => {
-      this.users.fetch(owner)
+      return this.users.fetch(owner)
         .catch((error) => {
           this.emit('warn', `Could not fetch owner ${owner}.`);
           this.emit('error', error);
