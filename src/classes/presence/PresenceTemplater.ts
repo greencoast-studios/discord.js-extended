@@ -1,7 +1,12 @@
 import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import ExtendedClient from '../ExtendedClient';
 import Templater from '../abstract/Templater';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 /**
  * A templater class to help with the application of templates for presence statuses.
@@ -71,7 +76,7 @@ class PresenceTemplater extends Templater {
    * @returns The current time.
    */
   private getCurrentTime(): string {
-    return dayjs(new Date().getTime()).format('hh:mm:ss A');
+    return dayjs(new Date().getTime()).tz().format('hh:mm:ss A');
   }
 
   /**
@@ -117,7 +122,7 @@ class PresenceTemplater extends Templater {
       return 'null';
     }
 
-    return dayjs(this.client.readyTimestamp).format('ddd, DD/MM/YY @HH:MM:A');
+    return dayjs(this.client.readyTimestamp).tz().format('ddd, DD/MM/YY @HH:MM:A');
   }
 
   /**

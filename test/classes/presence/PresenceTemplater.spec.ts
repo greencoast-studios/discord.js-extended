@@ -1,5 +1,8 @@
+import dayjs from 'dayjs';
 import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
+
+dayjs.tz.setDefault('Europe/Paris');
 
 const clientMock = new ExtendedClient({ prefix: '?', owner: '123' });
 
@@ -32,7 +35,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
     });
 
     it('should return the string for key: cur_time.', () => {
-      expect(templater.get('cur_time')).toBe('06:24:32 PM');
+      expect(templater.get('cur_time')).toBe('12:24:32 AM');
     });
 
     it('should return the string for key: owner_name.', () => {
@@ -48,7 +51,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
     });
 
     it('should return the string for key: ready_time.', () => {
-      expect(templater.get('ready_time')).toBe('Sun, 13/08/71 @22:08:PM');
+      expect(templater.get('ready_time')).toBe('Mon, 14/08/71 @05:08:AM');
     });
 
     it('should return the string for key: num_members.', () => {
