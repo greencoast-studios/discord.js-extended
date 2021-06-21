@@ -1,4 +1,5 @@
 import Discord from 'discord.js';
+import PresenceManager from './presence/PresenceManager';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 
@@ -7,6 +8,7 @@ import ClientDefaultHandlers from './events/ClientDefaultHandlers';
  */
 class ExtendedClient extends Discord.Client {
   public override options!: ExtendedClientOptions;
+  public presenceManager: PresenceManager;
 
   /**
    * @param options The client's options. Defaults to an empty object.
@@ -22,6 +24,8 @@ class ExtendedClient extends Discord.Client {
       options.owner = null;
     }
     super(options);
+
+    this.presenceManager = new PresenceManager(this, options.presence);
 
     this.fetchOwner();
   }

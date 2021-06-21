@@ -1,12 +1,15 @@
 import { mocked } from 'ts-jest/utils';
 import logger from '@greencoast/logger';
+import Discord from 'discord.js';
 import ClientDefaultHandlers from '../../../src/classes/events/ClientDefaultHandlers';
-import { guildMock, rateLimitMock } from '../../mocks/discord';
+import { rateLimitMock } from '../../../__mocks__/discord.js';
 
 jest.mock('@greencoast/logger');
 
 const mockedLogger = mocked(logger, true);
 const processExitSpy = jest.spyOn(process, 'exit');
+
+const guildMock = new Discord.Guild(new Discord.Client(), {});
 
 describe('Classes: Events: ClientDefaultHandlers', () => {
   beforeAll(() => {

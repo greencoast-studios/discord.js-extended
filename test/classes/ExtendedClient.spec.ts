@@ -1,32 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ExtendedClient from '../../src/classes/ExtendedClient';
-import ExtendedClientOptions from '../../src/interfaces/ExtendedClientOptions';
-
-jest.mock('discord.js', () => ({
-  Client: class ClientClassMock {
-    public options: ExtendedClientOptions;
-    public users: any;
-    public once: jest.Mock<any, any>;
-    public on: jest.Mock<any, any>;
-    public emit: jest.Mock<any, any>;
-  
-    constructor(options: ExtendedClientOptions) {
-      this.options = options;
-      this.users = {
-        cache: {
-          get: jest.fn()
-        },
-        resolve: jest.fn(),
-        fetch: jest.fn(() => Promise.resolve())
-      };
-      this.once = jest.fn();
-      this.on = jest.fn();
-      this.emit = jest.fn();
-    }
-  }
-}));
-
-jest.mock('discord.js');
 
 const MOCKED_OWNER_ID = '123';
 
