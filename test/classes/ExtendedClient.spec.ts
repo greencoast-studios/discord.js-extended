@@ -26,8 +26,6 @@ jest.mock('discord.js', () => ({
   }
 }));
 
-jest.mock('discord.js');
-
 const MOCKED_OWNER_ID = '123';
 
 describe('Classes: ExtendedClient', () => {
