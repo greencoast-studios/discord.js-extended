@@ -14,8 +14,10 @@ describe('Classes: Abstract: Templater', () => {
   });
 
   describe('apply()', () => {
-    it('should return a string.', () => {
-      expect(typeof templater.apply('str')).toBe('string');
+    it('should return the same string if no templates are included.', () => {
+      const str = 'This is a regular string.';
+      
+      expect(templater.apply(str)).toBe(str);
     });
 
     it('should apply the template on all occurrences.', () => {
