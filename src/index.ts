@@ -5,10 +5,13 @@ import PresenceTemplater from './classes/presence/PresenceTemplater';
 
 import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
 
+import { version } from '../package.json';
+
 export {
   ExtendedClient,
   ClientDefaultHandlers,
   Templater,
   PresenceTemplater,
-  ExtendedClientOptions
+  ExtendedClientOptions,
+  version
 };

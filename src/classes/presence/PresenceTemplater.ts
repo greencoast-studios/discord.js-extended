@@ -1,5 +1,6 @@
 import ExtendedClient from '../ExtendedClient';
 import Templater from '../abstract/Templater';
+import { version } from '../../';
 
 /**
  * A templater class to help with the application of templates for presence statuses.
@@ -16,7 +17,8 @@ class PresenceTemplater extends Templater {
       'prefix',
       'cur_time',
       'owner_name',
-      'client_name'
+      'client_name',
+      'version'
     ]);
 
     this.client = client;
@@ -34,6 +36,8 @@ class PresenceTemplater extends Templater {
         return this.getOwnerName();
       case 'client_name':
         return this.getClientName();
+      case 'version':
+        return this.getVersion();
       default:
         throw new Error('Unknown key inserted in PresenceTemplater.');
     }
@@ -77,6 +81,14 @@ class PresenceTemplater extends Templater {
    */
   private getClientName(): string {
     return this.client.user?.username || 'undefined';
+  }
+
+  /**
+   * Get the version of the discord.js-extended library.
+   * @returns discord.js-extended's version.
+   */
+  private getVersion(): string {
+    return version;
   }
 }
 
