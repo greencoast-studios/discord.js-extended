@@ -65,6 +65,19 @@ describe('Classes: Data: LevelDataProvider', () => {
           expect(error).toBe(expectedError);
         });
     });
+
+    it('should not re-initialize the provider if it is ready.', () => {
+      expect.assertions(1);
+
+      return provider.init()
+        .then(() => {
+          mockedLevel.mockClear();
+          return provider.init();
+        })
+        .then(() => {
+          expect(mockedLevel).not.toHaveBeenCalled();
+        });
+    });
   });
 
   describe('destroy()', () => {
