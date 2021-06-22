@@ -1,6 +1,7 @@
 import Discord from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
+import DataProvider from './data/DataProvider';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 
@@ -10,6 +11,7 @@ import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 class ExtendedClient extends Discord.Client {
   public override options!: ExtendedClientOptions;
   public presenceManager: PresenceManager;
+  public dataProvider: DataProvider | null;
 
   /**
    * @param options The client's options. Defaults to an empty object.
@@ -27,6 +29,7 @@ class ExtendedClient extends Discord.Client {
     super(options);
 
     this.presenceManager = new PresenceManager(this, options.presence);
+    this.dataProvider = null;
 
     this.fetchOwner();
   }
@@ -77,6 +80,17 @@ class ExtendedClient extends Discord.Client {
    */
   get config(): ConfigProvider | undefined {
     return this.options.config;
+  }
+
+  /**
+   * Set the client's data provider. It is not necessary to initialize the provider as it is done here.
+   * @param dataProvider The data provider.
+   * @returns A promise that resolves with the data provider initialized.
+   */
+  public async setDataProvider(dataProvider: DataProvider): Promise<DataProvider> {
+    await dataProvider.init();
+    this.dataProvider = dataProvider;
+    return this.dataProvider;
   }
 
   /**

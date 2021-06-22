@@ -1,7 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const logger = require('@greencoast/logger');
-const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
+const { ExtendedClient, ConfigProvider, LevelDataProvider } = require('@greencoast/discord.js-extended');
 
 const config = new ConfigProvider({ env: process.env, configPath: path.join(__dirname, './config/settings.json') });
 
@@ -18,10 +18,18 @@ const client = new ExtendedClient({
   config
 });
 
+const dataProvider = new LevelDataProvider(client, path.join(__dirname, './data'));
+
 client.registerDefaultEvents();
 
-client.on('ready', () => {
+client.on('ready', async() => {
   logger.info(`Listening for commands with prefix: ${client.prefix}`);
+
+  await client.setDataProvider(dataProvider);
+  logger.info('Added level data provider.');
+
+  await client.dataProvider.setGlobal('time', Date.now());
+  logger.warn(await client.dataProvider.getGlobal('time'));
 });
 
 client.login(client.config.get('TOKEN'));

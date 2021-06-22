@@ -13,9 +13,11 @@ const rateLimitMock: Discord.RateLimitData = {
 
 class GuildMock {
   public name: string;
+  public id: string;
 
   constructor() {
     this.name = 'guild';
+    this.id = Math.random().toString();
   }
 }
 

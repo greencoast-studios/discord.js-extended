@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ExtendedClient from '../../src/classes/ExtendedClient';
+import ConcreteDataProvider from '../../__mocks__/dataProvider';
 
 const MOCKED_OWNER_ID = '123';
 
@@ -81,6 +82,19 @@ describe('Classes: ExtendedClient', () => {
       client.owner;
       expect(client.users.cache.get).toHaveBeenCalledTimes(1);
       expect(client.users.cache.get).toHaveBeenCalledWith(MOCKED_OWNER_ID);
+    });
+  });
+
+  describe('setDataProvider()', () => {
+    it('should update the dataProvider property.', () => {
+      const provider = new ConcreteDataProvider(client);
+
+      expect.assertions(1);
+
+      return client.setDataProvider(provider)
+        .then(() => {
+          expect(client.dataProvider).toBe(provider);
+        });
     });
   });
 
