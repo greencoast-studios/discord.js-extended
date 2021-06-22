@@ -17,6 +17,10 @@ class LevelDataProvider extends DataProvider {
   }
 
   public init(): Promise<DataProvider> {
+    if (this.db) {
+      return Promise.resolve(this);
+    }
+
     return new Promise((resolve, reject) => {
       level(this.location, {}, (error?: Error, db?: level.LevelDB<string, any>) => {
         if (error) {
