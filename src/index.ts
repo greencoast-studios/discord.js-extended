@@ -5,6 +5,7 @@ import PresenceTemplater from './classes/presence/PresenceTemplater';
 import PresenceManager from './classes/presence/PresenceManager';
 import ConfigProvider from './classes/config/ConfigProvider';
 import DataProvider from './classes/data/DataProvider';
+import LevelDataProvider from './classes/data/LevelDataProvider';
 
 import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
 import PresenceManagerOptions from './interfaces/PresenceManagerOptions';
@@ -19,6 +20,7 @@ export {
   PresenceManager,
   ConfigProvider,
   DataProvider,
+  LevelDataProvider,
   ExtendedClientOptions,
   PresenceManagerOptions,
   PresenceData,
