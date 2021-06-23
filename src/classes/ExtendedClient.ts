@@ -26,6 +26,9 @@ class ExtendedClient extends Discord.Client {
     if (!options.owner) {
       options.owner = null;
     }
+    if (!options.errorOwnerReporting) {
+      options.errorOwnerReporting = false;
+    }
     super(options);
 
     this.presenceManager = new PresenceManager(this, options.presence);
@@ -80,6 +83,17 @@ class ExtendedClient extends Discord.Client {
    */
   get config(): ConfigProvider | undefined {
     return this.options.config;
+  }
+
+  /**
+   * Whether command error reporting should be notified to the client's owner. An owner must be set for this option to work.
+   *
+   * @readonly
+   * @type {boolean}
+   * @memberof ExtendedClient
+   */
+  get errorOwnerReporting(): boolean {
+    return this.options.errorOwnerReporting!; // Default value in constructor.
   }
 
   /**
