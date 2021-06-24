@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import level from 'level';
 import Discord from 'discord.js';
-import logger from '@greencoast/logger';
 import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
 
@@ -29,9 +28,7 @@ class LevelDataProvider extends DataProvider {
 
         this.db = db!;
         
-        if (this.client.debug) {
-          logger.debug('LevelDataProvider has been initialized.');
-        }
+        this.client.emit('debug', 'LevelDataProvider has been initialized.');
 
         return resolve(this);
       });
@@ -51,9 +48,7 @@ class LevelDataProvider extends DataProvider {
 
         this.db = null;
 
-        if (this.client.debug) {
-          logger.debug('LevelDataProvider has been destroyed.');
-        }
+        this.client.emit('debug', 'LevelDataProvider has been destroyed.');
 
         return resolve();
       });

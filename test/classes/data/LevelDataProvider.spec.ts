@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable dot-notation */
 import { mocked } from 'ts-jest/utils';
-import logger from '@greencoast/logger';
 import level from 'level';
 import LevelUP from 'levelup';
 import Discord from 'discord.js';
@@ -10,20 +9,20 @@ import LevelDataProvider from '../../../src/classes/data/LevelDataProvider';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 
 jest.mock('level');
-jest.mock('@greencoast/logger');
 
-const mockedLogger = mocked(logger, true);
 const mockedLevel = mocked(level, true);
 
 const clientMock = new ExtendedClient({ debug: true });
 
 describe('Classes: Data: LevelDataProvider', () => {
+  const emitSpy = clientMock.emit as jest.Mock<any, any>;
+
   let provider: LevelDataProvider;
 
   beforeEach(() => {
     provider = new LevelDataProvider(clientMock, 'path');
 
-    mockedLogger.debug.mockClear();
+    emitSpy.mockClear();
   });
 
   describe('init()', () => {
@@ -45,12 +44,12 @@ describe('Classes: Data: LevelDataProvider', () => {
         });
     });
 
-    it('should debug log if debug is enabled.', () => {
+    it('should emit a debug event.', () => {
       expect.assertions(1);
 
       return provider.init()
         .then(() => {
-          expect(mockedLogger.debug).toHaveBeenCalledTimes(1);
+          expect(clientMock.emit).toHaveBeenCalledTimes(1);
         });
     });
 
@@ -105,12 +104,13 @@ describe('Classes: Data: LevelDataProvider', () => {
         });
     });
 
-    it('should debug log if debug is enabled.', () => {
-      expect.assertions(1);
+    it('should emit a debug event.', () => {
+      expect.assertions(2);
 
       return provider.destroy()
         .then(() => {
-          expect(mockedLogger.debug).toHaveBeenCalledTimes(2); // This gets called in the init as wel.
+          expect(clientMock.emit).toHaveBeenCalledTimes(2); // This gets called in the init as well.
+          expect(clientMock.emit).toHaveBeenNthCalledWith(2, 'debug', expect.anything());
         });
     });
 
