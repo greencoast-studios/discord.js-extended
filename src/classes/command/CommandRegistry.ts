@@ -36,6 +36,7 @@ class CommandRegistry {
 
     const group = new CommandGroup(id, name);
     this.groups.set(group.id, group);
+    this.client.emit('groupRegistered', group);
 
     return this;
   }
@@ -71,6 +72,7 @@ class CommandRegistry {
 
     group.registerCommand(command);
     this.commands.set(command.name, command);
+    this.client.emit('commandRegistered', command);
 
     return this;
   }
