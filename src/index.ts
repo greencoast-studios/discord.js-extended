@@ -6,11 +6,13 @@ import PresenceManager from './classes/presence/PresenceManager';
 import ConfigProvider from './classes/config/ConfigProvider';
 import DataProvider from './classes/data/DataProvider';
 import LevelDataProvider from './classes/data/LevelDataProvider';
+import Command from './classes/command/Command';
 
 import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
 import PresenceManagerOptions from './interfaces/PresenceManagerOptions';
 import PresenceData from './interfaces/PresenceData';
 import ConfigProviderOptions from './interfaces/ConfigProviderOptions';
+import CommandInfo from './interfaces/CommandInfo';
 
 export {
   ExtendedClient,
@@ -21,8 +23,10 @@ export {
   ConfigProvider,
   DataProvider,
   LevelDataProvider,
+  Command,
   ExtendedClientOptions,
   PresenceManagerOptions,
   PresenceData,
-  ConfigProviderOptions
+  ConfigProviderOptions,
+  CommandInfo
 };

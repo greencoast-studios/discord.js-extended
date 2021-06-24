@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/greencoast-studios/discord.js-extended#readme",
   "devDependencies": {
+    "@types/common-tags": "^1.8.0",
     "@types/humanize-duration": "^3.25.0",
     "@types/jest": "^26.0.23",
     "@types/level": "^6.0.0",
@@ -49,6 +50,7 @@
   },
   "dependencies": {
     "@greencoast/logger": "^1.1.0",
+    "common-tags": "^1.8.0",
     "dayjs": "^1.10.5",
     "humanize-duration": "^3.27.0"
   }
