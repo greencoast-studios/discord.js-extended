@@ -3,6 +3,7 @@ import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
 import CommandRegistry from './command/CommandRegistry';
+import CommandDispatcher from './command/CommandDispatcher';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 
@@ -14,6 +15,7 @@ class ExtendedClient extends Discord.Client {
   public presenceManager: PresenceManager;
   public dataProvider: DataProvider | null;
   public registry: CommandRegistry;
+  public dispatcher: CommandDispatcher;
 
   /**
    * @param options The client's options. Defaults to an empty object.
@@ -36,8 +38,10 @@ class ExtendedClient extends Discord.Client {
     this.presenceManager = new PresenceManager(this, options.presence);
     this.dataProvider = null;
     this.registry = new CommandRegistry(this);
+    this.dispatcher = new CommandDispatcher(this, this.registry);
 
     this.fetchOwner();
+    this.registerMessageHandler();
   }
 
   /**
@@ -168,6 +172,13 @@ class ExtendedClient extends Discord.Client {
           this.emit('error', error);
         });
     });
+  }
+
+  /**
+   * Register the message event handler for CommandDispatcher.
+   */
+  private registerMessageHandler(): void {
+    this.on('message', this.dispatcher.handleMessage);
   }
 }
 

@@ -74,6 +74,10 @@ describe('Classes: ExtendedClient', () => {
           expect(client.emit).toHaveBeenCalledWith('error', expectedError);
         });
     });
+
+    it('should register message handler.', () => {
+      expect(client.on).toHaveBeenCalledWith('message', expect.anything());
+    });
   });
 
   describe('get owner()', () => {
