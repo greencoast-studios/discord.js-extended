@@ -178,7 +178,7 @@ class ExtendedClient extends Discord.Client {
    * Register the message event handler for CommandDispatcher.
    */
   private registerMessageHandler(): void {
-    this.on('message', this.dispatcher.handleMessage);
+    this.on('message', (message) => this.dispatcher.handleMessage(message));
   }
 }
 
