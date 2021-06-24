@@ -1,5 +1,4 @@
 import Discord from 'discord.js';
-import logger from '@greencoast/logger';
 import ExtendedClient from '../ExtendedClient';
 import CommandRegistry from './CommandRegistry';
 
@@ -46,7 +45,7 @@ class CommandDispatcher {
         return;
       }
       
-      logger.info(`User ${message.member?.displayName || message.author.username} issued command ${command.name} in ${message.guild?.name || 'DM'}`);
+      this.client.emit('commandExecute', command, message);
       return await command.run(message, args);
     } catch (error) {
       return await command.onError(error, message);
