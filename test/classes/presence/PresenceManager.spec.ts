@@ -14,6 +14,8 @@ const mockedTemplates = ['1 servers!', 'hello', 'client'];
 
 describe('Classes: Presence: PresenceManager', () => {
   const setPresenceSpy = clientMock.user?.setPresence as jest.Mock<any, any>;
+  const emitSpy = clientMock.emit as jest.Mock<any, any>;
+
   let manager: PresenceManager;
 
   beforeEach(() => {
@@ -21,8 +23,8 @@ describe('Classes: Presence: PresenceManager', () => {
 
     mockedLogger.info.mockClear();
     mockedLogger.error.mockClear();
-    mockedLogger.debug.mockClear();
     setPresenceSpy.mockClear();
+    emitSpy.mockClear();
   });
 
   describe('update()', () => {
@@ -146,14 +148,16 @@ describe('Classes: Presence: PresenceManager', () => {
       expect(mockedTemplates).toContain(setPresenceSpy.mock.calls[0][0].activity.name);
     });
 
-    it('should debug log when refreshInterval has been removed.', () => {
+    it('should emit a debug event when refreshInterval has been removed.', () => {
       manager.setRefreshInterval(null);
-      expect(mockedLogger.debug).toHaveBeenCalledTimes(1);
+      expect(clientMock.emit).toHaveBeenCalledTimes(1);
+      expect(clientMock.emit).toHaveBeenCalledWith('debug', expect.anything());
     });
 
-    it('should debug log when refreshInterval has been updated.', () => {
+    it('should emit a debug event when refreshInterval has been updated.', () => {
       manager.setRefreshInterval(1000);
-      expect(mockedLogger.debug).toHaveBeenCalledTimes(1);
+      expect(clientMock.emit).toHaveBeenCalledTimes(1);
+      expect(clientMock.emit).toHaveBeenCalledWith('debug', expect.anything());
     });
   });
 });

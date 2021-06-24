@@ -80,9 +80,7 @@ class PresenceManager {
       }
       this.refreshIntervalHandle = null;
 
-      if (this.client.debug) {
-        logger.debug(`Refresh interval has been disabled.`);
-      }
+      this.client.emit('debug', 'Refresh interval has been disabled.');
 
       return;
     }
@@ -98,9 +96,7 @@ class PresenceManager {
     }
     this.refreshIntervalHandle = setInterval(() => this.randomlyUpdate(), refreshInterval);
     
-    if (this.client.debug) {
-      logger.debug(`Refresh interval updated, presence will be updated every ${refreshInterval}ms.`);
-    }
+    this.client.emit('debug', `Refresh interval updated, presence will be updated every ${refreshInterval}ms.`);
   }
 
   /**
