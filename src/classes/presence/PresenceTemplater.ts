@@ -26,7 +26,8 @@ class PresenceTemplater extends Templater {
       'client_name',
       'uptime',
       'ready_time',
-      'num_members'
+      'num_members',
+      'num_commands'
     ]);
 
     this.client = client;
@@ -50,6 +51,8 @@ class PresenceTemplater extends Templater {
         return this.getReadyTime();
       case 'num_members':
         return this.getNumberOfMembers();
+      case 'num_commands':
+        return this.getNumberOfCommands();
       default:
         throw new Error('Unknown key inserted in PresenceTemplater.');
     }
@@ -131,6 +134,14 @@ class PresenceTemplater extends Templater {
    */
   private getNumberOfMembers(): string {
     return this.client.guilds.cache.reduce((sum, guild) => sum + guild.memberCount, 0).toString();
+  }
+
+  /**
+   * Get the number of commands registered to this client.
+   * @returns The number of commands.
+   */
+  private getNumberOfCommands(): string {
+    return this.client.registry.commands.reduce((sum) => sum + 1, 0).toString();
   }
 }
 

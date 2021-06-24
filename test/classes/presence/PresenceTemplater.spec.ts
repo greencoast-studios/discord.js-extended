@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
+import ConcreteCommand from '../../../__mocks__/command';
 
 dayjs.tz.setDefault('Europe/Paris');
 
@@ -13,6 +14,11 @@ describe('Classes: Presence: PresenceTemplater', () => {
 
   beforeAll(() => {
     dateToLocaleTimeStringSpy.mockReturnValue(1293872389);
+    
+    for (let i = 0; i < 3; i++) {
+      const command = new ConcreteCommand(clientMock, { name: Math.random().toString() });
+      clientMock.registry.commands.set(command.name, command);
+    }
   });
 
   beforeEach(() => {
@@ -56,6 +62,10 @@ describe('Classes: Presence: PresenceTemplater', () => {
 
     it('should return the string for key: num_members.', () => {
       expect(templater.get('num_members')).toBe('17');
+    });
+
+    it('should return the string for key: num_commands.', () => {
+      expect(templater.get('num_commands')).toBe('3');
     });
   });
 });
