@@ -7,7 +7,8 @@ interface ExtendedClientOptions extends Discord.ClientOptions {
   owner?: string | null,
   debug?: boolean,
   presence?: PresenceManagerOptions,
-  config?: ConfigProvider
+  config?: ConfigProvider,
+  errorOwnerReporting?: boolean
 }
 
 export default ExtendedClientOptions;

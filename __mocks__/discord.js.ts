@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
+const RealDiscord = jest.requireActual('discord.js');
 
 const rateLimitMock: Discord.RateLimitData = {
   timeout: 123,
@@ -61,11 +62,61 @@ class ClientMock {
   }
 }
 
+class UserMock {
+  public username: string;
+  public id: string;
+  public bot: boolean;
+  public send: jest.Mock<any, any>;
+
+  constructor() {
+    this.username = 'User';
+    this.send = jest.fn();
+    this.id = 'id';
+    this.bot = false;
+  }
+
+  toString(): string {
+    return this.username;
+  }
+}
+
+const mockedPermissionsFor = {
+  missing: jest.fn()
+};
+
+class TextChannelMock {
+  public permissionsFor: jest.Mock<any, any>;
+
+  constructor() {
+    this.permissionsFor = jest.fn(() => mockedPermissionsFor);
+  }
+}
+
+class MessageMock {
+  public content: string;
+  public channel: TextChannelMock;
+  public author: UserMock;
+  public partial: boolean;
+  public reply: jest.Mock<any, any>;
+
+  constructor() {
+    this.content = 'Message';
+    this.channel = new TextChannelMock();
+    this.author = new UserMock();
+    this.partial = false;
+    this.reply = jest.fn();
+  }
+}
+
 export {
   rateLimitMock
 };
 
 export default {
   Client: ClientMock,
-  Guild: GuildMock
+  Guild: GuildMock,
+  TextChannel: TextChannelMock,
+  User: UserMock,
+  Message: MessageMock,
+  Collection: RealDiscord.Collection
 };

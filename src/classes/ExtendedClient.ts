@@ -2,6 +2,8 @@ import Discord from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
+import CommandRegistry from './command/CommandRegistry';
+import CommandDispatcher from './command/CommandDispatcher';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 
@@ -12,6 +14,8 @@ class ExtendedClient extends Discord.Client {
   public override options!: ExtendedClientOptions;
   public presenceManager: PresenceManager;
   public dataProvider: DataProvider | null;
+  public registry: CommandRegistry;
+  public dispatcher: CommandDispatcher;
 
   /**
    * @param options The client's options. Defaults to an empty object.
@@ -26,12 +30,18 @@ class ExtendedClient extends Discord.Client {
     if (!options.owner) {
       options.owner = null;
     }
+    if (!options.errorOwnerReporting) {
+      options.errorOwnerReporting = false;
+    }
     super(options);
 
     this.presenceManager = new PresenceManager(this, options.presence);
     this.dataProvider = null;
+    this.registry = new CommandRegistry(this);
+    this.dispatcher = new CommandDispatcher(this, this.registry);
 
     this.fetchOwner();
+    this.registerMessageHandler();
   }
 
   /**
@@ -80,6 +90,17 @@ class ExtendedClient extends Discord.Client {
    */
   get config(): ConfigProvider | undefined {
     return this.options.config;
+  }
+
+  /**
+   * Whether command error reporting should be notified to the client's owner. An owner must be set for this option to work.
+   *
+   * @readonly
+   * @type {boolean}
+   * @memberof ExtendedClient
+   */
+  get errorOwnerReporting(): boolean {
+    return this.options.errorOwnerReporting!; // Default value in constructor.
   }
 
   /**
@@ -151,6 +172,13 @@ class ExtendedClient extends Discord.Client {
           this.emit('error', error);
         });
     });
+  }
+
+  /**
+   * Register the message event handler for CommandDispatcher.
+   */
+  private registerMessageHandler(): void {
+    this.on('message', (message) => this.dispatcher.handleMessage(message));
   }
 }
 

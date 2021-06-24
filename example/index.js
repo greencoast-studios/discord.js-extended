@@ -15,12 +15,20 @@ const client = new ExtendedClient({
     status: 'dnd',
     type: 'COMPETING'
   },
-  config
+  config,
+  errorOwnerReporting: true
 });
 
 const dataProvider = new LevelDataProvider(client, path.join(__dirname, './data'));
 
 client.registerDefaultEvents();
+
+client.registry
+  .registerGroups([
+    ['misc', 'Miscellaneous'],
+    ['util', 'Utility']
+  ])
+  .registerCommandsIn(path.join(__dirname, './commands'));
 
 client.on('ready', async() => {
   logger.info(`Listening for commands with prefix: ${client.prefix}`);

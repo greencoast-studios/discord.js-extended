@@ -31,6 +31,10 @@ describe('Classes: ExtendedClient', () => {
     expect(client).toHaveProperty('config');
   });
 
+  it('should have an errorOwnerReporting property.', () => {
+    expect(client).toHaveProperty('errorOwnerReporting');
+  });
+
   describe('constructor', () => {
     let onceSpy: jest.Mock<any, any>;
     let fetchSpy: jest.Mock<any, any>;
@@ -69,6 +73,10 @@ describe('Classes: ExtendedClient', () => {
           expect(client.emit).toHaveBeenCalledWith('warn', expect.anything());
           expect(client.emit).toHaveBeenCalledWith('error', expectedError);
         });
+    });
+
+    it('should register message handler.', () => {
+      expect(client.on).toHaveBeenCalledWith('message', expect.anything());
     });
   });
 
