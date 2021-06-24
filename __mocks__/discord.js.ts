@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
+const RealDiscord = jest.requireActual('discord.js');
 
 const rateLimitMock: Discord.RateLimitData = {
   timeout: 123,
@@ -112,5 +113,6 @@ export default {
   Guild: GuildMock,
   TextChannel: TextChannelMock,
   User: UserMock,
-  Message: MessageMock
+  Message: MessageMock,
+  Collection: RealDiscord.Collection
 };

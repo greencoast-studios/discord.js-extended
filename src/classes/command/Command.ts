@@ -2,12 +2,14 @@ import Discord from 'discord.js';
 import logger from '@greencoast/logger';
 import { stripIndents } from 'common-tags';
 import ExtendedClient from '../ExtendedClient';
+import CommandGroup from './CommandGroup';
 import CommandInfo from '../../interfaces/CommandInfo';
 
 abstract class Command {
   public readonly client: ExtendedClient;
   public name: string;
   public emoji: string;
+  public group: CommandGroup | null;
   public groupID: string;
   public description: string;
   public guildOnly: boolean;
@@ -21,6 +23,7 @@ abstract class Command {
     
     this.name = info.name;
     this.emoji = info.emoji || ':robot:';
+    this.group = null;
     this.groupID = info.group;
     this.description = info.description;
     this.guildOnly = info.guildOnly || false;
