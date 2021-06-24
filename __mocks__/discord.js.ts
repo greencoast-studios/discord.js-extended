@@ -65,12 +65,14 @@ class ClientMock {
 class UserMock {
   public username: string;
   public id: string;
+  public bot: boolean;
   public send: jest.Mock<any, any>;
 
   constructor() {
     this.username = 'User';
     this.send = jest.fn();
     this.id = 'id';
+    this.bot = false;
   }
 
   toString(): string {
@@ -94,12 +96,14 @@ class MessageMock {
   public content: string;
   public channel: TextChannelMock;
   public author: UserMock;
+  public partial: boolean;
   public reply: jest.Mock<any, any>;
 
   constructor() {
     this.content = 'Message';
     this.channel = new TextChannelMock();
     this.author = new UserMock();
+    this.partial = false;
     this.reply = jest.fn();
   }
 }
