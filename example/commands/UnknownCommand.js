@@ -1,11 +1,11 @@
 const { Command } = require('@greencoast/discord.js-extended');
 
-class PingCommand extends Command {
+class UnknownCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'Ping',
-      description: 'Ping',
-      group: 'Misc'
+      name: 'Unknown',
+      description: 'Unknown',
+      group: 'misc'
     });
   }
 
@@ -14,4 +14,4 @@ class PingCommand extends Command {
   }
 }
 
-module.exports = PingCommand;
+module.exports = UnknownCommand;

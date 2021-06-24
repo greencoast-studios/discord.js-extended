@@ -2,7 +2,6 @@ require('dotenv').config();
 const path = require('path');
 const logger = require('@greencoast/logger');
 const { ExtendedClient, ConfigProvider, LevelDataProvider } = require('@greencoast/discord.js-extended');
-const PingCommand = require('./commands/PingCommand');
 
 const config = new ConfigProvider({ env: process.env, configPath: path.join(__dirname, './config/settings.json') });
 
@@ -24,6 +23,15 @@ const dataProvider = new LevelDataProvider(client, path.join(__dirname, './data'
 
 client.registerDefaultEvents();
 
+client.registry
+  .registerGroups([
+    ['misc', 'Miscellaneous'],
+    ['util', 'Utility']
+  ])
+  .registerCommandsIn(path.join(__dirname, './commands'));
+
+client.registry.commands.each((cmd) => console.log(cmd.name, cmd.group.name));
+
 client.on('ready', async() => {
   logger.info(`Listening for commands with prefix: ${client.prefix}`);
 
@@ -32,17 +40,6 @@ client.on('ready', async() => {
 
   await client.dataProvider.setGlobal('time', Date.now());
   logger.warn(await client.dataProvider.getGlobal('time'));
-});
-
-client.on('message', async (message) => {
-  if (message.content.startsWith(`${client.prefix}ping`)) {
-    const command = new PingCommand(client);
-    try {
-      await command.run();
-    } catch (err) {
-      command.onError(err, message);
-    }
-  }
 });
 
 client.login(client.config.get('TOKEN'));
