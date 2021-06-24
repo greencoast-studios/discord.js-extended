@@ -1,5 +1,4 @@
 import Discord from 'discord.js';
-import logger from '@greencoast/logger';
 import { stripIndents } from 'common-tags';
 import ExtendedClient from '../ExtendedClient';
 import CommandGroup from './CommandGroup';
@@ -89,9 +88,7 @@ abstract class Command {
    * @returns A promise that resolves the message that was replied to the message author.
    */
   public async onError(error: Error, message: Discord.Message): Promise<Discord.Message> {
-    logger.error(`Something happened when executing ${this.name} in ${message.guild?.name || 'DM'}.`);
-    logger.error(`Triggering message: ${message.content}`);
-    logger.error(error);
+    this.client.emit('commandError', error, this, message);
 
     let contactOwner = '';
     if (this.client.owner) {
