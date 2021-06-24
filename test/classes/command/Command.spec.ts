@@ -5,29 +5,15 @@ import logger from '@greencoast/logger';
 import Discord from 'discord.js';
 import Command from '../../../src/classes/command/Command';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
+import ConcreteCommand from '../../../__mocks__/command';
 
 jest.mock('discord.js');
 jest.mock('@greencoast/logger');
 const mockedLogger = mocked(logger, true);
 
-class ConcreteCommand extends Command {
-  constructor(client: ExtendedClient, info: Record<string, any> = {}) {
-    super(client, {
-      name: 'Command',
-      description: 'description',
-      group: 'group',
-      ...info
-    });
-  }
-
-  run(message: Discord.Message) {
-    return Promise.resolve(message);
-  }
-}
-
 describe('Classes: Command: Command', () => {
   let client: ExtendedClient;
-  let command: ConcreteCommand;
+  let command: Command;
   let guild: Discord.Guild;
   let channel: Discord.TextChannel;
   let message: Discord.Message;

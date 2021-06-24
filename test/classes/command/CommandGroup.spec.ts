@@ -1,25 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
 import Command from '../../../src/classes/command/Command';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
+import ConcreteCommand from '../../../__mocks__/command';
 
 const clientMock = new ExtendedClient();
-
-class ConcreteCommand extends Command {
-  constructor(client: ExtendedClient, info: Record<string, any> = {}) {
-    super(client, {
-      name: 'Command',
-      description: 'description',
-      group: 'group',
-      ...info
-    });
-  }
-
-  run(message: Discord.Message) {
-    return Promise.resolve(message);
-  }
-}
 
 describe('Classes: Command: CommandGroup', () => {
   let group: CommandGroup;
