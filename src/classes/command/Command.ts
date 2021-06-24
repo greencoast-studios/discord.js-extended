@@ -5,6 +5,9 @@ import ExtendedClient from '../ExtendedClient';
 import CommandGroup from './CommandGroup';
 import CommandInfo from '../../interfaces/CommandInfo';
 
+/**
+ * An abstract command class. Extend this class to define your command's functionality.
+ */
 abstract class Command {
   public readonly client: ExtendedClient;
   public name: string;
@@ -18,6 +21,10 @@ abstract class Command {
   public ownerOverride: boolean;
   public nsfw: boolean;
 
+  /**
+   * @param client The client that will execute this command.
+   * @param info Command-specific properties.
+   */
   constructor(client: ExtendedClient, info: CommandInfo) {
     this.client = client;
     
@@ -33,8 +40,18 @@ abstract class Command {
     this.nsfw = info.nsfw || false;
   }
 
+  /**
+   * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
+   * @param message The message that triggered this command.
+   * @param args The arguments passed to this command.
+   */
   public abstract run(message: Discord.Message, args: string[]): Promise<Discord.Message>;
 
+  /**
+   * Check whether the message author can execute this command.
+   * @param message The message that triggered this command.
+   * @returns True if the user has enough permissions, or a string with the reason they cannot execute this command.
+   */
   public hasPermission(message: Discord.Message): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {
       return true;
@@ -65,6 +82,12 @@ abstract class Command {
     return true;
   }
 
+  /**
+   * Handle command error.
+   * @param error The error that was thrown inside the command's run method.
+   * @param message The message that triggered this command.
+   * @returns A promise that resolves the message that was replied to the message author.
+   */
   public async onError(error: Error, message: Discord.Message): Promise<Discord.Message> {
     logger.error(`Something happened when executing ${this.name} in ${message.guild?.name || 'DM'}.`);
     logger.error(`Triggering message: ${message.content}`);
