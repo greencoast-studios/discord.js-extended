@@ -8,6 +8,7 @@ import DataProvider from './classes/data/DataProvider';
 import LevelDataProvider from './classes/data/LevelDataProvider';
 import Command from './classes/command/Command';
 import CommandGroup from './classes/command/CommandGroup';
+import CommandRegistry from './classes/command/CommandRegistry';
 
 import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
 import PresenceManagerOptions from './interfaces/PresenceManagerOptions';
@@ -26,6 +27,7 @@ export {
   LevelDataProvider,
   Command,
   CommandGroup,
+  CommandRegistry,
   ExtendedClientOptions,
   PresenceManagerOptions,
   PresenceData,
