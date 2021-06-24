@@ -33,7 +33,7 @@ abstract class Command {
     this.nsfw = info.nsfw || false;
   }
 
-  public abstract run(message: Discord.Message): Promise<Discord.Message>;
+  public abstract run(message: Discord.Message, args: string[]): Promise<Discord.Message>;
 
   public hasPermission(message: Discord.Message): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {

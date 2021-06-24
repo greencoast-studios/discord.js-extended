@@ -35,7 +35,7 @@ class CommandDispatcher {
       }
       
       logger.info(`User ${message.member?.displayName || message.author.username} issued command ${command.name} in ${message.guild?.name || 'DM'}`);
-      return await command.run(message);
+      return await command.run(message, args);
     } catch (error) {
       return await command.onError(error, message);
     }
