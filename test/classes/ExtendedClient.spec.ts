@@ -104,6 +104,17 @@ describe('Classes: ExtendedClient', () => {
           expect(client.dataProvider).toBe(provider);
         });
     });
+
+    it('should emit a dataProviderAdd event.', () => {
+      const provider = new ConcreteDataProvider(client);
+
+      expect.assertions(1);
+
+      return client.setDataProvider(provider)
+        .then(() => {
+          expect(client.emit).toHaveBeenCalledWith('dataProviderAdd', expect.anything());
+        });
+    });
   });
 
   describe('isOwner()', () => {

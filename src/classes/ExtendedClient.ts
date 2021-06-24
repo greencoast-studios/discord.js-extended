@@ -1,16 +1,45 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
 import CommandRegistry from './command/CommandRegistry';
 import CommandDispatcher from './command/CommandDispatcher';
-import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
+import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
+import ExtendedClientEvents from '../interfaces/ExtendedClientEvents';
+
+// Interface declaration to extend events emitted by ExtendedClient.
+export declare interface ExtendedClient {
+  on<K extends keyof ExtendedClientEvents>(event: K, listener: (...args: ExtendedClientEvents[K]) => void): this;
+  on<S extends string | symbol>(
+    event: Exclude<S, keyof ExtendedClientEvents>,
+    listener: (...args: any[]) => void
+  ): this;
+
+  once<K extends keyof ExtendedClientEvents>(event: K, listener: (...args: ExtendedClientEvents[K]) => void): this;
+  once<S extends string | symbol>(
+    event: Exclude<S, keyof ExtendedClientEvents>,
+    listener: (...args: any[]) => void
+  ): this;
+
+  emit<K extends keyof ExtendedClientEvents>(event: K, ...args: ExtendedClientEvents[K]): boolean;
+  emit<S extends string | symbol>(event: Exclude<S, keyof ExtendedClientEvents>, ...args: any[]): boolean;
+
+  off<K extends keyof ExtendedClientEvents>(event: K, listener: (...args: ExtendedClientEvents[K]) => void): this;
+  off<S extends string | symbol>(
+    event: Exclude<S, keyof ExtendedClientEvents>,
+    listener: (...args: any[]) => void
+  ): this;
+
+  removeAllListeners<K extends keyof ExtendedClientEvents>(event?: K): this;
+  removeAllListeners<S extends string | symbol>(event?: Exclude<S, keyof ExtendedClientEvents>): this;
+}
 
 /**
  * A Discord.js Client extension.
  */
-class ExtendedClient extends Discord.Client {
+export class ExtendedClient extends Discord.Client {
   public override options!: ExtendedClientOptions;
   public presenceManager: PresenceManager;
   public dataProvider: DataProvider | null;
@@ -111,6 +140,7 @@ class ExtendedClient extends Discord.Client {
   public async setDataProvider(dataProvider: DataProvider): Promise<DataProvider> {
     await dataProvider.init();
     this.dataProvider = dataProvider;
+    this.emit('dataProviderAdd', dataProvider);
     return this.dataProvider;
   }
 
@@ -151,7 +181,7 @@ class ExtendedClient extends Discord.Client {
     this.on('rateLimit', ClientDefaultHandlers.onRateLimit);
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
-
+    
     return this;
   }
 

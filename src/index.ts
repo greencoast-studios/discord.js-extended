@@ -12,6 +12,7 @@ import CommandRegistry from './classes/command/CommandRegistry';
 import CommandDispatcher from './classes/command/CommandDispatcher';
 
 import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
+import ExtendedClientEvents from './interfaces/ExtendedClientEvents';
 import PresenceManagerOptions from './interfaces/PresenceManagerOptions';
 import PresenceData from './interfaces/PresenceData';
 import ConfigProviderOptions from './interfaces/ConfigProviderOptions';
@@ -31,6 +32,7 @@ export {
   CommandRegistry,
   CommandDispatcher,
   ExtendedClientOptions,
+  ExtendedClientEvents,
   PresenceManagerOptions,
   PresenceData,
   ConfigProviderOptions,
