@@ -27,11 +27,11 @@ jobs:
       - name: Lint Files
         run: npm run lint
 
-      - name: Run Tests
-        run: npm run test:once
-
       - name: Run Build
         run: npm run build
+
+      - name: Run Tests
+        run: npm run test:once
 
       - name: Deploy to NPM
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
