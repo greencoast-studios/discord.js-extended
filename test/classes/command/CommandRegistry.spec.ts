@@ -116,6 +116,7 @@ describe('Classes: Command: CommandRegistry', () => {
       });
     });
 
+    // WARNING: This test requires the project to be built since the JS mocks require from dist.
     describe('registerCommandsIn()', () => {
       it('should register all commands in a directory for each group.', () => {
         registry.registerGroups([
