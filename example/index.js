@@ -30,8 +30,6 @@ client.registry
   ])
   .registerCommandsIn(path.join(__dirname, './commands'));
 
-client.registry.commands.each((cmd) => console.log(cmd.name, cmd.group.name));
-
 client.on('ready', async() => {
   logger.info(`Listening for commands with prefix: ${client.prefix}`);
 

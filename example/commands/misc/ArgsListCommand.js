@@ -3,14 +3,14 @@ const { Command } = require('@greencoast/discord.js-extended');
 class HelpCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'Help',
-      description: 'Help',
+      name: 'args',
+      description: 'Get list of args.',
       group: 'misc'
     });
   }
 
-  run(message) {
-    return message.reply('Pong!');
+  run(message, args) {
+    return message.reply(args.join('\n- '));
   }
 }
 

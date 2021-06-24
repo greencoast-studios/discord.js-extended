@@ -1,17 +1,17 @@
 const { Command } = require('@greencoast/discord.js-extended');
 
-class PingCommand extends Command {
+class ThrowCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'ping',
-      description: 'Ping-Pong',
+      name: 'throw',
+      description: 'Throws an error.',
       group: 'util'
     });
   }
 
   run(message) {
-    return message.reply('Pong!');
+    throw new Error('Oops!');
   }
 }
 
-module.exports = PingCommand;
+module.exports = ThrowCommand;
