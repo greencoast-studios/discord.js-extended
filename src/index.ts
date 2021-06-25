@@ -1,5 +1,6 @@
 import ExtendedClient from './classes/ExtendedClient';
 import ClientDefaultHandlers from './classes/events/ClientDefaultHandlers';
+import ExtraClientDefaultHandlers from './classes/events/ExtraClientDefaultHandlers';
 import Templater from './classes/abstract/Templater';
 import PresenceTemplater from './classes/presence/PresenceTemplater';
 import PresenceManager from './classes/presence/PresenceManager';
@@ -21,6 +22,7 @@ import CommandInfo from './interfaces/CommandInfo';
 export {
   ExtendedClient,
   ClientDefaultHandlers,
+  ExtraClientDefaultHandlers,
   Templater,
   PresenceTemplater,
   PresenceManager,
