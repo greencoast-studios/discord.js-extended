@@ -41,10 +41,38 @@ export declare interface ExtendedClient {
  * A Discord.js Client extension.
  */
 export class ExtendedClient extends Discord.Client {
+  /**
+   * This client's options.
+   * @memberof ExtendedClient
+   */
   public override options!: ExtendedClientOptions;
+
+  /**
+   * This client's presence manager.
+   * @type {PresenceManager}
+   * @memberof ExtendedClient
+   */
   public presenceManager: PresenceManager;
+
+  /**
+   * This client's data provider.
+   * @type {(DataProvider | null)}
+   * @memberof ExtendedClient
+   */
   public dataProvider: DataProvider | null;
+
+  /**
+   * This client's command registry.
+   * @type {CommandRegistry}
+   * @memberof ExtendedClient
+   */
   public registry: CommandRegistry;
+
+  /**
+   * This client's command dispatcher.
+   * @type {CommandDispatcher}
+   * @memberof ExtendedClient
+   */
   public dispatcher: CommandDispatcher;
 
   /**
@@ -76,32 +104,32 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * The client's prefix.
-   *
    * @readonly
    * @type {string}
    * @memberof ExtendedClient
+   * @defaultValue `!`
    */
   get prefix(): string {
-    return this.options.prefix!; // Default value in constructor.
+    return this.options.prefix!;
   }
 
   /**
    * Whether the client has debug-mode enabled.
-   *
    * @readonly
    * @type {boolean}
    * @memberof ExtendedClient
+   * @defaultValue `false`
    */
   get debug(): boolean {
-    return this.options.debug!; // Default value in constructor.
+    return this.options.debug!;
   }
 
   /**
    * The client's owner (if any).
-   *
    * @readonly
    * @type {(Discord.User | undefined)}
    * @memberof ExtendedClient
+   * @defaultValue `null`
    */
   get owner(): Discord.User | undefined {
     if (!this.options.owner) {
@@ -113,7 +141,6 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * The client's config provider (if any).
-   *
    * @readonly
    * @type {(ConfigProvider | undefined)}
    * @memberof ExtendedClient
@@ -123,20 +150,22 @@ export class ExtendedClient extends Discord.Client {
   }
 
   /**
-   * Whether command error reporting should be notified to the client's owner. An owner must be set for this option to work.
-   *
+   * Whether command error reporting should be notified to the client's owner.
+   * An owner must be set for this option to work.
    * @readonly
    * @type {boolean}
    * @memberof ExtendedClient
+   * @defaultValue `false`
    */
   get errorOwnerReporting(): boolean {
-    return this.options.errorOwnerReporting!; // Default value in constructor.
+    return this.options.errorOwnerReporting!;
   }
 
   /**
    * Set the client's data provider. It is not necessary to initialize the provider as it is done here.
    * @param dataProvider The data provider.
    * @returns A promise that resolves with the data provider initialized.
+   * @emits dataProviderAdd
    */
   public async setDataProvider(dataProvider: DataProvider): Promise<DataProvider> {
     await dataProvider.init();
@@ -147,8 +176,7 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * Test whether the specified user is the client's owner.
-   *
-   * @param user The user to test.
+   * @param user The [user](https://discord.js.org/#/docs/main/stable/class/User) to test.
    * @returns Whether the tested user is the client's owner.
    */
   public isOwner(user: Discord.UserResolvable): boolean {
@@ -167,7 +195,7 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * Register the default event handlers. For more information, check {@link ClientDefaultHandlers}.
-   * @returns The client's instance for method chaining.
+   * @returns This client.
    */
   public registerDefaultEvents(): ExtendedClient {
     if (this.options.debug) {
@@ -187,8 +215,9 @@ export class ExtendedClient extends Discord.Client {
   }
 
   /**
-   * Register the default event handlers for the custom events for this ExtendedClient. For more information, check {@link ExtraClientDefaultHandlers}.
-   * @returns The client's instance for method chaining.
+   * Register the default event handlers for the custom events for this ExtendedClient.
+   * For more information, check {@link ExtraClientDefaultHandlers}.
+   * @returns This client.
    */
   public registerExtraDefaultEvents(): ExtendedClient {
     this.on('dataProviderAdd', ExtraClientDefaultHandlers.onDataProviderAdd);
@@ -208,6 +237,8 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * Fetch the owner's user object. This will be automatically cached.
+   * @emits warn
+   * @emits error
    */
   private fetchOwner(): void {
     const { owner } = this.options;
@@ -226,11 +257,77 @@ export class ExtendedClient extends Discord.Client {
   }
 
   /**
-   * Register the message event handler for CommandDispatcher.
+   * Register the message event handler for the {@link CommandDispatcher}.
    */
   private registerMessageHandler(): void {
     this.on('message', (message) => this.dispatcher.handleMessage(message));
   }
+
+  /**
+   * Emitted whenever the data provider is added to this client.
+   * @event
+   */
+  public static readonly dataProviderAdd = 'dataProviderAdd';
+
+  /**
+   * Emitted whenever the client's data provider is cleared.
+   * @event
+   */
+  public static readonly dataProviderClear = 'dataProviderClear';
+
+  /**
+   * Emitted whenever the client's data provider is initialized.
+   * @event
+   */
+  public static readonly dataProviderInit = 'dataProviderInit';
+
+  /**
+   * Emitted whenever the client's data provider is destroyed.
+   * @event
+   */
+  public static readonly dataProviderDestroy = 'dataProviderDestroy';
+
+  /**
+   * Emitted whenever a command is executed.
+   * @event
+   */
+  public static readonly commandExecute = 'commandExecute';
+
+  /**
+   * Emitted whenever a command's execution throws.
+   * @event
+   */
+  public static readonly commandError = 'commandError';
+
+  /**
+   * Emitted whenever a command group is registered to this client's command registry.
+   * @event
+   */
+  public static readonly groupRegistered = 'groupRegistered';
+
+  /**
+   * Emitted whenever a command is registered to this client's command registry.
+   * @event
+   */
+  public static readonly commandRegistered = 'commandRegistered';
+
+  /**
+   * Emitted whenever this client's presence status is updated.
+   * @event
+   */
+  public static readonly presenceUpdated = 'presenceUpdated';
+
+  /**
+   * Emitted whenever updating this client's presence status throws.
+   * @event
+   */
+  public static readonly presenceUpdateError = 'presenceUpdateError';
+
+  /**
+   * Emitted whenever this client's presence manager updates its presence refresh interval.
+   * @event
+   */
+  public static readonly presenceRefreshInterval = 'presenceRefreshInterval';
 }
 
 export default ExtendedClient;
