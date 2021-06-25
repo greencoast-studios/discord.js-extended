@@ -86,9 +86,11 @@ const mockedPermissionsFor = {
 
 class TextChannelMock {
   public permissionsFor: jest.Mock<any, any>;
+  public send: jest.Mock<any, any>;
 
   constructor() {
     this.permissionsFor = jest.fn(() => mockedPermissionsFor);
+    this.send = jest.fn(() => Promise.resolve());
   }
 }
 
@@ -108,6 +110,22 @@ class MessageMock {
   }
 }
 
+class MessageEmbedMock {
+  public setTitle: jest.Mock<any, any>;
+  public setColor: jest.Mock<any, any>;
+  public setThumbnail: jest.Mock<any, any>;
+  public addField: jest.Mock<any, any>;
+  public channel: TextChannelMock;
+
+  constructor() {
+    this.setTitle = jest.fn();
+    this.setColor = jest.fn();
+    this.setThumbnail = jest.fn();
+    this.addField = jest.fn();
+    this.channel = new TextChannelMock();
+  }
+}
+
 export {
   rateLimitMock
 };
@@ -118,5 +136,6 @@ export default {
   TextChannel: TextChannelMock,
   User: UserMock,
   Message: MessageMock,
+  MessageEmbed: MessageEmbedMock,
   Collection: RealDiscord.Collection
 };
