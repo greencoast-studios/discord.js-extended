@@ -35,6 +35,7 @@ class PresenceTemplater extends Templater {
 
   /**
    * @param client The client that this presence templater will use as a data source.
+   * @throws Throws if given key does not correspond to this templater.
    */
   constructor(client: ExtendedClient) {
     super([
