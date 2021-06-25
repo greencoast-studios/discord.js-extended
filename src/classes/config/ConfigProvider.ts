@@ -2,15 +2,62 @@ import fs from 'fs';
 import ConfigProviderOptions from '../../interfaces/ConfigProviderOptions';
 
 /**
- * A client configuration provider. It accepts configuration from both ENV variables and JSON config file. Should be created before initializing client.
+ * A client configuration provider. It accepts configuration from both ENV variables and JSON config file.
+ * Should be created before initializing client.
+ *
+ * + Environment variables should be prepended with `DISCORD_` all upper-cased.
+ * + JSON config properties should be [snake_cased](https://en.wikipedia.org/wiki/Snake_case).
+ * + You may also specify default values, for which they need to be upper-cased as well.
+ *
+ * An example environment variable file would be:
+ *
+ * ```text
+ * DISCORD_TOKEN=MY_TOKEN
+ * DISCORD_MY_VARIABLE=$
+ * ```
+ *
+ * An example JSON config file would be:
+ *
+ * ```json
+ * {
+ *   "token": "MY_TOKEN",
+ *   "my_variable": "$"
+ * }
+ * ```
+ *
+ * An example default object would be:
+ *
+ * ```js
+ * {
+ *   TOKEN: 'MY_TOKEN',
+ *   MY_VARIABLE: '$'
+ * }
+ * ```
  */
 class ConfigProvider {
+  /**
+   * The options for this config provider.
+   * @type {ConfigProviderOptions}
+   * @memberof ConfigProvider
+   */
   public readonly options: ConfigProviderOptions;
+
+  /**
+   * The default config values.
+   * @type {(Record<string, string | boolean>)}
+   * @memberof ConfigProvider
+   */
   public readonly default?: Record<string, string | boolean>;
+
+  /**
+   * The processed config object.
+   * @type {(Record<string, string | boolean>)}
+   * @memberof ConfigProvider
+   */
   public readonly config: Record<string, string | boolean>;
 
   /**
-   * @param options The configuration options.
+   * @param options The options for this config provider.
    */
   constructor(options: ConfigProviderOptions = {}) {
     this.options = options;
@@ -62,7 +109,8 @@ class ConfigProvider {
   }
 
   /**
-   * Process the environment variables object for configuration. Keys must begin with DISCORD_ to be added to the configuration provider.
+   * Process the environment variables object for configuration.
+   * Keys must begin with DISCORD_ to be added to the configuration provider.
    * @param env The environment variables object.
    */
   private processEnv(env?: Record<string, string | boolean>): void {
