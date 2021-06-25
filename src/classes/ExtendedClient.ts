@@ -6,6 +6,7 @@ import DataProvider from './data/DataProvider';
 import CommandRegistry from './command/CommandRegistry';
 import CommandDispatcher from './command/CommandDispatcher';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
+import ExtraClientDefaultHandlers from './events/ExtraClientDefaultHandlers';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ExtendedClientEvents from '../interfaces/ExtendedClientEvents';
 
@@ -182,6 +183,26 @@ export class ExtendedClient extends Discord.Client {
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
     
+    return this;
+  }
+
+  /**
+   * Register the default event handlers for the custom events for this ExtendedClient. For more information, check {@link ExtraClientDefaultHandlers}.
+   * @returns The client's instance for method chaining.
+   */
+  public registerExtraDefaultEvents(): ExtendedClient {
+    this.on('dataProviderAdd', ExtraClientDefaultHandlers.onDataProviderAdd);
+    this.on('dataProviderClear', ExtraClientDefaultHandlers.onDataProviderClear);
+    this.on('dataProviderInit', ExtraClientDefaultHandlers.onDataProviderInit);
+    this.on('dataProviderDestroy', ExtraClientDefaultHandlers.onDataProviderDestroy);
+    this.on('commandExecute', ExtraClientDefaultHandlers.onCommandExecute);
+    this.on('commandError', ExtraClientDefaultHandlers.onCommandError);
+    this.on('groupRegistered', ExtraClientDefaultHandlers.onGroupRegistered);
+    this.on('commandRegistered', ExtraClientDefaultHandlers.onCommandRegistered);
+    this.on('presenceUpdated', ExtraClientDefaultHandlers.onPresenceUpdated);
+    this.on('presenceUpdateError', ExtraClientDefaultHandlers.onPresenceUpdateError);
+    this.on('presenceRefreshInterval', ExtraClientDefaultHandlers.onPresenceRefreshInterval);
+
     return this;
   }
 

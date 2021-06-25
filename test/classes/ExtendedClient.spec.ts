@@ -176,4 +176,20 @@ describe('Classes: ExtendedClient', () => {
       expect(client.on).not.toHaveBeenCalledWith('debug', expect.anything());
     });
   });
+
+  describe('registerExtraDefaultEvents()', () => {
+    it('should return this.', () => {
+      expect(client.registerExtraDefaultEvents()).toBe(client);
+    });
+
+    it('should register all default extra events.', () => {
+      const DEFAULT_EVENTS = ['dataProviderAdd', 'dataProviderClear', 'dataProviderInit', 'dataProviderDestroy', 'commandExecute', 'commandError', 'groupRegistered', 'commandRegistered', 'presenceUpdated', 'presenceUpdateError', 'presenceRefreshInterval'];
+      
+      client.registerExtraDefaultEvents();
+
+      DEFAULT_EVENTS.forEach((event) => {
+        expect(client.on).toHaveBeenCalledWith(event, expect.anything());
+      });
+    });
+  });
 });
