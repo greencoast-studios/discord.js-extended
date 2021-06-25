@@ -11,7 +11,8 @@
     "test:showlogs": "jest --watchAll",
     "test:once": "jest --silent",
     "test:once-showlogs": "jest",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "prepublish": "npm run build"
   },
   "engines": {
     "node": ">=12"
