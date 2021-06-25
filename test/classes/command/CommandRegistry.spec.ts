@@ -2,6 +2,7 @@ import path from 'path';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
+import DefaultCommands from '../../../src/classes/command/default';
 import ConcreteCommand from '../../../__mocks__/command';
 
 describe('Classes: Command: CommandRegistry', () => {
@@ -144,6 +145,40 @@ describe('Classes: Command: CommandRegistry', () => {
         });
 
         expect(registry.commands.reduce((s) => s + 1, 0)).toBe(3);
+      });
+    });
+
+    describe('registerDefaultGroups()', () => {
+      it('should register all default groups.', () => {
+        registry.registerDefaultGroups();
+
+        expect(registry.groups.get('misc')!.name).toBe('Miscellaneous Commands');
+      });
+    });
+
+    describe('registerDefaultCommands()', () => {
+      it('should register all default commands.', () => {
+        registry.registerDefaultGroups();
+        registry.registerDefaultCommands();
+
+        expect(registry.commands.get('help')).toBeInstanceOf(DefaultCommands.HelpCommand);
+      });
+
+      it('should throw if the default groups are not registered prior.', () => {
+        expect(() => {
+          registry.registerDefaultCommands();
+        }).toThrow();
+      });
+    });
+
+    describe('registerDefaults()', () => {
+      it('should call registerDefaultGroups() and registerDefaultCommands().', () => {
+        jest.spyOn(registry, 'registerDefaultGroups');
+        jest.spyOn(registry, 'registerDefaultCommands');
+        registry.registerDefaults();
+
+        expect(registry.registerDefaultGroups).toHaveBeenCalledTimes(1);
+        expect(registry.registerDefaultCommands).toHaveBeenCalledTimes(1);
       });
     });
   });

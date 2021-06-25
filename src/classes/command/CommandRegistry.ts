@@ -3,6 +3,7 @@ import requireAll from 'require-all';
 import Command from './Command';
 import CommandGroup from './CommandGroup';
 import ExtendedClient from '../ExtendedClient';
+import DefaultCommands from './default';
 
 /**
  * A command registry. This keeps track of all the commands and command groups registered in the client.
@@ -110,6 +111,39 @@ class CommandRegistry {
         this.registerCommand(groupCommands[key]);
       }
     });
+
+    return this;
+  }
+
+  /**
+   * Register the default groups.
+   * @returns This command registry.
+   */
+  public registerDefaultGroups(): CommandRegistry {
+    this.registerGroups([
+      ['misc', 'Miscellaneous Commands']
+    ]);
+
+    return this;
+  }
+
+  /**
+   * Register the default commands. Default groups should be registered before using this.
+   * @returns This command registry.
+   */
+  public registerDefaultCommands(): CommandRegistry {
+    this.registerCommands(Object.values(DefaultCommands).map((Command) => new Command(this.client)));
+
+    return this;
+  }
+
+  /**
+   * Register both the default groups and default commands in the correct order.
+   * @returns This command registry.
+   */
+  public registerDefaults(): CommandRegistry {
+    this.registerDefaultGroups();
+    this.registerDefaultCommands();
 
     return this;
   }

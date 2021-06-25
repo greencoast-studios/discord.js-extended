@@ -12,6 +12,8 @@ import CommandGroup from './classes/command/CommandGroup';
 import CommandRegistry from './classes/command/CommandRegistry';
 import CommandDispatcher from './classes/command/CommandDispatcher';
 
+import DefaultCommands from './classes/command/default';
+
 import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
 import ExtendedClientEvents from './interfaces/ExtendedClientEvents';
 import PresenceManagerOptions from './interfaces/PresenceManagerOptions';
@@ -33,6 +35,7 @@ export {
   CommandGroup,
   CommandRegistry,
   CommandDispatcher,
+  DefaultCommands,
   ExtendedClientOptions,
   ExtendedClientEvents,
   PresenceManagerOptions,
