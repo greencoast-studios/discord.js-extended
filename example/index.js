@@ -1,7 +1,8 @@
 require('dotenv').config();
 const path = require('path');
 const logger = require('@greencoast/logger');
-const { ExtendedClient, ConfigProvider, LevelDataProvider } = require('@greencoast/discord.js-extended');
+const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
+const LevelDataProvider = require('@greencoast/discord.js-extended/dist/providers/LevelDataProvider').default;
 
 const config = new ConfigProvider({ env: process.env, configPath: path.join(__dirname, './config/settings.json') });
 
