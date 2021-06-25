@@ -13,7 +13,7 @@
     "test:once-showlogs": "jest",
     "build": "tsc --build",
     "prepublish": "npm run build",
-    "docs": "typedoc ./src/index.ts ./src/providers/ ./src/classes/command/default/index.ts --includeVersion --out ./docs --readme ./README.md --plugin typedoc-plugin-extras --favicon ./assets/favicon.ico"
+    "docs": "typedoc ./src/index.ts ./src/providers/index.ts ./src/classes/command/default/index.ts --includeVersion --out ./docs --readme ./README.md --plugin typedoc-plugin-extras --favicon ./assets/favicon.ico"
   },
   "engines": {
     "node": ">=12"
