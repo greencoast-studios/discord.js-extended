@@ -12,6 +12,14 @@ class ExtraClientDefaultHandlers {
     logger.warn(`Cleared data in data provider for ${guild?.name || 'global keys'}.`);
   }
 
+  static onDataProviderInit(): void {
+    logger.info('DataProvider has been initialized.');
+  }
+
+  static onDataProviderDestroy(): void {
+    logger.warn('DataProvider has been destroyed.');
+  }
+
   static onCommandExecute(command: Command, message: Discord.Message): void {
     logger.info(`User ${message.member?.displayName || message.author.username} issued command ${command.name} in ${message.guild?.name || 'DM'}`);
   }

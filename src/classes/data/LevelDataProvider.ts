@@ -28,7 +28,7 @@ class LevelDataProvider extends DataProvider {
 
         this.db = db!;
         
-        this.client.emit('debug', 'LevelDataProvider has been initialized.');
+        this.client.emit('dataProviderInit', this);
 
         return resolve(this);
       });
@@ -48,7 +48,7 @@ class LevelDataProvider extends DataProvider {
 
         this.db = null;
 
-        this.client.emit('debug', 'LevelDataProvider has been destroyed.');
+        this.client.emit('dataProviderDestroy', this);
 
         return resolve();
       });
