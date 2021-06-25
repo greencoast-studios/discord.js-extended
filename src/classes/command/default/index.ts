@@ -1,4 +1,6 @@
 /**
+ * This contains all default commands available.
+ * @packageDocumentation
  * @module DefaultCommands
  */
 

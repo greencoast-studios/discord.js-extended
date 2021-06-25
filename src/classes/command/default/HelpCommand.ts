@@ -3,7 +3,10 @@ import Command from '../Command';
 import ExtendedClient from '../../ExtendedClient';
 
 /**
- * The default help message. The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
+ * The default help message. This command is part of the `misc` group.
+ *
+ * The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
+ * @category misc - Miscellaneous Commands
  */
 class HelpCommand extends Command {
   /**
