@@ -25,6 +25,24 @@ class ExtraClientDefaultHandlers {
   static onCommandRegistered(command: Command): void {
     logger.info(`Registered ${command.name} in ${command.group?.name}.`);
   }
+
+  static onPresenceUpdated(status: string): void {
+    logger.info(`Presence updated to: ${status}`);
+  }
+
+  static onPresenceUpdateError(error: Error): void {
+    logger.error('Could not update presence!');
+    logger.error(error);
+  }
+
+  static onPresenceRefreshInterval(interval: number | null): void {
+    if (!interval) {
+      logger.info('Refresh interval has been disabled.');
+      return;
+    }
+
+    logger.info(`Refresh interval updated, presence will be updated every ${interval}ms.`);
+  }
 }
 
 export default ExtraClientDefaultHandlers;
