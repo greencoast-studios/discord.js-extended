@@ -25,7 +25,7 @@ abstract class DataProvider {
    * Initialize this data provider. Database connection and instantiation should be done here.
    * If the data provider is already initialized, this method should not reinitialize it.
    * @returns A promise that resolves this data provider once it's ready.
-   * @emits dataProviderInit
+   * @emits `client#dataProviderInit`
    */
   public abstract init(): Promise<DataProvider>;
 
@@ -33,7 +33,7 @@ abstract class DataProvider {
    * Gracefully destroy this data provider. This should close any connections.
    * The instance should be unusable after calling this method.
    * @returns A promise that resolves once this data provider is destroyed.
-   * @emits dataProviderDestroy
+   * @emits `client#dataProviderDestroy`
    */
   public abstract destroy(): Promise<void>;
 
@@ -90,14 +90,14 @@ abstract class DataProvider {
    * Clear all data in a guild.
    * @param guild The [guild](https://discord.js.org/#/docs/main/stable/class/Guild) to clear the data from.
    * @returns A promise that resolves once all data is deleted.
-   * @emits dataProviderClear
+   * @emits `client#dataProviderClear`
    */
   public abstract clear(guild: Discord.Guild): Promise<void>;
 
   /**
    * Clear all data in a global scope.
    * @returns A promise that resolves once all data is deleted.
-   * @emits dataProviderClear
+   * @emits `client#dataProviderClear`
    */
   public abstract clearGlobal(): Promise<void>;
 }

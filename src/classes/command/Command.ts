@@ -159,7 +159,7 @@ abstract class Command {
    * @param error The error that was thrown inside the command's run method.
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
    * @returns A promise that resolves the message that was replied to the original message author.
-   * @emits client#commandError
+   * @emits `client#commandError`
    */
   public async onError(error: Error, message: Discord.Message): Promise<Discord.Message> {
     this.client.emit('commandError', error, this, message);

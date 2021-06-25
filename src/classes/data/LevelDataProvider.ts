@@ -64,7 +64,7 @@ class LevelDataProvider extends DataProvider {
    * Gracefully destroy this LevelDB data provider. This closes the database connection.
    * Once this is called, this data provider will be unusable.
    * @returns A promise that resolves once this data provider is destroyed.
-   * @emits client#dataProviderDestroy
+   * @emits `client#dataProviderDestroy`
    */
   public override destroy(): Promise<void> {
     if (!this.db) {
@@ -179,7 +179,7 @@ class LevelDataProvider extends DataProvider {
    * Clear all data in a guild.
    * @param guild The [guild](https://discord.js.org/#/docs/main/stable/class/Guild) to clear the data from.
    * @returns A promise that resolves once all data is deleted.
-   * @emits client#dataProviderClear
+   * @emits `client#dataProviderClear`
    */
   public override async clear(guild: Discord.Guild): Promise<void> {
     const { id } = guild;
@@ -195,7 +195,7 @@ class LevelDataProvider extends DataProvider {
   /**
    * Clear all data in a global scope.
    * @returns A promise that resolves once all data is deleted.
-   * @emits client#dataProviderClear
+   * @emits `client#dataProviderClear`
    */
   public override async clearGlobal(): Promise<void> {
     await this.db!.clear({

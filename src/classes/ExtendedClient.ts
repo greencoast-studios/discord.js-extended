@@ -165,7 +165,7 @@ export class ExtendedClient extends Discord.Client {
    * Set the client's data provider. It is not necessary to initialize the provider as it is done here.
    * @param dataProvider The data provider.
    * @returns A promise that resolves with the data provider initialized.
-   * @emits dataProviderAdd
+   * @emits `dataProviderAdd`
    */
   public async setDataProvider(dataProvider: DataProvider): Promise<DataProvider> {
     await dataProvider.init();
@@ -237,8 +237,8 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * Fetch the owner's user object. This will be automatically cached.
-   * @emits warn
-   * @emits error
+   * @emits `warn`
+   * @emits `error`
    */
   private fetchOwner(): void {
     const { owner } = this.options;

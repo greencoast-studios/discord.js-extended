@@ -35,7 +35,7 @@ class CommandDispatcher {
    * @returns A promise that resolves to the result of the command's run method.
    * If an error occurs, the promise resolves to the error message reply.
    * Otherwise, the promise resolves to nothing.
-   * @emits client#commandExecute
+   * @emits `client#commandExecute`
    */
   public async handleMessage(message: Discord.Message): Promise<Discord.Message | void> {
     if (message.partial || message.author.bot || !message.content.startsWith(this.client.prefix)) {
