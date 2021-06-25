@@ -2,7 +2,7 @@ import Discord from 'discord.js';
 import logger from '@greencoast/logger';
 
 /**
- * The default event handlers for ExtendedClient.
+ * The default event handlers for {@link ExtendedClient}.
  */
 class ClientDefaultHandlers {
   /**
@@ -23,7 +23,7 @@ class ClientDefaultHandlers {
 
   /**
    * Log the guild that the client has entered.
-   * @param guild The created guild.
+   * @param guild The created [guild](https://discord.js.org/#/docs/main/stable/class/Guild).
    */
   static onGuildCreate(guild: Discord.Guild): void {
     logger.info(`Joined guild ${guild.name}`);
@@ -31,7 +31,7 @@ class ClientDefaultHandlers {
 
   /**
    * Log the guild that the client has left.
-   * @param guild The deleted guild.
+   * @param guild The deleted [guild](https://discord.js.org/#/docs/main/stable/class/Guild).
    */
   static onGuildDelete(guild: Discord.Guild): void {
     logger.info(`Left guild ${guild.name}`);
@@ -39,7 +39,7 @@ class ClientDefaultHandlers {
 
   /**
    * Log the guild that is currently unavailable.
-   * @param guild The unavailable guild.
+   * @param guild The unavailable [guild](https://discord.js.org/#/docs/main/stable/class/Guild).
    */
   static onGuildUnavailable(guild: Discord.Guild): void {
     logger.warn(`Guild ${guild.name} is unavailable.`);
