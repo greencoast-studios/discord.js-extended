@@ -1,13 +1,13 @@
-name: NPM Publish
+name: Docs
 
 on:
   repository_dispatch:
-    types: [npm-publish]
+    types: [docs]
   workflow_dispatch:
 
 jobs:
   publish:
-    name: Publish to NPM
+    name: Generate Docs
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,12 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Deploy to NPM
-        uses: JS-DevTools/npm-publish@v1
+      - name: Generate Docs
+        run: npm run docs
+
+      - name: Deploy Docs to GH-Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          allow_empty_commit: true
