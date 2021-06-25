@@ -24,8 +24,8 @@ const dataProvider = new LevelDataProvider(client, path.join(__dirname, './data'
 client.registerDefaultEvents().registerExtraDefaultEvents();
 
 client.registry
+  .registerDefaults()
   .registerGroups([
-    ['misc', 'Miscellaneous'],
     ['util', 'Utility']
   ])
   .registerCommandsIn(path.join(__dirname, './commands'));
