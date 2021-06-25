@@ -24,7 +24,6 @@ class HelpCommand extends Command {
   public embedThumbnail: string;
 
   /**
-   * Instantiate the command.
    * @param client The client that this command will be used by.
    */
   constructor(client: ExtendedClient) {
