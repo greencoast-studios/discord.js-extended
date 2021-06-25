@@ -198,7 +198,7 @@ export class ExtendedClient extends Discord.Client {
    * Register the default event handlers. For more information, check {@link ClientDefaultHandlers}.
    * @returns This client.
    */
-  public registerDefaultEvents(): ExtendedClient {
+  public registerDefaultEvents(): this {
     if (this.options.debug) {
       this.on('debug', ClientDefaultHandlers.onDebug);
     }
@@ -220,7 +220,7 @@ export class ExtendedClient extends Discord.Client {
    * For more information, check {@link ExtraClientDefaultHandlers}.
    * @returns This client.
    */
-  public registerExtraDefaultEvents(): ExtendedClient {
+  public registerExtraDefaultEvents(): this {
     this.on('dataProviderAdd', ExtraClientDefaultHandlers.onDataProviderAdd);
     this.on('dataProviderClear', ExtraClientDefaultHandlers.onDataProviderClear);
     this.on('dataProviderInit', ExtraClientDefaultHandlers.onDataProviderInit);
@@ -259,9 +259,12 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * Register the message event handler for the {@link CommandDispatcher}.
+   * @returns This client.
    */
-  private registerMessageHandler(): void {
+  private registerMessageHandler(): this {
     this.on('message', (message) => this.dispatcher.handleMessage(message));
+
+    return this;
   }
 
   /**

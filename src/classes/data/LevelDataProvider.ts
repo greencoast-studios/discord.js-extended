@@ -40,7 +40,7 @@ class LevelDataProvider extends DataProvider {
    * database files inside the location specified.
    * @returns A promise that resolves this LevelDB data provider once it's ready.
    */
-  public override init(): Promise<DataProvider> {
+  public override init(): Promise<this> {
     if (this.db) {
       return Promise.resolve(this);
     }

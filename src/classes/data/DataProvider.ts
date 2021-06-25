@@ -27,7 +27,7 @@ abstract class DataProvider {
    * @returns A promise that resolves this data provider once it's ready.
    * @emits `client#dataProviderInit`
    */
-  public abstract init(): Promise<DataProvider>;
+  public abstract init(): Promise<this>;
 
   /**
    * Gracefully destroy this data provider. This should close any connections.
