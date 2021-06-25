@@ -9,12 +9,31 @@ import * as DefaultCommands from './default';
  * A command registry. This keeps track of all the commands and command groups registered in the client.
  */
 class CommandRegistry {
+  /**
+   * The client that this command registry will be used by.
+   * @type {ExtendedClient}
+   * @memberof CommandRegistry
+   */
   public readonly client: ExtendedClient;
+
+  /**
+   * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the commands registered
+   * to this registry, mapped by the command's name and the command.
+   * @type {Discord.Collection<string, Command>}
+   * @memberof CommandRegistry
+   */
   public commands: Discord.Collection<string, Command>
+
+  /**
+   * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the groups registered
+   * to this registry, mapped by the group's ID and the group.
+   * @type {Discord.Collection<string, CommandGroup>}
+   * @memberof CommandRegistry
+   */
   public groups: Discord.Collection<string, CommandGroup>
 
   /**
-   * @param client This command registry's client.
+   * @param client The client that this command registry will be used by.
    */
   constructor(client: ExtendedClient) {
     this.client = client;
@@ -24,11 +43,13 @@ class CommandRegistry {
 
   /**
    * Register a command group.
-   * @param id The id of the group.
+   * @param id The ID of the group.
    * @param name The name of the group.
    * @returns This command registry.
+   * @throws Throws if the `groupID` is already registered.
+   * @emits client#groupRegistered
    */
-  public registerGroup(id: string, name: string): CommandRegistry {
+  public registerGroup(id: string, name: string): this {
     const alreadyExists = this.groups.has(id);
 
     if (alreadyExists) {
@@ -44,10 +65,12 @@ class CommandRegistry {
 
   /**
    * Register multiple command groups.
-   * @param groups An array of arrays of strings. The inner arrays must have the shape: [groupID, groupName].
+   * @param groups An array of arrays of strings. The inner arrays must have the shape: `[groupID, groupName]`.
    * @returns This command registry.
+   * @throws Throws if any `groupID` is already registered.
+   * @emits client#groupRegistered
    */
-  public registerGroups(groups: [string, string][]): CommandRegistry {
+  public registerGroups(groups: [string, string][]): this {
     for (const group of groups) {
       this.registerGroup(...group);
     }
@@ -59,8 +82,11 @@ class CommandRegistry {
    * Register a command to this registry.
    * @param command The command to register.
    * @returns This command registry.
+   * @throws Throws if the command's `groupID` is not registered.
+   * @throws Throws if the command's `name` is already registered.
+   * @emits client#commandRegistered
    */
-  public registerCommand(command: Command): CommandRegistry {
+  public registerCommand(command: Command): this {
     const group = this.groups.get(command.groupID);
 
     if (!group) {
@@ -82,8 +108,11 @@ class CommandRegistry {
    * Register multiple commands to this register.
    * @param commands An array of commands to register.
    * @returns This command registry.
+   * @throws Throws if any of the command's `groupID` is not registered.
+   * @throws Throws if any of the command's `name` is already registered.
+   * @emits client#commandRegistered
    */
-  public registerCommands(commands: Command[]): CommandRegistry {
+  public registerCommands(commands: Command[]): this {
     for (const command of commands) {
       this.registerCommand(command);
     }
@@ -92,11 +121,16 @@ class CommandRegistry {
   }
 
   /**
-   * Register all commands in a directory. Commands must be located inside subdirectories with the groupID as name. Groups must be registered before-hand, otherwise this method will not pick them up.
+   * Register all commands in a directory. Commands must be located inside subdirectories with the `groupID` as name.
+   * Groups must be registered before-hand, otherwise this method will not pick them up.
    * @param path The resolved path to the directory containing all commands.
+   * @throws Throws if any of the command's `groupID` is not registered.
+   * This may happen if a command with an unregistered group is located inside a registered group subdirectory.
+   * @throws Throws if any of the command's `name` is already registered.
+   * @emits client#commandRegistered
    * @returns This command registry.
    */
-  public registerCommandsIn(path: string): CommandRegistry {
+  public registerCommandsIn(path: string): this {
     const commands = requireAll({
       dirname: path,
       filter: /^([^.].*)\.(js|ts)$/i,
@@ -116,10 +150,15 @@ class CommandRegistry {
   }
 
   /**
-   * Register the default groups.
+   * Register the default groups. The default groups are:
+   *
+   * | ID of the group | Name of the group        |
+   * |-----------------|--------------------------|
+   * | `misc`          | `Miscellaneous Commands` |
    * @returns This command registry.
+   * @emits client#groupRegistered
    */
-  public registerDefaultGroups(): CommandRegistry {
+  public registerDefaultGroups(): this {
     this.registerGroups([
       ['misc', 'Miscellaneous Commands']
     ]);
@@ -128,10 +167,12 @@ class CommandRegistry {
   }
 
   /**
-   * Register the default commands. Default groups should be registered before using this.
+   * Register the default commands. **Default groups should be registered before using this.**
+   * For more information, check out {@link DefaultCommands}.
    * @returns This command registry.
+   * @emits client#commandRegistered
    */
-  public registerDefaultCommands(): CommandRegistry {
+  public registerDefaultCommands(): this {
     this.registerCommands(Object.values(DefaultCommands).map((Command) => new Command(this.client)));
 
     return this;
@@ -140,8 +181,10 @@ class CommandRegistry {
   /**
    * Register both the default groups and default commands in the correct order.
    * @returns This command registry.
+   * @emits client#groupRegistered
+   * @emits client#commandRegistered
    */
-  public registerDefaults(): CommandRegistry {
+  public registerDefaults(): this {
     this.registerDefaultGroups();
     this.registerDefaultCommands();
 

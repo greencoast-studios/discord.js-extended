@@ -26,11 +26,13 @@ abstract class Command {
    * The emoji of this command. This is used by the default {@link HelpCommand}.
    * @type {string}
    * @memberof Command
+   * @defaultValue 🤖
    */
   public emoji: string;
 
   /**
    * The group that this command is registered to.
+   * @remarks This gets initialized on command registration.
    * @type {(CommandGroup | null)}
    * @memberof Command
    */
@@ -54,6 +56,7 @@ abstract class Command {
    * Whether this command may only be used in a guild.
    * @type {boolean}
    * @memberof Command
+   * @defaultValue `false`
    */
   public guildOnly: boolean;
 
@@ -61,6 +64,7 @@ abstract class Command {
    * Whether this command may only be used by the bot's owner.
    * @type {boolean}
    * @memberof Command
+   * @defaultValue `false`
    */
   public ownerOnly: boolean;
 
@@ -69,6 +73,7 @@ abstract class Command {
    * defines the permissions that an user requires to execute this command.
    * @type {(Discord.PermissionResolvable | null)}
    * @memberof Command
+   * @defaultValue `null`
    */
   public userPermissions: Discord.PermissionResolvable | null;
 
@@ -76,6 +81,7 @@ abstract class Command {
    * Whether the bot's owner can execute this command even if they don't have the required permissions.
    * @type {boolean}
    * @memberof Command
+   * @defaultValue `true`
    */
   public ownerOverride: boolean;
 
@@ -83,6 +89,7 @@ abstract class Command {
    * Whether this command may only be used in a NSFW channel.
    * @type {boolean}
    * @memberof Command
+   * @defaultValue `false`
    */
   public nsfw: boolean;
 
@@ -152,7 +159,7 @@ abstract class Command {
    * @param error The error that was thrown inside the command's run method.
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
    * @returns A promise that resolves the message that was replied to the original message author.
-   * @emits commandError
+   * @emits client#commandError
    */
   public async onError(error: Error, message: Discord.Message): Promise<Discord.Message> {
     this.client.emit('commandError', error, this, message);
