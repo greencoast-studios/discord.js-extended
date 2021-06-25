@@ -9,6 +9,14 @@ import ConfigProviderOptions from '../../interfaces/ConfigProviderOptions';
  * + JSON config properties should be [snake_cased](https://en.wikipedia.org/wiki/Snake_case).
  * + You may also specify default values, for which they need to be upper-cased as well.
  *
+ * If multiple sources are specified, the configuration will be processed in the following order:
+ *
+ * 1. The default values.
+ * 2. The JSON config file.
+ * 3. The environment variables.
+ *
+ * > If config is repeated on multiple sources, they'll be overwritten by the latest config source.
+ *
  * An example environment variable file would be:
  *
  * ```text
