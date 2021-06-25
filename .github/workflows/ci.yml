@@ -33,8 +33,16 @@ jobs:
       - name: Run Tests
         run: npm run test:once
 
-      - name: Deploy to NPM
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        uses: JS-DevTools/npm-publish@v1
+  publish:
+    name: Trigger NPM Publish
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.test.result == 'success' }}
+
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: npm-publish
+    
