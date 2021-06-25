@@ -6,6 +6,7 @@ import PresenceData from '../interfaces/PresenceData';
 
 interface ExtendedClientEvents extends ClientEvents {
   dataProviderAdd: [DataProvider],
+  dataProviderClear: [Discord.Guild | null],
   commandExecute: [Command, Discord.Message],
   commandError: [Error, Command, Discord.Message],
   groupRegistered: [CommandGroup],

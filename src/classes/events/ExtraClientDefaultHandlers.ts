@@ -8,6 +8,10 @@ class ExtraClientDefaultHandlers {
     logger.info('Added data provider to client.');
   }
 
+  static onDataProviderClear(guild: Discord.Guild | null): void {
+    logger.warn(`Cleared data in data provider for ${guild?.name || 'global keys'}.`);
+  }
+
   static onCommandExecute(command: Command, message: Discord.Message): void {
     logger.info(`User ${message.member?.displayName || message.author.username} issued command ${command.name} in ${message.guild?.name || 'DM'}`);
   }

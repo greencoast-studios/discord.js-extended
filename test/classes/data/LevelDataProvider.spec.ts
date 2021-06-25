@@ -368,6 +368,15 @@ describe('Classes: Data: LevelDataProvider', () => {
             expect(value).toBe('globalValue');
           });
       });
+
+      it('should emit a dataProviderClear event.', () => {
+        expect.assertions(1);
+
+        return provider.clear(guild)
+          .then(() => {
+            expect(clientMock.emit).toHaveBeenCalledWith('dataProviderClear', guild);
+          });
+      });
     });
 
     describe('clearGlobal()', () => {
@@ -393,6 +402,15 @@ describe('Classes: Data: LevelDataProvider', () => {
                   expect(values).toContainEqual(value);
                 });
               });
+          });
+      });
+
+      it('should emit a dataProviderClear event.', () => {
+        expect.assertions(1);
+
+        return provider.clearGlobal()
+          .then(() => {
+            expect(clientMock.emit).toHaveBeenCalledWith('dataProviderClear', null);
           });
       });
     });
