@@ -1,3 +1,7 @@
+/**
+ * @module Discord.js-Extended
+ */
+
 import ExtendedClient from './classes/ExtendedClient';
 import ClientDefaultHandlers from './classes/events/ClientDefaultHandlers';
 import ExtraClientDefaultHandlers from './classes/events/ExtraClientDefaultHandlers';
@@ -11,7 +15,7 @@ import CommandGroup from './classes/command/CommandGroup';
 import CommandRegistry from './classes/command/CommandRegistry';
 import CommandDispatcher from './classes/command/CommandDispatcher';
 
-import DefaultCommands from './classes/command/default';
+import * as DefaultCommands from './classes/command/default';
 
 import ExtendedClientOptions from './interfaces/ExtendedClientOptions';
 import ExtendedClientEvents from './interfaces/ExtendedClientEvents';

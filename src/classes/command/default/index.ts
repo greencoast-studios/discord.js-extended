@@ -1,5 +1,9 @@
+/**
+ * @module DefaultCommands
+ */
+
 import HelpCommand from './HelpCommand';
 
-export default {
+export {
   HelpCommand
 };

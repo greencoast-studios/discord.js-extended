@@ -3,7 +3,7 @@ import requireAll from 'require-all';
 import Command from './Command';
 import CommandGroup from './CommandGroup';
 import ExtendedClient from '../ExtendedClient';
-import DefaultCommands from './default';
+import * as DefaultCommands from './default';
 
 /**
  * A command registry. This keeps track of all the commands and command groups registered in the client.
