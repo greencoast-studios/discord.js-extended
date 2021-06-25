@@ -6,7 +6,7 @@ import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
 
 /**
- * A data provider implemented with a LevelDB backend. Requires the package [level](https://www.npmjs.com/package/level).
+ * A {@link DataProvider} implemented with a LevelDB backend. Requires the package [level](https://www.npmjs.com/package/level).
  */
 class LevelDataProvider extends DataProvider {
   /**
@@ -39,7 +39,6 @@ class LevelDataProvider extends DataProvider {
    * Initialize this LevelDB data provider. This creates the database instance and the
    * database files inside the location specified.
    * @returns A promise that resolves this LevelDB data provider once it's ready.
-   * @emits dataProviderInit
    */
   public override init(): Promise<DataProvider> {
     if (this.db) {
@@ -65,7 +64,7 @@ class LevelDataProvider extends DataProvider {
    * Gracefully destroy this LevelDB data provider. This closes the database connection.
    * Once this is called, this data provider will be unusable.
    * @returns A promise that resolves once this data provider is destroyed.
-   * @emits dataProviderDestroy
+   * @emits client#dataProviderDestroy
    */
   public override destroy(): Promise<void> {
     if (!this.db) {
@@ -180,7 +179,7 @@ class LevelDataProvider extends DataProvider {
    * Clear all data in a guild.
    * @param guild The [guild](https://discord.js.org/#/docs/main/stable/class/Guild) to clear the data from.
    * @returns A promise that resolves once all data is deleted.
-   * @emits dataProviderClear
+   * @emits client#dataProviderClear
    */
   public override async clear(guild: Discord.Guild): Promise<void> {
     const { id } = guild;
@@ -196,7 +195,7 @@ class LevelDataProvider extends DataProvider {
   /**
    * Clear all data in a global scope.
    * @returns A promise that resolves once all data is deleted.
-   * @emits dataProviderClear
+   * @emits client#dataProviderClear
    */
   public override async clearGlobal(): Promise<void> {
     await this.db!.clear({
