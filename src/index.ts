@@ -6,7 +6,6 @@ import PresenceTemplater from './classes/presence/PresenceTemplater';
 import PresenceManager from './classes/presence/PresenceManager';
 import ConfigProvider from './classes/config/ConfigProvider';
 import DataProvider from './classes/data/DataProvider';
-import LevelDataProvider from './classes/data/LevelDataProvider';
 import Command from './classes/command/Command';
 import CommandGroup from './classes/command/CommandGroup';
 import CommandRegistry from './classes/command/CommandRegistry';
@@ -30,7 +29,6 @@ export {
   PresenceManager,
   ConfigProvider,
   DataProvider,
-  LevelDataProvider,
   Command,
   CommandGroup,
   CommandRegistry,
