@@ -21,7 +21,7 @@ const client = new ExtendedClient({
 
 const dataProvider = new LevelDataProvider(client, path.join(__dirname, './data'));
 
-client.registerDefaultEvents();
+client.registerDefaultEvents().registerExtraDefaultEvents();
 
 client.registry
   .registerGroups([
@@ -34,10 +34,6 @@ client.on('ready', async() => {
   logger.info(`Listening for commands with prefix: ${client.prefix}`);
 
   await client.setDataProvider(dataProvider);
-  logger.info('Added level data provider.');
-
-  await client.dataProvider.setGlobal('time', Date.now());
-  logger.warn(await client.dataProvider.getGlobal('time'));
 });
 
 client.login(client.config.get('TOKEN'));

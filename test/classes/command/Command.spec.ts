@@ -1,15 +1,11 @@
 /* eslint-disable no-extra-parens */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { mocked } from 'ts-jest/utils';
-import logger from '@greencoast/logger';
 import Discord from 'discord.js';
 import Command from '../../../src/classes/command/Command';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import ConcreteCommand from '../../../__mocks__/command';
 
 jest.mock('discord.js');
-jest.mock('@greencoast/logger');
-const mockedLogger = mocked(logger, true);
 
 describe('Classes: Command: Command', () => {
   let client: ExtendedClient;
@@ -24,8 +20,6 @@ describe('Classes: Command: Command', () => {
     guild = new Discord.Guild(client, {});
     channel = new Discord.TextChannel(guild, {});
     message = new Discord.Message(client, {}, channel);
-
-    mockedLogger.error.mockClear();
   });
 
   describe('hasPermission()', () => {
@@ -81,12 +75,11 @@ describe('Classes: Command: Command', () => {
   });
 
   describe('onError()', () => {
-    it('should error log the error.', () => {
+    it('should emit a commandError event.', () => {
       const expectedError = new Error('oops');
       command.onError(expectedError, message);
 
-      expect(mockedLogger.error).toHaveBeenCalledTimes(3);
-      expect(mockedLogger.error).toHaveBeenCalledWith(expectedError);
+      expect(client.emit).toHaveBeenCalledWith('commandError', expectedError, command, message);
     });
 
     it('should reply with the correct message if no owner is set on the client.', () => {

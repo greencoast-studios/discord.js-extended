@@ -4,12 +4,12 @@ import CommandGroup from '../../../src/classes/command/CommandGroup';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import ConcreteCommand from '../../../__mocks__/command';
 
-const clientMock = new ExtendedClient();
-
 describe('Classes: Command: CommandRegistry', () => {
+  let clientMock: ExtendedClient;
   let registry: CommandRegistry;
 
   beforeEach(() => {
+    clientMock = new ExtendedClient();
     registry = new CommandRegistry(clientMock);
   });
 
@@ -27,6 +27,12 @@ describe('Classes: Command: CommandRegistry', () => {
       expect(() => {
         registry.registerGroup('group', 'Group');
       }).toThrow();
+    });
+
+    it('should emit a groupRegistered event.', () => {
+      registry.registerGroup('group', 'Group');
+
+      expect(clientMock.emit).toHaveBeenCalledWith('groupRegistered', expect.anything());
     });
   });
 
@@ -78,6 +84,10 @@ describe('Classes: Command: CommandRegistry', () => {
 
     it('should register the command.', () => {
       expect(registry.commands.get(command.name)).toBe(command);
+    });
+
+    it('should emit a commandRegistered event.', () => {
+      expect(clientMock.emit).toHaveBeenCalledWith('commandRegistered', command);
     });
   });
 

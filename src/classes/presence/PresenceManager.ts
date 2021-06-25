@@ -1,5 +1,4 @@
 /* eslint-disable max-statements */
-import logger from '@greencoast/logger';
 import ExtendedClient from '../ExtendedClient';
 import PresenceTemplater from './PresenceTemplater';
 import { randomArrayItem } from '../../utils/array';
@@ -59,11 +58,10 @@ class PresenceManager {
       afk: presenceData.afk
     })
       .then(() => {
-        logger.info(`Presence updated to: ${processedStatus}`);
+        this.client.emit('presenceUpdated', processedStatus, presenceData);
       })
       .catch((error) => {
-        logger.error('Could not update presence!');
-        logger.error(error);
+        this.client.emit('presenceUpdateError', error, processedStatus, presenceData);
       });
   }
 
@@ -80,7 +78,7 @@ class PresenceManager {
       }
       this.refreshIntervalHandle = null;
 
-      this.client.emit('debug', 'Refresh interval has been disabled.');
+      this.client.emit('presenceRefreshInterval', this.options.refreshInterval);
 
       return;
     }
@@ -96,7 +94,7 @@ class PresenceManager {
     }
     this.refreshIntervalHandle = setInterval(() => this.randomlyUpdate(), refreshInterval);
     
-    this.client.emit('debug', `Refresh interval updated, presence will be updated every ${refreshInterval}ms.`);
+    this.client.emit('presenceRefreshInterval', this.options.refreshInterval);
   }
 
   /**

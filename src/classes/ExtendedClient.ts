@@ -1,16 +1,46 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
 import CommandRegistry from './command/CommandRegistry';
 import CommandDispatcher from './command/CommandDispatcher';
-import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
+import ExtraClientDefaultHandlers from './events/ExtraClientDefaultHandlers';
+import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
+import ExtendedClientEvents from '../interfaces/ExtendedClientEvents';
+
+// Interface declaration to extend events emitted by ExtendedClient.
+export declare interface ExtendedClient {
+  on<K extends keyof ExtendedClientEvents>(event: K, listener: (...args: ExtendedClientEvents[K]) => void): this;
+  on<S extends string | symbol>(
+    event: Exclude<S, keyof ExtendedClientEvents>,
+    listener: (...args: any[]) => void
+  ): this;
+
+  once<K extends keyof ExtendedClientEvents>(event: K, listener: (...args: ExtendedClientEvents[K]) => void): this;
+  once<S extends string | symbol>(
+    event: Exclude<S, keyof ExtendedClientEvents>,
+    listener: (...args: any[]) => void
+  ): this;
+
+  emit<K extends keyof ExtendedClientEvents>(event: K, ...args: ExtendedClientEvents[K]): boolean;
+  emit<S extends string | symbol>(event: Exclude<S, keyof ExtendedClientEvents>, ...args: any[]): boolean;
+
+  off<K extends keyof ExtendedClientEvents>(event: K, listener: (...args: ExtendedClientEvents[K]) => void): this;
+  off<S extends string | symbol>(
+    event: Exclude<S, keyof ExtendedClientEvents>,
+    listener: (...args: any[]) => void
+  ): this;
+
+  removeAllListeners<K extends keyof ExtendedClientEvents>(event?: K): this;
+  removeAllListeners<S extends string | symbol>(event?: Exclude<S, keyof ExtendedClientEvents>): this;
+}
 
 /**
  * A Discord.js Client extension.
  */
-class ExtendedClient extends Discord.Client {
+export class ExtendedClient extends Discord.Client {
   public override options!: ExtendedClientOptions;
   public presenceManager: PresenceManager;
   public dataProvider: DataProvider | null;
@@ -111,6 +141,7 @@ class ExtendedClient extends Discord.Client {
   public async setDataProvider(dataProvider: DataProvider): Promise<DataProvider> {
     await dataProvider.init();
     this.dataProvider = dataProvider;
+    this.emit('dataProviderAdd', dataProvider);
     return this.dataProvider;
   }
 
@@ -151,6 +182,26 @@ class ExtendedClient extends Discord.Client {
     this.on('rateLimit', ClientDefaultHandlers.onRateLimit);
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
+    
+    return this;
+  }
+
+  /**
+   * Register the default event handlers for the custom events for this ExtendedClient. For more information, check {@link ExtraClientDefaultHandlers}.
+   * @returns The client's instance for method chaining.
+   */
+  public registerExtraDefaultEvents(): ExtendedClient {
+    this.on('dataProviderAdd', ExtraClientDefaultHandlers.onDataProviderAdd);
+    this.on('dataProviderClear', ExtraClientDefaultHandlers.onDataProviderClear);
+    this.on('dataProviderInit', ExtraClientDefaultHandlers.onDataProviderInit);
+    this.on('dataProviderDestroy', ExtraClientDefaultHandlers.onDataProviderDestroy);
+    this.on('commandExecute', ExtraClientDefaultHandlers.onCommandExecute);
+    this.on('commandError', ExtraClientDefaultHandlers.onCommandError);
+    this.on('groupRegistered', ExtraClientDefaultHandlers.onGroupRegistered);
+    this.on('commandRegistered', ExtraClientDefaultHandlers.onCommandRegistered);
+    this.on('presenceUpdated', ExtraClientDefaultHandlers.onPresenceUpdated);
+    this.on('presenceUpdateError', ExtraClientDefaultHandlers.onPresenceUpdateError);
+    this.on('presenceRefreshInterval', ExtraClientDefaultHandlers.onPresenceRefreshInterval);
 
     return this;
   }

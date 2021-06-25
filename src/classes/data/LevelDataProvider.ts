@@ -15,7 +15,7 @@ class LevelDataProvider extends DataProvider {
     this.db = null;
   }
 
-  public init(): Promise<DataProvider> {
+  public override init(): Promise<DataProvider> {
     if (this.db) {
       return Promise.resolve(this);
     }
@@ -28,14 +28,14 @@ class LevelDataProvider extends DataProvider {
 
         this.db = db!;
         
-        this.client.emit('debug', 'LevelDataProvider has been initialized.');
+        this.client.emit('dataProviderInit', this);
 
         return resolve(this);
       });
     });
   }
 
-  public destroy(): Promise<void> {
+  public override destroy(): Promise<void> {
     if (!this.db) {
       return Promise.resolve();
     }
@@ -48,7 +48,7 @@ class LevelDataProvider extends DataProvider {
 
         this.db = null;
 
-        this.client.emit('debug', 'LevelDataProvider has been destroyed.');
+        this.client.emit('dataProviderDestroy', this);
 
         return resolve();
       });
@@ -107,20 +107,24 @@ class LevelDataProvider extends DataProvider {
     return data;
   }
 
-  public clear(guild: Discord.Guild): Promise<void> {
+  public override async clear(guild: Discord.Guild): Promise<void> {
     const { id } = guild;
 
-    return this.db!.clear({
+    await this.db!.clear({
       gt: `${id}:`,
       lte: `${id}${String.fromCharCode(':'.charCodeAt(0) + 1)}`
     });
+
+    this.client.emit('dataProviderClear', guild);
   }
 
-  public clearGlobal(): Promise<void> {
-    return this.db!.clear({
+  public override async clearGlobal(): Promise<void> {
+    await this.db!.clear({
       gt: 'global:',
       lte: `global${String.fromCharCode(':'.charCodeAt(0) + 1)}`
     });
+
+    this.client.emit('dataProviderClear', null);
   }
 }
 

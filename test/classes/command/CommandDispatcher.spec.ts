@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { mocked } from 'ts-jest/utils';
 import Discord from 'discord.js';
-import logger from '@greencoast/logger';
 import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
@@ -9,9 +7,6 @@ import Command from '../../../src/classes/command/Command';
 import ConcreteCommand from '../../../__mocks__/command';
 
 jest.mock('discord.js');
-jest.mock('@greencoast/logger');
-
-const mockedLogger = mocked(logger, true);
 
 const clientMock = new ExtendedClient({ prefix: '!' });
 
@@ -32,8 +27,6 @@ describe('Classes: Command: CommandDispatcher', () => {
     registryGetCommandSpy = jest.spyOn(registry.commands, 'get').mockReturnValue(command);
     message = new Discord.Message(clientMock, {}, new Discord.TextChannel(new Discord.Guild(clientMock, {}), {}));
     message.content = '!command';
-
-    mockedLogger.info.mockClear();
   });
 
   describe('handleMessage()', () => {
@@ -92,10 +85,10 @@ describe('Classes: Command: CommandDispatcher', () => {
         });
     });
 
-    it('should info log command execution.', () => {
+    it('should emit commandExecute event.', () => {
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(mockedLogger.info).toHaveBeenCalledTimes(1);
+          expect(clientMock.emit).toHaveBeenCalledWith('commandExecute', command, message);
         });
     });
 

@@ -44,12 +44,12 @@ describe('Classes: Data: LevelDataProvider', () => {
         });
     });
 
-    it('should emit a debug event.', () => {
+    it('should emit a dataProviderInit event.', () => {
       expect.assertions(1);
 
       return provider.init()
         .then(() => {
-          expect(clientMock.emit).toHaveBeenCalledTimes(1);
+          expect(clientMock.emit).toHaveBeenCalledWith('dataProviderInit', provider);
         });
     });
 
@@ -104,13 +104,12 @@ describe('Classes: Data: LevelDataProvider', () => {
         });
     });
 
-    it('should emit a debug event.', () => {
-      expect.assertions(2);
+    it('should emit a dataProviderDestroy event.', () => {
+      expect.assertions(1);
 
       return provider.destroy()
         .then(() => {
-          expect(clientMock.emit).toHaveBeenCalledTimes(2); // This gets called in the init as well.
-          expect(clientMock.emit).toHaveBeenNthCalledWith(2, 'debug', expect.anything());
+          expect(clientMock.emit).toHaveBeenCalledWith('dataProviderDestroy', provider);
         });
     });
 
@@ -368,6 +367,15 @@ describe('Classes: Data: LevelDataProvider', () => {
             expect(value).toBe('globalValue');
           });
       });
+
+      it('should emit a dataProviderClear event.', () => {
+        expect.assertions(1);
+
+        return provider.clear(guild)
+          .then(() => {
+            expect(clientMock.emit).toHaveBeenCalledWith('dataProviderClear', guild);
+          });
+      });
     });
 
     describe('clearGlobal()', () => {
@@ -393,6 +401,15 @@ describe('Classes: Data: LevelDataProvider', () => {
                   expect(values).toContainEqual(value);
                 });
               });
+          });
+      });
+
+      it('should emit a dataProviderClear event.', () => {
+        expect.assertions(1);
+
+        return provider.clearGlobal()
+          .then(() => {
+            expect(clientMock.emit).toHaveBeenCalledWith('dataProviderClear', null);
           });
       });
     });
