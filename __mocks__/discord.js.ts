@@ -87,10 +87,12 @@ const mockedPermissionsFor = {
 class TextChannelMock {
   public permissionsFor: jest.Mock<any, any>;
   public send: jest.Mock<any, any>;
+  public nsfw: boolean;
 
   constructor() {
     this.permissionsFor = jest.fn(() => mockedPermissionsFor);
     this.send = jest.fn(() => Promise.resolve());
+    this.nsfw = false;
   }
 }
 

@@ -111,5 +111,36 @@ describe('Classes: Command: CommandDispatcher', () => {
           expect(command.onError).toHaveBeenCalledWith(expectedError, message);
         });
     });
+
+    it('should not execute NSFW command in a non NSFW channel.', () => {
+      Object.defineProperty(message.channel, 'nsfw', { value: false });
+      command.nsfw = true;
+
+      return dispatcher.handleMessage(message)
+        .then(() => {
+          expect(command.run).not.toHaveBeenCalled();
+        });
+    });
+
+    it('should reply that the NSFW command may not be executed in a non NSFW channel.', () => {
+      Object.defineProperty(message.channel, 'nsfw', { value: false });
+      command.nsfw = true;
+
+      return dispatcher.handleMessage(message)
+        .then(() => {
+          expect(message.reply).toHaveBeenCalledTimes(1);
+          expect(message.reply).toHaveBeenCalledWith('This command may only be used in a NSFW channel.');
+        });
+    });
+
+    it('should execute the NSFW command in a NSFW channel.', () => {
+      Object.defineProperty(message.channel, 'nsfw', { value: true });
+      command.nsfw = true;
+
+      return dispatcher.handleMessage(message)
+        .then(() => {
+          expect(command.run).toHaveBeenCalled();
+        });
+    });
   });
 });
