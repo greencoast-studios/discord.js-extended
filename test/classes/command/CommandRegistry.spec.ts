@@ -2,7 +2,7 @@ import path from 'path';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
-import DefaultCommands from '../../../src/classes/command/default';
+import * as DefaultCommands from '../../../src/classes/command/default';
 import ConcreteCommand from '../../../__mocks__/command';
 
 describe('Classes: Command: CommandRegistry', () => {

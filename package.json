@@ -12,7 +12,9 @@
     "test:once": "jest --silent",
     "test:once-showlogs": "jest",
     "build": "tsc --build",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "docs": "typedoc ./src/index.ts ./src/providers/index.ts ./src/classes/command/default/index.ts --includeVersion --out ./docs --readme ./README.md --plugin typedoc-plugin-extras --favicon ./assets/favicon.ico",
+    "docs:watch": "npm run docs -- --watch"
   },
   "engines": {
     "node": ">=12"
@@ -21,7 +23,13 @@
     "type": "git",
     "url": "git+https://github.com/greencoast-studios/discord.js-extended.git"
   },
-  "keywords": [],
+  "keywords": [
+    "greencoast",
+    "greencoast-studios",
+    "discord",
+    "discord.js",
+    "discord bots"
+  ],
   "author": "Greencoast Studios",
   "license": "MIT",
   "bugs": {
@@ -47,6 +55,8 @@
     "text-encoding": "^0.7.0",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
+    "typedoc": "^0.21.1",
+    "typedoc-plugin-extras": "^1.1.8",
     "typescript": "^4.3.4"
   },
   "peerDependencies": {

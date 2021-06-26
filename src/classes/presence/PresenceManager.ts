@@ -9,14 +9,47 @@ import PresenceData from '../../interfaces/PresenceData';
  * A class to manage the client's presence statuses.
  */
 class PresenceManager {
+  /**
+   * The client that this presence manager will be used by.
+   * @type {ExtendedClient}
+   * @memberof PresenceManager
+   */
   public readonly client: ExtendedClient;
+
+  /**
+   * The presence templater used by this presence manager.
+   * @type {PresenceTemplater}
+   * @memberof PresenceManager
+   */
   public readonly templater: PresenceTemplater;
+
+  /**
+   * The options for this presence manager.
+   * @type {PresenceManagerOptions}
+   * @memberof PresenceManager
+   * @defaultValue
+   * ```js
+   * {
+   *   templates: ['{num_guilds} servers!'],
+   *   status: 'online',
+   *   type: 'PLAYING',
+   *   afk: false
+   * }
+   * ```
+   */
   public options: PresenceManagerOptions;
+
+  /**
+   * The refresh interval handle for this presence manager.
+   * @private
+   * @type {(NodeJS.Timeout | null)}
+   * @memberof PresenceManager
+   */
   private refreshIntervalHandle: NodeJS.Timeout | null;
 
   /**
-   * @param client The ExtendedClient for this PresenceManager.
-   * @param options The options for this PresenceManager.
+   * @param client The client that this presence manager will be used by.
+   * @param options The options for this presence manager.
    */
   constructor(client: ExtendedClient, options: PresenceManagerOptions = {}) {
     this.client = client;
@@ -43,7 +76,9 @@ class PresenceManager {
    * Update the client's presence.
    * @param status The status message to set. It can be a templated message. See {@link PresenceTemplater}.
    * @param data Additional data to pass to the presence updater.
-   * @returns Promise that fulfills on presence update.
+   * @returns Promise that resolves on presence update.
+   * @emits `client#presenceUpdated`
+   * @emits `client#presenceUpdateError`
    */
   public update(status: string, data: PresenceData = {}): Promise<void> | undefined {
     const processedStatus = this.templater.apply(status);
@@ -67,7 +102,10 @@ class PresenceManager {
 
   /**
    * Set the refresh interval at which the presences should update.
-   * @param refreshInterval The interval. Must be a positive integer.
+   * The presences that are used are the ones specified in the templates option.
+   * @param refreshInterval The interval at which the presences should update. Must be a positive integer.
+   * @throws Throws if the interval is not positive.
+   * @emits `client#presenceRefreshInterval`
    */
   public setRefreshInterval(refreshInterval: number | null = null): void {
     if (!refreshInterval) {
@@ -99,7 +137,9 @@ class PresenceManager {
 
   /**
    * Update the client's presence with a presence randomly chosen from the templates specified.
-   * @returns Promise that fulfills on presence update.
+   * @returns Promise that resolves on presence update.
+   * @emits `client#presenceUpdated`
+   * @emits `client#presenceUpdateError`
    */
   private randomlyUpdate(): Promise<void> | undefined {
     return this.update(randomArrayItem(this.options.templates!));

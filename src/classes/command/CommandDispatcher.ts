@@ -6,12 +6,23 @@ import CommandRegistry from './CommandRegistry';
  * A command dispatcher. This handles command fetching and execution.
  */
 class CommandDispatcher {
+  /**
+   * The client that this command dispatcher will be used by.
+   * @type {ExtendedClient}
+   * @memberof CommandDispatcher
+   */
   public readonly client: ExtendedClient;
+
+  /**
+   * The command registry used by this command dispatcher.
+   * @type {CommandRegistry}
+   * @memberof CommandDispatcher
+   */
   public readonly registry: CommandRegistry;
 
   /**
-   * @param client This dispatcher's client.
-   * @param registry This dispatcher's command registry.
+   * @param client The client that this command dispatcher will be used by.
+   * @param registry he command registry used by this command dispatcher.
    */
   constructor(client: ExtendedClient, registry: CommandRegistry) {
     this.client = client;
@@ -20,8 +31,11 @@ class CommandDispatcher {
   
   /**
    * Handles command fetching and execution.
-   * @param message The message that triggered this handler.
-   * @returns A promise that resolves to the result of the command's run method. If an error occurs, the promise resolves to the error message reply. Otherwise, the promise resolves to nothing.
+   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this handler.
+   * @returns A promise that resolves to the result of the command's run method.
+   * If an error occurs, the promise resolves to the error message reply.
+   * Otherwise, the promise resolves to nothing.
+   * @emits `client#commandExecute`
    */
   public async handleMessage(message: Discord.Message): Promise<Discord.Message | void> {
     if (message.partial || message.author.bot || !message.content.startsWith(this.client.prefix)) {

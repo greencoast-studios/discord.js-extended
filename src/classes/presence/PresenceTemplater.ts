@@ -10,12 +10,32 @@ dayjs.extend(timezone);
 
 /**
  * A templater class to help with the application of templates for presence statuses.
+ *
+ * Supported templates:
+ *
+ * | Template         | Replaced by                                                                                                                 |
+ * |------------------|-----------------------------------------------------------------------------------------------------------------------------|
+ * | `{num_guild}`    | Get the number of guilds the client is connected to.                                                                        |
+ * | `{prefix}`       | Get the prefix used by the client.                                                                                          |
+ * | `{cur_time}`     | Get the current time in the client's locale.                                                                                |
+ * | `{owner_name}`   | Get the owner's name. If no owner is specified then it returns `undefined`.                                                 |
+ * | `{client_name}`  | Get the client's name. If the client's user is not ready yet then it returns `undefined`.                                   |
+ * | `{uptime}`       | Get the client's uptime since last ready event emitted in a human-readable shape. Returns `null` if no uptime is available. |
+ * | `{ready_time}`   | Get the client's time at which the last ready event was emitted. Returns `null` if no `readyAt` timestamp is available.     |
+ * | `{num_members}`  | Get the total number of members across all the guilds that the client is connected to.                                      |
+ * | `{num_commands}` | Get the number of commands registered to this client.                                                                       |
  */
 class PresenceTemplater extends Templater {
+  /**
+   * The client that this presence templater will use as a data source.
+   * @type {ExtendedClient}
+   * @memberof PresenceTemplater
+   */
   public readonly client: ExtendedClient;
 
   /**
-   * @param client The ExtendedClient for this PresenceTemplater.
+   * @param client The client that this presence templater will use as a data source.
+   * @throws Throws if given key does not correspond to this templater.
    */
   constructor(client: ExtendedClient) {
     super([
@@ -60,7 +80,7 @@ class PresenceTemplater extends Templater {
 
   /**
    * Get the number of guilds the client is connected to.
-   * @returns The number of guilds.
+   * @returns The number of [guilds](https://discord.js.org/#/docs/main/stable/class/Guild).
    */
   private getNumberOfGuilds(): string {
     return this.client.guilds.cache.reduce((sum) => sum + 1, 0).toString();
@@ -83,7 +103,7 @@ class PresenceTemplater extends Templater {
   }
 
   /**
-   * Get the owner's name. If no owner is specified then it returns 'undefined'.
+   * Get the owner's name. If no owner is specified then it returns `undefined`.
    * @returns The owner's name.
    */
   private getOwnerName(): string {
@@ -91,7 +111,7 @@ class PresenceTemplater extends Templater {
   }
 
   /**
-   * Get the client's name. If the client's user is not ready yet then it returns 'undefined'.
+   * Get the client's name. If the client's user is not ready yet then it returns `undefined`.
    * @returns The client's name.
    */
   private getClientName(): string {
@@ -99,7 +119,8 @@ class PresenceTemplater extends Templater {
   }
 
   /**
-   * Get the client's uptime since last ready event emitted in a human-readable shape. Returns 'null' if no uptime is available.
+   * Get the client's uptime since last ready event emitted in a human-readable shape.
+   * Returns `null` if no uptime is available.
    * @returns The client's uptime.
    */
   private getUptime(): string {
@@ -117,7 +138,8 @@ class PresenceTemplater extends Templater {
   }
 
   /**
-   * Get the client's time at which the last ready event was emitted. Returns 'null' if no readyAt timestamp is available.
+   * Get the client's time at which the last ready event was emitted. Returns `null`
+   * if no `readyAt` timestamp is available.
    * @returns The time the client has gone ready.
    */
   private getReadyTime(): string {
@@ -130,7 +152,7 @@ class PresenceTemplater extends Templater {
 
   /**
    * Get the total number of members across all the guilds that the client is connected to.
-   * @returns The number of members.
+   * @returns The number of [members](https://discord.js.org/#/docs/main/stable/class/GuildMember).
    */
   private getNumberOfMembers(): string {
     return this.client.guilds.cache.reduce((sum, guild) => sum + guild.memberCount, 0).toString();

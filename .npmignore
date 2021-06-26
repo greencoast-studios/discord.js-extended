@@ -3,6 +3,8 @@ src/
 test/
 .github/
 __mocks__/
+docs/
+assets/
 .eslintrc
 .eslintignore
 jest.config.js
