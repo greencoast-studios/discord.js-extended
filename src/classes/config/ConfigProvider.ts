@@ -41,6 +41,13 @@ import ConfigProviderOptions from '../../interfaces/ConfigProviderOptions';
  *   MY_VARIABLE: '$'
  * }
  * ```
+ *
+ * Getting values from this config would be done by:
+ *
+ * ```js
+ * const token = client.config.get('TOKEN');
+ * const myVariable = client.config.get('MY_VARIABLE');
+ * ```
  */
 class ConfigProvider {
   /**
