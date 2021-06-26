@@ -23,7 +23,13 @@
     "type": "git",
     "url": "git+https://github.com/greencoast-studios/discord.js-extended.git"
   },
-  "keywords": [],
+  "keywords": [
+    "greencoast",
+    "greencoast-studios",
+    "discord",
+    "discord.js",
+    "discord bots"
+  ],
   "author": "Greencoast Studios",
   "license": "MIT",
   "bugs": {
