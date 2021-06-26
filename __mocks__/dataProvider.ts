@@ -2,7 +2,7 @@
 import DataProvider from '../src/classes/data/DataProvider';
 
 class ConcreteDataProvider extends DataProvider {
-  public override init(): Promise<DataProvider> {
+  public override init(): Promise<this> {
     return Promise.resolve(this);
   }
   public override destroy(): Promise<void> {
