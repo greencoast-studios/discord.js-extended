@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import Discord from 'discord.js';
 import ExtendedClient from '../ExtendedClient';
 import CommandRegistry from './CommandRegistry';
@@ -48,6 +49,11 @@ class CommandDispatcher {
     const command = this.registry.commands.get(commandName!);
 
     if (!command || command.guildOnly && !message.guild) {
+      return;
+    }
+
+    if (command.nsfw && (message.channel instanceof Discord.TextChannel && !message.channel.nsfw)) {
+      message.reply('This command may only be used in a NSFW channel.');
       return;
     }
 
