@@ -130,6 +130,7 @@ module.exports = class MyCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'cmd', // The command's name. In this case, users need to write !cmd for the command to work.,
+      aliases: ['mycmd', 'alias2'], // The command's aliases. With this, users can write !mycmd and !alias2 for the command to work.
       description: 'My command.', // The command's description.
       group: 'my_group', // The ID of the group that holds this command.
       emoji: ':robot:', // The emoji that represents this command. This is used by the default HelpCommand. Defaults to ':robot:'.
