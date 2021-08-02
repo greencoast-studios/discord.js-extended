@@ -46,7 +46,7 @@ class CommandDispatcher {
     const args = message.content.slice(this.client.prefix.length).trim().split(/ +/);
     const commandName = args.shift()?.toLowerCase();
 
-    const command = this.registry.commands.get(commandName!);
+    const command = this.registry.resolveCommand(commandName!);
 
     if (!command || command.guildOnly && !message.guild) {
       return;
