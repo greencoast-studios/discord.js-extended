@@ -42,6 +42,15 @@ class CommandRegistry {
   }
 
   /**
+   * Resolves the command from this registry corresponding to its name or alias.
+   * @param name The name or alias of the command.
+   * @returns The resolved command, or `undefined` if no command is resolved.
+   */
+  public resolveCommand(name: string): Command | undefined {
+    return this.commands.get(name) || this.commands.find((command) => command.aliases.includes(name));
+  }
+
+  /**
    * Register a command group.
    * @param id The ID of the group.
    * @param name The name of the group.
