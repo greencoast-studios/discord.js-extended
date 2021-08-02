@@ -181,5 +181,35 @@ describe('Classes: Command: CommandRegistry', () => {
         expect(registry.registerDefaultCommands).toHaveBeenCalledTimes(1);
       });
     });
+
+    describe('resolveCommand()', () => {
+      beforeEach(() => {
+        registry.registerGroups([
+          ['group1', 'Group1'],
+          ['group2', 'Group2']
+        ]);
+        registry.registerCommands([
+          new ConcreteCommand(clientMock, { name: 'cmdName', group: 'group1' }),
+          new ConcreteCommand(clientMock, { name: 'cmdNameWithAlias', group: 'group2', aliases: ['alias1', 'alias2'] })
+        ]);
+      });
+
+      it('should return undefined if no command is found.', () => {
+        expect(registry.resolveCommand('unknown')).toBeUndefined();
+      });
+
+      it('should return a command if the command is found by name.', () => {
+        expect(registry.resolveCommand('cmdName')).toHaveProperty('name', 'cmdName');
+      });
+
+      it('should return a command if the command with alias is found by name.', () => {
+        expect(registry.resolveCommand('cmdNameWithAlias')).toHaveProperty('name', 'cmdNameWithAlias');
+      });
+
+      it('should return a command if the command with alias is found by alias.', () => {
+        expect(registry.resolveCommand('alias1')).toHaveProperty('name', 'cmdNameWithAlias');
+        expect(registry.resolveCommand('alias2')).toHaveProperty('name', 'cmdNameWithAlias');
+      });
+    });
   });
 });

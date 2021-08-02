@@ -54,7 +54,13 @@ interface CommandInfo {
    * Whether this command may only be used in a NSFW channel.
    * @defaultValue `false`
    */
-  nsfw?: boolean
+  nsfw?: boolean,
+
+  /**
+   * Aliases for this command.
+   * @defaultValue `[]`
+   */
+  aliases?: string[]
 }
 
 export default CommandInfo;
