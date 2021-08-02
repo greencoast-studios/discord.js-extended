@@ -94,6 +94,14 @@ abstract class Command {
   public nsfw: boolean;
 
   /**
+   * Aliases for this command.
+   * @type {string[]}
+   * @memberof Command
+   * @defaultValue `[]`
+   */
+  public aliases: string[];
+
+  /**
    * @param client The client that this command will be used by.
    * @param info This command's specific information.
    */
@@ -110,6 +118,7 @@ abstract class Command {
     this.userPermissions = info.userPermissions || null;
     this.ownerOverride = info.ownerOverride || true;
     this.nsfw = info.nsfw || false;
+    this.aliases = info.aliases || [];
   }
 
   /**
