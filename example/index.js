@@ -5,7 +5,20 @@ const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-exten
 const LevelDataProvider = require('@greencoast/discord.js-extended/dist/providers/LevelDataProvider').default;
 
 // The environment object contains the property: DISCORD_TOKEN with the bot's token.
-const config = new ConfigProvider({ env: process.env, configPath: path.join(__dirname, './config/settings.json') });
+const config = new ConfigProvider({
+  env: process.env,
+  configPath: path.join(__dirname, './config/settings.json'),
+  default: {
+    PREFIX: '!',
+    OPTIONAL_NUMBER: null
+  },
+  types: {
+    TOKEN: 'string',
+    PREFIX: 'string',
+    OPTIONAL_NUMBER: ['number', 'null'], // A DISCORD_OPTIONAL_NUMBER env variable which will be casted to a number. It also accepts "null" as value.
+    REQUIRED_BOOLEAN: 'boolean' // A DISCORD_REQUIRED_BOOLEAN env variable which will be casted to a boolean.
+  }
+});
 
 const client = new ExtendedClient({
   prefix: config.get('PREFIX'),
