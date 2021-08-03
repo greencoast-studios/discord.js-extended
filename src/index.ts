@@ -24,6 +24,8 @@ import PresenceData from './interfaces/PresenceData';
 import ConfigProviderOptions from './interfaces/ConfigProviderOptions';
 import CommandInfo from './interfaces/CommandInfo';
 
+import { ConfigValue } from './types';
+
 export {
   ExtendedClient,
   ClientDefaultHandlers,
@@ -43,5 +45,6 @@ export {
   PresenceManagerOptions,
   PresenceData,
   ConfigProviderOptions,
-  CommandInfo
+  CommandInfo,
+  ConfigValue
 };

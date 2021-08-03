@@ -22,7 +22,7 @@ describe('Classes: Config: ConfigProvider', () => {
     describe('With default.', () => {
       const mockedDefault = {
         TOKEN: 'hi',
-        OTHER_OPTION: '234'
+        OTHER_OPTION: 'what'
       };
 
       it('should return any value from default.', () => {
@@ -37,7 +37,9 @@ describe('Classes: Config: ConfigProvider', () => {
       const mockedJson = {
         token: 'hello',
         prefix: '?',
-        other_option: false
+        other_option: false,
+        null_value: null,
+        number_value: 123
       };
 
       beforeAll(() => {
@@ -55,6 +57,8 @@ describe('Classes: Config: ConfigProvider', () => {
         expect(config.get('TOKEN')).toBe(mockedJson.token);
         expect(config.get('PREFIX')).toBe(mockedJson.prefix);
         expect(config.get('OTHER_OPTION')).toBe(mockedJson.other_option);
+        expect(config.get('NULL_VALUE')).toBe(mockedJson.null_value);
+        expect(config.get('NUMBER_VALUE')).toBe(mockedJson.number_value);
       });
 
       it('should override any default.', () => {
@@ -91,7 +95,9 @@ describe('Classes: Config: ConfigProvider', () => {
         DISCORD_PREFIX: ':',
         DISCORD_OTHER_OPTION: 'false',
         DISCORD_TRUE: 'true',
-        SHOULD_BE_IGNORED: 'hey'
+        SHOULD_BE_IGNORED: 'hey',
+        DISCORD_NULL: 'null',
+        DISCORD_NUMBER: '123'
       };
 
       it('should return any value from env with a key that starts with DISCORD_.', () => {
@@ -101,7 +107,9 @@ describe('Classes: Config: ConfigProvider', () => {
         expect(config.get('PREFIX')).toBe(mockedEnv.DISCORD_PREFIX);
         expect(config.get('OTHER_OPTION')).toBe(false);
         expect(config.get('TRUE')).toBe(true);
-        expect(Object.keys(config.config)).toHaveLength(4);
+        expect(config.get('NULL')).toBe(null);
+        expect(config.get('NUMBER')).toBe(123);
+        expect(Object.keys(config.config)).toHaveLength(6);
       });
 
       it('should override any default.', () => {
