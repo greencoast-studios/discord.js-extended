@@ -13,7 +13,7 @@ const client = new ExtendedClient({
   debug: true,
   presence: {
     templates: ['{num_guilds} guilds!', '{num_members} members!', 'owner: {owner_name}', '{uptime}', '{ready_time}'],
-    refreshInterval: 5000, // Presence gets changed every 5 seconds.
+    refreshInterval: 10000, // Presence gets changed every 10 seconds.
     status: 'dnd',
     type: 'COMPETING'
   },
