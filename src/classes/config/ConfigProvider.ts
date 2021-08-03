@@ -1,5 +1,6 @@
 import fs from 'fs';
 import ConfigProviderOptions from '../../interfaces/ConfigProviderOptions';
+import ConfigValidator from './ConfigValidator';
 import { ConfigValue } from '../../types';
 
 /**
@@ -73,16 +74,26 @@ class ConfigProvider {
   public readonly config: Record<string, ConfigValue>;
 
   /**
+   * The validator for this config.
+   * @type {ConfigValidator}
+   * @memberof ConfigProvider
+   */
+  public readonly validator: ConfigValidator;
+
+  /**
    * @param options The options for this config provider.
    */
   constructor(options: ConfigProviderOptions = {}) {
     this.options = options;
     this.default = options.default;
     this.config = {};
+    this.validator = new ConfigValidator(options.types || {});
 
     this.processDefaults(options.default);
     this.processConfigFile(options.configPath);
     this.processEnv(options.env);
+
+    this.validator.validate(this.config);
   }
 
   /**
@@ -134,23 +145,16 @@ class ConfigProvider {
       return;
     }
 
-    const discordKeys = Object.keys(env).filter((key) => key.startsWith('DISCORD_'));
+    const configFromEnv = Object.keys(env)
+      .filter((key) => key.startsWith('DISCORD_'))
+      .reduce((obj, key) => {
+        return { ...obj, [key.substring('DISCORD_'.length)]: env[key] };
+      }, {});
+    
+    const castedConfig = this.validator.castFromString(configFromEnv);
 
-    for (const key of discordKeys) {
-      let value: ConfigValue = env[key];
-      const valueNumber = Number(value);
-
-      if (value === 'true') {
-        value = true;
-      } else if (value === 'false') {
-        value = false;
-      } else if (value === 'null') {
-        value = null;
-      } else if (!isNaN(valueNumber)) {
-        value = valueNumber;
-      }
-
-      this.config[key.substring('DISCORD_'.length)] = value;
+    for (const key in castedConfig) {
+      this.config[key] = castedConfig[key];
     }
   }
 }

@@ -42,6 +42,12 @@ describe('Classes: Config: ConfigProvider', () => {
         number_value: 123
       };
 
+      const mockedTypes = {
+        OTHER_OPTION: 'boolean',
+        NULL_VALUE: 'null',
+        NUMBER_VALUE: 'number'
+      };
+
       beforeAll(() => {
         mockedFs.existsSync.mockReturnValue(true);
         mockedFs.readFileSync.mockReturnValue(Buffer.from(JSON.stringify(mockedJson), 'utf-8'));
@@ -52,7 +58,7 @@ describe('Classes: Config: ConfigProvider', () => {
       });
 
       it('should return any value from json.', () => {
-        config = new ConfigProvider({ configPath: 'path' });
+        config = new ConfigProvider({ configPath: 'path', types: mockedTypes });
 
         expect(config.get('TOKEN')).toBe(mockedJson.token);
         expect(config.get('PREFIX')).toBe(mockedJson.prefix);
@@ -62,7 +68,7 @@ describe('Classes: Config: ConfigProvider', () => {
       });
 
       it('should override any default.', () => {
-        config = new ConfigProvider({ configPath: 'path', default: { PREFIX: '!', OTHER_OPTION: 'x' } });
+        config = new ConfigProvider({ configPath: 'path', default: { PREFIX: '!', OTHER_OPTION: 'x' }, types: mockedTypes });
 
         expect(config.get('TOKEN')).toBe(mockedJson.token);
         expect(config.get('PREFIX')).toBe(mockedJson.prefix);
@@ -70,7 +76,7 @@ describe('Classes: Config: ConfigProvider', () => {
       });
 
       it('should not delete non-specified defaults.', () => {
-        config = new ConfigProvider({ configPath: 'path', default: { NEW: 'new' } });
+        config = new ConfigProvider({ configPath: 'path', default: { NEW: 'new' }, types: mockedTypes });
 
         expect(config.get('NEW')).toBe('new');
       });
@@ -100,8 +106,15 @@ describe('Classes: Config: ConfigProvider', () => {
         DISCORD_NUMBER: '123'
       };
 
+      const mockedTypes = {
+        OTHER_OPTION: 'boolean',
+        TRUE: 'boolean',
+        NULL: 'null',
+        NUMBER: 'number'
+      };
+
       it('should return any value from env with a key that starts with DISCORD_.', () => {
-        config = new ConfigProvider({ env: mockedEnv });
+        config = new ConfigProvider({ env: mockedEnv, types: mockedTypes });
 
         expect(config.get('TOKEN')).toBe(mockedEnv.DISCORD_TOKEN);
         expect(config.get('PREFIX')).toBe(mockedEnv.DISCORD_PREFIX);
@@ -113,7 +126,7 @@ describe('Classes: Config: ConfigProvider', () => {
       });
 
       it('should override any default.', () => {
-        config = new ConfigProvider({ env: mockedEnv, default: { TOKEN: 'new_token', TRUE: false } });
+        config = new ConfigProvider({ env: mockedEnv, default: { TOKEN: 'new_token', TRUE: false }, types: mockedTypes });
 
         expect(config.get('TOKEN')).toBe(mockedEnv.DISCORD_TOKEN);
         expect(config.get('PREFIX')).toBe(mockedEnv.DISCORD_PREFIX);
@@ -130,7 +143,7 @@ describe('Classes: Config: ConfigProvider', () => {
       it('should override any config from file.', () => {
         mockedFs.existsSync.mockReturnValueOnce(true);
         mockedFs.readFileSync.mockReturnValueOnce(Buffer.from(JSON.stringify({ prefix: 'new_prefix', other_option: true }), 'utf-8'));
-        config = new ConfigProvider({ env: mockedEnv, configPath: 'path' });
+        config = new ConfigProvider({ env: mockedEnv, configPath: 'path', types: mockedTypes });
 
         expect(config.get('TOKEN')).toBe(mockedEnv.DISCORD_TOKEN);
         expect(config.get('PREFIX')).toBe(mockedEnv.DISCORD_PREFIX);
