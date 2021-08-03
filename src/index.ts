@@ -9,6 +9,7 @@ import Templater from './classes/abstract/Templater';
 import PresenceTemplater from './classes/presence/PresenceTemplater';
 import PresenceManager from './classes/presence/PresenceManager';
 import ConfigProvider from './classes/config/ConfigProvider';
+import ConfigValidator from './classes/config/ConfigValidator';
 import DataProvider from './classes/data/DataProvider';
 import Command from './classes/command/Command';
 import CommandGroup from './classes/command/CommandGroup';
@@ -34,6 +35,7 @@ export {
   PresenceTemplater,
   PresenceManager,
   ConfigProvider,
+  ConfigValidator,
   DataProvider,
   Command,
   CommandGroup,
