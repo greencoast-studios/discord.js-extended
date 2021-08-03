@@ -69,7 +69,14 @@ class PresenceManager {
     }
     this.options = options;
     this.refreshIntervalHandle = null;
-    this.setRefreshInterval(options.refreshInterval);
+
+    if (!client.uptime) {
+      client.once('ready', () => {
+        this.setRefreshInterval(options.refreshInterval);
+      });
+    } else {
+      this.setRefreshInterval(options.refreshInterval);
+    }
   }
 
   /**
@@ -130,6 +137,8 @@ class PresenceManager {
     if (this.refreshIntervalHandle) {
       clearInterval(this.refreshIntervalHandle);
     }
+
+    this.randomlyUpdate();
     this.refreshIntervalHandle = setInterval(() => this.randomlyUpdate(), refreshInterval);
     
     this.client.emit('presenceRefreshInterval', this.options.refreshInterval);
@@ -141,7 +150,7 @@ class PresenceManager {
    * @emits `client#presenceUpdated`
    * @emits `client#presenceUpdateError`
    */
-  private randomlyUpdate(): Promise<void> | undefined {
+  public randomlyUpdate(): Promise<void> | undefined {
     return this.update(randomArrayItem(this.options.templates!));
   }
 }

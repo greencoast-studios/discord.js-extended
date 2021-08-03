@@ -1,5 +1,6 @@
 import fs from 'fs';
 import ConfigProviderOptions from '../../interfaces/ConfigProviderOptions';
+import { ConfigValue } from '../../types';
 
 /**
  * A client configuration provider. It accepts configuration from both ENV variables and JSON config file.
@@ -59,17 +60,17 @@ class ConfigProvider {
 
   /**
    * The default config values.
-   * @type {(Record<string, string | boolean>)}
+   * @type {(Record<string, ConfigValue>)}
    * @memberof ConfigProvider
    */
-  public readonly default?: Record<string, string | boolean>;
+  public readonly default?: Record<string, ConfigValue>;
 
   /**
    * The processed config object.
-   * @type {(Record<string, string | boolean>)}
+   * @type {(Record<string, ConfigValue>)}
    * @memberof ConfigProvider
    */
-  public readonly config: Record<string, string | boolean>;
+  public readonly config: Record<string, ConfigValue>;
 
   /**
    * @param options The options for this config provider.
@@ -89,7 +90,7 @@ class ConfigProvider {
    * @param key The key of the configuration. Keys are upper cased.
    * @returns The corresponding value.
    */
-  public get(key: string): string | boolean | undefined {
+  public get(key: string): ConfigValue | undefined {
     return this.config[key];
   }
 
@@ -97,7 +98,7 @@ class ConfigProvider {
    * Process the default configuration.
    * @param defaults The defaults object.
    */
-  private processDefaults(defaults?: Record<string, string | boolean>): void {
+  private processDefaults(defaults?: Record<string, ConfigValue>): void {
     if (!defaults) {
       return;
     }
@@ -128,7 +129,7 @@ class ConfigProvider {
    * Keys must begin with DISCORD_ to be added to the configuration provider.
    * @param env The environment variables object.
    */
-  private processEnv(env?: Record<string, string | boolean>): void {
+  private processEnv(env?: Record<string, ConfigValue>): void {
     if (!env) {
       return;
     }
@@ -136,12 +137,17 @@ class ConfigProvider {
     const discordKeys = Object.keys(env).filter((key) => key.startsWith('DISCORD_'));
 
     for (const key of discordKeys) {
-      let value: string | boolean = env[key];
+      let value: ConfigValue = env[key];
+      const valueNumber = Number(value);
 
       if (value === 'true') {
         value = true;
       } else if (value === 'false') {
         value = false;
+      } else if (value === 'null') {
+        value = null;
+      } else if (!isNaN(valueNumber)) {
+        value = valueNumber;
       }
 
       this.config[key.substring('DISCORD_'.length)] = value;
