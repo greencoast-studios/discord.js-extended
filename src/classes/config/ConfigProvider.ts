@@ -50,6 +50,8 @@ import { ConfigValue } from '../../types';
  * const token = client.config.get('TOKEN');
  * const myVariable = client.config.get('MY_VARIABLE');
  * ```
+ *
+ * It is also recommended to specify the types of the config. Check {@link ConfigValidator} for more information.
  */
 class ConfigProvider {
   /**
