@@ -29,6 +29,40 @@ You can install this package with:
 npm install discord.js @greencoast/discord.js-extended
 ```
 
+## Configuring your Client
+
+This package covers client configuration from environment variables and/or JSON files through the [ConfigProvider](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) class, which makes it easy to add configuration to a bot. Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) to see how to use this.
+
+An example of a bot's configuration may be as follows:
+
+```js
+const path = require('path');
+const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
+
+const config = new ConfigProvider({
+  env: process.env, // This adds the environment variables to the config.
+  configPath: path.join(__dirname, './config/settings.json'), // This is the location of the JSON file that includes the config.
+  default: {
+    PREFIX: '!', // Adds a default value for the PREFIX config.
+    TOKEN: null, // Adds a default value for the TOKEN config.
+    MY_ID: 123,
+    OPTIONAL_FLAG: false
+  },
+  types: { // These are the types of the configuration. The provider validates that the config receives the proper configuration types.
+    PREFIX: 'string',
+    TOKEN: ['string', 'null'], // With a 'null' type, you can pass 'null' to have it as null.
+    MY_ID: 'number'
+    OPTIONAL_FLAG: ['boolean', 'null']
+  }
+});
+
+const client = new ExtendedClient({
+  config
+});
+```
+
+Make sure to check the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) to see the structure of the JSON file required and the type of environment variables that are supported.
+
 ### Creating a Client
 
 This package exports an extension of the regular [Discord.js Client](https://discord.js.org/#/docs/main/stable/class/Client) that contains all the extended functionality. You can create one by using the following:
@@ -38,10 +72,10 @@ const path = require('path');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
 
 const config = new ConfigProvider({
-  env: process.env, // Add environment variables as a source for configuration.
-  configPath: path.join(__dirname, './config/settings.json'), // Add a JSON file as a source for configuration.
+  env: process.env,
+  configPath: path.join(__dirname, './config/settings.json'),
   default: {
-    KEY: 'value' // The default configuration.
+    KEY: 'value'
   }
 });
 
@@ -59,8 +93,6 @@ const client = new ExtendedClient({
 
 client.login(<YOUR_DISCORD_TOKEN_HERE>);
 ```
-
-The [ConfigProvider](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) makes it easy to add configuration to a bot through environment variables or a JSON file. Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) to see how to use this.
 
 The `presence` option in the client's constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, among others... Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.presencetemplater.html) to see what information you can include in your presence statuses.
 
