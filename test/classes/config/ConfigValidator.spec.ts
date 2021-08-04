@@ -111,6 +111,13 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(typeof casted.S).toBe('string');
         expect(casted.S).toBe('123');
       });
+
+      it('should cast to null if the value is null and the type contains string and null.', () => {
+        const validator = new ConfigValidator({ N: ['string', 'null'] });
+
+        const casted = validator.castFromString({ N: 'null' });
+        expect(casted.N).toBeNull();
+      });
     });
 
     describe('With "boolean"', () => {

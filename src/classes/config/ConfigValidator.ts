@@ -92,7 +92,7 @@ class ConfigValidator {
       const value = config[key];
       const type = this.types[key] || 'string';
 
-      if (type === 'string' || type.includes('string')) {
+      if (type === 'string' || type.includes('string') && !type.includes('null')) {
         return;
       }
 
@@ -134,7 +134,7 @@ class ConfigValidator {
    * @param value The value to cast.
    * @param type The type to cast the value to.
    * @returns The casted value.
-   * @throws Throws if the type is invalid. 
+   * @throws Throws if the type is invalid.
    */
   private tryCastSingleValue(value: ConfigValue, type: string): ConfigValue {
     let casted: ConfigValue = value;
