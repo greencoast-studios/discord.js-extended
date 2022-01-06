@@ -93,6 +93,8 @@ class CommandRegistry {
    * @returns This command registry.
    * @throws Throws if the command's `groupID` is not registered.
    * @throws Throws if the command's `name` is already registered.
+   * @throws Throws if the command's `name` is also specified as its own `alias`.
+   * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    */
   public registerCommand(command: Command): this {
@@ -102,8 +104,18 @@ class CommandRegistry {
       throw new Error(`Group ${command.groupID} is not registered.`);
     }
 
-    if (this.commands.has(command.name)) {
+    if (this.resolveCommand(command.name)) {
       throw new Error(`Command ${command.name} is already registered.`);
+    }
+
+    for (const alias of command.aliases) {
+      if (this.resolveCommand(alias)) {
+        throw new Error(`Command ${alias} is already registered.`);
+      }
+
+      if (alias === command.name) {
+        throw new Error(`Command ${command.name} contains its own name as an alias. Please remove ${command.name} from its aliases.`);
+      }
     }
 
     group.registerCommand(command);
@@ -119,6 +131,8 @@ class CommandRegistry {
    * @returns This command registry.
    * @throws Throws if any of the command's `groupID` is not registered.
    * @throws Throws if any of the command's `name` is already registered.
+   * @throws Throws if any of the command's `name` is also specified as its own `alias`.
+   * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    */
   public registerCommands(commands: Command[]): this {
@@ -136,6 +150,8 @@ class CommandRegistry {
    * @throws Throws if any of the command's `groupID` is not registered.
    * This may happen if a command with an unregistered group is located inside a registered group subdirectory.
    * @throws Throws if any of the command's `name` is already registered.
+   * @throws Throws if any the command's `name` is also specified as its own `alias`.
+   * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    * @returns This command registry.
    */
