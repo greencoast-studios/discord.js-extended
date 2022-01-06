@@ -42,7 +42,8 @@ class ClientMock {
       cache: {
         reduce: (fn: any, initial: any) => {
           return [{ memberCount: 10 }, { memberCount: 5 }, { memberCount: 2 }].reduce(fn, initial);
-        }
+        },
+        size: 3
       }
     };
     this.users = {
@@ -128,6 +129,14 @@ class MessageEmbedMock {
   }
 }
 
+class ShardClientUtilMock {
+  public fetchClientValues: jest.Mock<any, any>;
+
+  constructor() {
+    this.fetchClientValues = jest.fn();
+  }
+}
+
 export {
   rateLimitMock
 };
@@ -139,5 +148,6 @@ export default {
   User: UserMock,
   Message: MessageMock,
   MessageEmbed: MessageEmbedMock,
+  ShardClientUtil: ShardClientUtilMock,
   Collection: RealDiscord.Collection
 };

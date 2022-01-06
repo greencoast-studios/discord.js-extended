@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
+    "start-shard": "node sharded-client.js",
     "dev": "nodemon ."
   },
   "dependencies": {
