@@ -93,6 +93,8 @@ class CommandRegistry {
    * @returns This command registry.
    * @throws Throws if the command's `groupID` is not registered.
    * @throws Throws if the command's `name` is already registered.
+   * @throws Throws if the command's `name` is also specified as its own `alias`.
+   * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    */
   public registerCommand(command: Command): this {
@@ -129,6 +131,8 @@ class CommandRegistry {
    * @returns This command registry.
    * @throws Throws if any of the command's `groupID` is not registered.
    * @throws Throws if any of the command's `name` is already registered.
+   * @throws Throws if any of the command's `name` is also specified as its own `alias`.
+   * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    */
   public registerCommands(commands: Command[]): this {
@@ -146,6 +150,8 @@ class CommandRegistry {
    * @throws Throws if any of the command's `groupID` is not registered.
    * This may happen if a command with an unregistered group is located inside a registered group subdirectory.
    * @throws Throws if any of the command's `name` is already registered.
+   * @throws Throws if any the command's `name` is also specified as its own `alias`.
+   * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    * @returns This command registry.
    */
