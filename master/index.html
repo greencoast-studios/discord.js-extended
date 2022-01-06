@@ -1,0 +1,308 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@greencoast/discord.js-extended - v1.2.0</title>
+	<meta name="description" content="Documentation for @greencoast/discord.js-extended - v1.2.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+	<link rel="icon" href="favicon.ico" />
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@greencoast/discord.js-extended - v1.2.0</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>@greencoast/discord.js-extended - v1.2.0</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://github.com/greencoast-studios/discord.js-extended"><img src="https://img.shields.io/github/workflow/status/greencoast-studios/discord.js-extended/CI?logo=github" alt="ci-build-status"></a>
+					<a href="https://github.com/greencoast-studios/discord.js-extended"><img src="https://img.shields.io/github/issues/greencoast-studios/discord.js-extended?logo=github" alt="issues"></a>
+					<a href="https://www.npmjs.com/package/@greencoast/discord.js-extended"><img src="https://img.shields.io/david/greencoast-studios/discord.js-extended" alt="dependencies"></a>
+					<a href="https://www.npmjs.com/package/@greencoast/discord.js-extended"><img src="https://img.shields.io/bundlephobia/min/@greencoast/discord.js-extended" alt="bundle-size"></a>
+					<a href="https://www.npmjs.com/package/@greencoast/discord.js-extended"><img src="https://img.shields.io/npm/v/@greencoast/discord.js-extended?logo=npm" alt="version"></a>
+					<a href="https://www.npmjs.com/package/@greencoast/discord.js-extended"><img src="https://img.shields.io/npm/dependency-version/@greencoast/discord.js-extended/peer/discord.js?logo=npm" alt="djs-version"></a>
+					<a href="https://www.npmjs.com/package/@greencoast/discord.js-extended"><img src="https://img.shields.io/npm/dw/@greencoast/discord.js-extended?logo=npm" alt="downloads-week"></a>
+				<a href="https://www.npmjs.com/package/@greencoast/discord.js-extended"><img src="https://img.shields.io/npm/dt/@greencoast/discord.js-extended?logo=npm" alt="downloads-total"></a></p>
+				<a href="#discordjs---extended" id="discordjs---extended" style="color: inherit; text-decoration: none;">
+					<h1>Discord.js - Extended</h1>
+				</a>
+				<p><a href="https://github.com/greencoast-studios/discord.js-extended">discord.js-extended</a> is a library that facilitates the repetitive tasks when creating Discord bots with <a href="https://discord.js.org/#/">Discord.js</a>. Used by <a href="https://greencoaststudios.com">Greencoast Studios</a>.</p>
+				<p>Heavily inspired by <a href="https://www.npmjs.com/package/discord.js-commando">discord.js-commando</a>, it includes similar design decisions, however this adds certain functionality that isn&#39;t available like a configuration provider and automatic presence management. This package does not include all functionality provided by Commando, in fact, Commando is way more powerful than this library. Nevertheless, this was built to make it easier for us to quickly build bots without having to repeat ourselves that much.</p>
+				<p>This was made for <a href="https://discord.js.org/#/">Discord.js</a> v12.5, however any v12 should work fine.</p>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>You can visit the <a href="https://docs.greencoaststudios.com/discord.js-extended">documentation site</a> to see what this library offers.</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h3>Installation</h3>
+				</a>
+				<p>This package does not install <a href="https://discord.js.org/#/">Discord.js</a>, so you should install it yourself.</p>
+				<p>You can install this package with:</p>
+				<pre><code class="language-text">npm install discord.js @greencoast/discord.js-extended
+</code></pre>
+				<a href="#configuring-your-client" id="configuring-your-client" style="color: inherit; text-decoration: none;">
+					<h2>Configuring your Client</h2>
+				</a>
+				<p>This package covers client configuration from environment variables and/or JSON files through the <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html">ConfigProvider</a> class, which makes it easy to add configuration to a bot. Consider checking the <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html">documentation page</a> to see how to use this.</p>
+				<p>An example of a bot&#39;s configuration may be as follows:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">path</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;path&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">ExtendedClient</span><span style="color: #000000">, </span><span style="color: #0070C1">ConfigProvider</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@greencoast/discord.js-extended&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">config</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ConfigProvider</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">env:</span><span style="color: #000000"> </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #001080">env</span><span style="color: #000000">, </span><span style="color: #008000">// This adds the environment variables to the config.</span>
+<span style="color: #000000">  </span><span style="color: #001080">configPath:</span><span style="color: #000000"> </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">join</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;./config/settings.json&#039;</span><span style="color: #000000">), </span><span style="color: #008000">// This is the location of the JSON file that includes the config.</span>
+<span style="color: #000000">  </span><span style="color: #001080">default:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">PREFIX:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;!&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// Adds a default value for the PREFIX config.</span>
+<span style="color: #000000">    </span><span style="color: #001080">TOKEN:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">, </span><span style="color: #008000">// Adds a default value for the TOKEN config.</span>
+<span style="color: #000000">    </span><span style="color: #001080">MY_ID:</span><span style="color: #000000"> </span><span style="color: #098658">123</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">OPTIONAL_FLAG:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #001080">types:</span><span style="color: #000000"> { </span><span style="color: #008000">// These are the types of the configuration. The provider validates that the config receives the proper configuration types.</span>
+<span style="color: #000000">    </span><span style="color: #001080">PREFIX:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;string&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">TOKEN:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#039;string&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;null&#039;</span><span style="color: #000000">], </span><span style="color: #008000">// With a &#039;null&#039; type, you can pass &#039;null&#039; to have it as null.</span>
+<span style="color: #000000">    </span><span style="color: #001080">MY_ID:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;number&#039;</span>
+<span style="color: #000000">    </span><span style="color: #0070C1">OPTIONAL_FLAG</span><span style="color: #000000">: [</span><span style="color: #A31515">&#039;boolean&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;null&#039;</span><span style="color: #000000">]</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ExtendedClient</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">config</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>Make sure to check the <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html">documentation page</a> to see the structure of the JSON file required and the type of environment variables that are supported.</p>
+				<a href="#creating-a-client" id="creating-a-client" style="color: inherit; text-decoration: none;">
+					<h3>Creating a Client</h3>
+				</a>
+				<p>This package exports an extension of the regular <a href="https://discord.js.org/#/docs/main/stable/class/Client">Discord.js Client</a> that contains all the extended functionality. You can create one by using the following:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">path</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;path&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">ExtendedClient</span><span style="color: #000000">, </span><span style="color: #0070C1">ConfigProvider</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@greencoast/discord.js-extended&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">config</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ConfigProvider</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">env:</span><span style="color: #000000"> </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #001080">env</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">configPath:</span><span style="color: #000000"> </span><span style="color: #001080">path</span><span style="color: #000000">.</span><span style="color: #795E26">join</span><span style="color: #000000">(</span><span style="color: #001080">__dirname</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;./config/settings.json&#039;</span><span style="color: #000000">),</span>
+<span style="color: #000000">  </span><span style="color: #001080">default:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">KEY:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;value&#039;</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ExtendedClient</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">config</span><span style="color: #000000">, </span><span style="color: #008000">// The config provider instance used by the bot.</span>
+<span style="color: #000000">  </span><span style="color: #001080">debug:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Enable debug-mode.</span>
+<span style="color: #000000">  </span><span style="color: #001080">owner:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;123&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// The ID of the bot&#039;s owner.</span>
+<span style="color: #000000">  </span><span style="color: #001080">prefix:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;!&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// The bot&#039;s prefix to be used.</span>
+<span style="color: #000000">  </span><span style="color: #001080">presence:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">templates:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#039;presence 1&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;presence 2&#039;</span><span style="color: #000000">], </span><span style="color: #008000">// The presence statuses used by this bot.</span>
+<span style="color: #000000">    </span><span style="color: #001080">refreshInterval:</span><span style="color: #000000"> </span><span style="color: #098658">3600000</span><span style="color: #000000"> </span><span style="color: #008000">// Update the bot&#039;s presence every hour.</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #001080">errorOwnerReporting:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> </span><span style="color: #008000">// Sends DMs to the bot&#039;s owner whenever a command throws an error.</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">login</span><span style="color: #000000">(</span><span style="color: #800000">&lt;</span><span style="color: #267F99">YOUR_DISCORD_TOKEN_HERE</span><span style="color: #800000">&gt;</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>The <code>presence</code> option in the client&#39;s constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, among others... Consider checking the <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.presencetemplater.html">documentation page</a> to see what information you can include in your presence statuses.</p>
+				<a href="#adding-defaults-to-your-client" id="adding-defaults-to-your-client" style="color: inherit; text-decoration: none;">
+					<h3>Adding defaults to your Client</h3>
+				</a>
+				<p>You can register default handlers for the <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.clientdefaulthandlers.html">Discord.js Client</a> events, as well as the <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.extraclientdefaulthandlers.html">ExtendedClient</a> custom events.</p>
+				<pre><code class="language-js"><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">registerDefaultEvents</span><span style="color: #000000">().</span><span style="color: #795E26">registerExtraDefaultEvents</span><span style="color: #000000">();</span>
+</code></pre>
+				<p>The package also comes with default commands that you can use on your bot. Check the <a href="https://docs.greencoaststudios.com/discord.js-extended/modules/defaultcommands.html">Default Commands</a> to see the available commands you can register right away. You can register them like:</p>
+				<pre><code class="language-js"><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">registry</span><span style="color: #000000">.</span><span style="color: #795E26">registerDefaults</span><span style="color: #000000">();</span>
+</code></pre>
+				<a href="#adding-a-database-provider-to-your-client" id="adding-a-database-provider-to-your-client" style="color: inherit; text-decoration: none;">
+					<h3>Adding a Database Provider to your Client</h3>
+				</a>
+				<p>The package comes with persistent data functionality that can be enabled. The <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.dataprovider.html">DataProvider</a> is an abstract class that serves as common interface to use. By default, data is stored by guild, but you can also store/get data on a global scope.</p>
+				<p>You can use the following methods:</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #001080">guild</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;key&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// Get a value for &#039;key&#039; in guild.</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #001080">guild</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;key&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;value&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// Set &#039;value&#039; for &#039;key&#039; in guild.</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">(</span><span style="color: #001080">guild</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;key&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// Delete a key-value pair for &#039;key&#039; in guild.</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">(</span><span style="color: #001080">guild</span><span style="color: #000000">); </span><span style="color: #008000">// Clear all data in a guild.</span>
+
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">getGlobal</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;key&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// Get a value for &#039;key&#039; in the global scope.</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">setGlobal</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;key&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;value&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// Set &#039;value&#039; for &#039;key&#039; in the global scope.</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">deleteGlobal</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;key&#039;</span><span style="color: #000000">); </span><span style="color: #008000">// Delete a key-value pair for &#039;key&#039; in the global scope.</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">dataProvider</span><span style="color: #000000">.</span><span style="color: #795E26">clearGlobal</span><span style="color: #000000">(); </span><span style="color: #008000">// Clear all data in the global scope.</span>
+</code></pre>
+				<blockquote>
+					<p>You need to set up a data provider before being able to use any of these methods.</p>
+				</blockquote>
+				<a href="#leveldataprovider" id="leveldataprovider" style="color: inherit; text-decoration: none;">
+					<h4>LevelDataProvider</h4>
+				</a>
+				<p><a href="https://docs.greencoaststudios.com/discord.js-extended/classes/dataproviders.leveldataprovider.html">LevelDataProvider</a> is a data provider implemented with a <a href="https://www.npmjs.com/package/level">LevelDB</a> backend. In order to use this, you need to install <a href="https://www.npmjs.com/package/level">level</a>.</p>
+				<pre><code class="language-text">npm install level
+</code></pre>
+				<p>In order to set up this data provider, you need to import it and add it to your client.</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">LevelDataProvider</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@greencoast/discord.js-extended/dist/providers/LevelDataProvider&#039;</span><span style="color: #000000">).</span><span style="color: #001080">default</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">provider</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">LevelDataProvider</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;database_location&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ready&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">setProvider</span><span style="color: #000000">(</span><span style="color: #001080">provider</span><span style="color: #000000">);</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#creating-commands" id="creating-commands" style="color: inherit; text-decoration: none;">
+					<h3>Creating Commands</h3>
+				</a>
+				<p>The package contains a <a href="https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.command.html">Command</a> to facilitate the creation of commands. In order to create one, you need to create a class that extends Command and implements a <code>run()</code> method.</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Permissions</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;discord.js&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Command</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@greencoast/discord.js-extended&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #267F99">module</span><span style="color: #000000">.</span><span style="color: #267F99">exports</span><span style="color: #000000"> = </span><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MyCommand</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">Command</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">constructor</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">super</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">, {</span>
+<span style="color: #000000">      </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;cmd&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// The command&#039;s name. In this case, users need to write !cmd for the command to work.,</span>
+<span style="color: #000000">      </span><span style="color: #001080">aliases:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#039;mycmd&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;alias2&#039;</span><span style="color: #000000">], </span><span style="color: #008000">// The command&#039;s aliases. With this, users can write !mycmd and !alias2 for the command to work.</span>
+<span style="color: #000000">      </span><span style="color: #001080">description:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;My command.&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// The command&#039;s description.</span>
+<span style="color: #000000">      </span><span style="color: #001080">group:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;my_group&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// The ID of the group that holds this command.</span>
+<span style="color: #000000">      </span><span style="color: #001080">emoji:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;:robot:&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// The emoji that represents this command. This is used by the default HelpCommand. Defaults to &#039;:robot:&#039;.</span>
+<span style="color: #000000">      </span><span style="color: #001080">guildOnly:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Whether the command may only be used in a guild. Defaults to false.</span>
+<span style="color: #000000">      </span><span style="color: #001080">nsfw:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// Whether the command may only be used in a NSFW channel. Defaults to false.</span>
+<span style="color: #000000">      </span><span style="color: #001080">ownerOnly:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// Whether the command may only be used by the owner. Defaults to false.</span>
+<span style="color: #000000">      </span><span style="color: #001080">userPermissions:</span><span style="color: #000000"> </span><span style="color: #001080">Permissions</span><span style="color: #000000">.</span><span style="color: #0070C1">FLAGS</span><span style="color: #000000">.</span><span style="color: #0070C1">MANAGE_CHANNELS</span><span style="color: #000000">, </span><span style="color: #008000">// The PermissionResolvable representing the permissions that users require to execute this command. Defaults to null.</span>
+<span style="color: #000000">      </span><span style="color: #001080">ownerOverride:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Whether the owner may execute this command even if they don&#039;t have the required permissions. Defaults to true.</span>
+<span style="color: #000000">    });</span>
+
+<span style="color: #000000">    </span><span style="color: #795E26">run</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000">, </span><span style="color: #001080">args</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #795E26">reply</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Hi!&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>This command should be saved in a folder with the ID of its group. These folders should be contained in a bigger folder. The folder tree should look like this:</p>
+				<pre><code class="language-text">.
+├── commands
+│   ├── my_group
+│   |   ├── MyCommand.js
+│   |   ├── AnotherCommand.js
+│   ├── other_group
+│   |   ├── OtherCommand.js
+</code></pre>
+				<p>Once you have this folder structure, you can register your commands in the client:</p>
+				<pre><code class="language-js"><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">registry</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">registerGroups</span><span style="color: #000000">([</span>
+<span style="color: #000000">    [</span><span style="color: #A31515">&#039;my_group&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;My Group&#039;</span><span style="color: #000000">],</span>
+<span style="color: #000000">    [</span><span style="color: #A31515">&#039;other_group&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Other Group&#039;</span><span style="color: #000000">]</span>
+<span style="color: #000000">  ])</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">registerCommandsIn</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./commands/folder/location&#039;</span><span style="color: #000000">);</span>
+</code></pre>
+				<blockquote>
+					<p>If you don&#39;t register the groups before-hand, the commands will not be registered.</p>
+				</blockquote>
+				<a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
+					<h2>Testing</h2>
+				</a>
+				<p>You can run the unit tests for this package by:</p>
+				<ol>
+					<li>Cloning the repo:</li>
+				</ol>
+				<pre><code class="language-text">git clone https://github.com/greencoast-studios/discord.js-extended
+</code></pre>
+				<ol start="2">
+					<li>Installing the dependencies.</li>
+				</ol>
+				<pre><code class="language-text">npm install
+</code></pre>
+				<ol start="3">
+					<li>Running the tests.</li>
+				</ol>
+				<pre><code class="language-text">npm test
+</code></pre>
+				<a href="#authors" id="authors" style="color: inherit; text-decoration: none;">
+					<h2>Authors</h2>
+				</a>
+				<p>This library was made by <a href="https://greencoaststudios.com">Greencoast Studios</a>.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/dataproviders.html">Data<wbr>Providers</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/defaultcommands.html">Default<wbr>Commands</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/discord_js_extended.html">Discord.js-<wbr><wbr>Extended</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a>, the 8/4/2021 at 12:07:35 AM</p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
