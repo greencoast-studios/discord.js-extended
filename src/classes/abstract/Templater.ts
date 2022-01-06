@@ -32,7 +32,13 @@ abstract class Templater {
    */
   public apply(str: string): string {
     return this.keys.reduce((cur, key) => {
-      return cur.replace(new RegExp(`{${key}}`, 'gi'), this.get(key));
+      const regex = new RegExp(`{${key}}`, 'gi');
+
+      if (regex.test(cur)) {
+        return cur.replace(regex, this.get(key));
+      }
+
+      return cur;
     }, str);
   }
 }
