@@ -21,7 +21,7 @@ dayjs.extend(timezone);
  * | `{owner_name}`   | Get the owner's name. If no owner is specified then it returns `undefined`.                                                 |
  * | `{client_name}`  | Get the client's name. If the client's user is not ready yet then it returns `undefined`.                                   |
  * | `{uptime}`       | Get the client's uptime since last ready event emitted in a human-readable shape. Returns `null` if no uptime is available. |
- * | `{ready_time}`   | Get the client's time at which the last ready event was emitted. Returns `null` if no `readyAt` timestamp is available.     |
+ * | `{ready_time}`   | Get the client's time at which the last ready event was emitted. Returns `null` if no `readyAt` timestamp is available.     |
  * | `{num_members}`  | Get the total number of members across all the guilds that the client is connected to.                                      |
  * | `{num_commands}` | Get the number of commands registered to this client.                                                                       |
  */
@@ -138,7 +138,7 @@ class PresenceTemplater extends Templater {
   }
 
   /**
-   * Get the client's time at which the last ready event was emitted. Returns `null`
+   * Get the client's time at which the last ready event was emitted. Returns `null`
    * if no `readyAt` timestamp is available.
    * @returns The time the client has gone ready.
    */
