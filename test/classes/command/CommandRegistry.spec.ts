@@ -77,7 +77,30 @@ describe('Classes: Command: CommandRegistry', () => {
       }).toThrow();
     });
 
-    it('should throw if command is already registered.', () => {
+    it('should throw if command is already registered by name.', () => {
+      expect(() => {
+        registry.registerCommand(command);
+      }).toThrow();
+    });
+
+    it('should throw if command is already registered by alias.', () => {
+      const command1 = new ConcreteCommand(clientMock, { name: 'cmd', aliases: ['commando'] });
+      const command2 = new ConcreteCommand(clientMock, { name: 'cmd2', aliases: ['cm3', 'cmd'] });
+      const command3 = new ConcreteCommand(clientMock, { name: 'cmd3', aliases: ['commando'] });
+
+      registry.registerCommand(command1);
+
+      expect(() => {
+        registry.registerCommand(command2);
+      }).toThrow();
+      expect(() => {
+        registry.registerCommand(command3);
+      }).toThrow();
+    });
+
+    it('should throw if command aliases contain command name.', () => {
+      const command = new ConcreteCommand(clientMock, { name: 'cmd', aliases: ['cm3', 'cmd'] });
+
       expect(() => {
         registry.registerCommand(command);
       }).toThrow();

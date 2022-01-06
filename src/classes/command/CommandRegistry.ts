@@ -102,8 +102,18 @@ class CommandRegistry {
       throw new Error(`Group ${command.groupID} is not registered.`);
     }
 
-    if (this.commands.has(command.name)) {
+    if (this.resolveCommand(command.name)) {
       throw new Error(`Command ${command.name} is already registered.`);
+    }
+
+    for (const alias of command.aliases) {
+      if (this.resolveCommand(alias)) {
+        throw new Error(`Command ${alias} is already registered.`);
+      }
+
+      if (alias === command.name) {
+        throw new Error(`Command ${command.name} contains its own name as an alias. Please remove ${command.name} from its aliases.`);
+      }
     }
 
     group.registerCommand(command);
