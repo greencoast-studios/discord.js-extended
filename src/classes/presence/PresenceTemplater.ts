@@ -1,3 +1,4 @@
+import Discord from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -82,7 +83,14 @@ class PresenceTemplater extends AsyncTemplater {
    * @returns A promise that resolves to the number of [guilds](https://discord.js.org/#/docs/main/stable/class/Guild).
    */
   private getNumberOfGuilds(): Promise<string> {
-    return Promise.resolve(this.client.guilds.cache.reduce((sum) => sum + 1, 0).toString());
+    if (!this.client.shard) {
+      return Promise.resolve(this.client.guilds.cache.size.toString());
+    }
+
+    return this.client.shard.fetchClientValues('guilds.cache.size')
+      .then((results) => {
+        return results.reduce((sum, size) => sum + size, 0).toString();
+      });
   }
 
   /**
@@ -156,7 +164,18 @@ class PresenceTemplater extends AsyncTemplater {
    * @returns A promise that resolves to the number of [members](https://discord.js.org/#/docs/main/stable/class/GuildMember).
    */
   private getNumberOfMembers(): Promise<string> {
-    return Promise.resolve(this.client.guilds.cache.reduce((sum, guild) => sum + guild.memberCount, 0).toString());
+    if (!this.client.shard) {
+      return Promise.resolve(this.client.guilds.cache.reduce((sum, guild) => sum + guild.memberCount, 0).toString());
+    }
+
+    return this.client.shard.fetchClientValues('guilds.cache')
+      .then((results) => {
+        return results.reduce((sum, guildCache) => {
+          const memberCounts = guildCache.reduce((sum: number, guild: Discord.Guild) => sum + guild.memberCount, 0);
+
+          return sum + memberCounts;
+        }, 0).toString();
+      });
   }
 
   /**
@@ -164,7 +183,7 @@ class PresenceTemplater extends AsyncTemplater {
    * @returns A promise that resolves to the number of commands.
    */
   private getNumberOfCommands(): Promise<string> {
-    return Promise.resolve(this.client.registry.commands.reduce((sum) => sum + 1, 0).toString());
+    return Promise.resolve(this.client.registry.commands.size.toString());
   }
 }
 
