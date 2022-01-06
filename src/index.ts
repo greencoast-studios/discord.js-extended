@@ -6,6 +6,7 @@ import ExtendedClient from './classes/ExtendedClient';
 import ClientDefaultHandlers from './classes/events/ClientDefaultHandlers';
 import ExtraClientDefaultHandlers from './classes/events/ExtraClientDefaultHandlers';
 import Templater from './classes/abstract/Templater';
+import AsyncTemplater from './classes/abstract/AsyncTemplater';
 import PresenceTemplater from './classes/presence/PresenceTemplater';
 import PresenceManager from './classes/presence/PresenceManager';
 import ConfigProvider from './classes/config/ConfigProvider';
@@ -32,6 +33,7 @@ export {
   ClientDefaultHandlers,
   ExtraClientDefaultHandlers,
   Templater,
+  AsyncTemplater,
   PresenceTemplater,
   PresenceManager,
   ConfigProvider,
