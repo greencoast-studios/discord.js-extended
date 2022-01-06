@@ -35,7 +35,6 @@ class PresenceTemplater extends Templater {
 
   /**
    * @param client The client that this presence templater will use as a data source.
-   * @throws Throws if given key does not correspond to this templater.
    */
   constructor(client: ExtendedClient) {
     super([
@@ -111,7 +110,7 @@ class PresenceTemplater extends Templater {
   }
 
   /**
-   * Get the client's name. If the client's user is not ready yet then it returns `undefined`.
+   * Get the client's name. If the client's user is not ready yet, then it returns `undefined`.
    * @returns The client's name.
    */
   private getClientName(): string {

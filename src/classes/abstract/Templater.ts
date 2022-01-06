@@ -20,6 +20,8 @@ abstract class Templater {
   /**
    * Get the actual value that will replace the key inside the template.
    * @param key The key to replace.
+   * @returns The corresponding string for the given key.
+   * @throws Throws if given key does not correspond to this templater.
    */
   public abstract get(key: string): string;
 
