@@ -1,0 +1,507 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>PresenceManager | @greencoast/discord.js-extended - v1.1.1</title>
+	<meta name="description" content="Documentation for @greencoast/discord.js-extended - v1.1.1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+	<link rel="icon" href="../favicon.ico" />
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@greencoast/discord.js-extended - v1.1.1</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">@greencoast/discord.js-extended - v1.1.1</a>
+				</li>
+				<li>
+					<a href="../modules/discord_js_extended.html">Discord.js-Extended</a>
+				</li>
+				<li>
+					<a href="discord_js_extended.presencemanager.html">PresenceManager</a>
+				</li>
+			</ul>
+			<h1>Class PresenceManager</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A class to manage the client&#39;s presence statuses.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">PresenceManager</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="discord_js_extended.presencemanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="discord_js_extended.presencemanager.html#client" class="tsd-kind-icon">client</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="discord_js_extended.presencemanager.html#options" class="tsd-kind-icon">options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="discord_js_extended.presencemanager.html#refreshintervalhandle" class="tsd-kind-icon">refresh<wbr>Interval<wbr>Handle</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="discord_js_extended.presencemanager.html#templater" class="tsd-kind-icon">templater</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="discord_js_extended.presencemanager.html#randomlyupdate" class="tsd-kind-icon">randomly<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="discord_js_extended.presencemanager.html#setrefreshinterval" class="tsd-kind-icon">set<wbr>Refresh<wbr>Interval</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="discord_js_extended.presencemanager.html#update" class="tsd-kind-icon">update</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Presence<wbr>Manager<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="discord_js_extended.extendedclient.html" class="tsd-signature-type" data-tsd-kind="Class">ExtendedClient</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/discord_js_extended.presencemanageroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PresenceManagerOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="discord_js_extended.presencemanager.html" class="tsd-signature-type" data-tsd-kind="Class">PresenceManager</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L48">src/classes/presence/PresenceManager.ts:48</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <a href="discord_js_extended.extendedclient.html" class="tsd-signature-type" data-tsd-kind="Class">ExtendedClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The client that this presence manager will be used by.</p>
+									</div>
+								</li>
+								<li>
+									<h5>options: <a href="../interfaces/discord_js_extended.presencemanageroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PresenceManagerOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The options for this presence manager.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="discord_js_extended.presencemanager.html" class="tsd-signature-type" data-tsd-kind="Class">PresenceManager</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="client" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> client</h3>
+					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <a href="discord_js_extended.extendedclient.html" class="tsd-signature-type" data-tsd-kind="Class">ExtendedClient</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L17">src/classes/presence/PresenceManager.ts:17</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The client that this presence manager will be used by.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>memberof</dt>
+							<dd><p>PresenceManager</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="options" class="tsd-anchor"></a>
+					<h3>options</h3>
+					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/discord_js_extended.presencemanageroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PresenceManagerOptions</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L40">src/classes/presence/PresenceManager.ts:40</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The options for this presence manager.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>memberof</dt>
+							<dd><p>PresenceManager</p>
+							</dd>
+							<dt>defaultvalue</dt>
+							<dd><pre><code class="language-js"><span style="color: #000000">{</span>
+<span style="color: #000000">  templates: [</span><span style="color: #A31515">&#039;{num_guilds} servers!&#039;</span><span style="color: #000000">],</span>
+<span style="color: #000000">  status: </span><span style="color: #A31515">&#039;online&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  type: </span><span style="color: #A31515">&#039;PLAYING&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  afk: </span><span style="color: #0000FF">false</span>
+<span style="color: #000000">}</span>
+</code></pre>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="refreshintervalhandle" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> refresh<wbr>Interval<wbr>Handle</h3>
+					<div class="tsd-signature tsd-kind-icon">refresh<wbr>Interval<wbr>Handle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Timeout</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L48">src/classes/presence/PresenceManager.ts:48</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The refresh interval handle for this presence manager.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>memberof</dt>
+							<dd><p>PresenceManager</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="templater" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> templater</h3>
+					<div class="tsd-signature tsd-kind-icon">templater<span class="tsd-signature-symbol">:</span> <a href="discord_js_extended.presencetemplater.html" class="tsd-signature-type" data-tsd-kind="Class">PresenceTemplater</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L24">src/classes/presence/PresenceManager.ts:24</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The presence templater used by this presence manager.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>memberof</dt>
+							<dd><p>PresenceManager</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="randomlyupdate" class="tsd-anchor"></a>
+					<h3>randomly<wbr>Update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">randomly<wbr>Update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L153">src/classes/presence/PresenceManager.ts:153</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update the client&#39;s presence with a presence randomly chosen from the templates specified.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>emits</dt>
+									<dd><p><code>client#presenceUpdated</code></p>
+									</dd>
+									<dt>emits</dt>
+									<dd><p><code>client#presenceUpdateError</code></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Promise that resolves on presence update.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setrefreshinterval" class="tsd-anchor"></a>
+					<h3>set<wbr>Refresh<wbr>Interval</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Refresh<wbr>Interval<span class="tsd-signature-symbol">(</span>refreshInterval<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L117">src/classes/presence/PresenceManager.ts:117</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the refresh interval at which the presences should update.
+									The presences that are used are the ones specified in the templates option.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Throws if the interval is not positive.</p>
+									</dd>
+									<dt>emits</dt>
+									<dd><p><code>client#presenceRefreshInterval</code></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>refreshInterval: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The interval at which the presences should update. Must be a positive integer.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>status<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">?: </span><a href="../interfaces/discord_js_extended.presencedata.html" class="tsd-signature-type" data-tsd-kind="Interface">PresenceData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/84dd06d/src/classes/presence/PresenceManager.ts#L90">src/classes/presence/PresenceManager.ts:90</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update the client&#39;s presence.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>emits</dt>
+									<dd><p><code>client#presenceUpdated</code></p>
+									</dd>
+									<dt>emits</dt>
+									<dd><p><code>client#presenceUpdateError</code></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>status: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The status message to set. It can be a templated message. See <a href="discord_js_extended.presencetemplater.html">PresenceTemplater</a>.</p>
+									</div>
+								</li>
+								<li>
+									<h5>data: <a href="../interfaces/discord_js_extended.presencedata.html" class="tsd-signature-type" data-tsd-kind="Interface">PresenceData</a><span class="tsd-signature-symbol"> = {}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Additional data to pass to the presence updater.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Promise that resolves on presence update.</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/dataproviders.html">Data<wbr>Providers</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/defaultcommands.html">Default<wbr>Commands</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/discord_js_extended.html">Discord.js-<wbr><wbr>Extended</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="../modules/discord_js_extended.html#defaultcommands" class="tsd-kind-icon">Default<wbr>Commands</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.clientdefaulthandlers.html" class="tsd-kind-icon">Client<wbr>Default<wbr>Handlers</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.command.html" class="tsd-kind-icon">Command</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.commanddispatcher.html" class="tsd-kind-icon">Command<wbr>Dispatcher</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.commandgroup.html" class="tsd-kind-icon">Command<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.commandregistry.html" class="tsd-kind-icon">Command<wbr>Registry</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.configprovider.html" class="tsd-kind-icon">Config<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.dataprovider.html" class="tsd-kind-icon">Data<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.extendedclient.html" class="tsd-kind-icon">Extended<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.extraclientdefaulthandlers.html" class="tsd-kind-icon">Extra<wbr>Client<wbr>Default<wbr>Handlers</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.presencemanager.html" class="tsd-kind-icon">Presence<wbr>Manager</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="discord_js_extended.presencemanager.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="discord_js_extended.presencemanager.html#client" class="tsd-kind-icon">client</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="discord_js_extended.presencemanager.html#options" class="tsd-kind-icon">options</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="discord_js_extended.presencemanager.html#refreshintervalhandle" class="tsd-kind-icon">refresh<wbr>Interval<wbr>Handle</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="discord_js_extended.presencemanager.html#templater" class="tsd-kind-icon">templater</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="discord_js_extended.presencemanager.html#randomlyupdate" class="tsd-kind-icon">randomly<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="discord_js_extended.presencemanager.html#setrefreshinterval" class="tsd-kind-icon">set<wbr>Refresh<wbr>Interval</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="discord_js_extended.presencemanager.html#update" class="tsd-kind-icon">update</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.presencetemplater.html" class="tsd-kind-icon">Presence<wbr>Templater</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.templater.html" class="tsd-kind-icon">Templater</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/discord_js_extended.commandinfo.html" class="tsd-kind-icon">Command<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/discord_js_extended.configprovideroptions.html" class="tsd-kind-icon">Config<wbr>Provider<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/discord_js_extended.extendedclientevents.html" class="tsd-kind-icon">Extended<wbr>Client<wbr>Events</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/discord_js_extended.extendedclientoptions.html" class="tsd-kind-icon">Extended<wbr>Client<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/discord_js_extended.presencedata.html" class="tsd-kind-icon">Presence<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/discord_js_extended.presencemanageroptions.html" class="tsd-kind-icon">Presence<wbr>Manager<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/discord_js_extended.html#configvalue" class="tsd-kind-icon">Config<wbr>Value</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a>, the 8/3/2021 at 7:12:49 AM</p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
