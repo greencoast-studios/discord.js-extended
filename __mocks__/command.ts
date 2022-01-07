@@ -5,7 +5,7 @@ import RegularCommand from '../src/classes/command/RegularCommand';
 
 jest.mock('discord.js');
 
-class ConcreteRegularCommand extends RegularCommand {
+export class ConcreteRegularCommand extends RegularCommand {
   constructor(client: ExtendedClient, info: Record<string, any> = {}) {
     super(client, {
       name: 'Command',
@@ -19,5 +19,3 @@ class ConcreteRegularCommand extends RegularCommand {
     return Promise.resolve(message);
   }
 }
-
-export default ConcreteRegularCommand;

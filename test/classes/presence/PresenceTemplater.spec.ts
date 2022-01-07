@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import Discord from 'discord.js';
 import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
-import ConcreteRegularCommand from '../../../__mocks__/command';
+import { ConcreteRegularCommand } from '../../../__mocks__/command';
 import { ShardClientUtilMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');

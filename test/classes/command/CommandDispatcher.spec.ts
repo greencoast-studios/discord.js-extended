@@ -4,7 +4,7 @@ import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import RegularCommand from '../../../src/classes/command/RegularCommand';
-import ConcreteRegularCommand from '../../../__mocks__/command';
+import { ConcreteRegularCommand } from '../../../__mocks__/command';
 import { MessageMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');

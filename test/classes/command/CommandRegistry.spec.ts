@@ -3,7 +3,7 @@ import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import * as DefaultCommands from '../../../src/classes/command/default';
-import ConcreteRegularCommand from '../../../__mocks__/command';
+import { ConcreteRegularCommand } from '../../../__mocks__/command';
 
 describe('Classes: Command: CommandRegistry', () => {
   let clientMock: ExtendedClient;
