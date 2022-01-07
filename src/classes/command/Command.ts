@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import Discord from 'discord.js';
 import { stripIndents } from 'common-tags';
 import ExtendedClient from '../ExtendedClient';
@@ -70,7 +71,7 @@ abstract class Command {
 
   /**
    * The [permissions resolvable](https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable) that
-   * defines the permissions that an user requires to execute this command.
+   * defines the permissions that a user requires to execute this command.
    * @type {(Discord.PermissionResolvable | null)}
    * @memberof Command
    * @defaultValue `null`
@@ -146,7 +147,11 @@ abstract class Command {
       return `The command ${this.name} may only be used by the bot's owner.`;
     }
 
-    if (this.userPermissions && message.channel instanceof Discord.TextChannel) {
+    if (this.userPermissions && message.channel.isText()) {
+      if (message.channel instanceof Discord.DMChannel || message.channel.partial) {
+        return true;
+      }
+
       const missingPermissions = message.channel.permissionsFor(message.author)?.missing(this.userPermissions);
 
       if (!missingPermissions || missingPermissions.length < 1) {

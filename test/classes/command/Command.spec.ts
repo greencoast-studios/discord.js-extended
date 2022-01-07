@@ -50,6 +50,15 @@ describe('Classes: Command: Command', () => {
       expect(command.hasPermission(message)).toBe(true);
     });
 
+    it('should return true if channel is not text based (absurd).', () => {
+      const channel = message.channel as any;
+      channel.permissionsFor().missing.mockReturnValue(['dont matter']);
+      (channel.isText as jest.Mock<any, any>).mockReturnValue(false);
+      command = new ConcreteCommand(client, { userPermissions: 'YES' });
+
+      expect(command.hasPermission(message)).toBe(true);
+    });
+
     it('should return a permission required message if the command has userPermissions and author does not have only one.', () => {
       const channel = message.channel as any;
       channel.permissionsFor().missing.mockReturnValue(['123']);

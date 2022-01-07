@@ -86,11 +86,23 @@ export class TextChannelMock {
   public permissionsFor: jest.Mock<any, any>;
   public send: jest.Mock<any, any>;
   public nsfw: boolean;
+  public isText: jest.Mock<any, any>;
 
   constructor() {
     this.permissionsFor = jest.fn(() => mockedPermissionsFor);
     this.send = jest.fn(() => Promise.resolve());
     this.nsfw = false;
+    this.isText = jest.fn(() => true);
+  }
+}
+
+export class DMChannelMock {
+  public send: jest.Mock<any, any>;
+  public isText: jest.Mock<any, any>;
+
+  constructor() {
+    this.send = jest.fn(() => Promise.resolve());
+    this.isText = jest.fn(() => true);
   }
 }
 

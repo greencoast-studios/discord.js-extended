@@ -7,6 +7,7 @@ export default {
   Client: DiscordMock.ClientMock,
   Guild: DiscordMock.GuildMock,
   TextChannel: DiscordMock.TextChannelMock,
+  DMChannel: DiscordMock.DMChannelMock,
   User: DiscordMock.UserMock,
   Message: DiscordMock.MessageMock,
   MessageEmbed: DiscordMock.MessageEmbedMock,
