@@ -68,6 +68,25 @@ describe('Classes: Command: SlashCommand', () => {
     });
   });
 
+  describe('getDataBuilder()', () => {
+    it("should return the command's data builder.", () => {
+      expect(command.getDataBuilder()).toBe(command.dataBuilder);
+    });
+  });
+
+  describe('getAllDataBuilders()', () => {
+    it("should return all the command's data builders.", () => {
+      command = new ConcreteSlashCommand(client, { name: 'name', aliases: ['cmd1', 'cmd2', 'cmd3'] });
+      const builders = command.getAllDataBuilders();
+      const mappedBuilderNames = builders.map((builder) => builder.name);
+
+      expect(mappedBuilderNames).toContain(command.name);
+      command.aliases.forEach((alias) => {
+        expect(mappedBuilderNames).toContain(alias);
+      });
+    });
+  });
+
   describe('hasPermission()', () => {
     it('should return true if command is not ownerOnly and it does not require userPermissions.', () => {
       command = new ConcreteSlashCommand(client, { ownerOnly: false, userPermissions: null });
