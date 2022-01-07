@@ -4,7 +4,7 @@ import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import RegularCommand from '../../../src/classes/command/RegularCommand';
-import { ConcreteRegularCommand } from '../../../__mocks__/command';
+import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/command';
 import { MessageMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');
@@ -64,6 +64,17 @@ describe('Classes: Command: CommandDispatcher', () => {
       return dispatcher.handleMessage(message)
         .then(() => {
           expect(regularCommand.run).not.toHaveBeenCalled();
+        });
+    });
+
+    it('should not run the command if the command is not of instance RegularCommand.', () => {
+      const slashCommand = new ConcreteSlashCommand(clientMock);
+      slashCommand.run = jest.fn();
+      registryGetCommandSpy.mockReturnValueOnce(slashCommand);
+
+      return dispatcher.handleMessage(message)
+        .then(() => {
+          expect(slashCommand.run).not.toHaveBeenCalled();
         });
     });
 

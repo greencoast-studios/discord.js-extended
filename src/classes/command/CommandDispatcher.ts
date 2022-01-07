@@ -49,12 +49,7 @@ class CommandDispatcher {
 
     const command = this.registry.resolveCommand(commandName!);
 
-    // TODO: Test this.
-    if (!(command instanceof RegularCommand)) {
-      return;
-    }
-
-    if (!command || command.guildOnly && !message.guild) {
+    if (!command || !(command instanceof RegularCommand) || command.guildOnly && !message.guild) {
       return;
     }
 
