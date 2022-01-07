@@ -3,8 +3,8 @@ import Discord from 'discord.js';
 import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
-import Command from '../../../src/classes/command/Command';
-import ConcreteCommand from '../../../__mocks__/command';
+import RegularCommand from '../../../src/classes/command/RegularCommand';
+import ConcreteRegularCommand from '../../../__mocks__/command';
 import { MessageMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');
@@ -15,17 +15,17 @@ describe('Classes: Command: CommandDispatcher', () => {
   let dispatcher: CommandDispatcher;
   let registry: CommandRegistry;
   let registryGetCommandSpy: jest.SpyInstance<any, any>;
-  let command: Command;
+  let regularCommand: RegularCommand;
   let message: Discord.Message;
 
   beforeEach(() => {
-    command = new ConcreteCommand(clientMock);
-    command.run = jest.fn();
-    command.onError = jest.fn();
+    regularCommand = new ConcreteRegularCommand(clientMock);
+    regularCommand.run = jest.fn();
+    regularCommand.onError = jest.fn();
 
     registry = new CommandRegistry(clientMock);
     dispatcher = new CommandDispatcher(clientMock, registry);
-    registryGetCommandSpy = jest.spyOn(registry.commands, 'get').mockReturnValue(command);
+    registryGetCommandSpy = jest.spyOn(registry.commands, 'get').mockReturnValue(regularCommand);
     message = new MessageMock() as unknown as Discord.Message;
     message.content = '!command';
   });
@@ -36,7 +36,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).not.toHaveBeenCalled();
+          expect(regularCommand.run).not.toHaveBeenCalled();
         });
     });
 
@@ -45,7 +45,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).not.toHaveBeenCalled();
+          expect(regularCommand.run).not.toHaveBeenCalled();
         });
     });
 
@@ -54,7 +54,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).not.toHaveBeenCalled();
+          expect(regularCommand.run).not.toHaveBeenCalled();
         });
     });
 
@@ -63,22 +63,22 @@ describe('Classes: Command: CommandDispatcher', () => {
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).not.toHaveBeenCalled();
+          expect(regularCommand.run).not.toHaveBeenCalled();
         });
     });
 
     it('should not run the command if command is guild only and message was not sent in a guild.', () => {
-      command.guildOnly = true;
+      regularCommand.guildOnly = true;
       Object.defineProperty(message, 'guild', { value: null });
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).not.toHaveBeenCalled();
+          expect(regularCommand.run).not.toHaveBeenCalled();
         });
     });
 
     it('should reply if the user does not have enough permissions.', () => {
-      jest.spyOn(command, 'hasPermission').mockReturnValue('Oops...');
+      jest.spyOn(regularCommand, 'hasPermission').mockReturnValue('Oops...');
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -89,43 +89,43 @@ describe('Classes: Command: CommandDispatcher', () => {
     it('should emit commandExecute event.', () => {
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(clientMock.emit).toHaveBeenCalledWith('commandExecute', command, message);
+          expect(clientMock.emit).toHaveBeenCalledWith('commandExecute', regularCommand, message);
         });
     });
 
     it('should run the command if all is correct.', () => {
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).toHaveBeenCalled();
+          expect(regularCommand.run).toHaveBeenCalled();
         });
     });
 
     it('should handle errors if the command throws inside run.', () => {
       const expectedError = new Error('oops');
-      const runSpy = command.run as jest.Mock<any, any>;
+      const runSpy = regularCommand.run as jest.Mock<any, any>;
       runSpy.mockImplementation(() => {
         throw expectedError;
       });
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.onError).toHaveBeenCalledWith(expectedError, message);
+          expect(regularCommand.onError).toHaveBeenCalledWith(expectedError, message);
         });
     });
 
     it('should not execute NSFW command in a non NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: false });
-      command.nsfw = true;
+      regularCommand.nsfw = true;
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).not.toHaveBeenCalled();
+          expect(regularCommand.run).not.toHaveBeenCalled();
         });
     });
 
     it('should reply that the NSFW command may not be executed in a non NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: false });
-      command.nsfw = true;
+      regularCommand.nsfw = true;
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -136,11 +136,11 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should execute the NSFW command in a NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: true });
-      command.nsfw = true;
+      regularCommand.nsfw = true;
 
       return dispatcher.handleMessage(message)
         .then(() => {
-          expect(command.run).toHaveBeenCalled();
+          expect(regularCommand.run).toHaveBeenCalled();
         });
     });
   });

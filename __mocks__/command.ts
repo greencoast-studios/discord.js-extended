@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import ExtendedClient from '../src/classes/ExtendedClient';
-import Command from '../src/classes/command/Command';
+import RegularCommand from '../src/classes/command/RegularCommand';
 
 jest.mock('discord.js');
 
-class ConcreteCommand extends Command {
+class ConcreteRegularCommand extends RegularCommand {
   constructor(client: ExtendedClient, info: Record<string, any> = {}) {
     super(client, {
       name: 'Command',
@@ -20,4 +20,4 @@ class ConcreteCommand extends Command {
   }
 }
 
-export default ConcreteCommand;
+export default ConcreteRegularCommand;

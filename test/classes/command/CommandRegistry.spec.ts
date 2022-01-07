@@ -3,7 +3,7 @@ import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import * as DefaultCommands from '../../../src/classes/command/default';
-import ConcreteCommand from '../../../__mocks__/command';
+import ConcreteRegularCommand from '../../../__mocks__/command';
 
 describe('Classes: Command: CommandRegistry', () => {
   let clientMock: ExtendedClient;
@@ -61,16 +61,16 @@ describe('Classes: Command: CommandRegistry', () => {
   });
 
   describe('registerCommand()', () => {
-    let command: ConcreteCommand;
+    let command: ConcreteRegularCommand;
 
     beforeEach(() => {
-      command = new ConcreteCommand(clientMock, { group: 'group' });
+      command = new ConcreteRegularCommand(clientMock, { group: 'group' });
       registry.registerGroup('group', 'Group');
       registry.registerCommand(command);
     });
 
     it('should throw if command group is not registered.', () => {
-      command = new ConcreteCommand(clientMock, { group: 'unknown' });
+      command = new ConcreteRegularCommand(clientMock, { group: 'unknown' });
 
       expect(() => {
         registry.registerCommand(command);
@@ -84,9 +84,9 @@ describe('Classes: Command: CommandRegistry', () => {
     });
 
     it('should throw if command is already registered by alias.', () => {
-      const command1 = new ConcreteCommand(clientMock, { name: 'cmd', aliases: ['commando'] });
-      const command2 = new ConcreteCommand(clientMock, { name: 'cmd2', aliases: ['cm3', 'cmd'] });
-      const command3 = new ConcreteCommand(clientMock, { name: 'cmd3', aliases: ['commando'] });
+      const command1 = new ConcreteRegularCommand(clientMock, { name: 'cmd', aliases: ['commando'] });
+      const command2 = new ConcreteRegularCommand(clientMock, { name: 'cmd2', aliases: ['cm3', 'cmd'] });
+      const command3 = new ConcreteRegularCommand(clientMock, { name: 'cmd3', aliases: ['commando'] });
 
       registry.registerCommand(command1);
 
@@ -99,7 +99,7 @@ describe('Classes: Command: CommandRegistry', () => {
     });
 
     it('should throw if command aliases contain command name.', () => {
-      const command = new ConcreteCommand(clientMock, { name: 'cmd', aliases: ['cm3', 'cmd'] });
+      const command = new ConcreteRegularCommand(clientMock, { name: 'cmd', aliases: ['cm3', 'cmd'] });
 
       expect(() => {
         registry.registerCommand(command);
@@ -117,7 +117,7 @@ describe('Classes: Command: CommandRegistry', () => {
 
   describe('registerCommands()', () => {
     it('should throw if command group is not registered.', () => {
-      const command = new ConcreteCommand(clientMock, { group: 'unknown' });
+      const command = new ConcreteRegularCommand(clientMock, { group: 'unknown' });
 
       expect(() => {
         registry.registerCommands([command]);
@@ -125,7 +125,7 @@ describe('Classes: Command: CommandRegistry', () => {
     });
 
     it('should throw if command is already registered.', () => {
-      const command = new ConcreteCommand(clientMock, { group: 'group' });
+      const command = new ConcreteRegularCommand(clientMock, { group: 'group' });
       registry.registerGroup('group', 'Group');
 
       expect(() => {
@@ -135,9 +135,9 @@ describe('Classes: Command: CommandRegistry', () => {
 
     it('should register the command.', () => {
       const commands = [
-        new ConcreteCommand(clientMock, { group: 'group1', name: 'cmd1' }),
-        new ConcreteCommand(clientMock, { group: 'group1', name: 'cmd2' }),
-        new ConcreteCommand(clientMock, { group: 'group2', name: 'cmd3' })
+        new ConcreteRegularCommand(clientMock, { group: 'group1', name: 'cmd1' }),
+        new ConcreteRegularCommand(clientMock, { group: 'group1', name: 'cmd2' }),
+        new ConcreteRegularCommand(clientMock, { group: 'group2', name: 'cmd3' })
       ];
       registry.registerGroups([
         ['group1', 'Group1'],
@@ -212,8 +212,8 @@ describe('Classes: Command: CommandRegistry', () => {
           ['group2', 'Group2']
         ]);
         registry.registerCommands([
-          new ConcreteCommand(clientMock, { name: 'cmdName', group: 'group1' }),
-          new ConcreteCommand(clientMock, { name: 'cmdNameWithAlias', group: 'group2', aliases: ['alias1', 'alias2'] })
+          new ConcreteRegularCommand(clientMock, { name: 'cmdName', group: 'group1' }),
+          new ConcreteRegularCommand(clientMock, { name: 'cmdNameWithAlias', group: 'group2', aliases: ['alias1', 'alias2'] })
         ]);
       });
 

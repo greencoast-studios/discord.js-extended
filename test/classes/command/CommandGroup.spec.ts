@@ -1,39 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CommandGroup from '../../../src/classes/command/CommandGroup';
-import Command from '../../../src/classes/command/Command';
+import RegularCommand from '../../../src/classes/command/RegularCommand';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
-import ConcreteCommand from '../../../__mocks__/command';
+import ConcreteRegularCommand from '../../../__mocks__/command';
 
 const clientMock = new ExtendedClient();
 
 describe('Classes: Command: CommandGroup', () => {
   let group: CommandGroup;
-  let command: Command;
+  let regularCommand: RegularCommand;
 
   beforeEach(() => {
     group = new CommandGroup('group', 'Group');
-    command = new ConcreteCommand(clientMock);
+    regularCommand = new ConcreteRegularCommand(clientMock);
   });
-  
+
   describe('registerCommand()', () => {
-    it('should throw if command does not have the same groupID.', () => {
+    it('should throw if regular command does not have the same groupID.', () => {
       group = new CommandGroup('notThisGroup', 'Group');
 
       expect(() => {
-        group.registerCommand(command);
+        group.registerCommand(regularCommand);
       }).toThrow();
     });
 
-    it('should add the command to the group collection.', () => {
-      group.registerCommand(command);
+    it('should add the regular command to the group collection.', () => {
+      group.registerCommand(regularCommand);
 
-      expect(group.commands.get(command.name)).toBe(command);
+      expect(group.commands.get(regularCommand.name)).toBe(regularCommand);
     });
 
-    it('should set the command group.', () => {
-      group.registerCommand(command);
+    it('should set the regular command group.', () => {
+      group.registerCommand(regularCommand);
 
-      expect(command.group).toBe(group);
+      expect(regularCommand.group).toBe(group);
     });
   });
 });
