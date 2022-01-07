@@ -23,7 +23,7 @@ class LevelDataProvider extends DataProvider {
    * @memberof LevelDataProvider
    */
   private db: level.LevelDB<string, any> | null;
-  
+
   /**
    * Instantiate a LevelDB data provider.
    * @param client The client that this data provider will be used by.
@@ -52,7 +52,7 @@ class LevelDataProvider extends DataProvider {
         }
 
         this.db = db!;
-        
+
         this.client.emit('dataProviderInit', this);
 
         return resolve(this);
@@ -98,7 +98,7 @@ class LevelDataProvider extends DataProvider {
 
     try {
       return JSON.parse(await this.db!.get(`${id}:${key}`));
-    } catch (error) {
+    } catch (error: any) {
       if (error.notFound) {
         return defaultValue;
       }
@@ -116,7 +116,7 @@ class LevelDataProvider extends DataProvider {
   public override async getGlobal(key: string, defaultValue?: any): Promise<any> {
     try {
       return JSON.parse(await this.db!.get(`global:${key}`));
-    } catch (error) {
+    } catch (error: any) {
       if (error.notFound) {
         return defaultValue;
       }

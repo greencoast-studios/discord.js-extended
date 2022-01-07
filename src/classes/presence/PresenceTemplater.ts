@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import Discord, { Snowflake } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -89,7 +89,8 @@ class PresenceTemplater extends AsyncTemplater {
 
     return this.client.shard.fetchClientValues('guilds.cache.size')
       .then((results) => {
-        return results.reduce((sum, size) => sum + size, 0).toString();
+        const castedResults = results as number[];
+        return castedResults.reduce((sum, size) => sum + size, 0).toString();
       });
   }
 
@@ -170,7 +171,8 @@ class PresenceTemplater extends AsyncTemplater {
 
     return this.client.shard.fetchClientValues('guilds.cache')
       .then((results) => {
-        return results.reduce((sum, guildCache) => {
+        const castedResults = results as Discord.Collection<Snowflake, Discord.Guild>[];
+        return castedResults.reduce((sum, guildCache) => {
           const memberCounts = guildCache.reduce((sum: number, guild: Discord.Guild) => sum + guild.memberCount, 0);
 
           return sum + memberCounts;

@@ -107,7 +107,7 @@ abstract class Command {
    */
   constructor(client: ExtendedClient, info: CommandInfo) {
     this.client = client;
-    
+
     this.name = info.name;
     this.emoji = info.emoji || ':robot:';
     this.group = null;
@@ -170,7 +170,7 @@ abstract class Command {
    * @returns A promise that resolves the message that was replied to the original message author.
    * @emits `client#commandError`
    */
-  public async onError(error: Error, message: Discord.Message): Promise<Discord.Message> {
+  public async onError(error: unknown, message: Discord.Message): Promise<Discord.Message> {
     this.client.emit('commandError', error, this, message);
 
     let contactOwner = '';
@@ -187,7 +187,7 @@ abstract class Command {
         The error that ocurred:
 
         \`\`\`
-        ${error.stack || error.message}
+        ${error instanceof Error ? error.stack || error.message : error}
         \`\`\`
         `);
       }

@@ -78,7 +78,7 @@ export class ExtendedClient extends Discord.Client {
   /**
    * @param options The client's options. Defaults to an empty object.
    */
-  constructor(options: ExtendedClientOptions = {}) {
+  constructor(options: ExtendedClientOptions = { intents: [] }) {
     if (!options.prefix) {
       options.prefix = '!';
     }
@@ -211,7 +211,7 @@ export class ExtendedClient extends Discord.Client {
     this.on('rateLimit', ClientDefaultHandlers.onRateLimit);
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
-    
+
     return this;
   }
 

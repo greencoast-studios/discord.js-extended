@@ -54,7 +54,7 @@ class ExtraClientDefaultHandlers {
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that
    * triggered the command execution.
    */
-  static onCommandError(error: Error, command: Command, message: Discord.Message): void {
+  static onCommandError(error: unknown, command: Command, message: Discord.Message): void {
     logger.error(`Something happened when executing ${command.name} in ${message.guild?.name || 'DM'}.`);
     logger.error(`Triggering message: ${message.content}`);
     logger.error(error);
@@ -88,7 +88,7 @@ class ExtraClientDefaultHandlers {
    * Log the error that was thrown while updating the client's presence.
    * @param error The error that was thrown.
    */
-  static onPresenceUpdateError(error: Error): void {
+  static onPresenceUpdateError(error: unknown): void {
     logger.error('Could not update presence!');
     logger.error(error);
   }
