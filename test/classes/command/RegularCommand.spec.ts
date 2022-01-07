@@ -10,7 +10,7 @@ jest.mock('discord.js');
 
 const userMock = new UserMock() as unknown as Discord.User;
 
-describe('Classes: Command: Command', () => {
+describe('Classes: Command: RegularCommand', () => {
   let client: ExtendedClient;
   let command: RegularCommand;
   let message: Discord.Message;
