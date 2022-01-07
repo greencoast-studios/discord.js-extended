@@ -13,6 +13,7 @@ import ConfigProvider from './classes/config/ConfigProvider';
 import ConfigValidator from './classes/config/ConfigValidator';
 import DataProvider from './classes/data/DataProvider';
 import Command from './classes/command/Command';
+import RegularCommand from './classes/command/RegularCommand';
 import CommandGroup from './classes/command/CommandGroup';
 import CommandRegistry from './classes/command/CommandRegistry';
 import CommandDispatcher from './classes/command/CommandDispatcher';
@@ -26,7 +27,7 @@ import PresenceData from './interfaces/PresenceData';
 import ConfigProviderOptions from './interfaces/ConfigProviderOptions';
 import CommandInfo from './interfaces/CommandInfo';
 
-import { ConfigValue } from './types';
+import { ConfigValue, CommandTrigger } from './types';
 
 export {
   ExtendedClient,
@@ -40,6 +41,7 @@ export {
   ConfigValidator,
   DataProvider,
   Command,
+  RegularCommand,
   CommandGroup,
   CommandRegistry,
   CommandDispatcher,
@@ -50,5 +52,6 @@ export {
   PresenceData,
   ConfigProviderOptions,
   CommandInfo,
-  ConfigValue
+  ConfigValue,
+  CommandTrigger
 };
