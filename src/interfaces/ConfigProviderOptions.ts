@@ -1,4 +1,4 @@
-import { ConfigValue } from './../types/index';
+import { ConfigValue } from '../types';
 
 /**
  * The config provider's options object. This defines where the config will be pulled from
