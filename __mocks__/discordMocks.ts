@@ -78,6 +78,14 @@ export class UserMock {
   }
 }
 
+export class GuildMemberMock {
+  public displayName: string;
+
+  constructor() {
+    this.displayName = 'member';
+  }
+}
+
 export const mockedPermissionsFor = {
   missing: jest.fn()
 };
@@ -143,5 +151,17 @@ export class ShardClientUtilMock {
 
   constructor() {
     this.fetchClientValues = jest.fn();
+  }
+}
+
+export class InteractionMock {
+  public guild: GuildMock;
+  public member: GuildMemberMock;
+  public channel: TextChannelMock;
+
+  constructor() {
+    this.guild = new GuildMock();
+    this.member = new GuildMemberMock();
+    this.channel = new TextChannelMock();
   }
 }

@@ -32,12 +32,12 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever a command is executed.
    */
-  commandExecute: [Command<CommandTrigger>, Discord.Message],
+  commandExecute: [Command<CommandTrigger>, CommandTrigger],
 
   /**
    * Emitted whenever a command's execution throws.
    */
-  commandError: [unknown, Command<CommandTrigger>, Discord.Message],
+  commandError: [unknown, Command<CommandTrigger>, CommandTrigger],
 
   /**
    * Emitted whenever a command group is registered to this client's command registry.

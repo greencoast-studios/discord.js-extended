@@ -41,23 +41,39 @@ class ExtraClientDefaultHandlers {
   /**
    * Logged who executed a command and in which guild.
    * @param command The command that was executed.
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that
+   * @param trigger The [message](https://discord.js.org/#/docs/main/stable/class/Message) or
+   * [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction) that
    * triggered the command execution.
    */
-  static onCommandExecute(command: Command<CommandTrigger>, message: Discord.Message): void {
-    logger.info(`User ${message.member?.displayName || message.author.username} issued command ${command.name} in ${message.guild?.name || 'DM'}`);
+  static onCommandExecute(command: Command<CommandTrigger>, trigger: CommandTrigger): void {
+    if (trigger instanceof Discord.Message) {
+      logger.info(`User ${trigger.member?.displayName || trigger.author.username} issued command ${command.name} in ${trigger.guild?.name || 'DM'}`);
+    } else {
+      const authorDisplayName = trigger.member instanceof Discord.GuildMember ?
+        trigger.member.displayName :
+        trigger.member?.nick;
+
+      logger.info(`User ${authorDisplayName || trigger.user.username} issued command ${command.name} in ${trigger.guild?.name || 'DM'}`);
+    }
   }
 
   /**
    * Log that a command has thrown an error.
    * @param error The error that was thrown in the command's run method.
    * @param command The command that was executed.
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that
+   * @param trigger The [message](https://discord.js.org/#/docs/main/stable/class/Message) or
+   * [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction) that
    * triggered the command execution.
    */
-  static onCommandError(error: unknown, command: Command<CommandTrigger>, message: Discord.Message): void {
-    logger.error(`Something happened when executing ${command.name} in ${message.guild?.name || 'DM'}.`);
-    logger.error(`Triggering message: ${message.content}`);
+  static onCommandError(error: unknown, command: Command<CommandTrigger>, trigger: CommandTrigger): void {
+    logger.error(`Something happened when executing ${command.name} in ${trigger.guild?.name || 'DM'}.`);
+
+    if (trigger instanceof Discord.Message) {
+      logger.error(`Triggering message: ${trigger.content}`);
+    } else {
+      logger.error(`Triggering interaction had an ID of ${trigger.id}`);
+    }
+
     logger.error(error);
   }
 

@@ -5,7 +5,7 @@ import ExtraClientDefaultHandlers from '../../../src/classes/events/ExtraClientD
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
 import { ConcreteRegularCommand } from '../../../__mocks__/command';
-import { GuildMock, MessageMock } from '../../../__mocks__/discordMocks';
+import { GuildMock, MessageMock, InteractionMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('@greencoast/logger');
 
@@ -14,6 +14,7 @@ const mockedLogger = mocked(logger, true);
 const clientMock = new ExtendedClient();
 const guildMock = new GuildMock() as Discord.Guild;
 const messageMock = new MessageMock() as unknown as Discord.Message;
+const interactionMock = new InteractionMock() as unknown as Discord.Interaction;
 const commandMock = new ConcreteRegularCommand(clientMock);
 const groupMock = new CommandGroup('group', 'Group');
 
@@ -60,8 +61,13 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
   });
 
   describe('onCommandExecute()', () => {
-    it('should call logger.info.', () => {
+    it('should call logger.info if trigger is a message.', () => {
       ExtraClientDefaultHandlers.onCommandExecute(commandMock, messageMock);
+      expect(mockedLogger.info).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call logger.info if trigger is an interaction.', () => {
+      ExtraClientDefaultHandlers.onCommandExecute(commandMock, interactionMock);
       expect(mockedLogger.info).toHaveBeenCalledTimes(1);
     });
   });
@@ -72,6 +78,18 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
       ExtraClientDefaultHandlers.onCommandError(expectedError, commandMock, messageMock);
       expect(mockedLogger.error).toHaveBeenCalledTimes(3);
       expect(mockedLogger.error).toHaveBeenCalledWith(expectedError);
+    });
+
+    it('should log triggering message if trigger is a message.', () => {
+      ExtraClientDefaultHandlers.onCommandError(new Error('oops.'), commandMock, messageMock);
+      expect(mockedLogger.error).toHaveBeenCalledTimes(3);
+      expect(mockedLogger.error.mock.calls[1][0]).toContain('Triggering message:');
+    });
+
+    it('should log triggering message if trigger is an interaction.', () => {
+      ExtraClientDefaultHandlers.onCommandError(new Error('oops.'), commandMock, interactionMock);
+      expect(mockedLogger.error).toHaveBeenCalledTimes(3);
+      expect(mockedLogger.error.mock.calls[1][0]).toContain('Triggering interaction');
     });
   });
 
