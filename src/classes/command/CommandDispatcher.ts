@@ -2,6 +2,7 @@
 import Discord from 'discord.js';
 import ExtendedClient from '../ExtendedClient';
 import CommandRegistry from './CommandRegistry';
+import RegularCommand from './RegularCommand';
 
 /**
  * A command dispatcher. This handles command fetching and execution.
@@ -47,6 +48,11 @@ class CommandDispatcher {
     const commandName = args.shift()?.toLowerCase();
 
     const command = this.registry.resolveCommand(commandName!);
+
+    // TODO: Test this.
+    if (!(command instanceof RegularCommand)) {
+      return;
+    }
 
     if (!command || command.guildOnly && !message.guild) {
       return;

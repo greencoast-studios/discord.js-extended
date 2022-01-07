@@ -3,6 +3,7 @@ import DataProvider from '../classes/data/DataProvider';
 import Command from '../classes/command/Command';
 import CommandGroup from '../classes/command/CommandGroup';
 import PresenceData from '../interfaces/PresenceData';
+import { CommandTrigger } from '../types';
 
 /**
  * The events handled by the {@link ExtendedClient}.
@@ -31,12 +32,12 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever a command is executed.
    */
-  commandExecute: [Command, Discord.Message],
+  commandExecute: [Command<CommandTrigger>, Discord.Message],
 
   /**
    * Emitted whenever a command's execution throws.
    */
-  commandError: [unknown, Command, Discord.Message],
+  commandError: [unknown, Command<CommandTrigger>, Discord.Message],
 
   /**
    * Emitted whenever a command group is registered to this client's command registry.
@@ -46,7 +47,7 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever a command is registered to this client's command registry.
    */
-  commandRegistered: [Command],
+  commandRegistered: [Command<CommandTrigger>],
 
   /**
    * Emitted whenever this client's presence status is updated.

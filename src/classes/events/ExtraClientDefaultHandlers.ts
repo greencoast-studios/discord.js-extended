@@ -2,6 +2,7 @@ import Discord from 'discord.js';
 import logger from '@greencoast/logger';
 import Command from '../command/Command';
 import CommandGroup from '../command/CommandGroup';
+import { CommandTrigger } from '../../types';
 
 /**
  * The default event handlers for the custom events of {@link ExtendedClient}.
@@ -43,7 +44,7 @@ class ExtraClientDefaultHandlers {
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that
    * triggered the command execution.
    */
-  static onCommandExecute(command: Command, message: Discord.Message): void {
+  static onCommandExecute(command: Command<CommandTrigger>, message: Discord.Message): void {
     logger.info(`User ${message.member?.displayName || message.author.username} issued command ${command.name} in ${message.guild?.name || 'DM'}`);
   }
 
@@ -54,7 +55,7 @@ class ExtraClientDefaultHandlers {
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that
    * triggered the command execution.
    */
-  static onCommandError(error: unknown, command: Command, message: Discord.Message): void {
+  static onCommandError(error: unknown, command: Command<CommandTrigger>, message: Discord.Message): void {
     logger.error(`Something happened when executing ${command.name} in ${message.guild?.name || 'DM'}.`);
     logger.error(`Triggering message: ${message.content}`);
     logger.error(error);
@@ -72,7 +73,7 @@ class ExtraClientDefaultHandlers {
    * Log that a command has been registered to the client.
    * @param command The command that was registered.
    */
-  static onCommandRegistered(command: Command): void {
+  static onCommandRegistered(command: Command<CommandTrigger>): void {
     logger.info(`Registered ${command.name} in ${command.group?.name}.`);
   }
 

@@ -1,5 +1,6 @@
 import Discord from 'discord.js';
 import Command from './Command';
+import { CommandTrigger } from '../../types';
 
 /**
  * A command group, contains all the commands related to a group.
@@ -25,7 +26,7 @@ class CommandGroup {
    * @type {Discord.Collection<string, Command>}
    * @memberof CommandGroup
    */
-  public commands: Discord.Collection<string, Command>;
+  public commands: Discord.Collection<string, Command<CommandTrigger>>;
 
   /**
    * @param id The ID of this group.
@@ -43,7 +44,7 @@ class CommandGroup {
    * @returns This command group.
    * @throws Throws if the `groupID` of the command does not match the ID of this group.
    */
-  public registerCommand(command: Command): this {
+  public registerCommand(command: Command<CommandTrigger>): this {
     if (command.groupID !== this.id) {
       throw new Error(`Cannot register ${command.name} inside group ${this.name}, IDs do not match.`);
     }

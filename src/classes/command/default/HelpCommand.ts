@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import Command from '../Command';
+import RegularCommand from '../RegularCommand';
 import ExtendedClient from '../../ExtendedClient';
 
 /**
@@ -8,7 +8,7 @@ import ExtendedClient from '../../ExtendedClient';
  * The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
  * @category misc - Miscellaneous Commands
  */
-class HelpCommand extends Command {
+class HelpCommand extends RegularCommand {
   /**
    * The color of the embed for the help message.
    * @type {Discord.ColorResolvable}

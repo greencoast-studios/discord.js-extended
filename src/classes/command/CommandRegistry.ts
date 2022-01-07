@@ -4,6 +4,7 @@ import Command from './Command';
 import CommandGroup from './CommandGroup';
 import ExtendedClient from '../ExtendedClient';
 import * as DefaultCommands from './default';
+import { CommandTrigger } from '../../types';
 
 /**
  * A command registry. This keeps track of all the commands and command groups registered in the client.
@@ -22,7 +23,7 @@ class CommandRegistry {
    * @type {Discord.Collection<string, Command>}
    * @memberof CommandRegistry
    */
-  public commands: Discord.Collection<string, Command>
+  public commands: Discord.Collection<string, Command<CommandTrigger>>
 
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the groups registered
@@ -46,7 +47,7 @@ class CommandRegistry {
    * @param name The name or alias of the command.
    * @returns The resolved command, or `undefined` if no command is resolved.
    */
-  public resolveCommand(name: string): Command | undefined {
+  public resolveCommand(name: string): Command<CommandTrigger> | undefined {
     return this.commands.get(name) || this.commands.find((command) => command.aliases.includes(name));
   }
 
@@ -97,7 +98,7 @@ class CommandRegistry {
    * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    */
-  public registerCommand(command: Command): this {
+  public registerCommand(command: Command<CommandTrigger>): this {
     const group = this.groups.get(command.groupID);
 
     if (!group) {
@@ -135,7 +136,7 @@ class CommandRegistry {
    * @throws Throws if any of the command's `aliases` is already registered.
    * @emits `client#commandRegistered`
    */
-  public registerCommands(commands: Command[]): this {
+  public registerCommands(commands: Command<CommandTrigger>[]): this {
     for (const command of commands) {
       this.registerCommand(command);
     }
