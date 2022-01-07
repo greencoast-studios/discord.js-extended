@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.6.x
 
       - name: Install Dependencies
         run: npm ci
@@ -45,7 +45,7 @@ jobs:
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           event-type: npm-publish
-    
+
   docs:
     name: Trigger Generate Docs
     runs-on: ubuntu-latest
