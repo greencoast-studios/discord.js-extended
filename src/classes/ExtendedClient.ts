@@ -262,7 +262,7 @@ export class ExtendedClient extends Discord.Client {
    * @returns This client.
    */
   private registerMessageHandler(): this {
-    this.on('message', (message) => this.dispatcher.handleMessage(message));
+    this.on('messageCreate', (message) => this.dispatcher.handleMessage(message));
 
     return this;
   }
