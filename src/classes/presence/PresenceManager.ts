@@ -83,7 +83,7 @@ class PresenceManager {
    * Update the client's presence.
    * @param status The status message to set. It can be a templated message. See {@link PresenceTemplater}.
    * @param data Additional data to pass to the presence updater.
-   * @returns Promise that resolves on presence update.
+   * @returns A promise that resolves on presence update.
    * @emits `client#presenceUpdated`
    * @emits `client#presenceUpdateError`
    */
@@ -91,20 +91,20 @@ class PresenceManager {
     const processedStatus = await this.templater.apply(status);
     const presenceData = { ...this.options, ...data };
 
-    return this.client.user?.setPresence({
-      activity: {
-        name: processedStatus,
-        type: presenceData.type
-      },
-      status: presenceData.status,
-      afk: presenceData.afk
-    })
-      .then(() => {
-        this.client.emit('presenceUpdated', processedStatus, presenceData);
-      })
-      .catch((error) => {
-        this.client.emit('presenceUpdateError', error, processedStatus, presenceData);
+    try {
+      this.client.user?.setPresence({
+        activities: [{
+          name: processedStatus,
+          type: presenceData.type
+        }],
+        status: presenceData.status,
+        afk: presenceData.afk
       });
+
+      this.client.emit('presenceUpdated', processedStatus, presenceData);
+    } catch (error) {
+      this.client.emit('presenceUpdateError', error, processedStatus, presenceData);
+    }
   }
 
   /**

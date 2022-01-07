@@ -36,7 +36,7 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever a command's execution throws.
    */
-  commandError: [Error, Command, Discord.Message],
+  commandError: [unknown, Command, Discord.Message],
 
   /**
    * Emitted whenever a command group is registered to this client's command registry.
@@ -56,7 +56,7 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever updating this client's presence status throws.
    */
-  presenceUpdateError: [Error, string, PresenceData],
+  presenceUpdateError: [unknown, string, PresenceData],
 
   /**
    * Emitted whenever this client's presence manager updates its presence refresh interval.

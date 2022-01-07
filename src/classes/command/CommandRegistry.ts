@@ -145,7 +145,7 @@ class CommandRegistry {
 
   /**
    * Register all commands in a directory. Commands must be located inside subdirectories with the `groupID` as name.
-   * Groups must be registered before-hand, otherwise this method will not pick them up.
+   * Groups must be registered beforehand, otherwise this method will not pick them up.
    * @param path The resolved path to the directory containing all commands.
    * @throws Throws if any of the command's `groupID` is not registered.
    * This may happen if a command with an unregistered group is located inside a registered group subdirectory.

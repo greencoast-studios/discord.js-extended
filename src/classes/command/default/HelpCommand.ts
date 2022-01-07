@@ -11,10 +11,10 @@ import ExtendedClient from '../../ExtendedClient';
 class HelpCommand extends Command {
   /**
    * The color of the embed for the help message.
-   * @type {string}
+   * @type {Discord.ColorResolvable}
    * @memberof HelpCommand
    */
-  public embedColor: string;
+  public embedColor: Discord.ColorResolvable;
 
   /**
    * The thumbnail of the embed for the help message.
@@ -76,7 +76,7 @@ class HelpCommand extends Command {
       embed.addField(field.title, field.text);
     }
 
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] });
   }
 }
 

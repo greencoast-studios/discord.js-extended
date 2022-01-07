@@ -1,18 +1,19 @@
 /* eslint-disable max-lines */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable dot-notation */
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import level from 'level';
 import LevelUP from 'levelup';
 import Discord from 'discord.js';
 import LevelDataProvider from '../../../src/classes/data/LevelDataProvider';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
+import { GuildMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('level');
 
 const mockedLevel = mocked(level, true);
 
-const clientMock = new ExtendedClient({ debug: true });
+const clientMock = new ExtendedClient({ debug: true, intents: [] });
 
 describe('Classes: Data: LevelDataProvider', () => {
   const emitSpy = clientMock.emit as jest.Mock<any, any>;
@@ -128,7 +129,7 @@ describe('Classes: Data: LevelDataProvider', () => {
   });
 
   describe('Data methods:', () => {
-    const guild = new Discord.Guild(clientMock, {});
+    const guild = new GuildMock() as Discord.Guild;
 
     const data = [
       ['key1', 'value1'],
@@ -345,7 +346,7 @@ describe('Classes: Data: LevelDataProvider', () => {
     describe('clear()', () => {
       it('should delete all entries.', () => {
         expect.assertions(3);
-        
+
         return provider.clear(guild)
           .then(() => {
             const keys = data.map(([k]) => k as string);
@@ -381,7 +382,7 @@ describe('Classes: Data: LevelDataProvider', () => {
     describe('clearGlobal()', () => {
       it('should delete all entries.', () => {
         expect.assertions(1);
-        
+
         return provider.clearGlobal()
           .then(() => provider.getGlobal('globalKey'))
           .then((value) => {

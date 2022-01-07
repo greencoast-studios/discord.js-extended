@@ -4,22 +4,21 @@ import Discord from 'discord.js';
 import Command from '../../../src/classes/command/Command';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import ConcreteCommand from '../../../__mocks__/command';
+import { MessageMock, UserMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');
+
+const userMock = new UserMock() as unknown as Discord.User;
 
 describe('Classes: Command: Command', () => {
   let client: ExtendedClient;
   let command: Command;
-  let guild: Discord.Guild;
-  let channel: Discord.TextChannel;
   let message: Discord.Message;
 
   beforeEach(() => {
     client = new ExtendedClient();
     command = new ConcreteCommand(client);
-    guild = new Discord.Guild(client, {});
-    channel = new Discord.TextChannel(guild, {});
-    message = new Discord.Message(client, {}, channel);
+    message = new MessageMock() as unknown as Discord.Message;
   });
 
   describe('hasPermission()', () => {
@@ -46,6 +45,15 @@ describe('Classes: Command: Command', () => {
     it('should return true if userPermissions is provided and author has all permissions.', () => {
       const channel = message.channel as any;
       channel.permissionsFor().missing.mockReturnValue([]);
+      command = new ConcreteCommand(client, { userPermissions: 'YES' });
+
+      expect(command.hasPermission(message)).toBe(true);
+    });
+
+    it('should return true if channel is not text based (absurd).', () => {
+      const channel = message.channel as any;
+      channel.permissionsFor().missing.mockReturnValue(['dont matter']);
+      (channel.isText as jest.Mock<any, any>).mockReturnValue(false);
       command = new ConcreteCommand(client, { userPermissions: 'YES' });
 
       expect(command.hasPermission(message)).toBe(true);
@@ -93,8 +101,8 @@ describe('Classes: Command: Command', () => {
     });
 
     it('should reply with the correct message if an owner is set on the client.', () => {
-      client = new ExtendedClient({ owner: '123' });
-      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(new Discord.User(client, {}));
+      client = new ExtendedClient({ owner: '123', intents: [] });
+      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(userMock);
       command = new ConcreteCommand(client);
 
       command.onError(new Error(), message);
@@ -104,8 +112,8 @@ describe('Classes: Command: Command', () => {
     });
 
     it('should send the error to the owner if errorReporting is enabled.', () => {
-      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true });
-      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(new Discord.User(client, {}));
+      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
+      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(userMock);
       command = new ConcreteCommand(client);
 
       command.onError(new Error(), message);

@@ -5,10 +5,11 @@ import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import Command from '../../../src/classes/command/Command';
 import ConcreteCommand from '../../../__mocks__/command';
+import { MessageMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');
 
-const clientMock = new ExtendedClient({ prefix: '!' });
+const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
 
 describe('Classes: Command: CommandDispatcher', () => {
   let dispatcher: CommandDispatcher;
@@ -25,7 +26,7 @@ describe('Classes: Command: CommandDispatcher', () => {
     registry = new CommandRegistry(clientMock);
     dispatcher = new CommandDispatcher(clientMock, registry);
     registryGetCommandSpy = jest.spyOn(registry.commands, 'get').mockReturnValue(command);
-    message = new Discord.Message(clientMock, {}, new Discord.TextChannel(new Discord.Guild(clientMock, {}), {}));
+    message = new MessageMock() as unknown as Discord.Message;
     message.content = '!command';
   });
 

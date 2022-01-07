@@ -78,7 +78,7 @@ export class ExtendedClient extends Discord.Client {
   /**
    * @param options The client's options. Defaults to an empty object.
    */
-  constructor(options: ExtendedClientOptions = {}) {
+  constructor(options: ExtendedClientOptions = { intents: [] }) {
     if (!options.prefix) {
       options.prefix = '!';
     }
@@ -208,10 +208,11 @@ export class ExtendedClient extends Discord.Client {
     this.on('guildDelete', ClientDefaultHandlers.onGuildDelete);
     this.on('guildUnavailable', ClientDefaultHandlers.onGuildUnavailable);
     this.on('invalidated', ClientDefaultHandlers.onInvalidated);
+    this.on('invalidRequestWarning', ClientDefaultHandlers.onInvalidRequestWarning);
     this.on('rateLimit', ClientDefaultHandlers.onRateLimit);
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
-    
+
     return this;
   }
 
@@ -262,7 +263,7 @@ export class ExtendedClient extends Discord.Client {
    * @returns This client.
    */
   private registerMessageHandler(): this {
-    this.on('message', (message) => this.dispatcher.handleMessage(message));
+    this.on('messageCreate', (message) => this.dispatcher.handleMessage(message));
 
     return this;
   }

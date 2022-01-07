@@ -1,4 +1,4 @@
-import { ConfigValue } from './../../types';
+import { ConfigValue } from '../../types';
 
 /**
  * A validator class for the configuration provider. This class receives an object
@@ -78,12 +78,12 @@ class ConfigValidator {
   }
 
   /**
-   * Casts the values in a object of string values into its corresponding types
+   * Casts the values in an object of string values into its corresponding types
    * based on the types defined in this validator. If a cast is not possible, the value
    * will remain unchanged. This does not mutate the config object given and instead returns
    * a copy of it.
-   * @param config The object of string values to be casted.
-   * @returns An object with the values casted.
+   * @param config The object of string values to be cast.
+   * @returns An object with the values cast.
    */
   public castFromString(config: Record<string, string>): Record<string, ConfigValue> {
     const castedConfig: Record<string, ConfigValue> = { ...config };
@@ -133,7 +133,7 @@ class ConfigValidator {
    * if the cast is not possible.
    * @param value The value to cast.
    * @param type The type to cast the value to.
-   * @returns The casted value.
+   * @returns The cast value.
    * @throws Throws if the type is invalid.
    */
   private tryCastSingleValue(value: ConfigValue, type: string): ConfigValue {

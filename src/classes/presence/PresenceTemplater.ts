@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import Discord, { Snowflake } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -20,7 +20,7 @@ dayjs.extend(timezone);
  * | `{prefix}`       | Get the prefix used by the client.                                                                                          |
  * | `{cur_time}`     | Get the current time in the client's locale.                                                                                |
  * | `{owner_name}`   | Get the owner's name. If no owner is specified then it returns `undefined`.                                                 |
- * | `{client_name}`  | Get the client's name. If the client's user is not ready yet, then it returns `undefined`.                                   |
+ * | `{client_name}`  | Get the client's name. If the client's user is not ready yet, then it returns `undefined`.                                  |
  * | `{uptime}`       | Get the client's uptime since last ready event emitted in a human-readable shape. Returns `null` if no uptime is available. |
  * | `{ready_time}`   | Get the client's time at which the last ready event was emitted. Returns `null` if no `readyAt` timestamp is available.     |
  * | `{num_members}`  | Get the total number of members across all the guilds that the client is connected to.                                      |
@@ -89,7 +89,8 @@ class PresenceTemplater extends AsyncTemplater {
 
     return this.client.shard.fetchClientValues('guilds.cache.size')
       .then((results) => {
-        return results.reduce((sum, size) => sum + size, 0).toString();
+        const castedResults = results as number[];
+        return castedResults.reduce((sum, size) => sum + size, 0).toString();
       });
   }
 
@@ -170,7 +171,8 @@ class PresenceTemplater extends AsyncTemplater {
 
     return this.client.shard.fetchClientValues('guilds.cache')
       .then((results) => {
-        return results.reduce((sum, guildCache) => {
+        const castedResults = results as Discord.Collection<Snowflake, Discord.Guild>[];
+        return castedResults.reduce((sum, guildCache) => {
           const memberCounts = guildCache.reduce((sum: number, guild: Discord.Guild) => sum + guild.memberCount, 0);
 
           return sum + memberCounts;

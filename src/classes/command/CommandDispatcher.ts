@@ -29,7 +29,7 @@ class CommandDispatcher {
     this.client = client;
     this.registry = registry;
   }
-  
+
   /**
    * Handles command fetching and execution.
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this handler.
@@ -53,7 +53,7 @@ class CommandDispatcher {
     }
 
     if (command.nsfw && (message.channel instanceof Discord.TextChannel && !message.channel.nsfw)) {
-      message.reply('This command may only be used in a NSFW channel.');
+      await message.reply('This command may only be used in a NSFW channel.');
       return;
     }
 
@@ -61,10 +61,10 @@ class CommandDispatcher {
       const hasPermission = command.hasPermission(message);
 
       if (typeof hasPermission === 'string') {
-        message.reply(hasPermission);
+        await message.reply(hasPermission);
         return;
       }
-      
+
       this.client.emit('commandExecute', command, message);
       return await command.run(message, args);
     } catch (error) {

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const logger = require('@greencoast/logger');
+const { Intents } = require('discord.js');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
 const LevelDataProvider = require('@greencoast/discord.js-extended/dist/providers/LevelDataProvider').default;
 
@@ -31,7 +32,8 @@ const client = new ExtendedClient({
     type: 'COMPETING'
   },
   config,
-  errorOwnerReporting: true
+  errorOwnerReporting: true,
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES]
 });
 
 const dataProvider = new LevelDataProvider(client, path.join(__dirname, './data'));
