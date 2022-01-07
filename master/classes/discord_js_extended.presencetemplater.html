@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PresenceTemplater | @greencoast/discord.js-extended - v1.2.0</title>
-	<meta name="description" content="Documentation for @greencoast/discord.js-extended - v1.2.0">
+	<title>PresenceTemplater | @greencoast/discord.js-extended - v1.2.1</title>
+	<meta name="description" content="Documentation for @greencoast/discord.js-extended - v1.2.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -24,7 +24,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@greencoast/discord.js-extended - v1.2.0</a>
+					<a href="../index.html" class="title">@greencoast/discord.js-extended - v1.2.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -53,7 +53,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">@greencoast/discord.js-extended - v1.2.0</a>
+					<a href="../modules.html">@greencoast/discord.js-extended - v1.2.1</a>
 				</li>
 				<li>
 					<a href="../modules/discord_js_extended.html">Discord.js-Extended</a>
@@ -72,7 +72,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A templater class to help with the application of templates for presence statuses.</p>
+						<p>An async templater class to help with the application of templates for presence statuses.</p>
 					</div>
 					<p>Supported templates:</p>
 					<table>
@@ -100,7 +100,7 @@
 							</tr>
 							<tr>
 								<td><code>{client_name}</code></td>
-								<td>Get the client&#39;s name. If the client&#39;s user is not ready yet then it returns <code>undefined</code>.</td>
+								<td>Get the client&#39;s name. If the client&#39;s user is not ready yet, then it returns <code>undefined</code>.</td>
 							</tr>
 							<tr>
 								<td><code>{uptime}</code></td>
@@ -108,7 +108,7 @@
 							</tr>
 							<tr>
 								<td><code>{ready_time}</code></td>
-								<td>Get the client&#39;s time at which the last ready event was emitted. Returns <code>null</code> if no <code>readyAt</code> timestamp is available.</td>
+								<td>Get the client&#39;s time at which the last ready event was emitted. Returns <code>null</code> if no <code>readyAt</code> timestamp is available.</td>
 							</tr>
 							<tr>
 								<td><code>{num_members}</code></td>
@@ -125,7 +125,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="discord_js_extended.templater.html" class="tsd-signature-type" data-tsd-kind="Class">Templater</a>
+						<a href="discord_js_extended.asynctemplater.html" class="tsd-signature-type" data-tsd-kind="Class">AsyncTemplater</a>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">PresenceTemplater</span>
@@ -181,24 +181,17 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="discord_js_extended.templater.html">Templater</a>.<a href="discord_js_extended.templater.html#constructor">constructor</a></p>
+								<p>Overrides <a href="discord_js_extended.asynctemplater.html">AsyncTemplater</a>.<a href="discord_js_extended.asynctemplater.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L34">src/classes/presence/PresenceTemplater.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L35">src/classes/presence/PresenceTemplater.ts:35</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>throws</dt>
-									<dd><p>Throws if given key does not correspond to this templater.</p>
-									</dd>
-								</dl>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>client: <a href="discord_js_extended.extendedclient.html" class="tsd-signature-type" data-tsd-kind="Class">ExtendedClient</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The client that this presence templater will use as a data source.</p>
+										<p>The client that this presence async templater will use as a data source.</p>
 									</div>
 								</li>
 							</ul>
@@ -215,12 +208,12 @@
 					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <a href="discord_js_extended.extendedclient.html" class="tsd-signature-type" data-tsd-kind="Class">ExtendedClient</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L34">src/classes/presence/PresenceTemplater.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L35">src/classes/presence/PresenceTemplater.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The client that this presence templater will use as a data source.</p>
+							<p>The client that this presence async templater will use as a data source.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>memberof</dt>
@@ -234,18 +227,18 @@
 					<h3>keys</h3>
 					<div class="tsd-signature tsd-kind-icon">keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="discord_js_extended.templater.html">Templater</a>.<a href="discord_js_extended.templater.html#keys">keys</a></p>
+						<p>Inherited from <a href="discord_js_extended.asynctemplater.html">AsyncTemplater</a>.<a href="discord_js_extended.asynctemplater.html#keys">keys</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/abstract/Templater.ts#L11">src/classes/abstract/Templater.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/abstract/AsyncTemplater.ts#L12">src/classes/abstract/AsyncTemplater.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The keys handled by this templater. They don&#39;t include the curly braces.</p>
+							<p>The keys handled by this async templater. They don&#39;t include the curly braces.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>memberof</dt>
-							<dd><p>Templater</p>
+							<dd><p>AsyncTemplater</p>
 							</dd>
 						</dl>
 					</div>
@@ -257,14 +250,14 @@
 					<a name="apply" class="tsd-anchor"></a>
 					<h3>apply</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">apply<span class="tsd-signature-symbol">(</span>str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">apply<span class="tsd-signature-symbol">(</span>str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="discord_js_extended.templater.html">Templater</a>.<a href="discord_js_extended.templater.html#apply">apply</a></p>
+								<p>Inherited from <a href="discord_js_extended.asynctemplater.html">AsyncTemplater</a>.<a href="discord_js_extended.asynctemplater.html#apply">apply</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/abstract/Templater.ts#L31">src/classes/abstract/Templater.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/abstract/AsyncTemplater.ts#L34">src/classes/abstract/AsyncTemplater.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -281,8 +274,8 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The string with the templates replaced.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the string with the templates replaced.</p>
 						</li>
 					</ul>
 				</section>
@@ -290,14 +283,14 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="discord_js_extended.templater.html">Templater</a>.<a href="discord_js_extended.templater.html#get">get</a></p>
+								<p>Overrides <a href="discord_js_extended.asynctemplater.html">AsyncTemplater</a>.<a href="discord_js_extended.asynctemplater.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L56">src/classes/presence/PresenceTemplater.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L56">src/classes/presence/PresenceTemplater.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -311,7 +304,8 @@
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the corresponding string for the given key.</p>
 						</li>
 					</ul>
 				</section>
@@ -319,22 +313,22 @@
 					<a name="getclientname" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Client<wbr>Name</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Client<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Client<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L117">src/classes/presence/PresenceTemplater.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L124">src/classes/presence/PresenceTemplater.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get the client&#39;s name. If the client&#39;s user is not ready yet then it returns <code>undefined</code>.</p>
+									<p>Get the client&#39;s name. If the client&#39;s user is not ready yet, then it returns <code>undefined</code>.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The client&#39;s name.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the client&#39;s name.</p>
 						</li>
 					</ul>
 				</section>
@@ -342,13 +336,13 @@
 					<a name="getcurrenttime" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Current<wbr>Time</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Current<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Current<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L101">src/classes/presence/PresenceTemplater.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L108">src/classes/presence/PresenceTemplater.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -356,8 +350,8 @@
 									<p>Get the current time in the client&#39;s locale.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The current time.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the current time.</p>
 						</li>
 					</ul>
 				</section>
@@ -365,13 +359,13 @@
 					<a name="getnumberofcommands" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Number<wbr>OfCommands</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Number<wbr>OfCommands<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Number<wbr>OfCommands<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L165">src/classes/presence/PresenceTemplater.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L185">src/classes/presence/PresenceTemplater.ts:185</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -379,8 +373,8 @@
 									<p>Get the number of commands registered to this client.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The number of commands.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the number of commands.</p>
 						</li>
 					</ul>
 				</section>
@@ -388,13 +382,13 @@
 					<a name="getnumberofguilds" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Number<wbr>OfGuilds</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Number<wbr>OfGuilds<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Number<wbr>OfGuilds<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L85">src/classes/presence/PresenceTemplater.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L85">src/classes/presence/PresenceTemplater.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -402,8 +396,8 @@
 									<p>Get the number of guilds the client is connected to.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The number of <a href="https://discord.js.org/#/docs/main/stable/class/Guild">guilds</a>.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the number of <a href="https://discord.js.org/#/docs/main/stable/class/Guild">guilds</a>.</p>
 						</li>
 					</ul>
 				</section>
@@ -411,13 +405,13 @@
 					<a name="getnumberofmembers" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Number<wbr>OfMembers</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Number<wbr>OfMembers<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Number<wbr>OfMembers<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L157">src/classes/presence/PresenceTemplater.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L166">src/classes/presence/PresenceTemplater.ts:166</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -425,8 +419,8 @@
 									<p>Get the total number of members across all the guilds that the client is connected to.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The number of <a href="https://discord.js.org/#/docs/main/stable/class/GuildMember">members</a>.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the number of <a href="https://discord.js.org/#/docs/main/stable/class/GuildMember">members</a>.</p>
 						</li>
 					</ul>
 				</section>
@@ -434,13 +428,13 @@
 					<a name="getownername" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Owner<wbr>Name</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Owner<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Owner<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L109">src/classes/presence/PresenceTemplater.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L116">src/classes/presence/PresenceTemplater.ts:116</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -448,8 +442,8 @@
 									<p>Get the owner&#39;s name. If no owner is specified then it returns <code>undefined</code>.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The owner&#39;s name.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the owner&#39;s name.</p>
 						</li>
 					</ul>
 				</section>
@@ -457,13 +451,13 @@
 					<a name="getprefix" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Prefix</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Prefix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Prefix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L93">src/classes/presence/PresenceTemplater.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L100">src/classes/presence/PresenceTemplater.ts:100</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -471,8 +465,8 @@
 									<p>Get the prefix used by the client.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The client&#39;s prefix.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the client&#39;s prefix.</p>
 						</li>
 					</ul>
 				</section>
@@ -480,23 +474,23 @@
 					<a name="getreadytime" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Ready<wbr>Time</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Ready<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Ready<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L145">src/classes/presence/PresenceTemplater.ts:145</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L154">src/classes/presence/PresenceTemplater.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get the client&#39;s time at which the last ready event was emitted. Returns <code>null</code>
+									<p>Get the client&#39;s time at which the last ready event was emitted. Returns <code>null</code>
 									if no <code>readyAt</code> timestamp is available.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The time the client has gone ready.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the time the client has gone ready.</p>
 						</li>
 					</ul>
 				</section>
@@ -504,13 +498,13 @@
 					<a name="getuptime" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Uptime</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Uptime<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Uptime<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/9453518/src/classes/presence/PresenceTemplater.ts#L126">src/classes/presence/PresenceTemplater.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/presence/PresenceTemplater.ts#L133">src/classes/presence/PresenceTemplater.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -519,8 +513,8 @@
 									Returns <code>null</code> if no uptime is available.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>The client&#39;s uptime.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the client&#39;s uptime.</p>
 						</li>
 					</ul>
 				</section>
@@ -547,6 +541,9 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-reference tsd-parent-kind-module">
 						<a href="../modules/discord_js_extended.html#defaultcommands" class="tsd-kind-icon">Default<wbr>Commands</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="discord_js_extended.asynctemplater.html" class="tsd-kind-icon">Async<wbr>Templater</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="discord_js_extended.clientdefaulthandlers.html" class="tsd-kind-icon">Client<wbr>Default<wbr>Handlers</a>
@@ -688,7 +685,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a>, the 1/6/2022 at 8:10:07 PM</p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a>, the 1/7/2022 at 12:06:18 AM</p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

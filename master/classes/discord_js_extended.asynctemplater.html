@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CommandGroup | @greencoast/discord.js-extended - v1.2.1</title>
+	<title>AsyncTemplater | @greencoast/discord.js-extended - v1.2.1</title>
 	<meta name="description" content="Documentation for @greencoast/discord.js-extended - v1.2.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,10 @@
 					<a href="../modules/discord_js_extended.html">Discord.js-Extended</a>
 				</li>
 				<li>
-					<a href="discord_js_extended.commandgroup.html">CommandGroup</a>
+					<a href="discord_js_extended.asynctemplater.html">AsyncTemplater</a>
 				</li>
 			</ul>
-			<h1>Class CommandGroup</h1>
+			<h1>Class AsyncTemplater</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,9 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A command group, contains all the commands related to a group.</p>
+						<p>An abstract class that helps with the application of templates in strings that require
+							values computed asynchronously.
+						Wrap the template in curly braces inside the string you want to apply the template to.</p>
 					</div>
 				</div>
 			</section>
@@ -80,7 +82,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CommandGroup</span>
+						<span class="target">AsyncTemplater</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="discord_js_extended.presencetemplater.html" class="tsd-signature-type" data-tsd-kind="Class">PresenceTemplater</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -91,21 +98,20 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="discord_js_extended.commandgroup.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="discord_js_extended.asynctemplater.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="discord_js_extended.commandgroup.html#commands" class="tsd-kind-icon">commands</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="discord_js_extended.commandgroup.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="discord_js_extended.commandgroup.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="discord_js_extended.asynctemplater.html#keys" class="tsd-kind-icon">keys</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="discord_js_extended.commandgroup.html#registercommand" class="tsd-kind-icon">register<wbr>Command</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="discord_js_extended.asynctemplater.html#apply" class="tsd-kind-icon">apply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="discord_js_extended.asynctemplater.html#get" class="tsd-kind-icon">get</a></li>
 							</ul>
 						</section>
 					</div>
@@ -117,31 +123,25 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Group<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="discord_js_extended.commandgroup.html" class="tsd-signature-type" data-tsd-kind="Class">CommandGroup</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Async<wbr>Templater<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="discord_js_extended.asynctemplater.html" class="tsd-signature-type" data-tsd-kind="Class">AsyncTemplater</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/command/CommandGroup.ts#L28">src/classes/command/CommandGroup.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/abstract/AsyncTemplater.ts#L12">src/classes/abstract/AsyncTemplater.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>id: <span class="tsd-signature-type">string</span></h5>
+									<h5>keys: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The ID of this group.</p>
-									</div>
-								</li>
-								<li>
-									<h5>name: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The name of this group.</p>
+										<p>All the keys that should be replaced inside the string.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="discord_js_extended.commandgroup.html" class="tsd-signature-type" data-tsd-kind="Class">CommandGroup</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="discord_js_extended.asynctemplater.html" class="tsd-signature-type" data-tsd-kind="Class">AsyncTemplater</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -149,62 +149,21 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="commands" class="tsd-anchor"></a>
-					<h3>commands</h3>
-					<div class="tsd-signature tsd-kind-icon">commands<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Collection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="discord_js_extended.command.html" class="tsd-signature-type" data-tsd-kind="Class">Command</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="keys" class="tsd-anchor"></a>
+					<h3>keys</h3>
+					<div class="tsd-signature tsd-kind-icon">keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/command/CommandGroup.ts#L28">src/classes/command/CommandGroup.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/abstract/AsyncTemplater.ts#L12">src/classes/abstract/AsyncTemplater.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A <a href="https://discord.js.org/#/docs/collection/master/class/Collection">collection</a> of the commands
-							registered to this group, mapped by the command&#39;s name and the command.</p>
+							<p>The keys handled by this async templater. They don&#39;t include the curly braces.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>memberof</dt>
-							<dd><p>CommandGroup</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/command/CommandGroup.ts#L13">src/classes/command/CommandGroup.ts:13</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The ID of this group.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>CommandGroup</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/command/CommandGroup.ts#L20">src/classes/command/CommandGroup.ts:20</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The name of this group.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>CommandGroup</p>
+							<dd><p>AsyncTemplater</p>
 							</dd>
 						</dl>
 					</div>
@@ -213,39 +172,71 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="registercommand" class="tsd-anchor"></a>
-					<h3>register<wbr>Command</h3>
+					<a name="apply" class="tsd-anchor"></a>
+					<h3>apply</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">register<wbr>Command<span class="tsd-signature-symbol">(</span>command<span class="tsd-signature-symbol">: </span><a href="discord_js_extended.command.html" class="tsd-signature-type" data-tsd-kind="Class">Command</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="discord_js_extended.commandgroup.html" class="tsd-signature-type" data-tsd-kind="Class">CommandGroup</a></li>
+						<li class="tsd-signature tsd-kind-icon">apply<span class="tsd-signature-symbol">(</span>str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/command/CommandGroup.ts#L46">src/classes/command/CommandGroup.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/abstract/AsyncTemplater.ts#L34">src/classes/abstract/AsyncTemplater.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Register a command inside this group.</p>
+									<p>Apply the template.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>str: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The string to process.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the string with the templates replaced.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="get" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> get</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greencoast-studios/discord.js-extended/blob/6f0a37d/src/classes/abstract/AsyncTemplater.ts#L27">src/classes/abstract/AsyncTemplater.ts:27</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the actual value that will replace the key inside the template.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>Throws if the <code>groupID</code> of the command does not match the ID of this group.</p>
+									<dd><p>Throws if given key does not correspond to this async templater.</p>
 									</dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>command: <a href="discord_js_extended.command.html" class="tsd-signature-type" data-tsd-kind="Class">Command</a></h5>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The command to register in this group.</p>
+										<p>The key to replace.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="discord_js_extended.commandgroup.html" class="tsd-signature-type" data-tsd-kind="Class">CommandGroup</a></h4>
-							<p>This command group.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise that resolves to the corresponding string for the given key.</p>
 						</li>
 					</ul>
 				</section>
@@ -273,9 +264,27 @@
 					<li class=" tsd-kind-reference tsd-parent-kind-module">
 						<a href="../modules/discord_js_extended.html#defaultcommands" class="tsd-kind-icon">Default<wbr>Commands</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="discord_js_extended.asynctemplater.html" class="tsd-kind-icon">Async<wbr>Templater</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="discord_js_extended.asynctemplater.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="discord_js_extended.asynctemplater.html#keys" class="tsd-kind-icon">keys</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="discord_js_extended.asynctemplater.html#apply" class="tsd-kind-icon">apply</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="discord_js_extended.asynctemplater.html#get" class="tsd-kind-icon">get</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="discord_js_extended.clientdefaulthandlers.html" class="tsd-kind-icon">Client<wbr>Default<wbr>Handlers</a>
 					</li>
@@ -285,30 +294,9 @@
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="discord_js_extended.commanddispatcher.html" class="tsd-kind-icon">Command<wbr>Dispatcher</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-module">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="discord_js_extended.commandgroup.html" class="tsd-kind-icon">Command<wbr>Group</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="discord_js_extended.commandgroup.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="discord_js_extended.commandgroup.html#commands" class="tsd-kind-icon">commands</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="discord_js_extended.commandgroup.html#id" class="tsd-kind-icon">id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="discord_js_extended.commandgroup.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="discord_js_extended.commandgroup.html#registercommand" class="tsd-kind-icon">register<wbr>Command</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="discord_js_extended.commandregistry.html" class="tsd-kind-icon">Command<wbr>Registry</a>
 					</li>
