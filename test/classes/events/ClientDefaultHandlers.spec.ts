@@ -83,6 +83,15 @@ describe('Classes: Events: ClientDefaultHandlers', () => {
     });
   });
 
+  describe('onInvalidRequestWarning()', () => {
+    it('should call logger.warn with the request data.', () => {
+      const data = { count: 1, remainingTime: 100 };
+      ClientDefaultHandlers.onInvalidRequestWarning(data);
+      expect(mockedLogger.warn).toBeCalledTimes(2);
+      expect(mockedLogger.warn.mock.calls[1][0]).toBe(data);
+    });
+  });
+
   describe('onRateLimit()', () => {
     it('should call logger.warn twice.', () => {
       ClientDefaultHandlers.onRateLimit(rateLimitMock);

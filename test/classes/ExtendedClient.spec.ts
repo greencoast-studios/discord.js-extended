@@ -76,7 +76,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register message handler.', () => {
-      expect(client.on).toHaveBeenCalledWith('message', expect.anything());
+      expect(client.on).toHaveBeenCalledWith('messageCreate', expect.anything());
     });
   });
 
@@ -154,7 +154,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register all default events.', () => {
-      const DEFAULT_EVENTS = ['error', 'guildCreate', 'guildDelete', 'guildUnavailable', 'invalidated', 'rateLimit', 'ready', 'warn'];
+      const DEFAULT_EVENTS = ['error', 'guildCreate', 'guildDelete', 'guildUnavailable', 'invalidated', 'invalidRequestWarning', 'rateLimit', 'ready', 'warn'];
 
       client.registerDefaultEvents();
 

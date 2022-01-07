@@ -54,6 +54,16 @@ class ClientDefaultHandlers {
   }
 
   /**
+   * Log whenever the client sends invalid data to Discord. You should avoid sending over 10k invalid requests
+   * to Discord in less than 10 minutes to avoid a ban.
+   * @param data The invalid request information.
+   */
+  static onInvalidRequestWarning(data: Discord.InvalidRequestWarningData): void {
+    logger.warn('Invalid data sent to Discord!');
+    logger.warn(data);
+  }
+
+  /**
    * Log the client's rate limiting messages.
    * @param info The client's rate limiting info.
    */
