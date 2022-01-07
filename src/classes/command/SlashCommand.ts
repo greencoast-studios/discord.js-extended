@@ -19,7 +19,7 @@ abstract class SlashCommand extends Command<Discord.Interaction> {
    * @param interaction The [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
-  public hasPermission(interaction: Discord.Interaction): boolean | string {
+  public override hasPermission(interaction: Discord.Interaction): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {
       return true;
     }
@@ -60,7 +60,7 @@ abstract class SlashCommand extends Command<Discord.Interaction> {
    * @returns A promise that resolves the message that was replied to the original message author.
    * @emits `client#commandError`
    */
-  public async onError(error: unknown, interaction: Discord.Interaction): Promise<Discord.Message> {
+  public override async onError(error: unknown, interaction: Discord.Interaction): Promise<Discord.Message> {
     this.client.emit('commandError', error, this, interaction);
 
     let contactOwner = '';

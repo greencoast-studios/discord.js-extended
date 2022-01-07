@@ -21,7 +21,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
-  public hasPermission(message: Discord.Message): boolean | string {
+  public override hasPermission(message: Discord.Message): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {
       return true;
     }
@@ -62,7 +62,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
    * @returns A promise that resolves the message that was replied to the original message author.
    * @emits `client#commandError`
    */
-  public async onError(error: unknown, message: Discord.Message): Promise<Discord.Message> {
+  public override async onError(error: unknown, message: Discord.Message): Promise<Discord.Message> {
     this.client.emit('commandError', error, this, message);
 
     let contactOwner = '';

@@ -16,7 +16,7 @@ export class ConcreteRegularCommand extends RegularCommand {
     });
   }
 
-  run(message: Discord.Message): Promise<Discord.Message> {
+  override run(message: Discord.Message): Promise<Discord.Message> {
     return Promise.resolve(message);
   }
 }
@@ -31,7 +31,7 @@ export class ConcreteSlashCommand extends SlashCommand {
     });
   }
 
-  run(interaction: Discord.Interaction): Promise<Discord.Message> {
+  override run(interaction: Discord.Interaction): Promise<Discord.Message> {
     return interaction.channel!.send('hi');
   }
 }
