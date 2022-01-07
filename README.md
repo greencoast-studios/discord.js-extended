@@ -1,6 +1,5 @@
 [![ci-build-status](https://img.shields.io/github/workflow/status/greencoast-studios/discord.js-extended/CI?logo=github)](https://github.com/greencoast-studios/discord.js-extended)
 [![issues](https://img.shields.io/github/issues/greencoast-studios/discord.js-extended?logo=github)](https://github.com/greencoast-studios/discord.js-extended)
-[![dependencies](https://img.shields.io/david/greencoast-studios/discord.js-extended)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
 [![bundle-size](https://img.shields.io/bundlephobia/min/@greencoast/discord.js-extended)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
 [![version](https://img.shields.io/npm/v/@greencoast/discord.js-extended?logo=npm)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
 [![djs-version](https://img.shields.io/npm/dependency-version/@greencoast/discord.js-extended/peer/discord.js?logo=npm)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
@@ -13,7 +12,7 @@
 
 Heavily inspired by [discord.js-commando](https://www.npmjs.com/package/discord.js-commando), it includes similar design decisions, however this adds certain functionality that isn't available like a configuration provider and automatic presence management. This package does not include all functionality provided by Commando, in fact, Commando is way more powerful than this library. Nevertheless, this was built to make it easier for us to quickly build bots without having to repeat ourselves that much.
 
-This was made for [Discord.js](https://discord.js.org/#/) v12.5, however any v12 should work fine.
+This was made for [Discord.js](https://discord.js.org/#/) v13.5, however any v12 should work fine.
 
 ## Usage
 
@@ -38,6 +37,7 @@ An example of a bot's configuration may be as follows:
 ```js
 const path = require('path');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
+const { Intents } = require('discord.js');
 
 const config = new ConfigProvider({
   env: process.env, // This adds the environment variables to the config.
@@ -51,13 +51,14 @@ const config = new ConfigProvider({
   types: { // These are the types of the configuration. The provider validates that the config receives the proper configuration types.
     PREFIX: 'string',
     TOKEN: ['string', 'null'], // With a 'null' type, you can pass 'null' to have it as null.
-    MY_ID: 'number'
+    MY_ID: 'number',
     OPTIONAL_FLAG: ['boolean', 'null']
   }
 });
 
 const client = new ExtendedClient({
-  config
+  config,
+  intents: [Intents.FLAGS.GUILDS]
 });
 ```
 
@@ -70,6 +71,7 @@ This package exports an extension of the regular [Discord.js Client](https://dis
 ```js
 const path = require('path');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
+const { Intents } = require('discord.js');
 
 const config = new ConfigProvider({
   env: process.env,
@@ -88,7 +90,8 @@ const client = new ExtendedClient({
     templates: ['presence 1', 'presence 2'], // The presence statuses used by this bot.
     refreshInterval: 3600000 // Update the bot's presence every hour.
   },
-  errorOwnerReporting: true // Sends DMs to the bot's owner whenever a command throws an error.
+  errorOwnerReporting: true, // Sends DMs to the bot's owner whenever a command throws an error.
+  intents: [Intents.FLAGS.GUILDS]
 });
 
 client.login(<YOUR_DISCORD_TOKEN_HERE>);
