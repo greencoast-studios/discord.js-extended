@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import fs from 'fs';
 import ConfigProvider from '../../../src/classes/config/ConfigProvider';
 
@@ -27,7 +27,7 @@ describe('Classes: Config: ConfigProvider', () => {
 
       it('should return any value from default.', () => {
         config = new ConfigProvider({ default: mockedDefault });
-        
+
         expect(config.get('TOKEN')).toBe(mockedDefault.TOKEN);
         expect(config.get('OTHER_OPTION')).toBe(mockedDefault.OTHER_OPTION);
       });

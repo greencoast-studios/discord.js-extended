@@ -8,7 +8,7 @@ describe('Classes: ExtendedClient', () => {
   let client: ExtendedClient;
 
   beforeEach(() => {
-    client = new ExtendedClient({ owner: MOCKED_OWNER_ID });
+    client = new ExtendedClient({ owner: MOCKED_OWNER_ID, intents: [] });
   });
 
   it('should have an options property.', () => {
@@ -48,10 +48,10 @@ describe('Classes: ExtendedClient', () => {
       client = new ExtendedClient();
       expect(client.once).not.toHaveBeenCalledWith('ready', expect.anything());
     });
-  
+
     it('should fetch the owner in the constructor if an owner was provided.', () => {
       const listener = onceSpy.mock.calls[0][1].bind(client);
-      
+
       expect.assertions(2);
       return listener()
         .then(() => {
@@ -59,13 +59,13 @@ describe('Classes: ExtendedClient', () => {
           expect(client.users.fetch).toHaveBeenCalledWith(MOCKED_OWNER_ID);
         });
     });
-  
+
     it('should emit a warn and error event in the constructor if the owner does not exist.', () => {
       const expectedError = new Error('oops');
       fetchSpy.mockImplementation(() => Promise.reject(expectedError));
 
       const listener = onceSpy.mock.calls[0][1].bind(client);
-  
+
       expect.assertions(3);
       return listener()
         .then(() => {
@@ -164,7 +164,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register debug event if debug is enabled.', () => {
-      client = new ExtendedClient({ debug: true });
+      client = new ExtendedClient({ debug: true, intents: [] });
       client.registerDefaultEvents();
 
       expect(client.on).toHaveBeenCalledWith('debug', expect.anything());
@@ -184,7 +184,7 @@ describe('Classes: ExtendedClient', () => {
 
     it('should register all default extra events.', () => {
       const DEFAULT_EVENTS = ['dataProviderAdd', 'dataProviderClear', 'dataProviderInit', 'dataProviderDestroy', 'commandExecute', 'commandError', 'groupRegistered', 'commandRegistered', 'presenceUpdated', 'presenceUpdateError', 'presenceRefreshInterval'];
-      
+
       client.registerExtraDefaultEvents();
 
       DEFAULT_EVENTS.forEach((event) => {

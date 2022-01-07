@@ -1,19 +1,19 @@
-import { mocked } from 'ts-jest/utils';
-import logger from '@greencoast/logger';
+import { mocked } from 'jest-mock';
 import Discord from 'discord.js';
+import logger from '@greencoast/logger';
 import ExtraClientDefaultHandlers from '../../../src/classes/events/ExtraClientDefaultHandlers';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
 import ConcreteCommand from '../../../__mocks__/command';
+import { GuildMock, MessageMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('@greencoast/logger');
 
 const mockedLogger = mocked(logger, true);
 
 const clientMock = new ExtendedClient();
-const guildMock = new Discord.Guild(clientMock, {});
-const channelMock = new Discord.TextChannel(guildMock, {});
-const messageMock = new Discord.Message(clientMock, {}, channelMock);
+const guildMock = new GuildMock() as Discord.Guild;
+const messageMock = new MessageMock() as unknown as Discord.Message;
 const commandMock = new ConcreteCommand(clientMock);
 const groupMock = new CommandGroup('group', 'Group');
 
@@ -58,7 +58,7 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
       expect(mockedLogger.warn).toHaveBeenCalledTimes(1);
     });
   });
-  
+
   describe('onCommandExecute()', () => {
     it('should call logger.info.', () => {
       ExtraClientDefaultHandlers.onCommandExecute(commandMock, messageMock);
@@ -81,21 +81,21 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
       expect(mockedLogger.info).toHaveBeenCalledTimes(1);
     });
   });
-  
+
   describe('onCommandRegistered()', () => {
     it('should call logger.info.', () => {
       ExtraClientDefaultHandlers.onCommandRegistered(commandMock);
       expect(mockedLogger.info).toHaveBeenCalledTimes(1);
     });
   });
-  
+
   describe('onPresenceUpdated()', () => {
     it('should call logger.info.', () => {
       ExtraClientDefaultHandlers.onPresenceUpdated('status');
       expect(mockedLogger.info).toHaveBeenCalledTimes(1);
     });
   });
-  
+
   describe('onPresenceUpdateError()', () => {
     it('should call logger.error.', () => {
       const expectedError = new Error('oops');
@@ -104,7 +104,7 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
       expect(mockedLogger.error).toHaveBeenCalledWith(expectedError);
     });
   });
-  
+
   describe('onPresenceRefreshInterval()', () => {
     it('should info log if the refresh interval is disabled.', () => {
       ExtraClientDefaultHandlers.onPresenceRefreshInterval(null);
