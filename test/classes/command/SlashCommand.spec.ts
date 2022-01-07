@@ -21,6 +21,53 @@ describe('Classes: Command: SlashCommand', () => {
     interaction = new InteractionMock() as unknown as Discord.Interaction;
   });
 
+  describe('constructor', () => {
+    it('should throw if command name is too short or too long.', () => {
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { name: '' });
+      }).toThrow();
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { name: '8129730128371298361290836712093812721903871203987' });
+      }).toThrow();
+    });
+
+    it('should throw if name contains upper-cased characters.', () => {
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { name: 'SlashCommand' });
+      }).toThrow();
+    });
+
+    it('should throw if description is too short or too long.', () => {
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { description: '' });
+      }).toThrow();
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { description: '812973012012732109321093712093127039127312093721093127031297310973120738371298361290836712093812721903871203987' });
+      }).toThrow();
+    });
+
+    it('should throw if any of the aliases is too short or too long.', () => {
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { aliases: [''] });
+      }).toThrow();
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { aliases: ['8129730128371298361290836712093812721903871203987'] });
+      }).toThrow();
+    });
+
+    it('should throw if any of the aliases contains upper-cased characters.', () => {
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { aliases: ['SlashCommand'] });
+      }).toThrow();
+    });
+
+    it('should not throw if command info is correct.', () => {
+      expect(() => {
+        command = new ConcreteSlashCommand(client, { name: 'name', description: 'Description.', aliases: ['cmd1'] });
+      }).not.toThrow();
+    });
+  });
+
   describe('hasPermission()', () => {
     it('should return true if command is not ownerOnly and it does not require userPermissions.', () => {
       command = new ConcreteSlashCommand(client, { ownerOnly: false, userPermissions: null });

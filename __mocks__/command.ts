@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import ExtendedClient from '../src/classes/ExtendedClient';
 import RegularCommand from '../src/classes/command/RegularCommand';
 import SlashCommand from '../src/classes/command/SlashCommand';
@@ -24,9 +25,10 @@ export class ConcreteRegularCommand extends RegularCommand {
 export class ConcreteSlashCommand extends SlashCommand {
   constructor(client: ExtendedClient, info: Record<string, any> = {}) {
     super(client, {
-      name: 'SlashCommand',
+      name: 'slash_command',
       description: 'description',
       group: 'group',
+      dataBuilder: new SlashCommandBuilder(),
       ...info
     });
   }

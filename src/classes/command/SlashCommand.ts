@@ -1,13 +1,44 @@
 /* eslint-disable max-statements */
 import Discord from 'discord.js';
-import Command from './Command';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { stripIndents } from 'common-tags';
+import ExtendedClient from '../ExtendedClient';
+import Command from './Command';
+import SlashCommandInfo from '../../interfaces/SlashCommandInfo';
+import SlashCommandValidator from './SlashCommandValidator';
 
 /**
  * An abstract interaction based command class. Extend this class to define your command's functionality.
  * This class serves as a base for interaction based commands (slash commands).
  */
 abstract class SlashCommand extends Command<Discord.Interaction> {
+  /**
+   * The data builder for this slash command.
+   * @type SlashCommandBuilder
+   * @memberof SlashCommand
+   */
+  public dataBuilder: SlashCommandBuilder;
+
+  /**
+   * @param client The client that this command will be used by.
+   * @param info This command's specific information.
+   * @throws Throws if no `info.dataBuilder` is not specified.
+   */
+  constructor(client: ExtendedClient, info: SlashCommandInfo) {
+    if (!info.dataBuilder) {
+      throw new Error('Data builder is required for any slash command!');
+    }
+
+    super(client, info);
+
+    SlashCommandValidator.validate(this);
+
+    this.dataBuilder = info.dataBuilder;
+
+    this.dataBuilder.setName(info.name);
+    this.dataBuilder.setDescription(info.description);
+  }
+
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
    * @param interaction The [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction) that triggered this command.
