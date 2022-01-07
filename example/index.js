@@ -24,7 +24,7 @@ const client = new ExtendedClient({
   prefix: config.get('PREFIX'),
   owner: '191330192868769793',
   debug: true,
-  presence: {
+  presence: {
     templates: ['{num_guilds} guilds!', '{num_members} members!', 'owner: {owner_name}', '{uptime}', '{ready_time}'],
     refreshInterval: 10000, // Presence gets changed every 10 seconds.
     status: 'dnd',

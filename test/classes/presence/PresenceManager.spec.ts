@@ -132,10 +132,12 @@ describe('Classes: Presence: PresenceManager', () => {
       expect(clearIntervalSpy).toHaveBeenCalledWith(oldHandle);
     });
 
-    it('should update presence when interval hits.', () => {
+    it('should update presence when interval hits.', async() => {
+      const updateSpy = jest.spyOn(manager, 'update');
+
       manager.setRefreshInterval(1000);
       jest.advanceTimersToNextTimer();
-      expect(mockedTemplates).toContain(setPresenceSpy.mock.calls[0][0].activity.name);
+      expect(updateSpy).toHaveBeenCalledTimes(2); // Initial + Timer.
     });
 
     it('should emit a presenceRefreshInterval event when refreshInterval has been removed.', () => {

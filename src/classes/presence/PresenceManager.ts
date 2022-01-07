@@ -87,8 +87,8 @@ class PresenceManager {
    * @emits `client#presenceUpdated`
    * @emits `client#presenceUpdateError`
    */
-  public update(status: string, data: PresenceData = {}): Promise<void> | undefined {
-    const processedStatus = this.templater.apply(status);
+  public async update(status: string, data: PresenceData = {}): Promise<void> {
+    const processedStatus = await this.templater.apply(status);
     const presenceData = { ...this.options, ...data };
 
     return this.client.user?.setPresence({
@@ -117,7 +117,7 @@ class PresenceManager {
   public setRefreshInterval(refreshInterval: number | null = null): void {
     if (!refreshInterval) {
       this.options.refreshInterval = null;
-      
+
       if (this.refreshIntervalHandle) {
         clearInterval(this.refreshIntervalHandle);
       }
@@ -140,7 +140,7 @@ class PresenceManager {
 
     this.randomlyUpdate();
     this.refreshIntervalHandle = setInterval(() => this.randomlyUpdate(), refreshInterval);
-    
+
     this.client.emit('presenceRefreshInterval', this.options.refreshInterval);
   }
 
@@ -150,7 +150,7 @@ class PresenceManager {
    * @emits `client#presenceUpdated`
    * @emits `client#presenceUpdateError`
    */
-  public randomlyUpdate(): Promise<void> | undefined {
+  public randomlyUpdate(): Promise<void> {
     return this.update(randomArrayItem(this.options.templates!));
   }
 }

@@ -20,6 +20,8 @@ abstract class Templater {
   /**
    * Get the actual value that will replace the key inside the template.
    * @param key The key to replace.
+   * @returns The corresponding string for the given key.
+   * @throws Throws if given key does not correspond to this templater.
    */
   public abstract get(key: string): string;
 
@@ -30,7 +32,13 @@ abstract class Templater {
    */
   public apply(str: string): string {
     return this.keys.reduce((cur, key) => {
-      return cur.replace(new RegExp(`{${key}}`, 'gi'), this.get(key));
+      const regex = new RegExp(`{${key}}`, 'gi');
+
+      if (regex.test(cur)) {
+        return cur.replace(regex, this.get(key));
+      }
+
+      return cur;
     }, str);
   }
 }
