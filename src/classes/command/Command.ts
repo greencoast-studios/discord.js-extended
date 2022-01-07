@@ -5,7 +5,8 @@ import CommandInfo from '../../interfaces/CommandInfo';
 import { CommandTrigger } from '../../types';
 
 /**
- * An abstract command class. Extend this class to define your command's functionality.
+ * An abstract base command class. You should probably not extend this yourself
+ * and instead should extend {@link RegularCommand} or {@link SlashCommand}.
  */
 abstract class Command<T extends CommandTrigger> {
   /**

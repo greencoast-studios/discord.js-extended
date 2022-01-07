@@ -4,7 +4,9 @@ import { stripIndents } from 'common-tags';
 import Command from './Command';
 
 /**
- * An abstract command class. Extend this class to define your command's functionality.
+ * An abstract message based command class. Extend this class to define your command's functionality.
+ * This class serves as a base for message based commands. You should always prefer to use {@link SlashCommand}
+ * instead of this one.
  */
 abstract class RegularCommand extends Command<Discord.Message> {
   /**
@@ -74,7 +76,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
         \`\`\`
         ${message.content}
         \`\`\`
-        The error that ocurred:
+        The error that occurred:
 
         \`\`\`
         ${error instanceof Error ? error.stack || error.message : error}
@@ -83,7 +85,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
       }
     }
 
-    return message.reply(`An error has ocurred when running the command ${this.name}.${contactOwner}`);
+    return message.reply(`An error has occurred when running the command ${this.name}.${contactOwner}`);
   }
 }
 
