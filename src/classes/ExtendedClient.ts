@@ -99,7 +99,7 @@ export class ExtendedClient extends Discord.Client {
     this.dispatcher = new CommandDispatcher(this, this.registry);
 
     this.fetchOwner();
-    this.registerMessageHandler();
+    this.registerMessageHandler().registerInteractionHandler();
   }
 
   /**
@@ -264,6 +264,16 @@ export class ExtendedClient extends Discord.Client {
    */
   private registerMessageHandler(): this {
     this.on('messageCreate', (message) => this.dispatcher.handleMessage(message));
+
+    return this;
+  }
+
+  /**
+   * Register the interaction event handler for the {@link CommandDispatcher}.
+   * @return This client.
+   */
+  private registerInteractionHandler(): this {
+    this.on('interactionCreate', (interaction) => this.dispatcher.handleInteraction(interaction));
 
     return this;
   }

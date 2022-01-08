@@ -75,8 +75,12 @@ describe('Classes: ExtendedClient', () => {
         });
     });
 
-    it('should register message handler.', () => {
+    it('should register messageCreate handler.', () => {
       expect(client.on).toHaveBeenCalledWith('messageCreate', expect.anything());
+    });
+
+    it('should register interactionCreate handler.', () => {
+      expect(client.on).toHaveBeenCalledWith('interactionCreate', expect.anything());
     });
   });
 

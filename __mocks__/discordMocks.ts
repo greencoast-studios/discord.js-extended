@@ -158,10 +158,16 @@ export class InteractionMock {
   public guild: GuildMock;
   public member: GuildMemberMock;
   public channel: TextChannelMock;
+  public isCommand: jest.Mock;
+  public inGuild: jest.Mock;
+  public reply: jest.Mock;
 
   constructor() {
     this.guild = new GuildMock();
     this.member = new GuildMemberMock();
     this.channel = new TextChannelMock();
+    this.isCommand = jest.fn();
+    this.inGuild = jest.fn();
+    this.reply = jest.fn();
   }
 }
