@@ -162,6 +162,18 @@ export class ExtendedClient extends Discord.Client {
   }
 
   /**
+   * The ID of the guild used to test this bot. It is not required, however
+   * it is recommended to specify one. This is used to automatically deploy
+   * slash commands to the testing guild.
+   * @readonly
+   * @type {string | undefined}
+   * @memberof ExtendedClient
+   */
+  get testingGuildID(): string | undefined {
+    return this.options.testingGuildID;
+  }
+
+  /**
    * Set the client's data provider. It is not necessary to initialize the provider as it is done here.
    * @param dataProvider The data provider.
    * @returns A promise that resolves with the data provider initialized.
@@ -233,6 +245,7 @@ export class ExtendedClient extends Discord.Client {
     this.on('presenceUpdated', ExtraClientDefaultHandlers.onPresenceUpdated);
     this.on('presenceUpdateError', ExtraClientDefaultHandlers.onPresenceUpdateError);
     this.on('presenceRefreshInterval', ExtraClientDefaultHandlers.onPresenceRefreshInterval);
+    this.on('commandsDeployed', ExtraClientDefaultHandlers.onCommandsDeployed);
 
     return this;
   }

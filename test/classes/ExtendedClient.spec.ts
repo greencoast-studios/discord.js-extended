@@ -35,6 +35,10 @@ describe('Classes: ExtendedClient', () => {
     expect(client).toHaveProperty('errorOwnerReporting');
   });
 
+  it('should have a testingGuildID property.', () => {
+    expect(client).toHaveProperty('testingGuildID');
+  });
+
   describe('constructor', () => {
     let onceSpy: jest.Mock<any, any>;
     let fetchSpy: jest.Mock<any, any>;
@@ -187,7 +191,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register all default extra events.', () => {
-      const DEFAULT_EVENTS = ['dataProviderAdd', 'dataProviderClear', 'dataProviderInit', 'dataProviderDestroy', 'commandExecute', 'commandError', 'groupRegistered', 'commandRegistered', 'presenceUpdated', 'presenceUpdateError', 'presenceRefreshInterval'];
+      const DEFAULT_EVENTS = ['dataProviderAdd', 'dataProviderClear', 'dataProviderInit', 'dataProviderDestroy', 'commandExecute', 'commandError', 'groupRegistered', 'commandRegistered', 'presenceUpdated', 'presenceUpdateError', 'presenceRefreshInterval', 'commandsDeployed'];
 
       client.registerExtraDefaultEvents();
 
