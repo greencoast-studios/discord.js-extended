@@ -40,7 +40,14 @@ interface ExtendedClientOptions extends Discord.ClientOptions {
    * An owner must be set for this option to work.
    * @defaultValue `false`
    */
-  errorOwnerReporting?: boolean
+  errorOwnerReporting?: boolean,
+
+  /**
+   * The ID of the guild used to test this bot. It is not required, however
+   * it is recommended to specify one. This is used to automatically deploy
+   * slash commands to the testing guild.
+   */
+  testingGuildID?: string
 }
 
 export default ExtendedClientOptions;

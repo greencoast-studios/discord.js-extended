@@ -2,9 +2,10 @@
 import Discord from 'discord.js';
 import HelpCommand from '../../../../src/classes/command/default/HelpCommand';
 import ExtendedClient from '../../../../src/classes/ExtendedClient';
+import { MessageMock } from '../../../../__mocks__/discordMocks';
 
-const clientMock = new ExtendedClient({ prefix: '!' });
-const messageMock = new Discord.Message(clientMock, {}, new Discord.TextChannel(new Discord.Guild(clientMock, {}), {}));
+const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
+const messageMock = new MessageMock() as unknown as Discord.Message;
 
 describe('Classes: Command: Default: HelpCommand', () => {
   let command: HelpCommand;
@@ -29,12 +30,12 @@ describe('Classes: Command: Default: HelpCommand', () => {
 
   describe('run()', () => {
     it('should send an embed.', () => {
-      const sendSpy = messageMock.channel.send as jest.Mock<any, any>;
-      
+      const sendSpy = messageMock.channel.send as jest.Mock;
+
       return command.run(messageMock)
         .then(() => {
           expect(sendSpy).toHaveBeenCalledTimes(1);
-          expect(sendSpy.mock.calls[0][0]).toBeInstanceOf(Discord.MessageEmbed);
+          expect(sendSpy.mock.calls[0][0].embeds[0]).toBeInstanceOf(Discord.MessageEmbed);
         });
     });
   });

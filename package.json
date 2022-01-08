@@ -1,6 +1,6 @@
 {
   "name": "@greencoast/discord.js-extended",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "An utility to facilitate the repetitive tasks when creating discord bots. Used by Greencoast Studios.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,7 +17,7 @@
     "docs:watch": "npm run docs -- --watch"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16.6"
   },
   "repository": {
     "type": "git",
@@ -37,37 +37,42 @@
   },
   "homepage": "https://github.com/greencoast-studios/discord.js-extended#readme",
   "devDependencies": {
-    "@types/common-tags": "^1.8.0",
-    "@types/humanize-duration": "^3.25.0",
-    "@types/jest": "^26.0.23",
+    "@types/common-tags": "^1.8.1",
+    "@types/humanize-duration": "^3.27.1",
+    "@types/jest": "^27.4.0",
     "@types/level": "^6.0.0",
-    "@types/node": "^15.12.4",
-    "@types/require-all": "^3.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "babel-jest": "^27.0.2",
-    "discord.js": "^12.5.3",
-    "eslint": "^7.29.0",
+    "@types/lodash": "^4.14.178",
+    "@types/node": "^17.0.8",
+    "@types/require-all": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "babel-jest": "^27.4.6",
+    "discord.js": "^13.5.0",
+    "eslint": "^7.32.0",
     "eslint-config-greencoast": "0.0.2",
-    "jest": "^27.0.4",
-    "level": "^7.0.0",
+    "jest": "^27.4.7",
+    "level": "^7.0.1",
     "level-test": "^9.0.0",
     "text-encoding": "^0.7.0",
-    "ts-jest": "^27.0.3",
-    "ts-node": "^10.0.0",
-    "typedoc": "^0.21.1",
-    "typedoc-plugin-extras": "^1.1.8",
-    "typescript": "^4.3.4"
+    "ts-jest": "^27.1.2",
+    "ts-node": "^10.4.0",
+    "typedoc": "^0.22.10",
+    "typedoc-plugin-extras": "^2.2.3",
+    "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "discord.js": "~12",
+    "discord.js": "~13",
     "level": "~7"
   },
   "dependencies": {
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
     "@greencoast/logger": "^1.1.0",
-    "common-tags": "^1.8.0",
-    "dayjs": "^1.10.5",
-    "humanize-duration": "^3.27.0",
+    "common-tags": "^1.8.2",
+    "dayjs": "^1.10.7",
+    "discord-api-types": "^0.26.1",
+    "humanize-duration": "^3.27.1",
+    "lodash": "^4.17.21",
     "require-all": "^3.0.0"
   }
 }

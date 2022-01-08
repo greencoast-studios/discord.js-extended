@@ -1,8 +1,10 @@
 import Discord, { ClientEvents } from 'discord.js';
 import DataProvider from '../classes/data/DataProvider';
 import Command from '../classes/command/Command';
+import SlashCommand from '../classes/command/SlashCommand';
 import CommandGroup from '../classes/command/CommandGroup';
 import PresenceData from '../interfaces/PresenceData';
+import { CommandTrigger } from '../types';
 
 /**
  * The events handled by the {@link ExtendedClient}.
@@ -31,12 +33,12 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever a command is executed.
    */
-  commandExecute: [Command, Discord.Message],
+  commandExecute: [Command<CommandTrigger>, CommandTrigger],
 
   /**
    * Emitted whenever a command's execution throws.
    */
-  commandError: [Error, Command, Discord.Message],
+  commandError: [unknown, Command<CommandTrigger>, CommandTrigger],
 
   /**
    * Emitted whenever a command group is registered to this client's command registry.
@@ -46,7 +48,7 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever a command is registered to this client's command registry.
    */
-  commandRegistered: [Command],
+  commandRegistered: [Command<CommandTrigger>],
 
   /**
    * Emitted whenever this client's presence status is updated.
@@ -56,12 +58,17 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever updating this client's presence status throws.
    */
-  presenceUpdateError: [Error, string, PresenceData],
+  presenceUpdateError: [unknown, string, PresenceData],
 
   /**
    * Emitted whenever this client's presence manager updates its presence refresh interval.
    */
-  presenceRefreshInterval: [number | null]
+  presenceRefreshInterval: [number | null],
+
+  /**
+   * Emitted whenever slash commands have been deployed.
+   */
+  commandsDeployed: [SlashCommand[], string | null]
 }
 
 export default ExtendedClientEvents;

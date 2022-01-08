@@ -51,7 +51,7 @@ import { ConfigValue } from '../../types';
  * const myVariable = client.config.get('MY_VARIABLE');
  * ```
  *
- * It is also recommended to specify the types of the config. Check {@link ConfigValidator} for more information.
+ * It is also recommended specifying the types of the config. Check {@link ConfigValidator} for more information.
  */
 class ConfigProvider {
   /**
@@ -100,7 +100,7 @@ class ConfigProvider {
 
   /**
    * Get the value corresponding to the provided key.
-   * @param key The key of the configuration. Keys are upper cased.
+   * @param key The key of the configuration. Keys are upper-cased.
    * @returns The corresponding value.
    */
   public get(key: string): ConfigValue | undefined {
@@ -152,7 +152,7 @@ class ConfigProvider {
       .reduce((obj, key) => {
         return { ...obj, [key.substring('DISCORD_'.length)]: env[key] };
       }, {});
-    
+
     const castedConfig = this.validator.castFromString(configFromEnv);
 
     for (const key in castedConfig) {

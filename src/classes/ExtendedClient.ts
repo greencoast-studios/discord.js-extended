@@ -5,6 +5,7 @@ import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
 import CommandRegistry from './command/CommandRegistry';
 import CommandDispatcher from './command/CommandDispatcher';
+import SlashCommandDeployer from './command/SlashCommandDeployer';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 import ExtraClientDefaultHandlers from './events/ExtraClientDefaultHandlers';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
@@ -76,9 +77,17 @@ export class ExtendedClient extends Discord.Client {
   public dispatcher: CommandDispatcher;
 
   /**
+   * This client's slash command deployer.
+   * @type {SlashCommandDeployer}
+   * @memberof ExtendedClient
+   */
+  public deployer: SlashCommandDeployer;
+
+  /**
    * @param options The client's options. Defaults to an empty object.
    */
-  constructor(options: ExtendedClientOptions = {}) {
+  // eslint-disable-next-line max-statements
+  constructor(options: ExtendedClientOptions = { intents: [] }) {
     if (!options.prefix) {
       options.prefix = '!';
     }
@@ -97,9 +106,10 @@ export class ExtendedClient extends Discord.Client {
     this.dataProvider = null;
     this.registry = new CommandRegistry(this);
     this.dispatcher = new CommandDispatcher(this, this.registry);
+    this.deployer = new SlashCommandDeployer(this);
 
     this.fetchOwner();
-    this.registerMessageHandler();
+    this.registerMessageHandler().registerInteractionHandler();
   }
 
   /**
@@ -162,6 +172,18 @@ export class ExtendedClient extends Discord.Client {
   }
 
   /**
+   * The ID of the guild used to test this bot. It is not required, however
+   * it is recommended to specify one. This is used to automatically deploy
+   * slash commands to the testing guild.
+   * @readonly
+   * @type {string | undefined}
+   * @memberof ExtendedClient
+   */
+  get testingGuildID(): string | undefined {
+    return this.options.testingGuildID;
+  }
+
+  /**
    * Set the client's data provider. It is not necessary to initialize the provider as it is done here.
    * @param dataProvider The data provider.
    * @returns A promise that resolves with the data provider initialized.
@@ -176,7 +198,7 @@ export class ExtendedClient extends Discord.Client {
 
   /**
    * Test whether the specified user is the client's owner.
-   * @param user The [user](https://discord.js.org/#/docs/main/stable/class/User) to test.
+   * @param user The [user](https://discord.js.org/#/docs/discord.js/stable/class/User) to test.
    * @returns Whether the tested user is the client's owner.
    * @throws Throws if the user cannot be resolved.
    */
@@ -208,10 +230,11 @@ export class ExtendedClient extends Discord.Client {
     this.on('guildDelete', ClientDefaultHandlers.onGuildDelete);
     this.on('guildUnavailable', ClientDefaultHandlers.onGuildUnavailable);
     this.on('invalidated', ClientDefaultHandlers.onInvalidated);
+    this.on('invalidRequestWarning', ClientDefaultHandlers.onInvalidRequestWarning);
     this.on('rateLimit', ClientDefaultHandlers.onRateLimit);
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
-    
+
     return this;
   }
 
@@ -232,6 +255,7 @@ export class ExtendedClient extends Discord.Client {
     this.on('presenceUpdated', ExtraClientDefaultHandlers.onPresenceUpdated);
     this.on('presenceUpdateError', ExtraClientDefaultHandlers.onPresenceUpdateError);
     this.on('presenceRefreshInterval', ExtraClientDefaultHandlers.onPresenceRefreshInterval);
+    this.on('commandsDeployed', ExtraClientDefaultHandlers.onCommandsDeployed);
 
     return this;
   }
@@ -262,7 +286,17 @@ export class ExtendedClient extends Discord.Client {
    * @returns This client.
    */
   private registerMessageHandler(): this {
-    this.on('message', (message) => this.dispatcher.handleMessage(message));
+    this.on('messageCreate', (message) => this.dispatcher.handleMessage(message));
+
+    return this;
+  }
+
+  /**
+   * Register the interaction event handler for the {@link CommandDispatcher}.
+   * @return This client.
+   */
+  private registerInteractionHandler(): this {
+    this.on('interactionCreate', (interaction) => this.dispatcher.handleInteraction(interaction));
 
     return this;
   }

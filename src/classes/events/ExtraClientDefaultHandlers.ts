@@ -2,6 +2,8 @@ import Discord from 'discord.js';
 import logger from '@greencoast/logger';
 import Command from '../command/Command';
 import CommandGroup from '../command/CommandGroup';
+import { CommandTrigger } from '../../types';
+import SlashCommand from '../command/SlashCommand';
 
 /**
  * The default event handlers for the custom events of {@link ExtendedClient}.
@@ -16,7 +18,7 @@ class ExtraClientDefaultHandlers {
 
   /**
    * Log that the data provider has cleared the data for a guild or on the global scope.
-   * @param guild The [guild](https://discord.js.org/#/docs/main/stable/class/Guild) for which
+   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which
    * the data has been cleared.
    */
   static onDataProviderClear(guild: Discord.Guild | null): void {
@@ -40,23 +42,39 @@ class ExtraClientDefaultHandlers {
   /**
    * Logged who executed a command and in which guild.
    * @param command The command that was executed.
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that
+   * @param trigger The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) or
+   * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that
    * triggered the command execution.
    */
-  static onCommandExecute(command: Command, message: Discord.Message): void {
-    logger.info(`User ${message.member?.displayName || message.author.username} issued command ${command.name} in ${message.guild?.name || 'DM'}`);
+  static onCommandExecute(command: Command<CommandTrigger>, trigger: CommandTrigger): void {
+    if (trigger instanceof Discord.Message) {
+      logger.info(`User ${trigger.member?.displayName || trigger.author.username} issued command ${command.name} in ${trigger.guild?.name || 'DM'}`);
+    } else {
+      const authorDisplayName = trigger.member instanceof Discord.GuildMember ?
+        trigger.member.displayName :
+        trigger.member?.nick;
+
+      logger.info(`User ${authorDisplayName || trigger.user.username} issued command ${command.name} in ${trigger.guild?.name || 'DM'}`);
+    }
   }
 
   /**
    * Log that a command has thrown an error.
    * @param error The error that was thrown in the command's run method.
    * @param command The command that was executed.
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that
+   * @param trigger The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) or
+   * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that
    * triggered the command execution.
    */
-  static onCommandError(error: Error, command: Command, message: Discord.Message): void {
-    logger.error(`Something happened when executing ${command.name} in ${message.guild?.name || 'DM'}.`);
-    logger.error(`Triggering message: ${message.content}`);
+  static onCommandError(error: unknown, command: Command<CommandTrigger>, trigger: CommandTrigger): void {
+    logger.error(`Something happened when executing ${command.name} in ${trigger.guild?.name || 'DM'}.`);
+
+    if (trigger instanceof Discord.Message) {
+      logger.error(`Triggering message: ${trigger.content}`);
+    } else {
+      logger.error(`Triggering interaction had an ID of ${trigger.id}`);
+    }
+
     logger.error(error);
   }
 
@@ -72,7 +90,7 @@ class ExtraClientDefaultHandlers {
    * Log that a command has been registered to the client.
    * @param command The command that was registered.
    */
-  static onCommandRegistered(command: Command): void {
+  static onCommandRegistered(command: Command<CommandTrigger>): void {
     logger.info(`Registered ${command.name} in ${command.group?.name}.`);
   }
 
@@ -88,7 +106,7 @@ class ExtraClientDefaultHandlers {
    * Log the error that was thrown while updating the client's presence.
    * @param error The error that was thrown.
    */
-  static onPresenceUpdateError(error: Error): void {
+  static onPresenceUpdateError(error: unknown): void {
     logger.error('Could not update presence!');
     logger.error(error);
   }
@@ -104,6 +122,14 @@ class ExtraClientDefaultHandlers {
     }
 
     logger.info(`Refresh interval updated, presence will be updated every ${interval}ms.`);
+  }
+
+  static onCommandsDeployed(commands: SlashCommand[], guildID: string | null): void {
+    if (guildID) {
+      logger.info(`Successfully deployed ${commands.length} slash commands to ${guildID}`);
+    } else {
+      logger.info(`Successfully deployed ${commands.length} slash commands globally. This change may take up to 1 hour to take effect.`);
+    }
   }
 }
 

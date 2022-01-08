@@ -7,13 +7,13 @@ const mockedTemplates = ['1 servers!', 'hello', 'client'];
 
 describe('Classes: Presence: PresenceManager', () => {
   let clientMock: ExtendedClient;
-  let setPresenceSpy: jest.Mock<any, any>;
+  let setPresenceSpy: jest.Mock;
 
   let manager: PresenceManager;
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ prefix: '?', owner: '123', debug: true });
-    setPresenceSpy = clientMock.user?.setPresence as jest.Mock<any, any>;
+    clientMock = new ExtendedClient({ prefix: '?', owner: '123', debug: true, intents: [] });
+    setPresenceSpy = clientMock.user?.setPresence as jest.Mock;
 
     manager = new PresenceManager(clientMock, { templates: mockedTemplates });
   });
@@ -25,10 +25,10 @@ describe('Classes: Presence: PresenceManager', () => {
       return manager.update('status')!
         .then(() => {
           expect(setPresenceSpy).toHaveBeenCalledWith({
-            activity: {
+            activities: [{
               name: 'status',
               type: manager.options.type
-            },
+            }],
             status: manager.options.status,
             afk: manager.options.afk
           });
@@ -41,10 +41,10 @@ describe('Classes: Presence: PresenceManager', () => {
       return manager.update('status', { type: 'LISTENING' })!
         .then(() => {
           expect(setPresenceSpy).toHaveBeenCalledWith({
-            activity: {
+            activities: [{
               name: 'status',
               type: 'LISTENING'
-            },
+            }],
             status: manager.options.status,
             afk: manager.options.afk
           });
@@ -62,7 +62,9 @@ describe('Classes: Presence: PresenceManager', () => {
 
     it('should emit a presenceUpdateError event on reject.', () => {
       const expectedError = new Error('oops');
-      setPresenceSpy.mockRejectedValueOnce(expectedError);
+      setPresenceSpy.mockImplementationOnce(() => {
+        throw expectedError;
+      });
 
       expect.assertions(1);
 

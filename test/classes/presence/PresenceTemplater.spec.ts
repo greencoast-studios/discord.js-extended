@@ -2,7 +2,8 @@ import dayjs from 'dayjs';
 import Discord from 'discord.js';
 import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
-import ConcreteCommand from '../../../__mocks__/command';
+import { ConcreteRegularCommand } from '../../../__mocks__/command';
+import { ShardClientUtilMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');
 
@@ -19,11 +20,11 @@ describe('Classes: Presence: PresenceTemplater', () => {
   });
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ prefix: '?', owner: '123' });
+    clientMock = new ExtendedClient({ prefix: '?', owner: '123', intents: [] });
     templater = new PresenceTemplater(clientMock);
 
     for (let i = 0; i < 3; i++) {
-      const command = new ConcreteCommand(clientMock, { name: Math.random().toString() });
+      const command = new ConcreteRegularCommand(clientMock, { name: Math.random().toString() });
       clientMock.registry.commands.set(command.name, command);
     }
   });
@@ -43,7 +44,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
     });
 
     it('should return the string for key: num_guilds for a sharded client.', async() => {
-      clientMock.shard = new Discord.ShardClientUtil(clientMock, 'worker');
+      clientMock.shard = new ShardClientUtilMock() as unknown as Discord.ShardClientUtil;
       const fetchMock = clientMock.shard.fetchClientValues as jest.Mock;
       fetchMock.mockResolvedValue([3, 3, 1]);
 
@@ -79,7 +80,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
     });
 
     it('should return the string for key: num_members for a sharded client.', async() => {
-      clientMock.shard = new Discord.ShardClientUtil(clientMock, 'worker');
+      clientMock.shard = new ShardClientUtilMock() as unknown as Discord.ShardClientUtil;
       const fetchMock = clientMock.shard.fetchClientValues as jest.Mock;
       fetchMock.mockResolvedValue([clientMock.guilds.cache, clientMock.guilds.cache, clientMock.guilds.cache]);
 

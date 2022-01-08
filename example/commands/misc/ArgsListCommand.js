@@ -1,6 +1,6 @@
-const { Command } = require('@greencoast/discord.js-extended');
+const { RegularCommand } = require('@greencoast/discord.js-extended');
 
-class HelpCommand extends Command {
+class ArgsListCommand extends RegularCommand {
   constructor(client) {
     super(client, {
       name: 'args',
@@ -14,4 +14,4 @@ class HelpCommand extends Command {
   }
 }
 
-module.exports = HelpCommand;
+module.exports = ArgsListCommand;

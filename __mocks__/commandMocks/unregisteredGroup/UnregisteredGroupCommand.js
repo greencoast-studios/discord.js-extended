@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const { Command } = require('../../../dist');
+const { RegularCommand } = require('../../../dist');
 
-class UnregisteredGroupCommand extends Command {
+class UnregisteredGroupCommand extends RegularCommand {
   constructor(client, info = {}) {
     super(client, {
       name: 'UnregisteredGroupCommand',

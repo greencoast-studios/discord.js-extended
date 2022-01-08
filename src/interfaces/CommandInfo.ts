@@ -39,7 +39,7 @@ interface CommandInfo {
 
   /**
    * The [permissions resolvable](https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable) that
-   * defines the permissions that an user requires to execute this command.
+   * defines the permissions that a user requires to execute this command.
    * @defaultValue `null`
    */
   userPermissions?: Discord.PermissionResolvable,
