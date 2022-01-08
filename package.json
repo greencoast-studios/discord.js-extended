@@ -66,9 +66,11 @@
   },
   "dependencies": {
     "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
     "@greencoast/logger": "^1.1.0",
     "common-tags": "^1.8.2",
     "dayjs": "^1.10.7",
+    "discord-api-types": "^0.26.1",
     "humanize-duration": "^3.27.1",
     "lodash": "^4.17.21",
     "require-all": "^3.0.0"

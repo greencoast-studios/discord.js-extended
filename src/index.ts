@@ -19,6 +19,7 @@ import SlashCommandValidator from './classes/command/SlashCommandValidator';
 import CommandGroup from './classes/command/CommandGroup';
 import CommandRegistry from './classes/command/CommandRegistry';
 import CommandDispatcher from './classes/command/CommandDispatcher';
+import SlashCommandDeployer from './classes/command/SlashCommandDeployer';
 
 import * as DefaultCommands from './classes/command/default';
 
@@ -50,6 +51,7 @@ export {
   CommandGroup,
   CommandRegistry,
   CommandDispatcher,
+  SlashCommandDeployer,
   DefaultCommands,
   ExtendedClientOptions,
   ExtendedClientEvents,
