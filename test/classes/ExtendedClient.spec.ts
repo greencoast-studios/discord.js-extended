@@ -40,12 +40,12 @@ describe('Classes: ExtendedClient', () => {
   });
 
   describe('constructor', () => {
-    let onceSpy: jest.Mock<any, any>;
-    let fetchSpy: jest.Mock<any, any>;
+    let onceSpy: jest.Mock;
+    let fetchSpy: jest.Mock;
 
     beforeEach(() => {
-      onceSpy = client.once as jest.Mock<any, any>;
-      fetchSpy = client.users.fetch as jest.Mock<any, any>;
+      onceSpy = client.once as jest.Mock;
+      fetchSpy = client.users.fetch as jest.Mock;
     });
 
     it('should not fetch the owner in the constructor if no owner was provided.', () => {
@@ -126,10 +126,10 @@ describe('Classes: ExtendedClient', () => {
   });
 
   describe('isOwner()', () => {
-    let resolveSpy: jest.Mock<any, any>;
+    let resolveSpy: jest.Mock;
 
     beforeEach(() => {
-      resolveSpy = client.users.resolve as jest.Mock<any, any>;
+      resolveSpy = client.users.resolve as jest.Mock;
       resolveSpy.mockReturnValue({ id: '22' });
     });
 

@@ -155,24 +155,24 @@ describe('Classes: Command: SlashCommand', () => {
 
       const commandInteraction = interaction as Discord.CommandInteraction;
       expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
-      expect((commandInteraction.reply as jest.Mock<any, any>).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
+      expect((commandInteraction.reply as jest.Mock).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
     });
 
     it('should reply with the correct message if an owner is set on the client.', () => {
       client = new ExtendedClient({ owner: '123', intents: [] });
-      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(userMock);
+      (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
       command.onError(new Error(), interaction);
 
       const commandInteraction = interaction as Discord.CommandInteraction;
       expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
-      expect((commandInteraction.reply as jest.Mock<any, any>).mock.calls[0][0].content.endsWith('contact User.')).toBe(true);
+      expect((commandInteraction.reply as jest.Mock).mock.calls[0][0].content.endsWith('contact User.')).toBe(true);
     });
 
     it('should send the error to the owner if errorReporting is enabled.', () => {
       client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
-      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(userMock);
+      (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
       command.onError(new Error(), interaction);

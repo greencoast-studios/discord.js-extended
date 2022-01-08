@@ -15,7 +15,7 @@ const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
 describe('Classes: Command: CommandDispatcher', () => {
   let dispatcher: CommandDispatcher;
   let registry: CommandRegistry;
-  let registryGetCommandSpy: jest.SpyInstance<any, any>;
+  let registryGetCommandSpy: jest.SpyInstance;
   let regularCommand: RegularCommand;
   let slashCommand: SlashCommand;
   let message: Discord.Message;
@@ -126,7 +126,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should handle errors if the command throws inside run.', () => {
       const expectedError = new Error('oops');
-      const runSpy = regularCommand.run as jest.Mock<any, any>;
+      const runSpy = regularCommand.run as jest.Mock;
       runSpy.mockImplementation(() => {
         throw expectedError;
       });
@@ -239,7 +239,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should handle errors if the command throws inside run.', () => {
       const expectedError = new Error('oops');
-      const runSpy = slashCommand.run as jest.Mock<any, any>;
+      const runSpy = slashCommand.run as jest.Mock;
       runSpy.mockImplementation(() => {
         throw expectedError;
       });

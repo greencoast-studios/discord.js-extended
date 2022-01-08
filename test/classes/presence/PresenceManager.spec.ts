@@ -7,13 +7,13 @@ const mockedTemplates = ['1 servers!', 'hello', 'client'];
 
 describe('Classes: Presence: PresenceManager', () => {
   let clientMock: ExtendedClient;
-  let setPresenceSpy: jest.Mock<any, any>;
+  let setPresenceSpy: jest.Mock;
 
   let manager: PresenceManager;
 
   beforeEach(() => {
     clientMock = new ExtendedClient({ prefix: '?', owner: '123', debug: true, intents: [] });
-    setPresenceSpy = clientMock.user?.setPresence as jest.Mock<any, any>;
+    setPresenceSpy = clientMock.user?.setPresence as jest.Mock;
 
     manager = new PresenceManager(clientMock, { templates: mockedTemplates });
   });

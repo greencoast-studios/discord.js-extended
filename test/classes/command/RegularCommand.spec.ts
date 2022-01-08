@@ -53,7 +53,7 @@ describe('Classes: Command: RegularCommand', () => {
     it('should return true if channel is not text based (absurd).', () => {
       const channel = message.channel as any;
       channel.permissionsFor().missing.mockReturnValue(['dont matter']);
-      (channel.isText as jest.Mock<any, any>).mockReturnValue(false);
+      (channel.isText as jest.Mock).mockReturnValue(false);
       command = new ConcreteRegularCommand(client, { userPermissions: 'YES' });
 
       expect(command.hasPermission(message)).toBe(true);
@@ -97,23 +97,23 @@ describe('Classes: Command: RegularCommand', () => {
       command.onError(new Error(), message);
 
       expect(message.reply).toHaveBeenCalledTimes(1);
-      expect((message.reply as jest.Mock<any, any>).mock.calls[0][0].endsWith(`the command ${command.name}.`)).toBe(true);
+      expect((message.reply as jest.Mock).mock.calls[0][0].endsWith(`the command ${command.name}.`)).toBe(true);
     });
 
     it('should reply with the correct message if an owner is set on the client.', () => {
       client = new ExtendedClient({ owner: '123', intents: [] });
-      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(userMock);
+      (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteRegularCommand(client);
 
       command.onError(new Error(), message);
 
       expect(message.reply).toHaveBeenCalledTimes(1);
-      expect((message.reply as jest.Mock<any, any>).mock.calls[0][0].endsWith('contact User.')).toBe(true);
+      expect((message.reply as jest.Mock).mock.calls[0][0].endsWith('contact User.')).toBe(true);
     });
 
     it('should send the error to the owner if errorReporting is enabled.', () => {
       client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
-      (client.users.cache.get as jest.Mock<any, any>).mockReturnValue(userMock);
+      (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteRegularCommand(client);
 
       command.onError(new Error(), message);
