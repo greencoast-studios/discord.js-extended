@@ -135,10 +135,10 @@ abstract class Command<T extends CommandTrigger> {
    * @param error The error that was thrown inside the command's run method.
    * @param trigger The [message](https://discord.js.org/#/docs/main/stable/class/Message) or
    * [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction) that triggered this command.
-   * @returns A promise that resolves the message that was replied to the original message author.
+   * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public abstract onError(error: unknown, trigger: T): Promise<Discord.Message>;
+  public abstract onError(error: unknown, trigger: T): Promise<Discord.Message | void>;
 }
 
 export default Command;

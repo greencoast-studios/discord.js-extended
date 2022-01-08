@@ -153,8 +153,9 @@ describe('Classes: Command: SlashCommand', () => {
 
       command.onError(new Error(), interaction);
 
-      expect(interaction.channel!.send).toHaveBeenCalledTimes(1);
-      expect((interaction.channel!.send as jest.Mock<any, any>).mock.calls[0][0].endsWith(`the command ${command.name}.`)).toBe(true);
+      const commandInteraction = interaction as Discord.CommandInteraction;
+      expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
+      expect((commandInteraction.reply as jest.Mock<any, any>).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
     });
 
     it('should reply with the correct message if an owner is set on the client.', () => {
@@ -164,8 +165,9 @@ describe('Classes: Command: SlashCommand', () => {
 
       command.onError(new Error(), interaction);
 
-      expect(interaction.channel!.send).toHaveBeenCalledTimes(1);
-      expect((interaction.channel!.send as jest.Mock<any, any>).mock.calls[0][0].endsWith('contact User.')).toBe(true);
+      const commandInteraction = interaction as Discord.CommandInteraction;
+      expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
+      expect((commandInteraction.reply as jest.Mock<any, any>).mock.calls[0][0].content.endsWith('contact User.')).toBe(true);
     });
 
     it('should send the error to the owner if errorReporting is enabled.', () => {

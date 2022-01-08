@@ -59,10 +59,10 @@ abstract class RegularCommand extends Command<Discord.Message> {
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
-   * @returns A promise that resolves the message that was replied to the original message author.
+   * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public override async onError(error: unknown, message: Discord.Message): Promise<Discord.Message> {
+  public override async onError(error: unknown, message: Discord.Message): Promise<Discord.Message | void> {
     this.client.emit('commandError', error, this, message);
 
     let contactOwner = '';

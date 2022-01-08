@@ -115,10 +115,10 @@ abstract class SlashCommand extends Command<Discord.Interaction> {
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
    * @param interaction The [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction) that triggered this command.
-   * @returns A promise that resolves the message that was replied to the original message author.
+   * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public override async onError(error: unknown, interaction: Discord.Interaction): Promise<Discord.Message> {
+  public override async onError(error: unknown, interaction: Discord.Interaction): Promise<Discord.Message | void> {
     this.client.emit('commandError', error, this, interaction);
 
     let contactOwner = '';
@@ -142,8 +142,12 @@ abstract class SlashCommand extends Command<Discord.Interaction> {
       }
     }
 
-    // Can safely non-null assert because this function handles implicitly command interactions that should have a channel.
-    return interaction.channel!.send(`An error has occurred when running the command ${this.name}.${contactOwner}`);
+    // Can safely assert that this is a CommandInteraction because this method would never be called if the interaction wasn't
+    // from a command.
+    const commandInteraction = interaction as Discord.CommandInteraction;
+    await commandInteraction.reply({
+      content: `An error has occurred when running the command ${this.name}.${contactOwner}`
+    });
   }
 }
 
