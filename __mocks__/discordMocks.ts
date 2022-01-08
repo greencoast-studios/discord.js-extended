@@ -21,9 +21,9 @@ export class GuildMock {
 
 export class ClientMock {
   public options: any;
-  public once: jest.Mock<any, any>;
-  public on: jest.Mock<any, any>;
-  public emit: jest.Mock<any, any>;
+  public once: jest.Mock;
+  public on: jest.Mock;
+  public emit: jest.Mock;
   public guilds: any;
   public users: any;
   public user: any;
@@ -64,7 +64,7 @@ export class UserMock {
   public username: string;
   public id: string;
   public bot: boolean;
-  public send: jest.Mock<any, any>;
+  public send: jest.Mock;
 
   constructor() {
     this.username = 'User';
@@ -78,15 +78,23 @@ export class UserMock {
   }
 }
 
+export class GuildMemberMock {
+  public displayName: string;
+
+  constructor() {
+    this.displayName = 'member';
+  }
+}
+
 export const mockedPermissionsFor = {
   missing: jest.fn()
 };
 
 export class TextChannelMock {
-  public permissionsFor: jest.Mock<any, any>;
-  public send: jest.Mock<any, any>;
+  public permissionsFor: jest.Mock;
+  public send: jest.Mock;
   public nsfw: boolean;
-  public isText: jest.Mock<any, any>;
+  public isText: jest.Mock;
 
   constructor() {
     this.permissionsFor = jest.fn(() => mockedPermissionsFor);
@@ -97,8 +105,8 @@ export class TextChannelMock {
 }
 
 export class DMChannelMock {
-  public send: jest.Mock<any, any>;
-  public isText: jest.Mock<any, any>;
+  public send: jest.Mock;
+  public isText: jest.Mock;
 
   constructor() {
     this.send = jest.fn(() => Promise.resolve());
@@ -111,7 +119,7 @@ export class MessageMock {
   public channel: TextChannelMock;
   public author: UserMock;
   public partial: boolean;
-  public reply: jest.Mock<any, any>;
+  public reply: jest.Mock;
 
   constructor() {
     this.content = 'Message';
@@ -123,10 +131,10 @@ export class MessageMock {
 }
 
 export class MessageEmbedMock {
-  public setTitle: jest.Mock<any, any>;
-  public setColor: jest.Mock<any, any>;
-  public setThumbnail: jest.Mock<any, any>;
-  public addField: jest.Mock<any, any>;
+  public setTitle: jest.Mock;
+  public setColor: jest.Mock;
+  public setThumbnail: jest.Mock;
+  public addField: jest.Mock;
   public channel: TextChannelMock;
 
   constructor() {
@@ -139,9 +147,27 @@ export class MessageEmbedMock {
 }
 
 export class ShardClientUtilMock {
-  public fetchClientValues: jest.Mock<any, any>;
+  public fetchClientValues: jest.Mock;
 
   constructor() {
     this.fetchClientValues = jest.fn();
+  }
+}
+
+export class InteractionMock {
+  public guild: GuildMock;
+  public member: GuildMemberMock;
+  public channel: TextChannelMock;
+  public isCommand: jest.Mock;
+  public inGuild: jest.Mock;
+  public reply: jest.Mock;
+
+  constructor() {
+    this.guild = new GuildMock();
+    this.member = new GuildMemberMock();
+    this.channel = new TextChannelMock();
+    this.isCommand = jest.fn();
+    this.inGuild = jest.fn();
+    this.reply = jest.fn();
   }
 }

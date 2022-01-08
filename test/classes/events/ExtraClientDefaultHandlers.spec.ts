@@ -4,8 +4,8 @@ import logger from '@greencoast/logger';
 import ExtraClientDefaultHandlers from '../../../src/classes/events/ExtraClientDefaultHandlers';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
-import ConcreteCommand from '../../../__mocks__/command';
-import { GuildMock, MessageMock } from '../../../__mocks__/discordMocks';
+import { ConcreteRegularCommand } from '../../../__mocks__/command';
+import { GuildMock, MessageMock, InteractionMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('@greencoast/logger');
 
@@ -14,7 +14,8 @@ const mockedLogger = mocked(logger, true);
 const clientMock = new ExtendedClient();
 const guildMock = new GuildMock() as Discord.Guild;
 const messageMock = new MessageMock() as unknown as Discord.Message;
-const commandMock = new ConcreteCommand(clientMock);
+const interactionMock = new InteractionMock() as unknown as Discord.CommandInteraction;
+const commandMock = new ConcreteRegularCommand(clientMock);
 const groupMock = new CommandGroup('group', 'Group');
 
 describe('Classes: Events: ExtraClientDefaultHandlers', () => {
@@ -60,8 +61,13 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
   });
 
   describe('onCommandExecute()', () => {
-    it('should call logger.info.', () => {
+    it('should call logger.info if trigger is a message.', () => {
       ExtraClientDefaultHandlers.onCommandExecute(commandMock, messageMock);
+      expect(mockedLogger.info).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call logger.info if trigger is an interaction.', () => {
+      ExtraClientDefaultHandlers.onCommandExecute(commandMock, interactionMock);
       expect(mockedLogger.info).toHaveBeenCalledTimes(1);
     });
   });
@@ -72,6 +78,18 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
       ExtraClientDefaultHandlers.onCommandError(expectedError, commandMock, messageMock);
       expect(mockedLogger.error).toHaveBeenCalledTimes(3);
       expect(mockedLogger.error).toHaveBeenCalledWith(expectedError);
+    });
+
+    it('should log triggering message if trigger is a message.', () => {
+      ExtraClientDefaultHandlers.onCommandError(new Error('oops.'), commandMock, messageMock);
+      expect(mockedLogger.error).toHaveBeenCalledTimes(3);
+      expect(mockedLogger.error.mock.calls[1][0]).toContain('Triggering message:');
+    });
+
+    it('should log triggering message if trigger is an interaction.', () => {
+      ExtraClientDefaultHandlers.onCommandError(new Error('oops.'), commandMock, interactionMock);
+      expect(mockedLogger.error).toHaveBeenCalledTimes(3);
+      expect(mockedLogger.error.mock.calls[1][0]).toContain('Triggering interaction');
     });
   });
 
@@ -116,6 +134,20 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
       ExtraClientDefaultHandlers.onPresenceRefreshInterval(1000);
       expect(mockedLogger.info).toHaveBeenCalledTimes(1);
       expect(mockedLogger.info.mock.calls[0][0].endsWith('1000ms.')).toBe(true);
+    });
+  });
+
+  describe('onCommandsDeployed()', () => {
+    it('should info log if a guildID was specified.', () => {
+      ExtraClientDefaultHandlers.onCommandsDeployed([], '123');
+      expect(mockedLogger.info).toHaveBeenCalledTimes(1);
+      expect(mockedLogger.info.mock.calls[0][0]).toContain('123');
+    });
+
+    it('should info log if no guildID was specified.', () => {
+      ExtraClientDefaultHandlers.onCommandsDeployed([], null);
+      expect(mockedLogger.info).toHaveBeenCalledTimes(1);
+      expect(mockedLogger.info.mock.calls[0][0]).toContain('globally');
     });
   });
 });

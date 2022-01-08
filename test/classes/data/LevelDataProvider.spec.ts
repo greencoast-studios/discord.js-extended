@@ -16,7 +16,7 @@ const mockedLevel = mocked(level, true);
 const clientMock = new ExtendedClient({ debug: true, intents: [] });
 
 describe('Classes: Data: LevelDataProvider', () => {
-  const emitSpy = clientMock.emit as jest.Mock<any, any>;
+  const emitSpy = clientMock.emit as jest.Mock;
 
   let provider: LevelDataProvider;
 

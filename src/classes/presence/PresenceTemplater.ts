@@ -80,7 +80,7 @@ class PresenceTemplater extends AsyncTemplater {
 
   /**
    * Get the number of guilds the client is connected to.
-   * @returns A promise that resolves to the number of [guilds](https://discord.js.org/#/docs/main/stable/class/Guild).
+   * @returns A promise that resolves to the number of [guilds](https://discord.js.org/#/docs/discord.js/stable/class/Guild).
    */
   private getNumberOfGuilds(): Promise<string> {
     if (!this.client.shard) {
@@ -162,7 +162,7 @@ class PresenceTemplater extends AsyncTemplater {
 
   /**
    * Get the total number of members across all the guilds that the client is connected to.
-   * @returns A promise that resolves to the number of [members](https://discord.js.org/#/docs/main/stable/class/GuildMember).
+   * @returns A promise that resolves to the number of [members](https://discord.js.org/#/docs/discord.js/stable/class/GuildMember).
    */
   private getNumberOfMembers(): Promise<string> {
     if (!this.client.shard) {

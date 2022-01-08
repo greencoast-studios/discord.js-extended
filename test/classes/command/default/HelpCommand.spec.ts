@@ -30,7 +30,7 @@ describe('Classes: Command: Default: HelpCommand', () => {
 
   describe('run()', () => {
     it('should send an embed.', () => {
-      const sendSpy = messageMock.channel.send as jest.Mock<any, any>;
+      const sendSpy = messageMock.channel.send as jest.Mock;
 
       return command.run(messageMock)
         .then(() => {

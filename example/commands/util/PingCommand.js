@@ -1,6 +1,6 @@
-const { Command } = require('@greencoast/discord.js-extended');
+const { RegularCommand } = require('@greencoast/discord.js-extended');
 
-class PingCommand extends Command {
+class PingCommand extends RegularCommand {
   constructor(client) {
     super(client, {
       name: 'ping',

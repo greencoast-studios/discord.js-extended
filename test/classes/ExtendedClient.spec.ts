@@ -35,13 +35,17 @@ describe('Classes: ExtendedClient', () => {
     expect(client).toHaveProperty('errorOwnerReporting');
   });
 
+  it('should have a testingGuildID property.', () => {
+    expect(client).toHaveProperty('testingGuildID');
+  });
+
   describe('constructor', () => {
-    let onceSpy: jest.Mock<any, any>;
-    let fetchSpy: jest.Mock<any, any>;
+    let onceSpy: jest.Mock;
+    let fetchSpy: jest.Mock;
 
     beforeEach(() => {
-      onceSpy = client.once as jest.Mock<any, any>;
-      fetchSpy = client.users.fetch as jest.Mock<any, any>;
+      onceSpy = client.once as jest.Mock;
+      fetchSpy = client.users.fetch as jest.Mock;
     });
 
     it('should not fetch the owner in the constructor if no owner was provided.', () => {
@@ -75,8 +79,12 @@ describe('Classes: ExtendedClient', () => {
         });
     });
 
-    it('should register message handler.', () => {
+    it('should register messageCreate handler.', () => {
       expect(client.on).toHaveBeenCalledWith('messageCreate', expect.anything());
+    });
+
+    it('should register interactionCreate handler.', () => {
+      expect(client.on).toHaveBeenCalledWith('interactionCreate', expect.anything());
     });
   });
 
@@ -118,10 +126,10 @@ describe('Classes: ExtendedClient', () => {
   });
 
   describe('isOwner()', () => {
-    let resolveSpy: jest.Mock<any, any>;
+    let resolveSpy: jest.Mock;
 
     beforeEach(() => {
-      resolveSpy = client.users.resolve as jest.Mock<any, any>;
+      resolveSpy = client.users.resolve as jest.Mock;
       resolveSpy.mockReturnValue({ id: '22' });
     });
 
@@ -183,7 +191,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register all default extra events.', () => {
-      const DEFAULT_EVENTS = ['dataProviderAdd', 'dataProviderClear', 'dataProviderInit', 'dataProviderDestroy', 'commandExecute', 'commandError', 'groupRegistered', 'commandRegistered', 'presenceUpdated', 'presenceUpdateError', 'presenceRefreshInterval'];
+      const DEFAULT_EVENTS = ['dataProviderAdd', 'dataProviderClear', 'dataProviderInit', 'dataProviderDestroy', 'commandExecute', 'commandError', 'groupRegistered', 'commandRegistered', 'presenceUpdated', 'presenceUpdateError', 'presenceRefreshInterval', 'commandsDeployed'];
 
       client.registerExtraDefaultEvents();
 

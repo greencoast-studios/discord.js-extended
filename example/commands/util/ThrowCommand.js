@@ -1,6 +1,6 @@
-const { Command } = require('@greencoast/discord.js-extended');
+const { RegularCommand } = require('@greencoast/discord.js-extended');
 
-class ThrowCommand extends Command {
+class ThrowCommand extends RegularCommand {
   constructor(client) {
     super(client, {
       name: 'throw',
