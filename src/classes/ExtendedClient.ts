@@ -5,6 +5,7 @@ import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
 import CommandRegistry from './command/CommandRegistry';
 import CommandDispatcher from './command/CommandDispatcher';
+import SlashCommandDeployer from './command/SlashCommandDeployer';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 import ExtraClientDefaultHandlers from './events/ExtraClientDefaultHandlers';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
@@ -76,8 +77,16 @@ export class ExtendedClient extends Discord.Client {
   public dispatcher: CommandDispatcher;
 
   /**
+   * This client's slash command deployer.
+   * @type {SlashCommandDeployer}
+   * @memberof ExtendedClient
+   */
+  public deployer: SlashCommandDeployer;
+
+  /**
    * @param options The client's options. Defaults to an empty object.
    */
+  // eslint-disable-next-line max-statements
   constructor(options: ExtendedClientOptions = { intents: [] }) {
     if (!options.prefix) {
       options.prefix = '!';
@@ -97,6 +106,7 @@ export class ExtendedClient extends Discord.Client {
     this.dataProvider = null;
     this.registry = new CommandRegistry(this);
     this.dispatcher = new CommandDispatcher(this, this.registry);
+    this.deployer = new SlashCommandDeployer(this);
 
     this.fetchOwner();
     this.registerMessageHandler().registerInteractionHandler();
