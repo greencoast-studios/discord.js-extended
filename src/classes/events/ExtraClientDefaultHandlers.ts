@@ -3,6 +3,7 @@ import logger from '@greencoast/logger';
 import Command from '../command/Command';
 import CommandGroup from '../command/CommandGroup';
 import { CommandTrigger } from '../../types';
+import SlashCommand from '../command/SlashCommand';
 
 /**
  * The default event handlers for the custom events of {@link ExtendedClient}.
@@ -121,6 +122,14 @@ class ExtraClientDefaultHandlers {
     }
 
     logger.info(`Refresh interval updated, presence will be updated every ${interval}ms.`);
+  }
+
+  static onCommandsDeployed(commands: SlashCommand[], guildID: string | null): void {
+    if (guildID) {
+      logger.info(`Successfully deployed ${commands.length} slash commands to ${guildID}`);
+    } else {
+      logger.info(`Successfully deployed ${commands.length} slash commands globally. This change may take up to 1 hour to take effect.`);
+    }
   }
 }
 

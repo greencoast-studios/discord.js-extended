@@ -136,4 +136,18 @@ describe('Classes: Events: ExtraClientDefaultHandlers', () => {
       expect(mockedLogger.info.mock.calls[0][0].endsWith('1000ms.')).toBe(true);
     });
   });
+
+  describe('onCommandsDeployed()', () => {
+    it('should info log if a guildID was specified.', () => {
+      ExtraClientDefaultHandlers.onCommandsDeployed([], '123');
+      expect(mockedLogger.info).toHaveBeenCalledTimes(1);
+      expect(mockedLogger.info.mock.calls[0][0]).toContain('123');
+    });
+
+    it('should info log if no guildID was specified.', () => {
+      ExtraClientDefaultHandlers.onCommandsDeployed([], null);
+      expect(mockedLogger.info).toHaveBeenCalledTimes(1);
+      expect(mockedLogger.info.mock.calls[0][0]).toContain('globally');
+    });
+  });
 });

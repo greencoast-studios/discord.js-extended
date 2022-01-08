@@ -1,6 +1,7 @@
 import Discord, { ClientEvents } from 'discord.js';
 import DataProvider from '../classes/data/DataProvider';
 import Command from '../classes/command/Command';
+import SlashCommand from '../classes/command/SlashCommand';
 import CommandGroup from '../classes/command/CommandGroup';
 import PresenceData from '../interfaces/PresenceData';
 import { CommandTrigger } from '../types';
@@ -62,7 +63,12 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever this client's presence manager updates its presence refresh interval.
    */
-  presenceRefreshInterval: [number | null]
+  presenceRefreshInterval: [number | null],
+
+  /**
+   * Emitted whenever slash commands have been deployed.
+   */
+  commandsDeployed: [SlashCommand[], string | null]
 }
 
 export default ExtendedClientEvents;
