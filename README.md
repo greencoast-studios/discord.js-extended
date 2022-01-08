@@ -66,7 +66,7 @@ Make sure to check the [documentation page](https://docs.greencoaststudios.com/d
 
 ### Creating a Client
 
-This package exports an extension of the regular [Discord.js Client](https://discord.js.org/#/docs/main/stable/class/Client) that contains all the extended functionality. You can create one by using the following:
+This package exports an extension of the regular [Discord.js Client](https://discord.js.org/#/docs/discord.js/stable/class/Client) that contains all the extended functionality. You can create one by using the following:
 
 ```js
 const path = require('path');

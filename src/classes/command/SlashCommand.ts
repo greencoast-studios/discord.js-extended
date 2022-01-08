@@ -69,13 +69,13 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
 
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/main/stable/class/CommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    */
   public abstract run(interaction: Discord.CommandInteraction): Promise<Discord.Message | void>;
 
   /**
    * Check whether the interaction author can execute this command.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/main/stable/class/CommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
   public override hasPermission(interaction: Discord.CommandInteraction): boolean | string {
@@ -115,7 +115,7 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
   /**
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/main/stable/class/CommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */

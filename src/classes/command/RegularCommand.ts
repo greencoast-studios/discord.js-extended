@@ -11,14 +11,14 @@ import Command from './Command';
 abstract class RegularCommand extends Command<Discord.Message> {
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
+   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
   public abstract run(message: Discord.Message, args: string[]): Promise<Discord.Message | void>;
 
   /**
    * Check whether the message author can execute this command.
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
+   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
   public override hasPermission(message: Discord.Message): boolean | string {
@@ -58,7 +58,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
   /**
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
+   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */

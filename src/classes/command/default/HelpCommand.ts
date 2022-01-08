@@ -60,8 +60,8 @@ class HelpCommand extends RegularCommand {
    * ```text
    * $help
    * ```
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
-   * @returns The [message](https://discord.js.org/#/docs/main/stable/class/Message) where the help message embed was sent.
+   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
+   * @returns The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) where the help message embed was sent.
    */
   public run(message: Discord.Message): Promise<Discord.Message> {
     const embed = new Discord.MessageEmbed();

@@ -34,7 +34,7 @@ class CommandDispatcher {
 
   /**
    * Handles command fetching and execution for message based commands (RegularCommand).
-   * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this handler.
+   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this handler.
    * @returns A promise that resolves to the result of the command's run method.
    * If an error occurs, the promise resolves to the error message reply.
    * Otherwise, the promise resolves to nothing.
@@ -76,7 +76,7 @@ class CommandDispatcher {
 
   /**
    * Handles command fetching and execution for slash commands.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction) that triggered this handler.
+   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that triggered this handler.
    * @returns A promise that resolves to the result of the command's run method.
    * If an error occurs, the promise resolves to the error message reply.
    * Otherwise, the promise resolves to nothing.
