@@ -1,9 +1,10 @@
 import path from 'path';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
+import SlashCommand from '../../../src/classes/command/SlashCommand';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import * as DefaultCommands from '../../../src/classes/command/default';
-import { ConcreteRegularCommand } from '../../../__mocks__/command';
+import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/command';
 
 describe('Classes: Command: CommandRegistry', () => {
   let clientMock: ExtendedClient;
@@ -232,6 +233,32 @@ describe('Classes: Command: CommandRegistry', () => {
       it('should return a command if the command with alias is found by alias.', () => {
         expect(registry.resolveCommand('alias1')).toHaveProperty('name', 'cmdNameWithAlias');
         expect(registry.resolveCommand('alias2')).toHaveProperty('name', 'cmdNameWithAlias');
+      });
+    });
+
+    describe('getSlashCommands()', () => {
+      beforeEach(() => {
+        registry.registerGroups([
+          ['group1', 'Group1'],
+          ['group2', 'Group2']
+        ]);
+        registry.registerCommands([
+          new ConcreteRegularCommand(clientMock, { name: 'reg1', group: 'group1' }),
+          new ConcreteSlashCommand(clientMock, { name: 'slash1', group: 'group1' }),
+          new ConcreteSlashCommand(clientMock, { name: 'slash2', group: 'group2' })
+        ]);
+      });
+
+      it('should return an array of only slash commands.', () => {
+        const commands = registry.getSlashCommands();
+
+        commands.forEach((command) => {
+          expect(command).toBeInstanceOf(SlashCommand);
+        });
+
+        expect(commands.some((command) => command.name === 'slash1')).toBe(true);
+        expect(commands.some((command) => command.name === 'slash2')).toBe(true);
+        expect(commands.some((command) => command.name === 'reg1')).toBe(false);
       });
     });
   });

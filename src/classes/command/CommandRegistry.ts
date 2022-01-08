@@ -2,6 +2,7 @@ import Discord from 'discord.js';
 import requireAll from 'require-all';
 import Command from './Command';
 import CommandGroup from './CommandGroup';
+import SlashCommand from './SlashCommand';
 import ExtendedClient from '../ExtendedClient';
 import * as DefaultCommands from './default';
 import { CommandTrigger } from '../../types';
@@ -49,6 +50,16 @@ class CommandRegistry {
    */
   public resolveCommand(name: string): Command<CommandTrigger> | undefined {
     return this.commands.get(name) || this.commands.find((command) => command.aliases.includes(name));
+  }
+
+  /**
+   * Returns an array with all the slash commands registered.
+   * @returns The array of slash commands.
+   */
+  public getSlashCommands(): SlashCommand[] {
+    return this.commands
+      .filter((command) => command instanceof SlashCommand)
+      .map((command) => command as SlashCommand);
   }
 
   /**
