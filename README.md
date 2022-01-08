@@ -1,6 +1,7 @@
 [![ci-build-status](https://img.shields.io/github/workflow/status/greencoast-studios/discord.js-extended/CI?logo=github)](https://github.com/greencoast-studios/discord.js-extended)
 [![issues](https://img.shields.io/github/issues/greencoast-studios/discord.js-extended?logo=github)](https://github.com/greencoast-studios/discord.js-extended)
 [![bundle-size](https://img.shields.io/bundlephobia/min/@greencoast/discord.js-extended)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
+[![node-version](https://img.shields.io/node/v/@greencoast/discord.js-extended?logo=Node.js&color=green)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
 [![version](https://img.shields.io/npm/v/@greencoast/discord.js-extended?logo=npm)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
 [![djs-version](https://img.shields.io/npm/dependency-version/@greencoast/discord.js-extended/peer/discord.js?logo=npm)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
 [![downloads-week](https://img.shields.io/npm/dw/@greencoast/discord.js-extended?logo=npm)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
@@ -12,11 +13,11 @@
 
 Heavily inspired by [discord.js-commando](https://www.npmjs.com/package/discord.js-commando), it includes similar design decisions, however this adds certain functionality that isn't available like a configuration provider and automatic presence management. This package does not include all functionality provided by Commando, in fact, Commando is way more powerful than this library. Nevertheless, this was built to make it easier for us to quickly build bots without having to repeat ourselves that much.
 
-This was made for [Discord.js](https://discord.js.org/#/) v13.5, however any v12 should work fine.
+This was made for [Discord.js](https://discord.js.org/#/) v13.5, however any v13 should work fine.
 
 ## Usage
 
-You can visit the [documentation site](https://docs.greencoaststudios.com/discord.js-extended) to see what this library offers.
+You can visit the [documentation site](https://docs.greencoaststudios.com/discord.js-extended/master) to see what this library offers, check the [example](https://github.com/greencoast-studios/discord.js-extended/tree/master/example) bot, or check the [bots using this section](#bots-using-this) to see even more examples.
 
 ### Installation
 
@@ -30,7 +31,7 @@ npm install discord.js @greencoast/discord.js-extended
 
 ## Configuring your Client
 
-This package covers client configuration from environment variables and/or JSON files through the [ConfigProvider](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) class, which makes it easy to add configuration to a bot. Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) to see how to use this.
+This package covers client configuration from environment variables and/or JSON files through the [ConfigProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.configprovider.html) class, which makes it easy to add configuration to a bot. Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.configprovider.html) to see how to use this.
 
 An example of a bot's configuration may be as follows:
 
@@ -62,7 +63,7 @@ const client = new ExtendedClient({
 });
 ```
 
-Make sure to check the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.configprovider.html) to see the structure of the JSON file required and the type of environment variables that are supported.
+Make sure to check the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.configprovider.html) to see the structure of the JSON file required and the type of environment variables that are supported.
 
 ### Creating a Client
 
@@ -97,17 +98,17 @@ const client = new ExtendedClient({
 client.login(<YOUR_DISCORD_TOKEN_HERE>);
 ```
 
-The `presence` option in the client's constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, among others... Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.presencetemplater.html) to see what information you can include in your presence statuses.
+The `presence` option in the client's constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, among others... Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.presencetemplater.html) to see what information you can include in your presence statuses.
 
 ### Adding defaults to your Client
 
-You can register default handlers for the [Discord.js Client](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.clientdefaulthandlers.html) events, as well as the [ExtendedClient](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.extraclientdefaulthandlers.html) custom events.
+You can register default handlers for the [Discord.js Client](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.clientdefaulthandlers.html) events, as well as the [ExtendedClient](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.extraclientdefaulthandlers.html) custom events.
 
 ```js
 client.registerDefaultEvents().registerExtraDefaultEvents();
 ```
 
-The package also comes with default commands that you can use on your bot. Check the [Default Commands](https://docs.greencoaststudios.com/discord.js-extended/modules/defaultcommands.html) to see the available commands you can register right away. You can register them like:
+The package also comes with default commands that you can use on your bot. Check the [Default Commands](https://docs.greencoaststudios.com/discord.js-extended/master/modules/defaultcommands.html) to see the available commands you can register right away. You can register them like:
 
 ```js
 client.registry.registerDefaults();
@@ -115,7 +116,7 @@ client.registry.registerDefaults();
 
 ### Adding a Database Provider to your Client
 
-The package comes with persistent data functionality that can be enabled. The [DataProvider](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.dataprovider.html) is an abstract class that serves as common interface to use. By default, data is stored by guild, but you can also store/get data on a global scope.
+The package comes with persistent data functionality that can be enabled. The [DataProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.dataprovider.html) is an abstract class that serves as common interface to use. By default, data is stored by guild, but you can also store/get data on a global scope.
 
 You can use the following methods:
 
@@ -135,7 +136,7 @@ await client.dataProvider.clearGlobal(); // Clear all data in the global scope.
 
 #### LevelDataProvider
 
-[LevelDataProvider](https://docs.greencoaststudios.com/discord.js-extended/classes/dataproviders.leveldataprovider.html) is a data provider implemented with a [LevelDB](https://www.npmjs.com/package/level) backend. In order to use this, you need to install [level](https://www.npmjs.com/package/level).
+[LevelDataProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/dataproviders.leveldataprovider.html) is a data provider implemented with a [LevelDB](https://www.npmjs.com/package/level) backend. In order to use this, you need to install [level](https://www.npmjs.com/package/level).
 
 ```text
 npm install level
@@ -155,13 +156,13 @@ client.on('ready', () => {
 
 ### Creating Commands
 
-The package contains a [Command](https://docs.greencoaststudios.com/discord.js-extended/classes/discord_js_extended.command.html) to facilitate the creation of commands. In order to create one, you need to create a class that extends Command and implements a `run()` method.
+The package contains a [RegularCommand](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.regularcommand.html) to facilitate the creation of commands. In order to create one, you need to create a class that extends RegularCommand and implements a `run()` method.
 
 ```js
 const { Permissions } = require('discord.js');
-const { Command } = require('@greencoast/discord.js-extended');
+const { RegularCommand } = require('@greencoast/discord.js-extended');
 
-module.exports = class MyCommand extends Command {
+module.exports = class MyCommand extends RegularCommand {
   constructor(client) {
     super(client, {
       name: 'cmd', // The command's name. In this case, users need to write !cmd for the command to work.,
@@ -208,6 +209,115 @@ client.registry
 
 > If you don't register the groups before-hand, the commands will not be registered.
 
+### Creating Slash Commands
+
+You can also use Slash Commands, the package contains a [SlashCommand](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.slashcommand.html) to facilitate the creation of slash commands. In order to create one, you need to create a class that extends SlashCommand and implements a `run()` method.
+
+```js
+const { Permissions } = require('discord.js');
+const { SlashCommand } = require('@greencoast/discord.js-extended');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
+module.exports = class MyCommand extends SlashCommand {
+  constructor(client) {
+    super(client, {
+      name: 'cmd', // The command's name. In this case, users need to write !cmd for the command to work.,
+      aliases: ['mycmd', 'alias2'], // The command's aliases. With this, users can write !mycmd and !alias2 for the command to work.
+      description: 'My command.', // The command's description.
+      group: 'my_group', // The ID of the group that holds this command.
+      emoji: ':robot:', // The emoji that represents this command. This is used by the default HelpCommand. Defaults to ':robot:'.
+      guildOnly: true, // Whether the command may only be used in a guild. Defaults to false.
+      nsfw: false, // Whether the command may only be used in a NSFW channel. Defaults to false.
+      ownerOnly: false, // Whether the command may only be used by the owner. Defaults to false.
+      userPermissions: Permissions.FLAGS.MANAGE_CHANNELS, // The PermissionResolvable representing the permissions that users require to execute this command. Defaults to null.
+      ownerOverride: true, // Whether the owner may execute this command even if they don't have the required permissions. Defaults to true.
+      dataBuilder: new SlashCommandBuilder()
+    });
+
+    run(interaction) {
+      interaction.reply('Hi!');
+    }
+  }
+}
+```
+
+To use slash commands, you need to install the following package to access the `SlashCommandBuilder` class:
+
+```text
+npm install @discordjs/builders
+```
+
+> Keep in mind that you do not need to use `SlashCommandBuilder.setName()` and `SlashCommandBuilder.setDescription()` as
+> these are already set by the command constructor.
+
+### Deploying Slash Commands
+
+Slash commands require a special procedure to deploy them and have them live on Discord.
+
+#### Development
+
+For development, it is recommended to have a testing server for the development of the bot. With this in mind, you should set `testingGuildID` on your
+client options and have the following `ready` event handler.
+
+```js
+client.on('ready', async() => {
+  await client.deployer.deployToTestingGuild();
+});
+```
+
+This will update the slash commands **ONLY** on your testing server.
+
+#### Production
+
+For production, you should have a command deploy script, that could be run by a CI pipeline on a new version of your bot. The following example
+can work as a potential deploy script.
+
+```js
+require('dotenv').config();
+const path = require('path');
+const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
+
+const config = new ConfigProvider({
+  env: process.env,
+  configPath: path.join(__dirname, './config/settings.json'),
+  types: {
+    TOKEN: 'string'
+  }
+});
+
+const client = new ExtendedClient({
+  config,
+  intents: []
+});
+
+client.registry
+  .registerDefaults()
+  .registerGroups([
+    ['util', 'Utility'],
+    ['slash', 'Slash Commands']
+  ])
+  .registerCommandsIn(path.join(__dirname, './commands'));
+
+client.on('ready', async() => {
+  try {
+    await client.deployer.deployGlobally();
+  } catch (error) {
+    console.error('Something happened!', error);
+    process.exit(1);
+  }
+});
+
+client.on('commandsDeployed', (commands) => {
+  console.log(`Successfully deployed ${commands.length} commands globally!`);
+  process.exit(0);
+});
+
+client.login(client.config.get('TOKEN'));
+```
+
+> Keep in mind that you only need to deploy globally once. Also, this process can take up to an hour to be reflected
+> on Discord. **You should not use `client.deployer.deployGlobally()` for development.**
+
 ## Testing
 
 You can run the unit tests for this package by:
@@ -229,6 +339,15 @@ npm install
 ```text
 npm test
 ```
+
+## Bots Using This
+
+Here's a list of some bots that use this library.
+
+* [discord-downtime-notifier](https://github.com/moonstar-x/discord-downtime-notifier)
+* [discord-free-games-notifier](https://github.com/moonstar-x/discord-free-games-notifier)
+* [discord-music-24-7](https://github.com/moonstar-x/discord-music-24-7)
+* [discord-tts-bot](https://github.com/moonstar-x/discord-tts-bot)
 
 ## Authors
 
