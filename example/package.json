@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node .",
     "start-shard": "node sharded-client.js",
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "deploy": "node command-deploy.js"
   },
   "dependencies": {
     "@discordjs/builders": "^0.11.0",
