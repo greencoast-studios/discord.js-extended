@@ -14,7 +14,7 @@ const mockedLogger = mocked(logger, true);
 const clientMock = new ExtendedClient();
 const guildMock = new GuildMock() as Discord.Guild;
 const messageMock = new MessageMock() as unknown as Discord.Message;
-const interactionMock = new InteractionMock() as unknown as Discord.Interaction;
+const interactionMock = new InteractionMock() as unknown as Discord.CommandInteraction;
 const commandMock = new ConcreteRegularCommand(clientMock);
 const groupMock = new CommandGroup('group', 'Group');
 

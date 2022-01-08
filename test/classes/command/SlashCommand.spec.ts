@@ -13,12 +13,12 @@ const userMock = new UserMock() as unknown as Discord.User;
 describe('Classes: Command: SlashCommand', () => {
   let client: ExtendedClient;
   let command: SlashCommand;
-  let interaction: Discord.Interaction;
+  let interaction: Discord.CommandInteraction;
 
   beforeEach(() => {
     client = new ExtendedClient();
     command = new ConcreteSlashCommand(client);
-    interaction = new InteractionMock() as unknown as Discord.Interaction;
+    interaction = new InteractionMock() as unknown as Discord.CommandInteraction;
   });
 
   describe('constructor', () => {

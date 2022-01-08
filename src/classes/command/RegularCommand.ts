@@ -14,7 +14,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
    * @param message The [message](https://discord.js.org/#/docs/main/stable/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
-  public abstract run(message: Discord.Message, args: string[]): Promise<Discord.Message>;
+  public abstract run(message: Discord.Message, args: string[]): Promise<Discord.Message | void>;
 
   /**
    * Check whether the message author can execute this command.

@@ -33,7 +33,7 @@ export class ConcreteSlashCommand extends SlashCommand {
     });
   }
 
-  override run(interaction: Discord.Interaction): Promise<Discord.Message> {
-    return interaction.channel!.send('hi');
+  override run(interaction: Discord.CommandInteraction): Promise<void> {
+    return interaction.reply('hi');
   }
 }
