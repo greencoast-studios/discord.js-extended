@@ -70,6 +70,12 @@ class ConfigValidator {
   public validate(config: Record<string, ConfigValue>): void {
     Object.keys(config).forEach((key) => {
       const value = config[key];
+
+      const customValidator = this.customValidators[key];
+      if (customValidator) {
+        return customValidator(value);
+      }
+
       const type = this.types[key] || 'string';
 
       if (Array.isArray(type)) {
