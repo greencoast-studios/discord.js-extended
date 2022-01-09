@@ -121,11 +121,16 @@ class ConfigValidator {
       const value = config[key];
       const type = this.types[key] || 'string';
 
-      if (type === 'string' || type.includes('string') && !type.includes('null')) {
+      if (type === 'string') {
         return;
       }
 
       if (Array.isArray(type)) {
+        const containsArray = type.some((t) => t.endsWith('[]'));
+        if (type.includes('string') && !type.includes('null') && !containsArray) {
+          return;
+        }
+
         for (const t of type) {
           const casted = this.tryCastSingleValue(value, t);
           if (casted !== value) {
@@ -154,6 +159,17 @@ class ConfigValidator {
       return value === null;
     }
 
+    if (type.endsWith('[]')) {
+      if (Array.isArray(value)) {
+        const singleType = type.slice(0, type.length - 2);
+        const valueArray = value as ConfigValue[];
+
+        return valueArray.every((val: ConfigValue) => typeof val === singleType);
+      }
+
+      return false; // It should be an array.
+    }
+
     return typeof value === type;
   }
 
@@ -165,7 +181,7 @@ class ConfigValidator {
    * @returns The cast value.
    * @throws Throws if the type is invalid.
    */
-  private tryCastSingleValue(value: ConfigValue, type: string): ConfigValue {
+  private tryCastSingleValue(value: string, type: string): ConfigValue {
     let casted: ConfigValue = value;
 
     switch (type) {
@@ -190,6 +206,18 @@ class ConfigValidator {
 
       case 'string':
         casted = `${value}`;
+        break;
+
+      case 'string[]':
+        casted = value.split(',').map((v) => this.tryCastSingleValue(v, 'string') as string);
+        break;
+
+      case 'boolean[]':
+        casted = value.split(',').map((v) => this.tryCastSingleValue(v, 'boolean') as boolean);
+        break;
+
+      case 'number[]':
+        casted = value.split(',').map((v) => this.tryCastSingleValue(v, 'number') as number);
         break;
 
       case 'null':

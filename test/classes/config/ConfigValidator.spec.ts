@@ -5,7 +5,11 @@ const mockedConfig = {
   NUM: 123,
   F: false,
   F_STRING: 'false',
-  NULLABLE: 'optional'
+  NULLABLE: 'optional',
+  STR_ARRAY: ['hi', 'there'],
+  BOOL_ARRAY: [true, false],
+  NUM_ARRAY: [3.14, 42],
+  STR_MUL_SINGLE: ['string here']
 };
 
 const mockedTypes = {
@@ -13,7 +17,11 @@ const mockedTypes = {
   NUM: 'number',
   F: 'boolean',
   F_STRING: ['string', 'boolean'],
-  NULLABLE: ['string', 'null']
+  NULLABLE: ['string', 'null'],
+  STR_ARRAY: 'string[]',
+  BOOL_ARRAY: 'boolean[]',
+  NUM_ARRAY: 'number[]',
+  STR_MUL_SINGLE: ['string', 'string[]']
 };
 
 describe('Classes: Config: ConfigValidator', () => {
@@ -148,6 +156,22 @@ describe('Classes: Config: ConfigValidator', () => {
       });
     });
 
+    describe('With "string[]"', () => {
+      it('should cast every item into a string.', () => {
+        const validator = new ConfigValidator({ S: 'string[]' });
+
+        const casted = validator.castFromString({ S: 'one,two,three' });
+        const s = casted.S as string[];
+
+        s.forEach((val) => {
+          expect(typeof val).toBe('string');
+        });
+        expect(s[0]).toBe('one');
+        expect(s[1]).toBe('two');
+        expect(s[2]).toBe('three');
+      });
+    });
+
     describe('With "boolean"', () => {
       it('should cast the value to a boolean if it is a valid boolean string.', () => {
         const validator = new ConfigValidator({ T: 'boolean', F: 'boolean' });
@@ -194,6 +218,22 @@ describe('Classes: Config: ConfigValidator', () => {
       });
     });
 
+    describe('With "boolean[]"', () => {
+      it('should cast every item into a boolean.', () => {
+        const validator = new ConfigValidator({ B: 'boolean[]' });
+
+        const casted = validator.castFromString({ B: 'true,false,true' });
+        const b = casted.B as boolean[];
+
+        b.forEach((val) => {
+          expect(typeof val).toBe('boolean');
+        });
+        expect(b[0]).toBe(true);
+        expect(b[1]).toBe(false);
+        expect(b[2]).toBe(true);
+      });
+    });
+
     describe('With "number"', () => {
       it('should cast the value to a number if it is a valid number string.', () => {
         const validator = new ConfigValidator({ N: 'number', F: 'number' });
@@ -237,6 +277,22 @@ describe('Classes: Config: ConfigValidator', () => {
         const casted2 = validator2.castFromString({ N: 'not-a-number' });
         expect(typeof casted2.N).toBe('string');
         expect(casted2.N).toBe('not-a-number');
+      });
+    });
+
+    describe('With "number[]"', () => {
+      it('should cast every item into a number.', () => {
+        const validator = new ConfigValidator({ N: 'number[]' });
+
+        const casted = validator.castFromString({ N: '1,2,3' });
+        const n = casted.N as number[];
+
+        n.forEach((val) => {
+          expect(typeof val).toBe('number');
+        });
+        expect(n[0]).toBe(1);
+        expect(n[1]).toBe(2);
+        expect(n[2]).toBe(3);
       });
     });
 
