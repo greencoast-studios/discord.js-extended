@@ -67,6 +67,10 @@ class PresenceManager {
     if (!options.afk) {
       options.afk = false;
     }
+    if (!options.customGetters) {
+      options.customGetters = {};
+    }
+
     this.options = options;
     this.refreshIntervalHandle = null;
 
