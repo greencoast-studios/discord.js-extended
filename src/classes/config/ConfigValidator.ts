@@ -5,7 +5,8 @@ import { ConfigValue, ConfigCustomValidators } from '../../types';
  * with a subset of the keys of the config with a type or array of types corresponding
  * to that config value.
  *
- * Valid types include: `boolean`, `number`, `string` and `null`.
+ * Valid types include: `boolean`, `number`, `string` and `null`,
+ * or including their array types: `boolean[]`, `number[]` and `string[]`
  * You can set a type to be an array containing multiple of the ones above.
  *
  * It is preferable to specify all the types for your config. However, if a type is omitted
@@ -35,7 +36,10 @@ class ConfigValidator {
     'boolean',
     'number',
     'string',
-    'null'
+    'null',
+    'boolean[]',
+    'number[]',
+    'string[]'
   ];
 
   /**
