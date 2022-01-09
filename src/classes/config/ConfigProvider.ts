@@ -94,6 +94,7 @@ class ConfigProvider {
 
   /**
    * @param options The options for this config provider.
+   * @throws Throws if it is not possible to cast a value to its given type.
    */
   constructor(options: ConfigProviderOptions = {}) {
     this.options = options;
@@ -151,6 +152,7 @@ class ConfigProvider {
    * Process the environment variables object for configuration.
    * Keys must begin with DISCORD_ to be added to the configuration provider.
    * @param env The environment variables object.
+   * @throws Throws if it is not possible to cast a value to its given type.
    */
   private processEnv(env?: Record<string, ConfigValue>): void {
     if (!env) {
