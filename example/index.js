@@ -26,10 +26,13 @@ const client = new ExtendedClient({
   owner: '191330192868769793',
   debug: true,
   presence: {
-    templates: ['{num_guilds} guilds!', '{num_members} members!', 'owner: {owner_name}', '{uptime}', '{ready_time}'],
+    templates: ['{num_guilds} guilds!', 'random number {random}', '{num_members} members!', 'owner: {owner_name}', '{uptime}', '{ready_time}'],
     refreshInterval: 10000, // Presence gets changed every 10 seconds.
     status: 'dnd',
-    type: 'COMPETING'
+    type: 'COMPETING',
+    customGetters: {
+      random: async() => Math.random().toString()
+    }
   },
   config,
   errorOwnerReporting: true,
