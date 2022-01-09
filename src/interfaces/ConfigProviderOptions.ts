@@ -1,4 +1,4 @@
-import { ConfigValue } from '../types';
+import { ConfigCustomValidators, ConfigValue } from '../types';
 
 /**
  * The config provider's options object. This defines where the config will be pulled from
@@ -29,7 +29,16 @@ interface ConfigProviderOptions {
    * It can be a string or an array of strings.
    * Types can be: `boolean`, `number`, `string`, or `null`.
    */
-  types?: Record<string, string | string[]>
+  types?: Record<string, string | string[]>,
+
+  /**
+   * An object that maps a config key to a custom validator function.
+   * This validator function will be used to validate the config supplied.
+   * It will skip the default type validator and instead use the one specified here.
+   * This function should not return anything, but throw a TypeError if the given value is not
+   * correct.
+   */
+  customValidators?: ConfigCustomValidators
 }
 
 export default ConfigProviderOptions;

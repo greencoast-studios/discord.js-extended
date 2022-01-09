@@ -82,6 +82,34 @@ describe('Classes: Config: ConfigValidator', () => {
         validator.validate({ NULLABLE: null });
       }).not.toThrow();
     });
+
+    it('should throw if value does not conform custom validator.', () => {
+      validator = new ConfigValidator({ CUSTOM: 'string' }, {
+        CUSTOM: (value) => {
+          if (value !== 'my_enum') {
+            throw new TypeError('Invalid value for key CUSTOM');
+          }
+        }
+      });
+
+      expect(() => {
+        validator.validate({ CUSTOM: 'invalid' });
+      }).toThrow(TypeError);
+    });
+
+    it('should not throw if value does conform custom validator.', () => {
+      validator = new ConfigValidator({ CUSTOM: 'string' }, {
+        CUSTOM: (value) => {
+          if (value !== 'my_enum') {
+            throw new TypeError('Invalid value for key CUSTOM');
+          }
+        }
+      });
+
+      expect(() => {
+        validator.validate({ CUSTOM: 'my_enum' });
+      }).not.toThrow(TypeError);
+    });
   });
 
   describe('castFromString()', () => {

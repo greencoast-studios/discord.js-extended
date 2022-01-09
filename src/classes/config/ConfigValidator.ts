@@ -1,4 +1,4 @@
-import { ConfigValue } from '../../types';
+import { ConfigValue, ConfigCustomValidators } from '../../types';
 
 /**
  * A validator class for the configuration provider. This class receives an object
@@ -11,6 +11,12 @@ import { ConfigValue } from '../../types';
  * It is preferable to specify all the types for your config. However, if a type is omitted
  * it will be defaulted to `string`. Keep this in mind in the case you need to have
  * a boolean or a number in your configuration.
+ *
+ * You may also specify custom validators by passing an object that maps the key of the config
+ * with its validator. This validator function does not need to return anything, but throw a
+ * TypeError if the given value in its parameter is not valid according to your criteria.
+ * If you pass a customValidator for a specific key, you should still pass its type because
+ * it is used to cast the value coming from environment variables, since they're only strings.
  *
  * This configuration is most useful for configuration coming from env variables
  * since they are only strings. Although, in a case where only a JSON configuration is
@@ -40,12 +46,25 @@ class ConfigValidator {
   public types: Record<string, string | string[]>;
 
   /**
-   * @param types The types for this config validator.
+   * An object that maps a config key to a custom validator function.
+   * This validator function will be used to validate the config supplied.
+   * It will skip the default type validator and instead use the one specified here.
+   * This function should not return anything, but throw a TypeError if the given value is not
+   * correct.
+   * @type {ConfigCustomValidators}
+   * @memberof ConfigValidator
    */
-  constructor(types: Record<string, string | string[]>) {
+  public customValidators: ConfigCustomValidators;
+
+  /**
+   * @param types The types for this config validator.
+   * @param customValidators An object that maps a config key to a custom validator function.
+   */
+  constructor(types: Record<string, string | string[]>, customValidators: ConfigCustomValidators = {}) {
     this.validateTypes(types);
 
     this.types = types;
+    this.customValidators = customValidators;
   }
 
   /**
@@ -57,6 +76,12 @@ class ConfigValidator {
   public validate(config: Record<string, ConfigValue>): void {
     Object.keys(config).forEach((key) => {
       const value = config[key];
+
+      const customValidator = this.customValidators[key];
+      if (customValidator) {
+        return customValidator(value);
+      }
+
       const type = this.types[key] || 'string';
 
       if (Array.isArray(type)) {
