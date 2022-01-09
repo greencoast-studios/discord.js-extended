@@ -31,7 +31,7 @@ import ConfigProviderOptions from './interfaces/ConfigProviderOptions';
 import CommandInfo from './interfaces/CommandInfo';
 import SlashCommandInfo from './interfaces/SlashCommandInfo';
 
-import { ConfigValue, ConfigCustomValidators, CommandTrigger, PresenceTemplaterGetters } from './types';
+import { ConfigValue, CommandTrigger } from './types';
 
 export {
   ExtendedClient,
@@ -61,7 +61,5 @@ export {
   CommandInfo,
   SlashCommandInfo,
   ConfigValue,
-  ConfigCustomValidators,
-  CommandTrigger,
-  PresenceTemplaterGetters
+  CommandTrigger
 };

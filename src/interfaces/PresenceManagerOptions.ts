@@ -1,5 +1,4 @@
 import PresenceData from './PresenceData';
-import { PresenceTemplaterGetters } from '../types';
 
 /**
  * The presence manager's options.
@@ -15,15 +14,7 @@ interface PresenceManagerOptions extends PresenceData {
   /**
    * The interval at which the client's presence should be updated.
    */
-  refreshInterval?: number | null,
-
-  /**
-   * An object to map a templater key to a custom getter. The getter function
-   * should return a Promise that resolves to the correct string that the
-   * templater should replace the key with.
-   * @defaultValue `{}`
-   */
-  customGetters?: PresenceTemplaterGetters
+  refreshInterval?: number | null
 }
 
 export default PresenceManagerOptions;

@@ -52,6 +52,9 @@ class PresenceManager {
    * @param options The options for this presence manager.
    */
   constructor(client: ExtendedClient, options: PresenceManagerOptions = {}) {
+    this.client = client;
+    this.templater = new PresenceTemplater(client);
+
     if (!options.templates) {
       options.templates = ['{num_guilds} servers!'];
     }
@@ -64,13 +67,6 @@ class PresenceManager {
     if (!options.afk) {
       options.afk = false;
     }
-    if (!options.customGetters) {
-      options.customGetters = {};
-    }
-
-    this.client = client;
-    this.templater = new PresenceTemplater(client, options.customGetters);
-
     this.options = options;
     this.refreshIntervalHandle = null;
 

@@ -22,7 +22,7 @@ abstract class AsyncTemplater {
    * Get the actual value that will replace the key inside the template.
    * @param key The key to replace.
    * @returns A promise that resolves to the corresponding string for the given key.
-   * @throws Rejects if given key does not correspond to this async templater.
+   * @throws Throws if given key does not correspond to this async templater.
    */
   public abstract get(key: string): Promise<string>;
 

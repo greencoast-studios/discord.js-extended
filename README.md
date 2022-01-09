@@ -33,9 +33,6 @@ npm install discord.js @greencoast/discord.js-extended
 
 This package covers client configuration from environment variables and/or JSON files through the [ConfigProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.configprovider.html) class, which makes it easy to add configuration to a bot. Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.configprovider.html) to see how to use this.
 
-You may also specify custom validators for even more control of how config is provided to your bot. Simply, pass a `customValidators` property to the `ConfigProvider` options, and map the key of the config to its validator function. Your validator function should
-throw a `TypeError` if the given value is invalid based on your criteria.
-
 An example of a bot's configuration may be as follows:
 
 ```js
@@ -50,24 +47,13 @@ const config = new ConfigProvider({
     PREFIX: '!', // Adds a default value for the PREFIX config.
     TOKEN: null, // Adds a default value for the TOKEN config.
     MY_ID: 123,
-    OPTIONAL_FLAG: false,
-    MY_ENUM: 'enum1'
+    OPTIONAL_FLAG: false
   },
   types: { // These are the types of the configuration. The provider validates that the config receives the proper configuration types.
     PREFIX: 'string',
     TOKEN: ['string', 'null'], // With a 'null' type, you can pass 'null' to have it as null.
     MY_ID: 'number',
-    OPTIONAL_FLAG: ['boolean', 'null'],
-    MY_ENUM: 'string',
-    MY_NUM_ARRAY: 'number[]' // You can pass arrays through JSON or comma-separated values through env variables.
-  },
-  customValidators: { // These are the custom validators to use instead of the basic type based validator.
-    MY_ENUM: (value) => {
-      const validValues = ['enum1', 'enum2', 'enum3'];
-      if (!validValues.includes(value)) {
-        throw new TypeError(`${value} is not a valid value for MY_ENUM, you should use: ${validValues.join(', ')}`);
-      }
-    }
+    OPTIONAL_FLAG: ['boolean', 'null']
   }
 });
 
@@ -102,11 +88,8 @@ const client = new ExtendedClient({
   owner: '123', // The ID of the bot's owner.
   prefix: '!', // The bot's prefix to be used.
   presence: {
-    templates: ['presence 1', 'presence 2', '{custom_key} hi!'], // The presence statuses used by this bot.
-    refreshInterval: 3600000, // Update the bot's presence every hour.
-    customGetters: {
-      custom_key: async() => Math.random().toString() // Define custom getters for keys to replace on the presence strings.
-    }
+    templates: ['presence 1', 'presence 2'], // The presence statuses used by this bot.
+    refreshInterval: 3600000 // Update the bot's presence every hour.
   },
   errorOwnerReporting: true, // Sends DMs to the bot's owner whenever a command throws an error.
   intents: [Intents.FLAGS.GUILDS]
@@ -115,8 +98,7 @@ const client = new ExtendedClient({
 client.login(<YOUR_DISCORD_TOKEN_HERE>);
 ```
 
-The `presence` option in the client's constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, or even custom data... Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.presencetemplater.html) to see what information you can include in your presence statuses
-and how to add custom getters for your own presence messages.
+The `presence` option in the client's constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, among others... Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.presencetemplater.html) to see what information you can include in your presence statuses.
 
 ### Adding defaults to your Client
 

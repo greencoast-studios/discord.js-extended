@@ -1,11 +1,10 @@
-import Discord from 'discord.js';
+import Discord, { Snowflake } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import ExtendedClient from '../ExtendedClient';
 import AsyncTemplater from '../abstract/AsyncTemplater';
-import { PresenceTemplaterGetters } from '../../types';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -36,19 +35,9 @@ class PresenceTemplater extends AsyncTemplater {
   public readonly client: ExtendedClient;
 
   /**
-   * An object to map a templater key to a custom getter. The getter function
-   * should return a Promise that resolves to the correct string that the
-   * templater should replace the key with.
-   * @type {PresenceTemplaterGetters}
-   * @memberof PresenceTemplater
-   */
-  public customGetters: PresenceTemplaterGetters;
-
-  /**
    * @param client The client that this presence async templater will use as a data source.
-   * @param customGetters The custom getters object to define custom templates.
    */
-  constructor(client: ExtendedClient, customGetters: PresenceTemplaterGetters) {
+  constructor(client: ExtendedClient) {
     super([
       'num_guilds',
       'prefix',
@@ -58,17 +47,13 @@ class PresenceTemplater extends AsyncTemplater {
       'uptime',
       'ready_time',
       'num_members',
-      'num_commands',
-      ...Object.keys(customGetters)
+      'num_commands'
     ]);
 
     this.client = client;
-    this.customGetters = customGetters;
   }
 
   public get(key: string): Promise<string> {
-    let getter: (() => Promise<string>) | undefined;
-
     switch (key) {
       case 'num_guilds':
         return this.getNumberOfGuilds();
@@ -89,12 +74,6 @@ class PresenceTemplater extends AsyncTemplater {
       case 'num_commands':
         return this.getNumberOfCommands();
       default:
-        getter = this.customGetters[key];
-
-        if (getter) {
-          return getter();
-        }
-
         return Promise.reject(new Error('Unknown key inserted in PresenceTemplater.'));
     }
   }
@@ -192,7 +171,7 @@ class PresenceTemplater extends AsyncTemplater {
 
     return this.client.shard.fetchClientValues('guilds.cache')
       .then((results) => {
-        const castedResults = results as Discord.Collection<Discord.Snowflake, Discord.Guild>[];
+        const castedResults = results as Discord.Collection<Snowflake, Discord.Guild>[];
         return castedResults.reduce((sum, guildCache) => {
           const memberCounts = guildCache.reduce((sum: number, guild: Discord.Guild) => sum + guild.memberCount, 0);
 
