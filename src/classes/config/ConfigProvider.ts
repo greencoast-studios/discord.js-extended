@@ -19,11 +19,18 @@ import { ConfigValue } from '../../types';
  *
  * > If config is repeated on multiple sources, they'll be overwritten by the latest config source.
  *
+ * The ConfigProvider supports array types, you can supply them through the JSON config as a direct array
+ * or through environment variables through comma-separated values.
+ *
+ * > Comma escaping is not supported yet, so if you specify a type of `string[]` and insert the value `Hi, my name is.`,
+ * > the value will correspond to `['Hi', ' my name is.']`.
+ *
  * An example environment variable file would be:
  *
  * ```text
  * DISCORD_TOKEN=MY_TOKEN
  * DISCORD_MY_VARIABLE=$
+ * DISCORD_MY_NUMS=123,234,345
  * ```
  *
  * An example JSON config file would be:
@@ -31,7 +38,8 @@ import { ConfigValue } from '../../types';
  * ```json
  * {
  *   "token": "MY_TOKEN",
- *   "my_variable": "$"
+ *   "my_variable": "$",
+ *   "my_nums": [123, 234, 345]
  * }
  * ```
  *
@@ -40,7 +48,8 @@ import { ConfigValue } from '../../types';
  * ```js
  * {
  *   TOKEN: 'MY_TOKEN',
- *   MY_VARIABLE: '$'
+ *   MY_VARIABLE: '$',
+ *   MY_NUMS: [1, 2, 3]
  * }
  * ```
  *
@@ -49,6 +58,7 @@ import { ConfigValue } from '../../types';
  * ```js
  * const token = client.config.get('TOKEN');
  * const myVariable = client.config.get('MY_VARIABLE');
+ * const myNums = client.config.get('MY_NUMS');
  * ```
  *
  * It is also recommended specifying the types of the config. Check {@link ConfigValidator} for more information.
@@ -84,12 +94,13 @@ class ConfigProvider {
 
   /**
    * @param options The options for this config provider.
+   * @throws Throws if it is not possible to cast a value to its given type.
    */
   constructor(options: ConfigProviderOptions = {}) {
     this.options = options;
     this.default = options.default;
     this.config = {};
-    this.validator = new ConfigValidator(options.types || {});
+    this.validator = new ConfigValidator(options.types || {}, options.customValidators || {});
 
     this.processDefaults(options.default);
     this.processConfigFile(options.configPath);
@@ -141,6 +152,7 @@ class ConfigProvider {
    * Process the environment variables object for configuration.
    * Keys must begin with DISCORD_ to be added to the configuration provider.
    * @param env The environment variables object.
+   * @throws Throws if it is not possible to cast a value to its given type.
    */
   private processEnv(env?: Record<string, ConfigValue>): void {
     if (!env) {

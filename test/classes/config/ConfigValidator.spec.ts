@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import ConfigValidator from '../../../src/classes/config/ConfigValidator';
 
 const mockedConfig = {
@@ -5,7 +6,11 @@ const mockedConfig = {
   NUM: 123,
   F: false,
   F_STRING: 'false',
-  NULLABLE: 'optional'
+  NULLABLE: 'optional',
+  STR_ARRAY: ['hi', 'there'],
+  BOOL_ARRAY: [true, false],
+  NUM_ARRAY: [3.14, 42],
+  STR_MUL_SINGLE: ['string here']
 };
 
 const mockedTypes = {
@@ -13,7 +18,11 @@ const mockedTypes = {
   NUM: 'number',
   F: 'boolean',
   F_STRING: ['string', 'boolean'],
-  NULLABLE: ['string', 'null']
+  NULLABLE: ['string', 'null'],
+  STR_ARRAY: 'string[]',
+  BOOL_ARRAY: 'boolean[]',
+  NUM_ARRAY: 'number[]',
+  STR_MUL_SINGLE: ['string', 'string[]']
 };
 
 describe('Classes: Config: ConfigValidator', () => {
@@ -82,6 +91,34 @@ describe('Classes: Config: ConfigValidator', () => {
         validator.validate({ NULLABLE: null });
       }).not.toThrow();
     });
+
+    it('should throw if value does not conform custom validator.', () => {
+      validator = new ConfigValidator({ CUSTOM: 'string' }, {
+        CUSTOM: (value) => {
+          if (value !== 'my_enum') {
+            throw new TypeError('Invalid value for key CUSTOM');
+          }
+        }
+      });
+
+      expect(() => {
+        validator.validate({ CUSTOM: 'invalid' });
+      }).toThrow(TypeError);
+    });
+
+    it('should not throw if value does conform custom validator.', () => {
+      validator = new ConfigValidator({ CUSTOM: 'string' }, {
+        CUSTOM: (value) => {
+          if (value !== 'my_enum') {
+            throw new TypeError('Invalid value for key CUSTOM');
+          }
+        }
+      });
+
+      expect(() => {
+        validator.validate({ CUSTOM: 'my_enum' });
+      }).not.toThrow(TypeError);
+    });
   });
 
   describe('castFromString()', () => {
@@ -104,19 +141,113 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(casted.S).toBe('123');
       });
 
-      it('should keep the value as a string if type contains string.', () => {
-        const validator = new ConfigValidator({ S: ['number', 'string'] });
+      it('should cast to null if the value is null and the type contains string and null.', () => {
+        const validator1 = new ConfigValidator({ N: ['string', 'null'] });
+        const validator2 = new ConfigValidator({ N: ['null', 'string'] });
 
-        const casted = validator.castFromString({ S: '123' });
-        expect(typeof casted.S).toBe('string');
-        expect(casted.S).toBe('123');
+        const casted1 = validator1.castFromString({ N: 'null' });
+        const casted2 = validator2.castFromString({ N: 'null' });
+
+        expect(casted1.N).toBeNull();
+        expect(casted2.N).toBeNull();
       });
 
-      it('should cast to null if the value is null and the type contains string and null.', () => {
-        const validator = new ConfigValidator({ N: ['string', 'null'] });
+      it('should cast to boolean if it is a valid boolean string and the type contains boolean.', () => {
+        const validator1 = new ConfigValidator({ B: ['string', 'boolean'] });
+        const validator2 = new ConfigValidator({ B: ['boolean', 'string'] });
 
-        const casted = validator.castFromString({ N: 'null' });
-        expect(casted.N).toBeNull();
+        const casted1 = validator1.castFromString({ B: 'true' });
+        const casted2 = validator2.castFromString({ B: 'false' });
+
+        expect(casted1.B).toBe(true);
+        expect(casted2.B).toBe(false);
+      });
+
+      it('should return the value if it is an invalid boolean string and the type contains boolean.', () => {
+        const validator1 = new ConfigValidator({ B: ['string', 'boolean'] });
+        const validator2 = new ConfigValidator({ B: ['boolean', 'string'] });
+
+        const casted1 = validator1.castFromString({ B: 'truthy' });
+        const casted2 = validator2.castFromString({ B: 'truthy' });
+
+        expect(casted1.B).toBe('truthy');
+        expect(casted2.B).toBe('truthy');
+      });
+
+      it('should return the value if it is an invalid number string and the type contains number.', () => {
+        const validator1 = new ConfigValidator({ N: ['string', 'number'] });
+        const validator2 = new ConfigValidator({ N: ['number', 'string'] });
+
+        const casted1 = validator1.castFromString({ N: '123.213.21' });
+        const casted2 = validator2.castFromString({ N: '123.213.21' });
+
+        expect(casted1.N).toBe('123.213.21');
+        expect(casted2.N).toBe('123.213.21');
+      });
+
+      it('should cast to number if it is a valid number string and the type contains number.', () => {
+        const validator1 = new ConfigValidator({ N: ['string', 'number'] });
+        const validator2 = new ConfigValidator({ N: ['number', 'string'] });
+
+        const casted1 = validator1.castFromString({ N: '3.14' });
+        const casted2 = validator2.castFromString({ N: '42' });
+
+        expect(casted1.N).toBe(3.14);
+        expect(casted2.N).toBe(42);
+      });
+
+      it('should return the value if it is an invalid number[] string and the type contains number[].', () => {
+        const validator1 = new ConfigValidator({ N: ['string', 'number[]'] });
+        const validator2 = new ConfigValidator({ N: ['number[]', 'string'] });
+
+        const casted1 = validator1.castFromString({ N: '123.213.21,23,23' });
+        const casted2 = validator2.castFromString({ N: '123.213.21,23,23' });
+
+        expect(casted1.N).toBe('123.213.21,23,23');
+        expect(casted2.N).toBe('123.213.21,23,23');
+      });
+
+      it('should cast to number[] if it is a valid number[] string and the type contains number[].', () => {
+        const validator1 = new ConfigValidator({ N: ['string', 'number[]'] });
+        const validator2 = new ConfigValidator({ N: ['number[]', 'string'] });
+
+        const casted1 = validator1.castFromString({ N: '3.14,42,1' });
+        const casted2 = validator2.castFromString({ N: '3.14,42,1' });
+
+        expect(casted1.N as number[]).toStrictEqual([3.14, 42, 1]);
+        expect(casted2.N as number[]).toStrictEqual([3.14, 42, 1]);
+      });
+
+      it('should return the value if it is an invalid boolean[] string and the type contains boolean[].', () => {
+        const validator1 = new ConfigValidator({ B: ['string', 'boolean[]'] });
+        const validator2 = new ConfigValidator({ B: ['boolean[]', 'string'] });
+
+        const casted1 = validator1.castFromString({ B: 'true,false,truthy' });
+        const casted2 = validator2.castFromString({ B: 'true,false,truthy' });
+
+        expect(casted1.B).toBe('true,false,truthy');
+        expect(casted2.B).toBe('true,false,truthy');
+      });
+
+      it('should cast to boolean[] if it is a valid boolean[] string and the type contains boolean[].', () => {
+        const validator1 = new ConfigValidator({ B: ['string', 'boolean[]'] });
+        const validator2 = new ConfigValidator({ B: ['boolean[]', 'string'] });
+
+        const casted1 = validator1.castFromString({ B: 'true,false,true' });
+        const casted2 = validator2.castFromString({ B: 'true,false,true' });
+
+        expect(casted1.B as boolean[]).toStrictEqual([true, false, true]);
+        expect(casted2.B as boolean[]).toStrictEqual([true, false, true]);
+      });
+    });
+
+    describe('With "string[]"', () => {
+      it('should cast every item into a string.', () => {
+        const validator = new ConfigValidator({ S: 'string[]' });
+
+        const casted = validator.castFromString({ S: 'one,two,three' });
+
+        expect(casted.S).toStrictEqual(['one', 'two', 'three']);
       });
     });
 
@@ -131,12 +262,12 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(casted.F).toBe(false);
       });
 
-      it('should keep it as a string if it is not a valid boolean string.', () => {
+      it('should throw if it is not a valid boolean string.', () => {
         const validator = new ConfigValidator({ B: 'boolean' });
 
-        const casted = validator.castFromString({ B: 'truthy' });
-        expect(typeof casted.B).toBe('string');
-        expect(casted.B).toBe('truthy');
+        expect(() => {
+          validator.castFromString({ B: 'truthy' });
+        }).toThrow();
       });
 
       it('should cast the value to a boolean if the type contains boolean and it is a valid boolean string.', () => {
@@ -152,17 +283,35 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(casted2.B).toBe(true);
       });
 
-      it('should not cast the value to a boolean if the type contains boolean and it is not a valid boolean string.', () => {
+      it('should throw if the type contains boolean and it is not a valid boolean string.', () => {
         const validator1 = new ConfigValidator({ B: ['boolean', 'number'] });
         const validator2 = new ConfigValidator({ B: ['number', 'boolean'] });
 
-        const casted1 = validator1.castFromString({ B: 'truthy' });
-        expect(typeof casted1.B).toBe('string');
-        expect(casted1.B).toBe('truthy');
+        expect(() => {
+          validator1.castFromString({ B: 'truthy' });
+        }).toThrow();
 
-        const casted2 = validator2.castFromString({ B: 'truthy' });
-        expect(typeof casted2.B).toBe('string');
-        expect(casted2.B).toBe('truthy');
+        expect(() => {
+          validator2.castFromString({ B: 'truthy' });
+        }).toThrow();
+      });
+    });
+
+    describe('With "boolean[]"', () => {
+      it('should cast every item into a boolean.', () => {
+        const validator = new ConfigValidator({ B: 'boolean[]' });
+
+        const casted = validator.castFromString({ B: 'true,false,true' });
+
+        expect(casted.B).toStrictEqual([true, false, true]);
+      });
+
+      it('should throw if any of the items is not a valid boolean string.', () => {
+        const validator = new ConfigValidator({ B: 'boolean[]' });
+
+        expect(() => {
+          validator.castFromString({ B: 'true,false,truthy' });
+        }).toThrow();
       });
     });
 
@@ -177,12 +326,12 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(casted.F).toBe(3.1415);
       });
 
-      it('should keep it as a string if it is not a valid number string.', () => {
+      it('should throw if it is not a valid number string.', () => {
         const validator = new ConfigValidator({ N: 'number' });
 
-        const casted = validator.castFromString({ N: 'not-a-number' });
-        expect(typeof casted.N).toBe('string');
-        expect(casted.N).toBe('not-a-number');
+        expect(() => {
+          validator.castFromString({ N: 'not-a-number' });
+        }).toThrow();
       });
 
       it('should cast the value to a number if the type contains number and it is a valid number string.', () => {
@@ -198,17 +347,35 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(casted2.N).toBe(42);
       });
 
-      it('should not cast the value to a number if the type contains number and it is not a valid number string.', () => {
+      it('should throw if the type contains number and it is not a valid number string.', () => {
         const validator1 = new ConfigValidator({ N: ['boolean', 'number'] });
         const validator2 = new ConfigValidator({ N: ['number', 'boolean'] });
 
-        const casted1 = validator1.castFromString({ N: 'not-a-number' });
-        expect(typeof casted1.N).toBe('string');
-        expect(casted1.N).toBe('not-a-number');
+        expect(() => {
+          validator1.castFromString({ N: 'not-a-number' });
+        }).toThrow();
 
-        const casted2 = validator2.castFromString({ N: 'not-a-number' });
-        expect(typeof casted2.N).toBe('string');
-        expect(casted2.N).toBe('not-a-number');
+        expect(() => {
+          validator2.castFromString({ N: 'not-a-number' });
+        }).toThrow();
+      });
+    });
+
+    describe('With "number[]"', () => {
+      it('should cast every item into a number.', () => {
+        const validator = new ConfigValidator({ N: 'number[]' });
+
+        const casted = validator.castFromString({ N: '1,2,3' });
+
+        expect(casted.N).toStrictEqual([1, 2, 3]);
+      });
+
+      it('should throw if any of the items is not a valid number string.', () => {
+        const validator = new ConfigValidator({ N: 'number[]' });
+
+        expect(() => {
+          validator.castFromString({ N: '123,223,11.123.1213' });
+        }).toThrow();
       });
     });
 
@@ -220,12 +387,12 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(casted.N).toBeNull();
       });
 
-      it('should keep it as a string if it is not a valid null string.', () => {
+      it('should throw if it is not a valid null string.', () => {
         const validator = new ConfigValidator({ N: 'null' });
 
-        const casted = validator.castFromString({ N: 'not-null' });
-        expect(typeof casted.N).toBe('string');
-        expect(casted.N).toBe('not-null');
+        expect(() => {
+          validator.castFromString({ N: 'not-null' });
+        }).toThrow();
       });
 
       it('should cast the value to a null if the type contains null and it is a valid null string.', () => {
@@ -239,17 +406,17 @@ describe('Classes: Config: ConfigValidator', () => {
         expect(casted2.N).toBeNull();
       });
 
-      it('should not cast the value to a null if the type contains null and it is not a valid null string.', () => {
+      it('should throw if the type contains null and it is not a valid null string.', () => {
         const validator1 = new ConfigValidator({ N: ['null', 'number'] });
         const validator2 = new ConfigValidator({ N: ['number', 'null'] });
 
-        const casted1 = validator1.castFromString({ N: 'not-null' });
-        expect(typeof casted1.N).toBe('string');
-        expect(casted1.N).toBe('not-null');
+        expect(() => {
+          validator1.castFromString({ N: 'not-null' });
+        }).toThrow();
 
-        const casted2 = validator2.castFromString({ N: 'not-null' });
-        expect(typeof casted2.N).toBe('string');
-        expect(casted2.N).toBe('not-null');
+        expect(() => {
+          validator2.castFromString({ N: 'not-null' });
+        }).toThrow();
       });
     });
   });
