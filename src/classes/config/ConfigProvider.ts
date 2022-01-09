@@ -89,7 +89,7 @@ class ConfigProvider {
     this.options = options;
     this.default = options.default;
     this.config = {};
-    this.validator = new ConfigValidator(options.types || {});
+    this.validator = new ConfigValidator(options.types || {}, options.customValidators || {});
 
     this.processDefaults(options.default);
     this.processConfigFile(options.configPath);

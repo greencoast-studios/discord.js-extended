@@ -1,4 +1,4 @@
-import { ConfigValue } from '../../types';
+import { ConfigValue, ConfigCustomValidators } from '../../types';
 
 /**
  * A validator class for the configuration provider. This class receives an object
@@ -40,12 +40,25 @@ class ConfigValidator {
   public types: Record<string, string | string[]>;
 
   /**
-   * @param types The types for this config validator.
+   * An object that maps a config key to a custom validator function.
+   * This validator function will be used to validate the config supplied.
+   * It will skip the default type validator and instead use the one specified here.
+   * This function should not return anything, but throw a TypeError if the given value is not
+   * correct.
+   * @type {ConfigCustomValidators}
+   * @memberof ConfigValidator
    */
-  constructor(types: Record<string, string | string[]>) {
+  public customValidators: ConfigCustomValidators;
+
+  /**
+   * @param types The types for this config validator.
+   * @param customValidators An object that maps a config key to a custom validator function.
+   */
+  constructor(types: Record<string, string | string[]>, customValidators: ConfigCustomValidators = {}) {
     this.validateTypes(types);
 
     this.types = types;
+    this.customValidators = customValidators;
   }
 
   /**
