@@ -11,13 +11,23 @@ const config = new ConfigProvider({
   configPath: path.join(__dirname, './config/settings.json'),
   default: {
     PREFIX: '!',
-    OPTIONAL_NUMBER: null
+    OPTIONAL_NUMBER: null,
+    MY_ENUM: 'enum1'
   },
   types: {
     TOKEN: 'string',
     PREFIX: 'string',
     OPTIONAL_NUMBER: ['number', 'null'], // A DISCORD_OPTIONAL_NUMBER env variable which will be cast to a number. It also accepts "null" as value.
-    REQUIRED_BOOLEAN: 'boolean' // A DISCORD_REQUIRED_BOOLEAN env variable which will be cast to a boolean.
+    REQUIRED_BOOLEAN: 'boolean', // A DISCORD_REQUIRED_BOOLEAN env variable which will be cast to a boolean.
+    MY_ENUM: 'string' // A DISCORD_MY_ENUM env variable that will use a custom validator.
+  },
+  customValidators: {
+    MY_ENUM: (value) => {
+      const validValues = ['enum1', 'enum2', 'enum3'];
+      if (!validValues.includes(value)) {
+        throw new TypeError(`${value} is not a valid value for MY_ENUM, you should use: ${validValues.join(', ')}`);
+      }
+    }
   }
 });
 
