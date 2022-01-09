@@ -33,6 +33,9 @@ npm install discord.js @greencoast/discord.js-extended
 
 This package covers client configuration from environment variables and/or JSON files through the [ConfigProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.configprovider.html) class, which makes it easy to add configuration to a bot. Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.configprovider.html) to see how to use this.
 
+You may also specify custom validators for even more control of how config is provided to your bot. Simply, pass a `customValidators` property to the `ConfigProvider` options, and map the key of the config to its validator function. Your validator function should
+throw a `TypeError` if the given value is invalid based on your criteria.
+
 An example of a bot's configuration may be as follows:
 
 ```js
@@ -47,13 +50,23 @@ const config = new ConfigProvider({
     PREFIX: '!', // Adds a default value for the PREFIX config.
     TOKEN: null, // Adds a default value for the TOKEN config.
     MY_ID: 123,
-    OPTIONAL_FLAG: false
+    OPTIONAL_FLAG: false,
+    MY_ENUM: 'enum1'
   },
   types: { // These are the types of the configuration. The provider validates that the config receives the proper configuration types.
     PREFIX: 'string',
     TOKEN: ['string', 'null'], // With a 'null' type, you can pass 'null' to have it as null.
     MY_ID: 'number',
-    OPTIONAL_FLAG: ['boolean', 'null']
+    OPTIONAL_FLAG: ['boolean', 'null'],
+    MY_ENUM: 'string'
+  },
+  customValidators: { // These are the custom validators to use instead of the basic type based validator.
+    MY_ENUM: (value) => {
+      const validValues = ['enum1', 'enum2', 'enum3'];
+      if (!validValues.includes(value)) {
+        throw new TypeError(`${value} is not a valid value for MY_ENUM, you should use: ${validValues.join(', ')}`);
+      }
+    }
   }
 });
 
