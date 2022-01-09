@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import { ConfigValue, ConfigCustomValidators } from '../../types';
 
 /**
@@ -5,7 +6,8 @@ import { ConfigValue, ConfigCustomValidators } from '../../types';
  * with a subset of the keys of the config with a type or array of types corresponding
  * to that config value.
  *
- * Valid types include: `boolean`, `number`, `string` and `null`.
+ * Valid types include: `boolean`, `number`, `string` and `null`,
+ * or including their array types: `boolean[]`, `number[]` and `string[]`
  * You can set a type to be an array containing multiple of the ones above.
  *
  * It is preferable to specify all the types for your config. However, if a type is omitted
@@ -35,7 +37,10 @@ class ConfigValidator {
     'boolean',
     'number',
     'string',
-    'null'
+    'null',
+    'boolean[]',
+    'number[]',
+    'string[]'
   ];
 
   /**
@@ -104,11 +109,13 @@ class ConfigValidator {
 
   /**
    * Casts the values in an object of string values into its corresponding types
-   * based on the types defined in this validator. If a cast is not possible, the value
-   * will remain unchanged. This does not mutate the config object given and instead returns
-   * a copy of it.
+   * based on the types defined in this validator. If a cast is not possible, the function will throw.
+   * This does not mutate the config object given and instead returns a copy of it with the cast config values.
+   * If the type includes `string` then this function will try to cast first to any of the available types and
+   * if it fails to cast to any of them, it will return the `string` version of the value instead of throwing.
    * @param config The object of string values to be cast.
    * @returns An object with the values cast.
+   * @throws Throws if a config value cannot be cast to any of its specified types.
    */
   public castFromString(config: Record<string, string>): Record<string, ConfigValue> {
     const castedConfig: Record<string, ConfigValue> = { ...config };
@@ -117,20 +124,29 @@ class ConfigValidator {
       const value = config[key];
       const type = this.types[key] || 'string';
 
-      if (type === 'string' || type.includes('string') && !type.includes('null')) {
-        return;
-      }
-
       if (Array.isArray(type)) {
+        let containsString = false;
+
         for (const t of type) {
-          const casted = this.tryCastSingleValue(value, t);
-          if (casted !== value) {
-            castedConfig[key] = casted;
-            break;
+          try {
+            if (t === 'string') {
+              containsString = true;
+              continue;
+            }
+
+            castedConfig[key] = this.tryCastSingleValue(value, t);
+            return;
+          } catch (_) {
+            continue;
           }
         }
 
-        return;
+        if (containsString) {
+          castedConfig[key] = this.tryCastSingleValue(value, 'string');
+          return;
+        }
+
+        throw new TypeError(`${value} cannot be cast to any of ${type.join(', ')}`);
       }
 
       castedConfig[key] = this.tryCastSingleValue(value, type);
@@ -150,6 +166,17 @@ class ConfigValidator {
       return value === null;
     }
 
+    if (type.endsWith('[]')) {
+      if (Array.isArray(value)) {
+        const singleType = type.slice(0, type.length - 2);
+        const valueArray = value as ConfigValue[];
+
+        return valueArray.every((val: ConfigValue) => typeof val === singleType);
+      }
+
+      return false; // It should be an array.
+    }
+
     return typeof value === type;
   }
 
@@ -160,45 +187,51 @@ class ConfigValidator {
    * @param type The type to cast the value to.
    * @returns The cast value.
    * @throws Throws if the type is invalid.
+   * @throws Throws if the value cannot be cast to its specified type.
    */
-  private tryCastSingleValue(value: ConfigValue, type: string): ConfigValue {
-    let casted: ConfigValue = value;
+  private tryCastSingleValue(value: string, type: string): ConfigValue {
+    let casted: ConfigValue;
 
     switch (type) {
       case 'boolean':
         if (value === 'true') {
-          casted = true;
+          return true;
         }
 
         if (value === 'false') {
-          casted = false;
+          return false;
         }
 
-        break;
+        throw new TypeError(`Cannot cast ${value} to boolean!`);
       case 'number':
         casted = Number(value);
 
         if (isNaN(casted)) {
-          casted = value;
+          throw new TypeError(`Cannot cast ${value} to number!`);
         }
 
-        break;
-
+        return casted;
       case 'string':
-        casted = `${value}`;
-        break;
+        return `${value}`;
+
+      case 'string[]':
+        return value.split(',').map((v) => this.tryCastSingleValue(v, 'string') as string);
+
+      case 'boolean[]':
+        return value.split(',').map((v) => this.tryCastSingleValue(v, 'boolean') as boolean);
+
+      case 'number[]':
+        return value.split(',').map((v) => this.tryCastSingleValue(v, 'number') as number);
 
       case 'null':
         if (value === 'null') {
-          casted = null;
+          return null;
         }
 
-        break;
+        throw new TypeError(`Cannot cast ${value} to null!`);
       default:
         throw new TypeError(`${type} is an invalid type. Must be or contain: ${ConfigValidator.VALID_TYPES.join(', ')}.`);
     }
-
-    return casted;
   }
 
   /**
