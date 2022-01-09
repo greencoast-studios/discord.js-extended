@@ -19,7 +19,8 @@ const config = new ConfigProvider({
     PREFIX: 'string',
     OPTIONAL_NUMBER: ['number', 'null'], // A DISCORD_OPTIONAL_NUMBER env variable which will be cast to a number. It also accepts "null" as value.
     REQUIRED_BOOLEAN: 'boolean', // A DISCORD_REQUIRED_BOOLEAN env variable which will be cast to a boolean.
-    MY_ENUM: 'string' // A DISCORD_MY_ENUM env variable that will use a custom validator.
+    MY_ENUM: 'string', // A DISCORD_MY_ENUM env variable that will use a custom validator.
+    MY_NUM_ARRAY: 'number[]' // A DISCORD_MY_NUM_ARRAY env variable with comma separated numbers that will turn into an array of numbers.
   },
   customValidators: {
     MY_ENUM: (value) => {
@@ -68,6 +69,8 @@ client.on('ready', async() => {
 
   await client.setDataProvider(dataProvider); // It would be recommended to set the data provider once the client is ready.
   await client.deployer.deployToTestingGuild(); // Deploy slash commands to the testing guild.
+
+  logger.info(`My numbers from the environment variable are: ${client.config.get('MY_NUM_ARRAY').join(', ')}`);
 });
 
 client.login(client.config.get('TOKEN'));
