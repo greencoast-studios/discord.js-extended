@@ -84,8 +84,7 @@ describe('Classes: Config: ConfigValidator', () => {
     });
 
     it('should throw if value does not conform custom validator.', () => {
-      // Type for CUSTOM is ignored with a custom validator.
-      validator = new ConfigValidator({ CUSTOM: 'number' }, {
+      validator = new ConfigValidator({ CUSTOM: 'string' }, {
         CUSTOM: (value) => {
           if (value !== 'my_enum') {
             throw new TypeError('Invalid value for key CUSTOM');
@@ -99,8 +98,7 @@ describe('Classes: Config: ConfigValidator', () => {
     });
 
     it('should not throw if value does conform custom validator.', () => {
-      // Type for CUSTOM is ignored with a custom validator.
-      validator = new ConfigValidator({ CUSTOM: 'number' }, {
+      validator = new ConfigValidator({ CUSTOM: 'string' }, {
         CUSTOM: (value) => {
           if (value !== 'my_enum') {
             throw new TypeError('Invalid value for key CUSTOM');

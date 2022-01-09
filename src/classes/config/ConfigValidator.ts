@@ -12,6 +12,12 @@ import { ConfigValue, ConfigCustomValidators } from '../../types';
  * it will be defaulted to `string`. Keep this in mind in the case you need to have
  * a boolean or a number in your configuration.
  *
+ * You may also specify custom validators by passing an object that maps the key of the config
+ * with its validator. This validator function does not need to return anything, but throw a
+ * TypeError if the given value in its parameter is not valid according to your criteria.
+ * If you pass a customValidator for a specific key, you should still pass its type because
+ * it is used to cast the value coming from environment variables, since they're only strings.
+ *
  * This configuration is most useful for configuration coming from env variables
  * since they are only strings. Although, in a case where only a JSON configuration is
  * specified, you may run into trouble if you don't specify the types for those settings
