@@ -88,8 +88,11 @@ const client = new ExtendedClient({
   owner: '123', // The ID of the bot's owner.
   prefix: '!', // The bot's prefix to be used.
   presence: {
-    templates: ['presence 1', 'presence 2'], // The presence statuses used by this bot.
-    refreshInterval: 3600000 // Update the bot's presence every hour.
+    templates: ['presence 1', 'presence 2', '{custom_key} hi!'], // The presence statuses used by this bot.
+    refreshInterval: 3600000, // Update the bot's presence every hour.
+    customGetters: {
+      custom_key: async() => Math.random().toString() // Define custom getters for keys to replace on the presence strings.
+    }
   },
   errorOwnerReporting: true, // Sends DMs to the bot's owner whenever a command throws an error.
   intents: [Intents.FLAGS.GUILDS]
@@ -98,7 +101,8 @@ const client = new ExtendedClient({
 client.login(<YOUR_DISCORD_TOKEN_HERE>);
 ```
 
-The `presence` option in the client's constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, among others... Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.presencetemplater.html) to see what information you can include in your presence statuses.
+The `presence` option in the client's constructor allows you to configure the presence statuses to be used by the bots. These presence statuses may include information from the bot, such as: number of guilds connected to, number of commands, the time the bot went online, or even custom data... Consider checking the [documentation page](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.presencetemplater.html) to see what information you can include in your presence statuses
+and how to add custom getters for your own presence messages.
 
 ### Adding defaults to your Client
 
