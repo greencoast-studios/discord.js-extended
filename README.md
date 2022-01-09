@@ -58,7 +58,8 @@ const config = new ConfigProvider({
     TOKEN: ['string', 'null'], // With a 'null' type, you can pass 'null' to have it as null.
     MY_ID: 'number',
     OPTIONAL_FLAG: ['boolean', 'null'],
-    MY_ENUM: 'string'
+    MY_ENUM: 'string',
+    MY_NUM_ARRAY: 'number[]' // You can pass arrays through JSON or comma-separated values through env variables.
   },
   customValidators: { // These are the custom validators to use instead of the basic type based validator.
     MY_ENUM: (value) => {
