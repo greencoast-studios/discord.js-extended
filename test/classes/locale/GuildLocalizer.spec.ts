@@ -38,6 +38,17 @@ describe('Classes: Locale: GuildLocalizer', () => {
         });
     });
 
+    it('should reject if the locale stored is not supported.', () => {
+      getSpy.mockResolvedValueOnce('unknown');
+      expect.assertions(2);
+
+      return localizer.init()
+        .catch((error) => {
+          expect(error).toBeInstanceOf(Error);
+          expect(localizer.locale).toBe('en');
+        });
+    });
+
     it('should resolve the locale stored in the data provider.', () => {
       getSpy.mockResolvedValueOnce('fr');
 

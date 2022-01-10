@@ -23,14 +23,20 @@ class GuildLocalizer {
       return this.locale;
     }
 
-    this.locale = await this.localizer.client.dataProvider.get(this.guild, this.dataProviderKey, this.locale);
+    const savedLocale = await this.localizer.client.dataProvider.get(this.guild, this.dataProviderKey, this.locale);
+
+    const availableLocales = this.localizer.getAvailableLocales();
+    if (!availableLocales.includes(savedLocale)) {
+      throw new Error(`Invalid locale ${savedLocale} received from data provider. Perhaps you changed the value for ${this.dataProviderKey} manually?`);
+    }
+
+    this.locale = savedLocale;
 
     return this.locale;
   }
 
   public async updateLocale(locale: string): Promise<void> {
     const availableLocales = this.localizer.getAvailableLocales();
-
     if (!availableLocales.includes(locale)) {
       throw new Error(`${locale} is not a supported locale.`);
     }
