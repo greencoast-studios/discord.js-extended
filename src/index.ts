@@ -21,6 +21,7 @@ import CommandRegistry from './classes/command/CommandRegistry';
 import CommandDispatcher from './classes/command/CommandDispatcher';
 import SlashCommandDeployer from './classes/command/SlashCommandDeployer';
 import Localizer from './classes/locale/Localizer';
+import GuildLocalizer from './classes/locale/GuildLocalizer';
 
 import * as DefaultCommands from './classes/command/default';
 
@@ -55,6 +56,7 @@ export {
   CommandDispatcher,
   SlashCommandDeployer,
   Localizer,
+  GuildLocalizer,
   DefaultCommands,
   ExtendedClientOptions,
   ExtendedClientEvents,

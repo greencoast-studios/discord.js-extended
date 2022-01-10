@@ -1,25 +1,8 @@
 import Localizer from '../../../src/classes/locale/Localizer';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
+import { mockedLocaleStrings } from '../../../__mocks__/locale';
 
 const clientMock = new ExtendedClient();
-
-const mockedLocaleStrings = {
-  en: {
-    'message.test.hello': 'Hello',
-    'message.test.bye': 'Bye',
-    'message.test.with_value': 'Hello {name}!'
-  },
-  es: {
-    'message.test.hello': 'Hola',
-    'message.test.bye': 'Adios',
-    'message.test.with_value': 'Hola {name}!'
-  },
-  fr: {
-    'message.test.hello': 'Bonjour',
-    'message.test.bye': 'Au revoir',
-    'message.test.with_value': 'Bonjour {name}!'
-  }
-};
 
 describe('Classes: Locale: Localizer', () => {
   let localizer: Localizer;

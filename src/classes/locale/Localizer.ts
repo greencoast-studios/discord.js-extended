@@ -6,11 +6,13 @@ class Localizer {
   public readonly client: ExtendedClient;
   public readonly localeStrings: Record<string, Record<string, string>>;
   public readonly defaultLocale: string;
+  public readonly options: LocalizerOptions;
 
   constructor(client: ExtendedClient, options: LocalizerOptions) {
     this.client = client;
     this.localeStrings = options.localeStrings;
     this.defaultLocale = options.defaultLocale;
+    this.options = options;
   }
 
   public getAvailableLocales(): string[] {
