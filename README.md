@@ -172,6 +172,83 @@ client.on('ready', () => {
 });
 ```
 
+### Localizing Your Bot
+
+The package contains a [Localizer](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.localizer.html) class to help with the localization of your bot. In order to use it, you should pass a `localizer` object to your `client` constructor and
+initialize the localizer in the `ready` event.
+
+```js
+const client = new ExtendedClient({
+  localizer: {
+    defaultLocale: 'en', // The default locale for your bot.
+    dataProviderKey: 'locale', // The key to be used to store the locale for each guild in the client's data provider.
+    localeStrings: locales
+  }
+});
+
+client.on('ready', async() => {
+  await client.setDataProvider(new DataProvider()); // Should set the data provider before.
+  await client.localizer.init(); // Initializes the localizer.  
+});
+```
+
+The `localeStrings` object should map the name of the locale to another object that maps the message keys with their corresponding message string in its respective language.
+In the example above, the variable `locales` could be:
+
+```js
+const locales = {
+  en: {
+    'message.test.hello': 'Hello',
+    'message.test.bye': 'Bye',
+    'message.test.with_value': 'Hello {name}!'
+  },
+  es: {
+    'message.test.hello': 'Hola',
+    'message.test.bye': 'Adios',
+    'message.test.with_value': 'Hola {name}!'
+  },
+  fr: {
+    'message.test.hello': 'Bonjour',
+    'message.test.bye': 'Au revoir',
+    'message.test.with_value': 'Bonjour {name}!'
+  }
+};
+```
+
+Locale messages should follow the [ICU format](https://formatjs.io/docs/intl-messageformat/#common-usage-example).
+
+Inside a command, you may use the localizer in the following manner:
+
+```js
+class MyCommand extends SlashCommand {
+  async run(interaction) {
+    const localizer = this.client.localizer.getLocalizer(interaction.guild);
+    
+    interaction.reply(localizer.t('message.test.hello'));
+    interaction.reply(localizer.t('message.test.with_value', { name: 'your name' }));
+  }
+}
+```
+
+This uses the locale saved for the guild. You can change the locale for the guild as such:
+
+```js
+class MyCommand extends SlashCommand {
+  async run(interaction) {
+    const localizer = this.client.localizer.getLocalizer(interaction.guild);
+    
+    await localizer.updateLocale('fr');
+    interaction.reply(`Updated locale to ${localizer.locale}`);
+  }
+}
+```
+
+If you're outside the context of a guild, you can still use the localizer by using:
+
+```js
+client.localizer.t('message.test.with_value', 'es', { name: 'your name' });
+```
+
 ### Creating Commands
 
 The package contains a [RegularCommand](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.regularcommand.html) to facilitate the creation of commands. In order to create one, you need to create a class that extends RegularCommand and implements a `run()` method.
