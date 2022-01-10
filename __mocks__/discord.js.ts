@@ -14,5 +14,6 @@ export default {
   MessageEmbed: DiscordMock.MessageEmbedMock,
   ShardClientUtil: DiscordMock.ShardClientUtilMock,
   Interaction: DiscordMock.InteractionMock,
-  Collection: RealDiscord.Collection
+  Collection: RealDiscord.Collection,
+  Permissions: RealDiscord.Permissions
 };

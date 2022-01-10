@@ -5,7 +5,9 @@
  */
 
 import HelpCommand from './HelpCommand';
+import SetLocaleCommand from './SetLocaleCommand';
 
 export {
-  HelpCommand
+  HelpCommand,
+  SetLocaleCommand
 };

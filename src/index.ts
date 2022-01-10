@@ -20,6 +20,8 @@ import CommandGroup from './classes/command/CommandGroup';
 import CommandRegistry from './classes/command/CommandRegistry';
 import CommandDispatcher from './classes/command/CommandDispatcher';
 import SlashCommandDeployer from './classes/command/SlashCommandDeployer';
+import Localizer from './classes/locale/Localizer';
+import GuildLocalizer from './classes/locale/GuildLocalizer';
 
 import * as DefaultCommands from './classes/command/default';
 
@@ -30,6 +32,7 @@ import PresenceData from './interfaces/PresenceData';
 import ConfigProviderOptions from './interfaces/ConfigProviderOptions';
 import CommandInfo from './interfaces/CommandInfo';
 import SlashCommandInfo from './interfaces/SlashCommandInfo';
+import LocalizerOptions from './interfaces/LocalizerOptions';
 
 import { ConfigValue, ConfigCustomValidators, CommandTrigger, PresenceTemplaterGetters } from './types';
 
@@ -52,6 +55,8 @@ export {
   CommandRegistry,
   CommandDispatcher,
   SlashCommandDeployer,
+  Localizer,
+  GuildLocalizer,
   DefaultCommands,
   ExtendedClientOptions,
   ExtendedClientEvents,
@@ -60,6 +65,7 @@ export {
   ConfigProviderOptions,
   CommandInfo,
   SlashCommandInfo,
+  LocalizerOptions,
   ConfigValue,
   ConfigCustomValidators,
   CommandTrigger,
