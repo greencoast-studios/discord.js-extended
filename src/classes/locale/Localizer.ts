@@ -27,6 +27,7 @@ class Localizer {
    *
    * The following is an example of how to structure this object:
    *
+   * ```js
    * en: {
    *   'message.test.hello': 'Hello',
    *   'message.test.bye': 'Bye',
@@ -42,6 +43,7 @@ class Localizer {
    *   'message.test.bye': 'Au revoir',
    *   'message.test.with_value': 'Bonjour {name}!'
    * }
+   * ```
    * @type {Record<string, Record<string, string>>}
    * @memberof {Localizer}
    */

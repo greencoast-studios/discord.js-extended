@@ -19,3 +19,11 @@ export const Slash = {
   HelpSlashCommand,
   SetLocaleSlashCommand
 };
+
+export {
+  HelpRegularCommand,
+  SetLocaleRegularCommand,
+
+  HelpSlashCommand,
+  SetLocaleSlashCommand
+};
