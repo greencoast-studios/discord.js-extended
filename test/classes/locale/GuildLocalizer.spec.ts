@@ -102,11 +102,19 @@ describe('Classes: Locale: GuildLocalizer', () => {
     });
   });
 
-  describe('t()', () => {
+  describe('translate()', () => {
     it('should call localizer.translate with the correct values.', () => {
       const translateSpy = jest.spyOn(localizer.localizer, 'translate');
+      localizer.translate('message.test.hello');
+      expect(translateSpy).toHaveBeenCalledWith('message.test.hello', localizer.locale, {});
+    });
+  });
+
+  describe('t()', () => {
+    it('should call translate with the correct values.', () => {
+      const translateSpy = jest.spyOn(localizer, 'translate');
       localizer.t('message.test.hello');
-      expect(translateSpy).toHaveBeenCalledWith('message.test.hello', localizer.locale);
+      expect(translateSpy).toHaveBeenCalledWith('message.test.hello', {});
     });
   });
 });

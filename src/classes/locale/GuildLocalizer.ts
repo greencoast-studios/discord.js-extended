@@ -107,8 +107,20 @@ class GuildLocalizer {
    * @throws Throws if the key does not resolve to any message.
    * @throws Throws if the given locale is not supported.
    */
-  public t(key: string, values = {}): string {
+  public translate(key: string, values = {}): string {
     return this.localizer.translate(key, this.locale, values);
+  }
+
+  /**
+   * Alias for `translate()`.
+   * @param key The key of the message to translate.
+   * @param values The dynamic values to be replaced in the message.
+   * @returns The translated message.
+   * @throws Throws if the key does not resolve to any message.
+   * @throws Throws if the given locale is not supported.
+   */
+  public t(key: string, values = {}): string {
+    return this.translate(key, values);
   }
 }
 
