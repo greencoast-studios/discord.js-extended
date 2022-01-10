@@ -79,7 +79,7 @@ class Localizer {
     this.client = client;
     this.localeStrings = options.localeStrings;
 
-    if (!this.getAvailableLocales().includes(options.defaultLocale)) {
+    if (!this.isLocaleSupported(options.defaultLocale)) {
       throw new Error(`${options.defaultLocale} is not a supported locale.`);
     }
 
@@ -122,6 +122,15 @@ class Localizer {
    */
   public getAvailableLocales(): string[] {
     return Object.keys(this.localeStrings);
+  }
+
+  /**
+   * Check whether the given locale is supported.
+   * @param locale The locale to test.
+   * @returns `true` if the locale is supported.
+   */
+  public isLocaleSupported(locale: string): boolean {
+    return this.getAvailableLocales().includes(locale);
   }
 
   /**

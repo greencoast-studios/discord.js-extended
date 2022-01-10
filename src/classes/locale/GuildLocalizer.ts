@@ -65,8 +65,7 @@ class GuildLocalizer {
 
     const savedLocale = await this.localizer.client.dataProvider.get(this.guild, this.dataProviderKey, this.locale);
 
-    const availableLocales = this.localizer.getAvailableLocales();
-    if (!availableLocales.includes(savedLocale)) {
+    if (!this.localizer.isLocaleSupported(savedLocale)) {
       throw new Error(`Invalid locale ${savedLocale} received from data provider. Perhaps you changed the value for ${this.dataProviderKey} manually?`);
     }
 
@@ -83,8 +82,7 @@ class GuildLocalizer {
    * @throws Rejects if the given locale is not supported.
    */
   public async updateLocale(locale: string): Promise<void> {
-    const availableLocales = this.localizer.getAvailableLocales();
-    if (!availableLocales.includes(locale)) {
+    if (!this.localizer.isLocaleSupported(locale)) {
       throw new Error(`${locale} is not a supported locale.`);
     }
 

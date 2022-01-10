@@ -60,6 +60,16 @@ describe('Classes: Locale: Localizer', () => {
     });
   });
 
+  describe('isLocaleSupported()', () => {
+    it('should return true if the locale is supported.', () => {
+      expect(localizer.isLocaleSupported('en')).toBe(true);
+    });
+
+    it('should return false if the locale is not supported.', () => {
+      expect(localizer.isLocaleSupported('unknown')).toBe(false);
+    });
+  });
+
   describe('translate()', () => {
     it('should throw if given an invalid locale.', () => {
       expect(() => {
