@@ -164,6 +164,7 @@ export class InteractionMock {
   public isCommand: jest.Mock;
   public inGuild: jest.Mock;
   public reply: jest.Mock;
+  public options: unknown;
 
   constructor() {
     this.guild = new GuildMock();
@@ -172,5 +173,8 @@ export class InteractionMock {
     this.isCommand = jest.fn();
     this.inGuild = jest.fn();
     this.reply = jest.fn();
+    this.options = {
+      getString: jest.fn()
+    };
   }
 }
