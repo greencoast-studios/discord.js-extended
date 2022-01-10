@@ -182,12 +182,20 @@ describe('Classes: Command: CommandRegistry', () => {
     });
 
     describe('registerDefaultCommands()', () => {
-      it('should register all default commands.', () => {
+      it('should register all default regular commands if false is passed as parameter.', () => {
+        registry.registerDefaultGroups();
+        registry.registerDefaultCommands(false);
+
+        expect(registry.commands.get('help')).toBeInstanceOf(DefaultCommands.Regular.HelpRegularCommand);
+        expect(registry.commands.get('set_locale')).toBeInstanceOf(DefaultCommands.Regular.SetLocaleRegularCommand);
+      });
+
+      it('should register all default slash commands if true is passed as parameter.', () => {
         registry.registerDefaultGroups();
         registry.registerDefaultCommands();
 
-        expect(registry.commands.get('help')).toBeInstanceOf(DefaultCommands.HelpCommand);
-        expect(registry.commands.get('set_locale')).toBeInstanceOf(DefaultCommands.SetLocaleCommand);
+        expect(registry.commands.get('help')).toBeInstanceOf(DefaultCommands.Slash.HelpSlashCommand);
+        expect(registry.commands.get('set_locale')).toBeInstanceOf(DefaultCommands.Slash.SetLocaleSlashCommand);
       });
 
       it('should throw if the default groups are not registered prior.', () => {

@@ -4,10 +4,18 @@
  * @module DefaultCommands
  */
 
-import HelpCommand from './HelpCommand';
-import SetLocaleCommand from './SetLocaleCommand';
+import HelpRegularCommand from './regular/HelpRegularCommand';
+import SetLocaleRegularCommand from './regular/SetLocaleRegularCommand';
 
-export {
-  HelpCommand,
-  SetLocaleCommand
+import HelpSlashCommand from './slash/HelpSlashCommand';
+import SetLocaleSlashCommand from './slash/SetLocaleSlashCommand';
+
+export const Regular = {
+  HelpRegularCommand,
+  SetLocaleRegularCommand
+};
+
+export const Slash = {
+  HelpSlashCommand,
+  SetLocaleSlashCommand
 };

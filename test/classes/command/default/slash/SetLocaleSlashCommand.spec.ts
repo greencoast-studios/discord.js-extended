@@ -1,12 +1,12 @@
 import Discord from 'discord.js';
-import SetLocaleCommand from '../../../../src/classes/command/default/SetLocaleCommand';
-import ExtendedClient from '../../../../src/classes/ExtendedClient';
-import GuildLocalizer from '../../../../src/classes/locale/GuildLocalizer';
-import { InteractionMock, GuildMock } from '../../../../__mocks__/discordMocks';
-import { mockedLocaleStrings } from '../../../../__mocks__/locale';
+import SetLocaleSlashCommand from '../../../../../src/classes/command/default/slash/SetLocaleSlashCommand';
+import ExtendedClient from '../../../../../src/classes/ExtendedClient';
+import GuildLocalizer from '../../../../../src/classes/locale/GuildLocalizer';
+import { InteractionMock, GuildMock } from '../../../../../__mocks__/discordMocks';
+import { mockedLocaleStrings } from '../../../../../__mocks__/locale';
 
-describe('Classes: Command: Default: SetLocaleCommand', () => {
-  let command: SetLocaleCommand;
+describe('Classes: Command: Default: Slash: SetLocaleSlashCommand', () => {
+  let command: SetLocaleSlashCommand;
 
   let clientMock: ExtendedClient;
   let interactionMock: Discord.CommandInteraction;
@@ -20,7 +20,7 @@ describe('Classes: Command: Default: SetLocaleCommand', () => {
     guildMock = new GuildMock() as Discord.Guild;
     guildLocalizerMock = new GuildLocalizer(clientMock.localizer!, guildMock);
 
-    command = new SetLocaleCommand(clientMock);
+    command = new SetLocaleSlashCommand(clientMock);
   });
 
   describe('run()', () => {

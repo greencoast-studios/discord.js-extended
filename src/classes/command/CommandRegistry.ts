@@ -208,17 +208,20 @@ class CommandRegistry {
   /**
    * Register the default commands. **Default groups should be registered before using this.**
    * For more information, check out {@link DefaultCommands}.
+   * @param registerSlash If true it will register the default slash commands otherwise, the regular ones
+   * will be registered.
    * @returns This command registry.
    * @emits `client#commandRegistered`
    */
-  public registerDefaultCommands(): this {
-    this.registerCommands(Object.values(DefaultCommands).map((Command) => new Command(this.client)));
+  public registerDefaultCommands(registerSlash = true): this {
+    const defaults = registerSlash ? DefaultCommands.Slash : DefaultCommands.Regular;
+    this.registerCommands(Object.values(defaults).map((Command) => new Command(this.client)));
 
     return this;
   }
 
   /**
-   * Register both the default groups and default commands in the correct order.
+   * Register both the default groups and default slash commands in the correct order.
    * @returns This command registry.
    * @emits `client#groupRegistered`
    * @emits `client#commandRegistered`
