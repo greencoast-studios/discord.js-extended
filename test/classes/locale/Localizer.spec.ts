@@ -94,4 +94,12 @@ describe('Classes: Locale: Localizer', () => {
       expect(french).toBe('Bonjour moonstar!');
     });
   });
+
+  describe('t()', () => {
+    it('should call translate with the correct values.', () => {
+      const translateSpy = jest.spyOn(localizer, 'translate');
+      localizer.t('message.test.hello', 'en');
+      expect(translateSpy).toHaveBeenCalledWith('message.test.hello', 'en', {});
+    });
+  });
 });

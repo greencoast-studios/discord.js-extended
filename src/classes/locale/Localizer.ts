@@ -133,6 +133,19 @@ class Localizer {
   }
 
   /**
+   * Alias for `translate()`.
+   * @param key The key of the message to translate.
+   * @param locale The locale to translate the message to.
+   * @param values The dynamic values to be replaced in the message.
+   * @returns The translated message.
+   * @throws Throws if the key does not resolve to any message.
+   * @throws Throws if the given locale is not supported.
+   */
+  public t(key: string, locale?: string | null, values = {}): string {
+    return this.translate(key, locale, values);
+  }
+
+  /**
    * Get the formatter object to format the message of the given key and locale.
    * @param key The key of the message to translate.
    * @param locale The locale to translate the message to.
