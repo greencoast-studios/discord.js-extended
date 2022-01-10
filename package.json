@@ -1,6 +1,6 @@
 {
   "name": "@greencoast/discord.js-extended",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An utility to facilitate the repetitive tasks when creating discord bots. Used by Greencoast Studios.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -72,6 +72,7 @@
     "dayjs": "^1.10.7",
     "discord-api-types": "^0.26.1",
     "humanize-duration": "^3.27.1",
+    "intl-messageformat": "^9.11.1",
     "lodash": "^4.17.21",
     "require-all": "^3.0.0"
   }

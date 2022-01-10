@@ -1,6 +1,7 @@
 import Discord from 'discord.js';
 import ConfigProvider from '../classes/config/ConfigProvider';
 import PresenceManagerOptions from './PresenceManagerOptions';
+import LocalizerOptions from './LocalizerOptions';
 
 /**
  * The options used to create a {@link ExtendedClient}.
@@ -47,7 +48,12 @@ interface ExtendedClientOptions extends Discord.ClientOptions {
    * it is recommended to specify one. This is used to automatically deploy
    * slash commands to the testing guild.
    */
-  testingGuildID?: string
+  testingGuildID?: string,
+
+  /**
+   * The client's localizer's options.
+   */
+  localizer?: LocalizerOptions
 }
 
 export default ExtendedClientOptions;

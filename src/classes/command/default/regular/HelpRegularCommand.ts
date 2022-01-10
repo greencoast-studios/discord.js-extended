@@ -1,25 +1,25 @@
 import Discord from 'discord.js';
-import RegularCommand from '../RegularCommand';
-import ExtendedClient from '../../ExtendedClient';
+import RegularCommand from '../../RegularCommand';
+import ExtendedClient from '../../../ExtendedClient';
 
 /**
- * The default help message. This command is part of the `misc` group.
+ * The default help message. This regular command is part of the `misc` group.
  *
  * The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
  * @category misc - Miscellaneous Commands
  */
-class HelpCommand extends RegularCommand {
+class HelpRegularCommand extends RegularCommand {
   /**
    * The color of the embed for the help message.
    * @type {Discord.ColorResolvable}
-   * @memberof HelpCommand
+   * @memberof HelpRegularCommand
    */
   public embedColor: Discord.ColorResolvable;
 
   /**
    * The thumbnail of the embed for the help message.
    * @type {string}
-   * @memberof HelpCommand
+   * @memberof HelpRegularCommand
    */
   public embedThumbnail: string;
 
@@ -80,4 +80,4 @@ class HelpCommand extends RegularCommand {
   }
 }
 
-export default HelpCommand;
+export default HelpRegularCommand;
