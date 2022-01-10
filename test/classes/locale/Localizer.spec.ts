@@ -17,6 +17,14 @@ describe('Classes: Locale: Localizer', () => {
     localizer = new Localizer(clientMock, { defaultLocale: 'en', localeStrings: mockedLocaleStrings });
   });
 
+  describe('constructor()', () => {
+    it('should throw if the default locale is not supported.', () => {
+      expect(() => {
+        localizer = new Localizer(clientMock, { defaultLocale: 'unknown', localeStrings: mockedLocaleStrings });
+      }).toThrow();
+    });
+  });
+
   describe('init()', () => {
     it('should populate guildLocalizers with their respective localizers.', () => {
       return localizer.init()

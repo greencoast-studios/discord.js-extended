@@ -73,10 +73,16 @@ class Localizer {
   /**
    * @param client The client that this localizer will be used by.
    * @param options The options for this localizer.
+   * @throws Throws if the supplied default locale is not supported.
    */
   constructor(client: ExtendedClient, options: LocalizerOptions) {
     this.client = client;
     this.localeStrings = options.localeStrings;
+
+    if (!this.getAvailableLocales().includes(options.defaultLocale)) {
+      throw new Error(`${options.defaultLocale} is not a supported locale.`);
+    }
+
     this.defaultLocale = options.defaultLocale;
     this.options = options;
     this.guildLocalizers = new Discord.Collection();
