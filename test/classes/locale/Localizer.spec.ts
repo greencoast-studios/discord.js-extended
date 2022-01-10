@@ -1,14 +1,46 @@
+import Discord from 'discord.js';
 import Localizer from '../../../src/classes/locale/Localizer';
+import GuildLocalizer from '../../../src/classes/locale/GuildLocalizer';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { mockedLocaleStrings } from '../../../__mocks__/locale';
+import { GuildMock } from '../../../__mocks__/discordMocks';
+
+jest.mock('discord.js');
 
 const clientMock = new ExtendedClient();
+const guildMock = new GuildMock() as Discord.Guild;
 
 describe('Classes: Locale: Localizer', () => {
   let localizer: Localizer;
 
   beforeEach(() => {
     localizer = new Localizer(clientMock, { defaultLocale: 'en', localeStrings: mockedLocaleStrings });
+  });
+
+  describe('init()', () => {
+    it('should populate guildLocalizers with their respective localizers.', () => {
+      return localizer.init()
+        .then(() => {
+          expect(localizer.guildLocalizers.size).toBe(3);
+          expect(localizer.guildLocalizers.each((l) => l instanceof GuildLocalizer));
+        });
+    });
+
+    it('should resolve the locales of each guild localizer.', () => {
+      return localizer.init()
+        .then((locales) => {
+          expect(locales).toStrictEqual(['en', 'en', 'en']);
+        });
+    });
+  });
+
+  describe('getLocalizer()', () => {
+    it("should return the specified guild's localizer.", () => {
+      const guildLocalizer = new GuildLocalizer(localizer, guildMock);
+      localizer.guildLocalizers.set(guildMock.id, guildLocalizer);
+
+      expect(localizer.getLocalizer(guildMock)).toBe(guildLocalizer);
+    });
   });
 
   describe('getAvailableLocales()', () => {

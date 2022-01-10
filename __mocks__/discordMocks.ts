@@ -40,6 +40,9 @@ export class ClientMock {
         reduce: (fn: any, initial: any) => {
           return [{ memberCount: 10 }, { memberCount: 5 }, { memberCount: 2 }].reduce(fn, initial);
         },
+        map: (fn: any) => {
+          return [{ id: '1' }, { id: '2' }, { id: '3' }].map(fn);
+        },
         size: 3
       }
     };
