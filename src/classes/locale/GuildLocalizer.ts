@@ -9,14 +9,14 @@ class GuildLocalizer {
   /**
    * The main localizer for this guild localizer.
    * @type {Localizer}
-   * @memberof {GuildLocalizer}
+   * @memberof GuildLocalizer
    */
   public readonly localizer: Localizer;
 
   /**
    * The guild that corresponds to this guild localizer.
    * @type {Discord.Guild}
-   * @memberof {GuildLocalizer}
+   * @memberof GuildLocalizer
    */
   public readonly guild: Discord.Guild;
 
@@ -25,7 +25,7 @@ class GuildLocalizer {
    * data provider.
    * @type {string}
    * @default `locale`
-   * @memberof {GuildLocalizer}
+   * @memberof GuildLocalizer
    */
   public readonly dataProviderKey: string;
 
@@ -33,7 +33,7 @@ class GuildLocalizer {
    * The current locale set for the guild. Do not update this value manually, instead use
    * the `updateLocale()` method.
    * @type {string}
-   * @memberof {GuildLocalizer}
+   * @memberof GuildLocalizer
    */
   public locale: string;
 

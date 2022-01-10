@@ -45,7 +45,7 @@ class Localizer {
    * }
    * ```
    * @type {Record<string, Record<string, string>>}
-   * @memberof {Localizer}
+   * @memberof Localizer
    */
   public readonly localeStrings: Record<string, Record<string, string>>;
 
@@ -54,21 +54,21 @@ class Localizer {
    * client's data provider. You should set a data provider before setting this up so
    * the guild's locale can be saved persistently.
    * @type {string}
-   * @memberof {Localizer}
+   * @memberof Localizer
    */
   public readonly defaultLocale: string;
 
   /**
    * The options for this localizer.
    * @type {LocalizerOptions}
-   * @memberof {Localizer}
+   * @memberof Localizer
    */
   public readonly options: LocalizerOptions;
 
   /**
    * The {@link GuildLocalizer}s for each guild.
    * @type {Discord.Collection<Discord.Snowflake, GuildLocalizer>}
-   * @memberof {Localizer}
+   * @memberof Localizer
    */
   public readonly guildLocalizers: Discord.Collection<Discord.Snowflake, GuildLocalizer>;
 
