@@ -10,6 +10,7 @@ interface LocalizerOptions {
    *
    * The following is an example of how to structure this object:
    *
+   * ```js
    * en: {
    *   'message.test.hello': 'Hello',
    *   'message.test.bye': 'Bye',
@@ -25,6 +26,7 @@ interface LocalizerOptions {
    *   'message.test.bye': 'Au revoir',
    *   'message.test.with_value': 'Bonjour {name}!'
    * }
+   * ```
    */
   localeStrings: Record<string, Record<string, string>>,
 
