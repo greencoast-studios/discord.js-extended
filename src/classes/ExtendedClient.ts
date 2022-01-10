@@ -6,6 +6,7 @@ import DataProvider from './data/DataProvider';
 import CommandRegistry from './command/CommandRegistry';
 import CommandDispatcher from './command/CommandDispatcher';
 import SlashCommandDeployer from './command/SlashCommandDeployer';
+import Localizer from './locale/Localizer';
 import ClientDefaultHandlers from './events/ClientDefaultHandlers';
 import ExtraClientDefaultHandlers from './events/ExtraClientDefaultHandlers';
 import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
@@ -84,6 +85,14 @@ export class ExtendedClient extends Discord.Client {
   public deployer: SlashCommandDeployer;
 
   /**
+   * This client's localizer. This value can be `null` if no `localizer` options are
+   * passed to this client's options.
+   * @type {Localizer}
+   * @memberof ExtendedClient
+   */
+  public localizer: Localizer | null;
+
+  /**
    * @param options The client's options. Defaults to an empty object.
    */
   // eslint-disable-next-line max-statements
@@ -107,6 +116,7 @@ export class ExtendedClient extends Discord.Client {
     this.registry = new CommandRegistry(this);
     this.dispatcher = new CommandDispatcher(this, this.registry);
     this.deployer = new SlashCommandDeployer(this);
+    this.localizer = options.localizer ? new Localizer(this, options.localizer) : null;
 
     this.fetchOwner();
     this.registerMessageHandler().registerInteractionHandler();
