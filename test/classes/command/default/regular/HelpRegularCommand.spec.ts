@@ -7,7 +7,7 @@ import { MessageMock } from '../../../../../__mocks__/discordMocks';
 const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
 const messageMock = new MessageMock() as unknown as Discord.Message;
 
-describe('Classes: Command: Default: HelpRegularCommand', () => {
+describe('Classes: Command: Default: Regular: HelpRegularCommand', () => {
   let command: HelpRegularCommand;
 
   beforeEach(() => {

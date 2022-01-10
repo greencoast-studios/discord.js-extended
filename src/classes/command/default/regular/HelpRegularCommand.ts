@@ -3,7 +3,7 @@ import RegularCommand from '../../RegularCommand';
 import ExtendedClient from '../../../ExtendedClient';
 
 /**
- * The default help message. This command is part of the `misc` group.
+ * The default help message. This regular command is part of the `misc` group.
  *
  * The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
  * @category misc - Miscellaneous Commands

@@ -5,7 +5,7 @@ import GuildLocalizer from '../../../../../src/classes/locale/GuildLocalizer';
 import { InteractionMock, GuildMock } from '../../../../../__mocks__/discordMocks';
 import { mockedLocaleStrings } from '../../../../../__mocks__/locale';
 
-describe('Classes: Command: Default: SetLocaleCommand', () => {
+describe('Classes: Command: Default: Slash: SetLocaleSlashCommand', () => {
   let command: SetLocaleSlashCommand;
 
   let clientMock: ExtendedClient;
