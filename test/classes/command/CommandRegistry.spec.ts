@@ -187,12 +187,14 @@ describe('Classes: Command: CommandRegistry', () => {
         registry.registerDefaultCommands(false);
 
         expect(registry.commands.get('help')).toBeInstanceOf(DefaultCommands.Regular.HelpRegularCommand);
+        expect(registry.commands.get('set_locale')).toBeInstanceOf(DefaultCommands.Regular.SetLocaleRegularCommand);
       });
 
       it('should register all default slash commands if true is passed as parameter.', () => {
         registry.registerDefaultGroups();
         registry.registerDefaultCommands();
 
+        expect(registry.commands.get('help')).toBeInstanceOf(DefaultCommands.Slash.HelpSlashCommand);
         expect(registry.commands.get('set_locale')).toBeInstanceOf(DefaultCommands.Slash.SetLocaleSlashCommand);
       });
 

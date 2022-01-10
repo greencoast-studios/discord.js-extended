@@ -5,13 +5,17 @@
  */
 
 import HelpRegularCommand from './regular/HelpRegularCommand';
+import SetLocaleRegularCommand from './regular/SetLocaleRegularCommand';
 
+import HelpSlashCommand from './slash/HelpSlashCommand';
 import SetLocaleSlashCommand from './slash/SetLocaleSlashCommand';
 
 export const Regular = {
-  HelpRegularCommand
+  HelpRegularCommand,
+  SetLocaleRegularCommand
 };
 
 export const Slash = {
+  HelpSlashCommand,
   SetLocaleSlashCommand
 };
