@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
-import HelpCommand from '../../../../src/classes/command/default/HelpCommand';
-import ExtendedClient from '../../../../src/classes/ExtendedClient';
-import { MessageMock } from '../../../../__mocks__/discordMocks';
+import HelpRegularCommand from '../../../../../src/classes/command/default/regular/HelpRegularCommand';
+import ExtendedClient from '../../../../../src/classes/ExtendedClient';
+import { MessageMock } from '../../../../../__mocks__/discordMocks';
 
 const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
 const messageMock = new MessageMock() as unknown as Discord.Message;
 
-describe('Classes: Command: Default: HelpCommand', () => {
-  let command: HelpCommand;
+describe('Classes: Command: Default: HelpRegularCommand', () => {
+  let command: HelpRegularCommand;
 
   beforeEach(() => {
-    command = new HelpCommand(clientMock);
+    command = new HelpRegularCommand(clientMock);
   });
 
   describe('prepareFields()', () => {

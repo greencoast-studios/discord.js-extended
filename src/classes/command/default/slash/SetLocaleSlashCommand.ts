@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import SlashCommand from '../SlashCommand';
-import ExtendedClient from '../../ExtendedClient';
+import SlashCommand from '../../SlashCommand';
+import ExtendedClient from '../../../ExtendedClient';
 
 /**
  * The default set locale command. This command is part of the `config` group.
@@ -9,7 +9,7 @@ import ExtendedClient from '../../ExtendedClient';
  * This command updates the locale for the current guild.
  * @category config - Configuration Commands
  */
-class SetLocale extends SlashCommand {
+class SetLocaleSlashCommand extends SlashCommand {
   /**
    * @param client The client that this command will be used by.
    */
@@ -51,4 +51,4 @@ class SetLocale extends SlashCommand {
   }
 }
 
-export default SetLocale;
+export default SetLocaleSlashCommand;
