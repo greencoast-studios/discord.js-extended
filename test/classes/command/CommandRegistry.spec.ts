@@ -177,6 +177,7 @@ describe('Classes: Command: CommandRegistry', () => {
         registry.registerDefaultGroups();
 
         expect(registry.groups.get('misc')!.name).toBe('Miscellaneous Commands');
+        expect(registry.groups.get('config')!.name).toBe('Configuration Commands');
       });
     });
 
@@ -186,6 +187,7 @@ describe('Classes: Command: CommandRegistry', () => {
         registry.registerDefaultCommands();
 
         expect(registry.commands.get('help')).toBeInstanceOf(DefaultCommands.HelpCommand);
+        expect(registry.commands.get('set_locale')).toBeInstanceOf(DefaultCommands.SetLocaleCommand);
       });
 
       it('should throw if the default groups are not registered prior.', () => {

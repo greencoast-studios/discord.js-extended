@@ -192,12 +192,14 @@ class CommandRegistry {
    * | ID of the group | Name of the group        |
    * |-----------------|--------------------------|
    * | `misc`          | `Miscellaneous Commands` |
+   * | `config`        | `Configuration Commands` |
    * @returns This command registry.
    * @emits `client#groupRegistered`
    */
   public registerDefaultGroups(): this {
     this.registerGroups([
-      ['misc', 'Miscellaneous Commands']
+      ['misc', 'Miscellaneous Commands'],
+      ['config', 'Configuration Commands']
     ]);
 
     return this;

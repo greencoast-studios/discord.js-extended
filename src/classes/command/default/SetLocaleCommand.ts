@@ -25,7 +25,6 @@ class SetLocale extends SlashCommand {
         return input
           .setName('locale')
           .setDescription('The new locale to be used.')
-          .addChoices(client.localizer!.getAvailableLocales().map((l) => [l, l]))
           .setRequired(true);
       }) as SlashCommandBuilder
     });
