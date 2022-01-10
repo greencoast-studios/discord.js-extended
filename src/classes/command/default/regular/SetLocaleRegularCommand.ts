@@ -3,7 +3,7 @@ import RegularCommand from '../../RegularCommand';
 import ExtendedClient from '../../../ExtendedClient';
 
 /**
- * The default set locale regular command. This command is part of the `config` group.
+ * The default set locale command. This regular command is part of the `config` group.
  *
  * This command updates the locale for the current guild.
  * @category config - Configuration Commands
