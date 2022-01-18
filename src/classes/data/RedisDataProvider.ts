@@ -5,7 +5,7 @@ import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
 
 /**
- * A {@link DataProvider implemented with a Redis backend. Requires the package [redis](https://www.npmjs.com/package/redis).
+ * A {@link DataProvider} implemented with a Redis backend. Requires the package [redis](https://www.npmjs.com/package/redis).
  * This data provider was implemented for redis@4.0.2 but any v4 should work.
  */
 class RedisDataProvider extends DataProvider {
