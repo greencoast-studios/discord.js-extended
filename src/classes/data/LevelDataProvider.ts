@@ -88,17 +88,15 @@ class LevelDataProvider extends DataProvider {
   }
 
   /**
-   * Get a value for a key in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the data will be queried.
+   * Get a value for a given absolute key.
    * @param key The key of the data to be queried.
    * @param defaultValue The default value in case there is no entry found.
+   * @private
    * @returns A promise that resolves the queried data.
    */
-  public override async get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any> {
-    const { id } = guild;
-
+  private async _get(key: string, defaultValue?: string): Promise<any> {
     try {
-      return JSON.parse(await this.db!.get(`${id}:${key}`));
+      return JSON.parse(await this.db!.get(key));
     } catch (error: any) {
       if (error.notFound) {
         return defaultValue;
@@ -109,21 +107,29 @@ class LevelDataProvider extends DataProvider {
   }
 
   /**
+   * Get a value for a key in a guild.
+   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the data will be queried.
+   * @param key The key of the data to be queried.
+   * @param defaultValue The default value in case there is no entry found.
+   * @returns A promise that resolves the queried data.
+   */
+  public override async get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any> {
+    const { id } = guild;
+    return this._get(`${id}:${key}`, defaultValue);
+  }
+
+  /**
    * Get a value for a key in a global scope.
    * @param key The key of the data to be queried.
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
   public override async getGlobal(key: string, defaultValue?: any): Promise<any> {
-    try {
-      return JSON.parse(await this.db!.get(`global:${key}`));
-    } catch (error: any) {
-      if (error.notFound) {
-        return defaultValue;
-      }
+    return this._get(`global:${key}`, defaultValue);
+  }
 
-      throw error;
-    }
+  private async _set(key: string, value: any): Promise<any> {
+    await this.db!.put(key, JSON.stringify(value));
   }
 
   /**
@@ -135,8 +141,7 @@ class LevelDataProvider extends DataProvider {
    */
   public override async set(guild: Discord.Guild, key: string, value: any): Promise<void> {
     const { id } = guild;
-
-    await this.db!.put(`${id}:${key}`, JSON.stringify(value));
+    return this._set(`${id}:${key}`, value);
   }
 
   /**
@@ -146,7 +151,20 @@ class LevelDataProvider extends DataProvider {
    * @returns A promise that resolves once the data is saved.
    */
   public override async setGlobal(key: string, value: any): Promise<void> {
-    await this.db!.put(`global:${key}`, JSON.stringify(value));
+    return this._set(`global:${key}`, value);
+  }
+
+  /**
+   * Delete a value stored for a given absolute key.
+   * @param key The key of the data to be set.
+   * @private
+   * @returns A promise that resolves once the data has been deleted.
+   */
+  private async _delete(key: string): Promise<any> {
+    const data = JSON.parse(await this.db!.get(key));
+    await this.db!.del(key);
+
+    return data;
   }
 
   /**
@@ -157,11 +175,7 @@ class LevelDataProvider extends DataProvider {
    */
   public override async delete(guild: Discord.Guild, key: string): Promise<any> {
     const { id } = guild;
-
-    const data = JSON.parse(await this.db!.get(`${id}:${key}`));
-    await this.db!.del(`${id}:${key}`);
-
-    return data;
+    return this._delete(`${id}:${key}`);
   }
 
   /**
@@ -170,10 +184,20 @@ class LevelDataProvider extends DataProvider {
    * @returns A promise that resolves the data that has been deleted.
    */
   public override async deleteGlobal(key: string): Promise<any> {
-    const data = JSON.parse(await this.db!.get(`global:${key}`));
-    await this.db!.del(`global:${key}`);
+    return this._delete(`global:${key}`);
+  }
 
-    return data;
+  /**
+   * Clear all data that start with the given pattern.
+   * @param startsWith The pattern to look for the keys to delete.
+   * @private
+   * @returns A promise that resolves once all data has been deleted.
+   */
+  public async _clear(startsWith: string): Promise<void> {
+    await this.db!.clear({
+      gt: `${startsWith}:`,
+      lte: `${startsWith}${String.fromCharCode(':'.charCodeAt(0) + 1)}`
+    });
   }
 
   /**
@@ -184,11 +208,7 @@ class LevelDataProvider extends DataProvider {
    */
   public override async clear(guild: Discord.Guild): Promise<void> {
     const { id } = guild;
-
-    await this.db!.clear({
-      gt: `${id}:`,
-      lte: `${id}${String.fromCharCode(':'.charCodeAt(0) + 1)}`
-    });
+    await this._clear(id);
 
     this.client.emit('dataProviderClear', guild);
   }
@@ -199,10 +219,7 @@ class LevelDataProvider extends DataProvider {
    * @emits `client#dataProviderClear`
    */
   public override async clearGlobal(): Promise<void> {
-    await this.db!.clear({
-      gt: 'global:',
-      lte: `global${String.fromCharCode(':'.charCodeAt(0) + 1)}`
-    });
+    await this._clear('global');
 
     this.client.emit('dataProviderClear', null);
   }
