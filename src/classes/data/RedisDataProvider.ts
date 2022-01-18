@@ -148,7 +148,7 @@ class RedisDataProvider extends DataProvider {
    * Delete a key-value pair in a guild.
    * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the key-value pair will be deleted.
    * @param key The key to delete.
-   * @returns A promise that resolves the data that was deleted.
+   * @returns A promise that resolves the data that has been deleted.
    */
   public override delete(guild: Discord.Guild, key: string): Promise<any> {
     const { id } = guild;
@@ -158,7 +158,7 @@ class RedisDataProvider extends DataProvider {
   /**
    * Delete a key-value pair in a global scope.
    * @param key The key to delete.
-   * @returns A promise that resolves the data that was deleted.
+   * @returns A promise that resolves the data that has been deleted.
    */
   public override deleteGlobal(key: string): Promise<any> {
     return this._delete(`global:${key}`);
@@ -178,7 +178,7 @@ class RedisDataProvider extends DataProvider {
   /**
    * Clear all data in a guild.
    * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) to clear the data from.
-   * @returns A promise that resolves once all data is deleted.
+   * @returns A promise that resolves once all data has been deleted.
    * @emits `client#dataProviderClear`
    */
   public override async clear(guild: Discord.Guild): Promise<void> {
@@ -190,7 +190,7 @@ class RedisDataProvider extends DataProvider {
 
   /**
    * Clear all data in a global scope.
-   * @returns A promise that resolves once all data is deleted.
+   * @returns A promise that resolves once all data has been deleted.
    * @emits `client#dataProviderClear`
    */
   public override async clearGlobal(): Promise<void> {

@@ -7,6 +7,7 @@ import ExtendedClient from '../ExtendedClient';
 
 /**
  * A {@link DataProvider} implemented with a LevelDB backend. Requires the package [level](https://www.npmjs.com/package/level).
+ * This data provider was implemented for level@7.0.1 but any v7 should work.
  */
 class LevelDataProvider extends DataProvider {
   /**
@@ -25,7 +26,6 @@ class LevelDataProvider extends DataProvider {
   private db: level.LevelDB<string, any> | null;
 
   /**
-   * Instantiate a LevelDB data provider.
    * @param client The client that this data provider will be used by.
    * @param location The fully resolved path where the LevelDB database will be saved. This must resolve to a directory.
    */
@@ -39,6 +39,7 @@ class LevelDataProvider extends DataProvider {
    * Initialize this LevelDB data provider. This creates the database instance and the
    * database files inside the location specified.
    * @returns A promise that resolves this LevelDB data provider once it's ready.
+   * @emits `client#dataProviderInit`
    */
   public override init(): Promise<this> {
     if (this.db) {
@@ -152,7 +153,7 @@ class LevelDataProvider extends DataProvider {
    * Delete a key-value pair in a guild.
    * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the key-value pair will be deleted.
    * @param key The key to delete.
-   * @returns A promise that resolves the data that was deleted.
+   * @returns A promise that resolves the data that has been deleted.
    */
   public override async delete(guild: Discord.Guild, key: string): Promise<any> {
     const { id } = guild;
@@ -166,7 +167,7 @@ class LevelDataProvider extends DataProvider {
   /**
    * Delete a key-value pair in a global scope.
    * @param key The key to delete.
-   * @returns A promise that resolves the data that was deleted.
+   * @returns A promise that resolves the data that has been deleted.
    */
   public override async deleteGlobal(key: string): Promise<any> {
     const data = JSON.parse(await this.db!.get(`global:${key}`));
@@ -178,7 +179,7 @@ class LevelDataProvider extends DataProvider {
   /**
    * Clear all data in a guild.
    * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) to clear the data from.
-   * @returns A promise that resolves once all data is deleted.
+   * @returns A promise that resolves once all data has been deleted.
    * @emits `client#dataProviderClear`
    */
   public override async clear(guild: Discord.Guild): Promise<void> {
@@ -194,7 +195,7 @@ class LevelDataProvider extends DataProvider {
 
   /**
    * Clear all data in a global scope.
-   * @returns A promise that resolves once all data is deleted.
+   * @returns A promise that resolves once all data has been deleted.
    * @emits `client#dataProviderClear`
    */
   public override async clearGlobal(): Promise<void> {
