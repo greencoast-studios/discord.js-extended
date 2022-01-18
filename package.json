@@ -55,7 +55,6 @@
     "level": "^7.0.1",
     "level-test": "^9.0.0",
     "redis": "^4.0.2",
-    "redis-mock": "^0.56.3",
     "text-encoding": "^0.7.0",
     "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",
