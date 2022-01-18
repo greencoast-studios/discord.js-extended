@@ -1,6 +1,6 @@
 {
   "name": "@greencoast/discord.js-extended",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "An utility to facilitate the repetitive tasks when creating discord bots. Used by Greencoast Studios.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -43,6 +43,7 @@
     "@types/level": "^6.0.0",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.8",
+    "@types/redis": "^4.0.11",
     "@types/require-all": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
@@ -53,6 +54,7 @@
     "jest": "^27.4.7",
     "level": "^7.0.1",
     "level-test": "^9.0.0",
+    "redis": "^4.0.2",
     "text-encoding": "^0.7.0",
     "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",
@@ -62,7 +64,8 @@
   },
   "peerDependencies": {
     "discord.js": "~13",
-    "level": "~7"
+    "level": "~7",
+    "redis": "~4"
   },
   "dependencies": {
     "@discordjs/builders": "^0.11.0",

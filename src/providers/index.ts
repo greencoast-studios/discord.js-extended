@@ -7,7 +7,9 @@
  */
 
 import LevelDataProvider from './LevelDataProvider';
+import RedisDataProvider from './RedisDataProvider';
 
 export {
-  LevelDataProvider
+  LevelDataProvider,
+  RedisDataProvider
 };
