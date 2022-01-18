@@ -155,6 +155,7 @@ await client.dataProvider.clearGlobal(); // Clear all data in the global scope.
 #### LevelDataProvider
 
 [LevelDataProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/dataproviders.leveldataprovider.html) is a data provider implemented with a [LevelDB](https://www.npmjs.com/package/level) backend. In order to use this, you need to install [level](https://www.npmjs.com/package/level).
+This data provider was made for `level@7.0.1` but any v7 should work.
 
 ```text
 npm install level
@@ -167,10 +168,37 @@ const LevelDataProvider = require('@greencoast/discord.js-extended/dist/provider
 
 const provider = new LevelDataProvider(client, 'database_location');
 
-client.on('ready', () => {
-  client.setProvider(provider);
+client.on('ready', async() => {
+  await client.setProvider(provider);
 });
 ```
+
+#### RedisDataProvider
+
+[RedisDataProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/dataproviders.redisdataprovider.html) is a data provider implemented with a [Redis](https://www.npmjs.com/package/redis) backend. In order to use this, you need to install [redis](https://www.npmjs.com/package/redis).
+This data provider was made for `redis@4.0.2` but any v4 should work.
+
+```text
+npm install redis
+```
+
+In order to set up this data provider, you need to import it and add it to your client.
+
+```js
+const RedisDataProvider = require('@greencoast/discord.js-extended/dist/providers/RedisDataProvider').default;
+
+const provider = new RedisDataProvider(client, { 
+  url: 'redis://alice:foobared@awesome.redis.server:6380'
+});
+
+client.on('ready', async() => {
+  await client.setProvider(provider);
+});
+```
+
+> Keep in mind that Redis was originally meant to be a cache, data is deleted by default across
+> service restarts. You can achieve persistence by [properly configuring](https://redis.io/topics/persistence) your
+> Redis instance.
 
 ### Localizing Your Bot
 

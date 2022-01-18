@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  redis:
+    container_name: djs-ext-example-redis
+    image: redis:latest
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - 6379:6379
+    environment:
+      - TZ=America/Guayaquil
+    command: redis-server --save 60 1 --loglevel warning

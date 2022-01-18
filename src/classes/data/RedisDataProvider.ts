@@ -1,90 +1,65 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import level from 'level';
+import * as Redis from 'redis';
 import Discord from 'discord.js';
 import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
 
 /**
- * A {@link DataProvider} implemented with a LevelDB backend. Requires the package [level](https://www.npmjs.com/package/level).
- * This data provider was implemented for level@7.0.1 but any v7 should work.
+ * A {@link DataProvider} implemented with a Redis backend. Requires the package [redis](https://www.npmjs.com/package/redis).
+ * This data provider was implemented for redis@4.0.2 but any v4 should work.
  */
-class LevelDataProvider extends DataProvider {
+class RedisDataProvider extends DataProvider {
   /**
-   * The fully resolved path where the LevelDB database will be saved.
-   * @type {string}
-   * @memberof LevelDataProvider
-   */
-  public readonly location: string;
-
-  /**
-   * The LevelDB instance for this data provider.
+   * The Redis client for this data provider.
    * @private
-   * @type {(level.LevelDB<string, any> | null)}
-   * @memberof LevelDataProvider
+   * @type {Redis.RedisClientType<any, any>>}
    */
-  private db: level.LevelDB<string, any> | null;
+  private redis: Redis.RedisClientType<any, any>;
 
   /**
    * @param client The client that this data provider will be used by.
-   * @param location The fully resolved path where the LevelDB database will be saved. This must resolve to a directory.
+   * @param options The options passed to the Redis client.
    */
-  constructor(client: ExtendedClient, location: string) {
+  constructor(client: ExtendedClient, options: Redis.RedisClientOptions<any, any>) {
     super(client);
-    this.location = location;
-    this.db = null;
+
+    this.redis = Redis.createClient(options);
   }
 
   /**
-   * Initialize this LevelDB data provider. This creates the database instance and the
-   * database files inside the location specified.
-   * @returns A promise that resolves this LevelDB data provider once it's ready.
+   * Add event listeners to the Redis client.
+   * @param event The Redis client event to listen to.
+   * @param listener The listener function to handle the event.
+   */
+  public on(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.redis.on(event, listener);
+    return this;
+  }
+
+  /**
+   * Initialize this Redis data provider. This connects the data provider to the Redis
+   * service. It also delegates Redis client error handling to the client's error event. handler
+   * @returns A promise that resolves this Redis data provider once it's ready.
    * @emits `client#dataProviderInit`
    */
-  public override init(): Promise<this> {
-    if (this.db) {
-      return Promise.resolve(this);
-    }
+  public override async init(): Promise<this> {
+    await this.redis.connect();
 
-    return new Promise((resolve, reject) => {
-      level(this.location, {}, (error?: Error, db?: level.LevelDB<string, any>) => {
-        if (error) {
-          return reject(error);
-        }
+    this.redis.on('error', (error) => this.client.emit('error', error));
+    this.client.emit('dataProviderInit', this);
 
-        this.db = db!;
-
-        this.client.emit('dataProviderInit', this);
-
-        return resolve(this);
-      });
-    });
+    return this;
   }
 
   /**
-   * Gracefully destroy this LevelDB data provider. This closes the database connection.
-   * Once this is called, this data provider will be unusable.
-   * @returns A promise that resolves once this data provider is destroyed.
+   * Gracefully destroy this Redis data provider. This closes the connection to the Redis
+   * service after queued up operations have ended.
    * @emits `client#dataProviderDestroy`
    */
   public override destroy(): Promise<void> {
-    if (!this.db) {
-      return Promise.resolve();
-    }
+    this.client.emit('dataProviderDestroy', this);
 
-    return new Promise((resolve, reject) => {
-      this.db!.close((error?: Error) => {
-        if (error) {
-          return reject(error);
-        }
-
-        this.db = null;
-
-        this.client.emit('dataProviderDestroy', this);
-
-        return resolve();
-      });
-    });
+    return this.redis.quit();
   }
 
   /**
@@ -94,16 +69,14 @@ class LevelDataProvider extends DataProvider {
    * @private
    * @returns A promise that resolves the queried data.
    */
-  private async _get(key: string, defaultValue?: string): Promise<any> {
-    try {
-      return JSON.parse(await this.db!.get(key));
-    } catch (error: any) {
-      if (error.notFound) {
-        return defaultValue;
-      }
+  private async _get(key: string, defaultValue?: any): Promise<any> {
+    const exists = await this.redis.exists(key);
 
-      throw error;
+    if (!exists) {
+      return defaultValue;
     }
+
+    return JSON.parse((await this.redis.get(key))!);
   }
 
   /**
@@ -113,7 +86,7 @@ class LevelDataProvider extends DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public override async get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any> {
+  public override get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any> {
     const { id } = guild;
     return this._get(`${id}:${key}`, defaultValue);
   }
@@ -124,12 +97,19 @@ class LevelDataProvider extends DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public override async getGlobal(key: string, defaultValue?: any): Promise<any> {
+  public override getGlobal(key: string, defaultValue?: any): Promise<any> {
     return this._get(`global:${key}`, defaultValue);
   }
 
+  /**
+   * Set a value for a given absolute key.
+   * @param key The key of the data to be set.
+   * @param value The value to set.
+   * @private
+   * @returns A promise that resolves once the data is saved.
+   */
   private async _set(key: string, value: any): Promise<any> {
-    await this.db!.put(key, JSON.stringify(value));
+    await this.redis.set(key, JSON.stringify(value));
   }
 
   /**
@@ -139,7 +119,7 @@ class LevelDataProvider extends DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public override async set(guild: Discord.Guild, key: string, value: any): Promise<void> {
+  public override set(guild: Discord.Guild, key: string, value: any): Promise<any> {
     const { id } = guild;
     return this._set(`${id}:${key}`, value);
   }
@@ -150,7 +130,7 @@ class LevelDataProvider extends DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public override async setGlobal(key: string, value: any): Promise<void> {
+  public override setGlobal(key: string, value: any): Promise<any> {
     return this._set(`global:${key}`, value);
   }
 
@@ -161,10 +141,7 @@ class LevelDataProvider extends DataProvider {
    * @returns A promise that resolves once the data has been deleted.
    */
   private async _delete(key: string): Promise<any> {
-    const data = JSON.parse(await this.db!.get(key));
-    await this.db!.del(key);
-
-    return data;
+    return JSON.parse((await this.redis.getDel(key))!);
   }
 
   /**
@@ -173,7 +150,7 @@ class LevelDataProvider extends DataProvider {
    * @param key The key to delete.
    * @returns A promise that resolves the data that has been deleted.
    */
-  public override async delete(guild: Discord.Guild, key: string): Promise<any> {
+  public override delete(guild: Discord.Guild, key: string): Promise<any> {
     const { id } = guild;
     return this._delete(`${id}:${key}`);
   }
@@ -183,7 +160,7 @@ class LevelDataProvider extends DataProvider {
    * @param key The key to delete.
    * @returns A promise that resolves the data that has been deleted.
    */
-  public override async deleteGlobal(key: string): Promise<any> {
+  public override deleteGlobal(key: string): Promise<any> {
     return this._delete(`global:${key}`);
   }
 
@@ -194,10 +171,8 @@ class LevelDataProvider extends DataProvider {
    * @returns A promise that resolves once all data has been deleted.
    */
   public async _clear(startsWith: string): Promise<void> {
-    await this.db!.clear({
-      gt: `${startsWith}:`,
-      lte: `${startsWith}${String.fromCharCode(':'.charCodeAt(0) + 1)}`
-    });
+    const keys = await this.redis.keys(`${startsWith}*`);
+    await this.redis.del(keys);
   }
 
   /**
@@ -208,7 +183,7 @@ class LevelDataProvider extends DataProvider {
    */
   public override async clear(guild: Discord.Guild): Promise<void> {
     const { id } = guild;
-    await this._clear(id);
+    await this._clear(`${id}:`);
 
     this.client.emit('dataProviderClear', guild);
   }
@@ -219,10 +194,10 @@ class LevelDataProvider extends DataProvider {
    * @emits `client#dataProviderClear`
    */
   public override async clearGlobal(): Promise<void> {
-    await this._clear('global');
+    await this._clear('global:');
 
     this.client.emit('dataProviderClear', null);
   }
 }
 
-export default LevelDataProvider;
+export default RedisDataProvider;

@@ -3,7 +3,7 @@ const path = require('path');
 const logger = require('@greencoast/logger');
 const { Intents } = require('discord.js');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
-const LevelDataProvider = require('@greencoast/discord.js-extended/dist/providers/LevelDataProvider').default;
+const RedisDataProvider = require('@greencoast/discord.js-extended/dist/providers/RedisDataProvider').default;
 const locales = require('./locale');
 
 // The environment object contains the property: DISCORD_TOKEN with the bot's token.
@@ -56,7 +56,9 @@ const client = new ExtendedClient({
   }
 });
 
-const dataProvider = new LevelDataProvider(client, path.join(__dirname, './data'));
+const dataProvider = new RedisDataProvider(client, {
+  url: 'redis://localhost:6379'
+});
 
 client.registerDefaultEvents()
   .registerExtraDefaultEvents();
