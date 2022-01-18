@@ -55,10 +55,10 @@ class RedisMock {
     const starts = pattern.endsWith('*') ? pattern.slice(0, pattern.length - 1) : pattern;
     return Promise.resolve(Array.from(this._data.keys()).filter((k) => k.startsWith(starts)));
   }
-
-  public static createClient(): RedisMock {
-    return new RedisMock();
-  }
 }
+
+export const createClient = () => {
+  return new RedisMock();
+};
 
 export default RedisMock;

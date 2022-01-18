@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Redis from 'redis';
+import * as Redis from 'redis';
 import Discord from 'discord.js';
 import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
