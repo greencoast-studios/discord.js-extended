@@ -87,7 +87,10 @@ class ConfigValidator {
         return customValidator(value);
       }
 
-      const type = this.types[key] || 'string';
+      const type = this.types[key];
+      if (!type) {
+        return;
+      }
 
       if (Array.isArray(type)) {
         const valid = type.some((t) => {

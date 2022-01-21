@@ -65,19 +65,16 @@ describe('Classes: Config: ConfigValidator', () => {
       }).toThrow();
     });
 
-    it('should not throw if config contains extraneous keys that resolve to a string.', () => {
+    it('should not throw if config contains extraneous keys of any type.', () => {
       expect(() => {
         validator.validate({ EXTRA: '123' });
       }).not.toThrow();
-    });
-
-    it('should throw if config contains extraneous keys that resolve to something other than a string.', () => {
-      expect(() => {
-        validator.validate({ EXTRA: false });
-      }).toThrow();
       expect(() => {
         validator.validate({ EXTRA: 123 });
-      }).toThrow();
+      }).not.toThrow();
+      expect(() => {
+        validator.validate({ EXTRA: false });
+      }).not.toThrow();
     });
 
     it('should throw if non nullable config is null.', () => {
