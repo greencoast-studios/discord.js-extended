@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 import Discord from 'discord.js';
 import Localizer from '../../../src/classes/locale/Localizer';
 import GuildLocalizer from '../../../src/classes/locale/GuildLocalizer';
@@ -38,6 +39,23 @@ describe('Classes: Locale: Localizer', () => {
       return localizer.init()
         .then((locales) => {
           expect(locales).toStrictEqual(['en', 'en', 'en']);
+        });
+    });
+
+    it('should register guildCreate and guildDelete event handlers.', () => {
+      return localizer.init()
+        .then(() => {
+          expect(clientMock.on).toHaveBeenCalledWith('guildCreate', expect.anything());
+          expect(clientMock.on).toHaveBeenCalledWith('guildDelete', expect.anything());
+        });
+    });
+  });
+
+  describe('private handleGuildDelete()', () => {
+    it('should delete the localizer for the guild.', () => {
+      return localizer['handleGuildDelete'](guildMock)
+        .then(() => {
+          expect(localizer.guildLocalizers.has(guildMock.id)).toBe(false);
         });
     });
   });
