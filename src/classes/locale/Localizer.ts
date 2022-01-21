@@ -164,6 +164,8 @@ class Localizer {
 
   /**
    * Get the formatter object to format the message of the given key and locale.
+   * If no message for the given locale exists, then the message for the default locale
+   * will be used.
    * @param key The key of the message to translate.
    * @param locale The locale to translate the message to.
    * @returns The formatter object for translating the message.
@@ -177,13 +179,13 @@ class Localizer {
       throw new Error(`No messages with locale ${locale} exist!`);
     }
 
-    const message = messagesForLocale[key];
+    const message = messagesForLocale[key] || this.localeStrings[this.defaultLocale][key];
 
     if (!message) {
       throw new Error(`No message with key ${key} for locale ${locale} exists!`);
     }
 
-    return new IntlMessageFormat(this.localeStrings[locale][key]);
+    return new IntlMessageFormat(message);
   }
 }
 

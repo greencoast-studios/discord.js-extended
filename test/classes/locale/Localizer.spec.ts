@@ -101,6 +101,12 @@ describe('Classes: Locale: Localizer', () => {
       expect(translated2).toBe('Bye');
     });
 
+    it('should use the default locale if message key does not exist in target locale but does in the default one.', () => {
+      expect(localizer.translate('exists.only.in.en', 'en')).toBe('I only exist in english');
+      expect(localizer.translate('exists.only.in.en', 'es')).toBe('I only exist in english');
+      expect(localizer.translate('exists.only.in.en', 'fr')).toBe('I only exist in english');
+    });
+
     it('should return the message string translated with values applied.', () => {
       const name = 'moonstar';
       const english = localizer.translate('message.test.with_value', 'en', { name });
