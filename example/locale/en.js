@@ -6,7 +6,8 @@ const GREETINGS = {
 };
 
 const EXTRA = {
-  'extra.nice_weather': "It's {temperature}, it's a nice weather!"
+  'extra.nice_weather': "It's {temperature}, it's a nice weather!",
+  'extra.only_english': "I'm only available in english."
 };
 
 module.exports = {

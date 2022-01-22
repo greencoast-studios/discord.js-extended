@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 import Discord from 'discord.js';
 import Localizer from '../../../src/classes/locale/Localizer';
 import GuildLocalizer from '../../../src/classes/locale/GuildLocalizer';
@@ -38,6 +39,23 @@ describe('Classes: Locale: Localizer', () => {
       return localizer.init()
         .then((locales) => {
           expect(locales).toStrictEqual(['en', 'en', 'en']);
+        });
+    });
+
+    it('should register guildCreate and guildDelete event handlers.', () => {
+      return localizer.init()
+        .then(() => {
+          expect(clientMock.on).toHaveBeenCalledWith('guildCreate', expect.anything());
+          expect(clientMock.on).toHaveBeenCalledWith('guildDelete', expect.anything());
+        });
+    });
+  });
+
+  describe('private handleGuildDelete()', () => {
+    it('should delete the localizer for the guild.', () => {
+      return localizer['handleGuildDelete'](guildMock)
+        .then(() => {
+          expect(localizer.guildLocalizers.has(guildMock.id)).toBe(false);
         });
     });
   });
@@ -99,6 +117,12 @@ describe('Classes: Locale: Localizer', () => {
 
       expect(translated1).toBe('Bye');
       expect(translated2).toBe('Bye');
+    });
+
+    it('should use the default locale if message key does not exist in target locale but does in the default one.', () => {
+      expect(localizer.translate('exists.only.in.en', 'en')).toBe('I only exist in english');
+      expect(localizer.translate('exists.only.in.en', 'es')).toBe('I only exist in english');
+      expect(localizer.translate('exists.only.in.en', 'fr')).toBe('I only exist in english');
     });
 
     it('should return the message string translated with values applied.', () => {
