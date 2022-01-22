@@ -172,6 +172,11 @@ class RedisDataProvider extends DataProvider {
    */
   public async _clear(startsWith: string): Promise<void> {
     const keys = await this.redis.keys(`${startsWith}*`);
+
+    if (!keys || keys.length < 1) {
+      return;
+    }
+
     await this.redis.del(keys);
   }
 

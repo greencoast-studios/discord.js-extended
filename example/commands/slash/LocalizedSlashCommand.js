@@ -14,7 +14,7 @@ class LocalizedSlashCommand extends SlashCommand {
   run(interaction) {
     const localizer = this.client.localizer.getLocalizer(interaction.guild);
 
-    return interaction.reply(localizer.t('greetings.hello', { name: interaction.user.username }));
+    return interaction.reply(localizer.t('extra.only_english', { name: interaction.user.username }));
   }
 }
 

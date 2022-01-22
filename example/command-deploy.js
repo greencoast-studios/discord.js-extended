@@ -25,6 +25,7 @@ client.registry
 
 client.on('ready', async() => {
   try {
+    client.deployer.rest.setToken(config.get('TOKEN'));
     await client.deployer.deployGlobally();
   } catch (error) {
     console.error('Something happened!', error);
