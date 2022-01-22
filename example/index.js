@@ -1,7 +1,6 @@
 require('dotenv').config();
 const path = require('path');
 const logger = require('@greencoast/logger');
-const { Intents } = require('discord.js');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
 const RedisDataProvider = require('@greencoast/discord.js-extended/dist/providers/RedisDataProvider').default;
 const locales = require('./locale');
@@ -48,7 +47,7 @@ const client = new ExtendedClient({
   },
   config,
   errorOwnerReporting: true,
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES],
+  intents: ['GUILDS', 'GUILD_MESSAGES'],
   testingGuildID: '756628171494916098',
   localizer: {
     defaultLocale: 'en',
@@ -76,9 +75,11 @@ client.on('ready', async() => {
 
   await client.setDataProvider(dataProvider); // It would be recommended to set the data provider once the client is ready.
   await client.localizer.init(); // Initialize the localizer after setting up the data provider.
+
+  client.deployer.rest.setToken(config.get('TOKEN'));
   await client.deployer.deployToTestingGuild(); // Deploy slash commands to the testing guild.
 
   logger.info(`My numbers from the environment variable are: ${client.config.get('MY_NUM_ARRAY').join(', ')}`);
 });
 
-client.login(client.config.get('TOKEN'));
+client.login(config.get('TOKEN'));
