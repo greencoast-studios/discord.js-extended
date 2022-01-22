@@ -446,6 +446,13 @@ client.login(client.config.get('TOKEN'));
 > Keep in mind that you only need to deploy globally once. Also, this process can take up to an hour to be reflected
 > on Discord. **You should not use `client.deployer.deployGlobally()` for development.**
 
+## Inviting Your Bot
+
+Inviting your bot requires you to build a specific invite link. Head over to the [Discord Applications Page](https://discord.com/developers/applications)
+and go into your bot's page. Under the `OAuth2` tab, head over to the `OAuth2 URL Generator` and select (at least) the scopes `bot` and `application.commands`.
+At the bottom, another box should show up where you should pick the corresponding permissions your bot requires to function properly. Once you have all that set,
+an invite URL will be generated. You should invite the bot to your server (or any server) with this link.
+
 ## Testing
 
 You can run the unit tests for this package by:
