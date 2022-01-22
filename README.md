@@ -203,7 +203,7 @@ client.on('ready', async() => {
 ### Localizing Your Bot
 
 The package contains a [Localizer](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.localizer.html) class to help with the localization of your bot. In order to use it, you should pass a `localizer` object to your `client` constructor and
-initialize the localizer in the `ready` event.
+initialize the localizer in the `ready` event. Keep in mind that you absolutely need the `GUILDS` intent in your client for this to work properly.
 
 ```js
 const client = new ExtendedClient({
@@ -211,7 +211,8 @@ const client = new ExtendedClient({
     defaultLocale: 'en', // The default locale for your bot.
     dataProviderKey: 'locale', // The key to be used to store the locale for each guild in the client's data provider.
     localeStrings: locales
-  }
+  },
+  intents: ['GUILDS']
 });
 
 client.on('ready', async() => {
@@ -244,6 +245,8 @@ const locales = {
 ```
 
 Locale messages should follow the [ICU format](https://formatjs.io/docs/intl-messageformat/#common-usage-example).
+
+In case a message is not available in a certain locale and it is requested, the message from the default locale will be picked.
 
 Inside a command, you may use the localizer in the following manner:
 
@@ -354,7 +357,7 @@ module.exports = class MyCommand extends SlashCommand {
       ownerOnly: false, // Whether the command may only be used by the owner. Defaults to false.
       userPermissions: Permissions.FLAGS.MANAGE_CHANNELS, // The PermissionResolvable representing the permissions that users require to execute this command. Defaults to null.
       ownerOverride: true, // Whether the owner may execute this command even if they don't have the required permissions. Defaults to true.
-      dataBuilder: new SlashCommandBuilder()
+      dataBuilder: new SlashCommandBuilder() // You do not need to use .setName() and .setDescription(), they're handled internally with the data above.
     });
 
     run(interaction) {
@@ -384,6 +387,7 @@ client options and have the following `ready` event handler.
 
 ```js
 client.on('ready', async() => {
+  client.deployer.rest.setToken(config.get('TOKEN'));
   await client.deployer.deployToTestingGuild();
 });
 ```
@@ -423,6 +427,7 @@ client.registry
 
 client.on('ready', async() => {
   try {
+    client.deployer.rest.setToken(config.get('TOKEN'));
     await client.deployer.deployGlobally();
   } catch (error) {
     console.error('Something happened!', error);
