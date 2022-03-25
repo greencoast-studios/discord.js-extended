@@ -143,9 +143,15 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
       }
     }
 
-    await interaction.reply({
-      content: `An error has occurred when running the command ${this.name}.${contactOwner}`
-    });
+    if (interaction.deferred || interaction.replied) {
+      await interaction.editReply({
+        content: `An error has occurred when running the command ${this.name}.${contactOwner}`
+      });
+    } else {
+      await interaction.reply({
+        content: `An error has occurred when running the command ${this.name}.${contactOwner}`
+      });
+    }
   }
 }
 
