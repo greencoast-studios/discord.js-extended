@@ -140,44 +140,70 @@ describe('Classes: Command: SlashCommand', () => {
   });
 
   describe('onError()', () => {
-    it('should emit a commandError event.', () => {
+    it('should emit a commandError event.', async() => {
       const expectedError = new Error('oops');
-      command.onError(expectedError, interaction);
+      await command.onError(expectedError, interaction);
 
       expect(client.emit).toHaveBeenCalledWith('commandError', expectedError, command, interaction);
     });
 
-    it('should reply with the correct message if no owner is set on the client.', () => {
+    it('should reply with the correct message if no owner is set on the client.', async() => {
       client = new ExtendedClient();
       command = new ConcreteSlashCommand(client);
 
-      command.onError(new Error(), interaction);
+      await command.onError(new Error(), interaction);
 
       const commandInteraction = interaction as Discord.CommandInteraction;
       expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
       expect((commandInteraction.reply as jest.Mock).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
     });
 
-    it('should reply with the correct message if an owner is set on the client.', () => {
+    it('should reply with the correct message if an owner is set on the client.', async() => {
       client = new ExtendedClient({ owner: '123', intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
-      command.onError(new Error(), interaction);
+      await command.onError(new Error(), interaction);
 
       const commandInteraction = interaction as Discord.CommandInteraction;
       expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
       expect((commandInteraction.reply as jest.Mock).mock.calls[0][0].content.endsWith('contact User.')).toBe(true);
     });
 
-    it('should send the error to the owner if errorReporting is enabled.', () => {
+    it('should send the error to the owner if errorReporting is enabled.', async() => {
       client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
-      command.onError(new Error(), interaction);
+      await command.onError(new Error(), interaction);
 
       expect(client.owner!.send).toHaveBeenCalledTimes(1);
+    });
+
+    it('should editReply if the interaction has been already replied.', async() => {
+      client = new ExtendedClient();
+      command = new ConcreteSlashCommand(client);
+      interaction.replied = true;
+
+      await command.onError(new Error(), interaction);
+
+      const commandInteraction = interaction as Discord.CommandInteraction;
+
+      expect(commandInteraction.editReply).toHaveBeenCalledTimes(1);
+      expect((commandInteraction.editReply as jest.Mock).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
+    });
+
+    it('should editReply if the interaction has been already deferred.', async() => {
+      client = new ExtendedClient();
+      command = new ConcreteSlashCommand(client);
+      interaction.deferred = true;
+
+      await command.onError(new Error(), interaction);
+
+      const commandInteraction = interaction as Discord.CommandInteraction;
+
+      expect(commandInteraction.editReply).toHaveBeenCalledTimes(1);
+      expect((commandInteraction.editReply as jest.Mock).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
     });
   });
 });

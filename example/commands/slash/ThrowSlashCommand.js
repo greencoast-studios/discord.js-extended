@@ -12,7 +12,8 @@ class ThrowSlashCommand extends SlashCommand {
     });
   }
 
-  run(interaction) {
+  async run(interaction) {
+    await interaction.reply('hi');
     throw new Error('Oops!');
   }
 }
