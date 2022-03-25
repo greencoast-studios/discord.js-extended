@@ -164,7 +164,10 @@ export class InteractionMock {
   public isCommand: jest.Mock;
   public inGuild: jest.Mock;
   public reply: jest.Mock;
+  public editReply: jest.Mock;
   public options: unknown;
+  public replied: boolean;
+  public deferred: boolean;
 
   constructor() {
     this.guild = new GuildMock();
@@ -173,8 +176,11 @@ export class InteractionMock {
     this.isCommand = jest.fn();
     this.inGuild = jest.fn();
     this.reply = jest.fn();
+    this.editReply = jest.fn();
     this.options = {
       getString: jest.fn()
     };
+    this.replied = false;
+    this.deferred = false;
   }
 }
