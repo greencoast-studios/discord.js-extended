@@ -19,7 +19,7 @@ class SetLocaleRegularCommand extends RegularCommand {
       group: 'config',
       description: 'Update the locale for this guild.',
       guildOnly: true,
-      userPermissions: [Discord.Permissions.FLAGS.MANAGE_GUILD]
+      userPermissions: [Discord.PermissionsBitField.Flags.ManageGuild]
     });
   }
 

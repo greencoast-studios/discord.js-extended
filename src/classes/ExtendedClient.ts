@@ -96,7 +96,7 @@ export class ExtendedClient extends Discord.Client {
    * @param options The client's options. Defaults to an empty object.
    */
   // eslint-disable-next-line max-statements
-  constructor(options: ExtendedClientOptions = { intents: [] }) {
+  constructor(options: ExtendedClientOptions) {
     if (!options.prefix) {
       options.prefix = '!';
     }
@@ -241,7 +241,6 @@ export class ExtendedClient extends Discord.Client {
     this.on('guildUnavailable', ClientDefaultHandlers.onGuildUnavailable);
     this.on('invalidated', ClientDefaultHandlers.onInvalidated);
     this.on('invalidRequestWarning', ClientDefaultHandlers.onInvalidRequestWarning);
-    this.on('rateLimit', ClientDefaultHandlers.onRateLimit);
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
 

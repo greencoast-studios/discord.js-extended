@@ -46,13 +46,13 @@ class HelpSlashCommand extends SlashCommand {
    * The title of the field will be the group's name and the text will be the list of commands.
    * @returns An array of objects that contain the field's title and text.
    */
-  public prepareFields(): { title: string, text: string }[] {
+  public prepareFields(): Discord.EmbedField[] {
     return this.client.registry.groups.map((group) => {
       const listOfCommands = group.commands.reduce((text, command) => {
         return text.concat(`${command.emoji} **/${command.name}** - ${command.description}\n`);
       }, '');
 
-      return { title: group.name, text: listOfCommands };
+      return { name: group.name, value: listOfCommands, inline: false };
     });
   }
 
@@ -63,20 +63,16 @@ class HelpSlashCommand extends SlashCommand {
    * ```
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    */
-  public async run(interaction: Discord.CommandInteraction): Promise<void> {
-    const embed = new Discord.MessageEmbed();
-    const fields = this.prepareFields();
+  public async run(interaction: Discord.ChatInputCommandInteraction): Promise<void> {
+    const embed = new Discord.EmbedBuilder();
 
     embed.setTitle('Command List and Help');
     embed.setColor(this.embedColor);
     embed.setThumbnail(this.embedThumbnail);
 
-    for (const key in fields) {
-      const field = fields[key];
-      embed.addField(field.title, field.text);
-    }
+    embed.addFields(this.prepareFields());
 
-    return interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed] });
   }
 }
 

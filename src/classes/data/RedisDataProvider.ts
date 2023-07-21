@@ -12,9 +12,9 @@ class RedisDataProvider extends DataProvider {
   /**
    * The Redis client for this data provider.
    * @private
-   * @type {Redis.RedisClientType<any, any>>}
+   * @type {Redis.RedisClientType<any, any, Redis.RedisScripts>>}
    */
-  private redis: Redis.RedisClientType<any, any>;
+  private redis: Redis.RedisClientType<any, any, Redis.RedisScripts>;
 
   /**
    * @param client The client that this data provider will be used by.
@@ -56,10 +56,9 @@ class RedisDataProvider extends DataProvider {
    * service after queued up operations have ended.
    * @emits `client#dataProviderDestroy`
    */
-  public override destroy(): Promise<void> {
+  public override async destroy(): Promise<void> {
     this.client.emit('dataProviderDestroy', this);
-
-    return this.redis.quit();
+    await this.redis.quit();
   }
 
   /**

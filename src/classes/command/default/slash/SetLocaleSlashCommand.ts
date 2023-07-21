@@ -19,7 +19,7 @@ class SetLocaleSlashCommand extends SlashCommand {
       group: 'config',
       description: 'Update the locale for this guild.',
       guildOnly: true,
-      userPermissions: [Discord.Permissions.FLAGS.MANAGE_GUILD],
+      userPermissions: [Discord.PermissionsBitField.Flags.ManageGuild],
       dataBuilder: new Discord.SlashCommandBuilder().addStringOption((input) => {
         return input
           .setName('locale')
@@ -36,7 +36,7 @@ class SetLocaleSlashCommand extends SlashCommand {
    * ```
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    */
-  public async run(interaction: Discord.CommandInteraction): Promise<void> {
+  public async run(interaction: Discord.ChatInputCommandInteraction): Promise<void> {
     const localizer = this.client.localizer!.getLocalizer(interaction.guild!)!; // We know it comes from a guild because of guildOnly.
     const newLocale = interaction.options.getString('locale')!; // We know it's not null because it is required.
 

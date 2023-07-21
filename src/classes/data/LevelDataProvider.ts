@@ -6,28 +6,28 @@ import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
 
 /**
- * A {@link DataProvider} implemented with a LevelDB backend. Requires the package [level](https://www.npmjs.com/package/level).
+ * A {@link DataProvider} implemented with a Level backend. Requires the package [level](https://www.npmjs.com/package/level).
  * This data provider was implemented for level@7.0.1 but any v7 should work.
  */
 class LevelDataProvider extends DataProvider {
   /**
-   * The fully resolved path where the LevelDB database will be saved.
+   * The fully resolved path where the Level database will be saved.
    * @type {string}
    * @memberof LevelDataProvider
    */
   public readonly location: string;
 
   /**
-   * The LevelDB instance for this data provider.
+   * The Level instance for this data provider.
    * @private
-   * @type {(level.LevelDB<string, any> | null)}
+   * @type {(level.Level<string, any> | null)}
    * @memberof LevelDataProvider
    */
-  private db: level.LevelDB<string, any> | null;
+  private db: level.Level<string, any> | null;
 
   /**
    * @param client The client that this data provider will be used by.
-   * @param location The fully resolved path where the LevelDB database will be saved. This must resolve to a directory.
+   * @param location The fully resolved path where the Level database will be saved. This must resolve to a directory.
    */
   constructor(client: ExtendedClient, location: string) {
     super(client);
@@ -36,55 +36,32 @@ class LevelDataProvider extends DataProvider {
   }
 
   /**
-   * Initialize this LevelDB data provider. This creates the database instance and the
+   * Initialize this Level data provider. This creates the database instance and the
    * database files inside the location specified.
-   * @returns A promise that resolves this LevelDB data provider once it's ready.
+   * @returns A promise that resolves this Level data provider once it's ready.
    * @emits `client#dataProviderInit`
    */
-  public override init(): Promise<this> {
-    if (this.db) {
-      return Promise.resolve(this);
+  public override async init(): Promise<this> {
+    if (!this.db) {
+      this.db = new level.Level(this.location);
+      this.client.emit('dataProviderInit', this);
     }
 
-    return new Promise((resolve, reject) => {
-      level(this.location, {}, (error?: Error, db?: level.LevelDB<string, any>) => {
-        if (error) {
-          return reject(error);
-        }
-
-        this.db = db!;
-
-        this.client.emit('dataProviderInit', this);
-
-        return resolve(this);
-      });
-    });
+    return this;
   }
 
   /**
-   * Gracefully destroy this LevelDB data provider. This closes the database connection.
+   * Gracefully destroy this Level data provider. This closes the database connection.
    * Once this is called, this data provider will be unusable.
    * @returns A promise that resolves once this data provider is destroyed.
    * @emits `client#dataProviderDestroy`
    */
-  public override destroy(): Promise<void> {
-    if (!this.db) {
-      return Promise.resolve();
+  public override async destroy(): Promise<void> {
+    if (this.db) {
+      await this.db.close();
+      this.db = null;
+      this.client.emit('dataProviderDestroy', this);
     }
-
-    return new Promise((resolve, reject) => {
-      this.db!.close((error?: Error) => {
-        if (error) {
-          return reject(error);
-        }
-
-        this.db = null;
-
-        this.client.emit('dataProviderDestroy', this);
-
-        return resolve();
-      });
-    });
   }
 
   /**

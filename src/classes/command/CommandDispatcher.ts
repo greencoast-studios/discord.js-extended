@@ -83,7 +83,7 @@ class CommandDispatcher {
    * @emits `client#commandExecute`
    */
   public async handleInteraction(interaction: Discord.Interaction): Promise<Discord.Message | void> {
-    if (!interaction.isCommand()) {
+    if (!interaction.isChatInputCommand()) {
       return;
     }
 

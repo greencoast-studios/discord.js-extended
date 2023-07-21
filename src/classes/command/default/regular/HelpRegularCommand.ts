@@ -45,13 +45,13 @@ class HelpRegularCommand extends RegularCommand {
    * The title of the field will be the group's name and the text will be the list of commands.
    * @returns An array of objects that contain the field's title and text.
    */
-  public prepareFields(): { title: string, text: string }[] {
+  public prepareFields(): Discord.EmbedField[] {
     return this.client.registry.groups.map((group) => {
       const listOfCommands = group.commands.reduce((text, command) => {
         return text.concat(`${command.emoji} **${this.client.prefix}${command.name}** - ${command.description}\n`);
       }, '');
 
-      return { title: group.name, text: listOfCommands };
+      return { name: group.name, value: listOfCommands, inline: false };
     });
   }
 
@@ -64,17 +64,13 @@ class HelpRegularCommand extends RegularCommand {
    * @returns The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) where the help message embed was sent.
    */
   public run(message: Discord.Message): Promise<Discord.Message> {
-    const embed = new Discord.MessageEmbed();
-    const fields = this.prepareFields();
+    const embed = new Discord.EmbedBuilder();
 
     embed.setTitle('Command List and Help');
     embed.setColor(this.embedColor);
     embed.setThumbnail(this.embedThumbnail);
 
-    for (const key in fields) {
-      const field = fields[key];
-      embed.addField(field.title, field.text);
-    }
+    embed.addFields(this.prepareFields());
 
     return message.channel.send({ embeds: [embed] });
   }

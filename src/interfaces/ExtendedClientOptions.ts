@@ -54,6 +54,11 @@ interface ExtendedClientOptions extends Discord.ClientOptions {
    * The client's localizer's options.
    */
   localizer?: LocalizerOptions
+
+  /**
+   * The client's intents.
+   */
+  intents: Discord.IntentsBitField
 }
 
 export default ExtendedClientOptions;

@@ -1,4 +1,5 @@
 /* eslint-disable max-statements */
+import { ActivityType } from 'discord-api-types/v10';
 import ExtendedClient from '../ExtendedClient';
 import PresenceTemplater from './PresenceTemplater';
 import { randomArrayItem } from '../../utils/array';
@@ -59,7 +60,7 @@ class PresenceManager {
       options.status = 'online';
     }
     if (!options.type) {
-      options.type = 'PLAYING';
+      options.type = ActivityType.Playing;
     }
     if (!options.afk) {
       options.afk = false;

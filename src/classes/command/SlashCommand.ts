@@ -12,7 +12,7 @@ import SlashCommandValidator from './SlashCommandValidator';
  * An abstract interaction based command class. Extend this class to define your command's functionality.
  * This class serves as a base for interaction based commands (slash commands).
  */
-abstract class SlashCommand extends Command<Discord.CommandInteraction> {
+abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction> {
   /**
    * The data builder for this slash command.
    * You do not need to set its name or description, the constructor
@@ -68,16 +68,16 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
 
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
    */
-  public abstract run(interaction: Discord.CommandInteraction): Promise<Discord.Message | void>;
+  public abstract run(interaction: Discord.ChatInputCommandInteraction): Promise<Discord.Message | void>;
 
   /**
    * Check whether the interaction author can execute this command.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
-  public override hasPermission(interaction: Discord.CommandInteraction): boolean | string {
+  public override hasPermission(interaction: Discord.ChatInputCommandInteraction): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {
       return true;
     }
@@ -114,11 +114,11 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
   /**
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public override async onError(error: unknown, interaction: Discord.CommandInteraction): Promise<Discord.Message | void> {
+  public override async onError(error: unknown, interaction: Discord.ChatInputCommandInteraction): Promise<Discord.Message | void> {
     this.client.emit('commandError', error, this, interaction);
 
     let contactOwner = '';

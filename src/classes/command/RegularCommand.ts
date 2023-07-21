@@ -34,7 +34,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
       return `The command ${this.name} may only be used by the bot's owner.`;
     }
 
-    if (this.userPermissions && message.channel.isText()) {
+    if (this.userPermissions && message.channel.isTextBased()) {
       if (message.channel instanceof Discord.DMChannel || message.channel.partial) {
         return true;
       }

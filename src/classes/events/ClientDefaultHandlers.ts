@@ -64,15 +64,6 @@ class ClientDefaultHandlers {
   }
 
   /**
-   * Log the client's rate limiting messages.
-   * @param info The client's rate limiting info.
-   */
-  static onRateLimit(info: Discord.RateLimitData): void {
-    logger.warn('You are being rate limited!');
-    logger.warn(`${info.method}: ${info.path} (${info.timeout}ms) [MAX: ${info.limit}]`);
-  }
-
-  /**
    * Log the client's ready message.
    */
   static onReady(): void {
