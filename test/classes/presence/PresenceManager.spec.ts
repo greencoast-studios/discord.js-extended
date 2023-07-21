@@ -1,5 +1,3 @@
-/* eslint-disable dot-notation */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import PresenceManager from '../../../src/classes/presence/PresenceManager';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 

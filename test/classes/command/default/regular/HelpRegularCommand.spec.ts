@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import HelpRegularCommand from '../../../../../src/classes/command/default/regular/HelpRegularCommand';
 import ExtendedClient from '../../../../../src/classes/ExtendedClient';

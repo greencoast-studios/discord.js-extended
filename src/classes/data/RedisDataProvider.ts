@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Redis from 'redis';
 import Discord from 'discord.js';
 import DataProvider from './DataProvider';

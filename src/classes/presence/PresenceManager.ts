@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import { ActivityType } from 'discord-api-types/v10';
 import ExtendedClient from '../ExtendedClient';
 import PresenceTemplater from './PresenceTemplater';

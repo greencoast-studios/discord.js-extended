@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import { ConfigValue, ConfigCustomValidators } from '../../types';
 
 /**

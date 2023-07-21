@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';

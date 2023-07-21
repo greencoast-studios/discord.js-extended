@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import HelpSlashCommand from '../../../../../src/classes/command/default/slash/HelpSlashCommand';
 import ExtendedClient from '../../../../../src/classes/ExtendedClient';

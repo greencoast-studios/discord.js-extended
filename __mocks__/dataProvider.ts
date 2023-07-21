@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import DataProvider from '../src/classes/data/DataProvider';
 
 class ConcreteDataProvider extends DataProvider {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
@@ -95,7 +94,6 @@ export class ExtendedClient extends Discord.Client {
   /**
    * @param options The client's options. Defaults to an empty object.
    */
-  // eslint-disable-next-line max-statements
   constructor(options: ExtendedClientOptions) {
     if (!options.prefix) {
       options.prefix = '!';

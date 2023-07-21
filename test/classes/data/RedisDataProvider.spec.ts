@@ -1,6 +1,3 @@
-/* eslint-disable dot-notation */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import RedisDataProvider from '../../../src/classes/data/RedisDataProvider';
 import ExtendedClient from '../../../src/classes/ExtendedClient';

@@ -1,5 +1,3 @@
-/* eslint-disable no-extra-parens */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import SlashCommand from '../../../src/classes/command/SlashCommand';
 import ExtendedClient from '../../../src/classes/ExtendedClient';

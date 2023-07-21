@@ -1,6 +1,3 @@
-/* eslint-disable max-lines */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable dot-notation */
 import { mocked } from 'jest-mock';
 import level from 'level';
 import LevelUP from 'levelup';

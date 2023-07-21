@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import Discord from 'discord.js';
 import { stripIndents } from 'common-tags';
 import Command from './Command';

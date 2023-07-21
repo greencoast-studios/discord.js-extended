@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import ExtendedClient from '../../src/classes/ExtendedClient';
 import ConcreteDataProvider from '../../__mocks__/dataProvider';
 

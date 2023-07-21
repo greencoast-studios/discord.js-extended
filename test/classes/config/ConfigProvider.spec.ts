@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { mocked } from 'jest-mock';
 import fs from 'fs';
 import ConfigProvider from '../../../src/classes/config/ConfigProvider';

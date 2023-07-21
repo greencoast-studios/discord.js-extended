@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import Discord from 'discord.js';
 import ExtendedClient from '../ExtendedClient';
 import CommandRegistry from './CommandRegistry';

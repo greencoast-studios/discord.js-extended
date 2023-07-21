@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import ExtendedClient from '../src/classes/ExtendedClient';

@@ -1,5 +1,3 @@
-/* eslint-disable max-statements */
-/* eslint-disable max-len */
 import Discord from 'discord.js';
 import cloneDeep from 'lodash.clonedeep';
 import { stripIndents } from 'common-tags';

@@ -1,4 +1,3 @@
-/* eslint-disable dot-notation */
 import Discord from 'discord.js';
 import Localizer from '../../../src/classes/locale/Localizer';
 import GuildLocalizer from '../../../src/classes/locale/GuildLocalizer';
