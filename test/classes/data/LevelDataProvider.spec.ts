@@ -81,7 +81,7 @@ describe('Classes: Data: LevelDataProvider', () => {
   });
 
   describe('destroy()', () => {
-    beforeEach(async() => {
+    beforeEach(async () => {
       await provider.init();
     });
 
@@ -137,7 +137,7 @@ describe('Classes: Data: LevelDataProvider', () => {
       ['key3', [1, 2, 3]]
     ];
 
-    beforeEach(async() => {
+    beforeEach(async () => {
       await provider.init();
 
       for (const [k, v] of data) {

@@ -32,7 +32,7 @@ abstract class AsyncTemplater {
    * @returns A promise that resolves to the string with the templates replaced.
    */
   public async apply(str: string): Promise<string> {
-    return this.keys.reduce(async(curPromise, key) => {
+    return this.keys.reduce(async (curPromise, key) => {
       const cur = await curPromise;
       const regex = new RegExp(`{${key}}`, 'gi');
 

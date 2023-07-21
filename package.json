@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "tsc --watch",
     "lint": "eslint ./src ./test",
+    "lint:fix": "eslint --fix ./src ./test",
     "test": "jest --watchAll --silent",
     "test:showlogs": "jest --watchAll",
     "test:once": "jest --silent",

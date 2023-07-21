@@ -1,5 +1,6 @@
 /* eslint-disable dot-notation */
 /* eslint-disable prefer-destructuring */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Discord from 'discord.js';
 import RedisDataProvider from '../../../src/classes/data/RedisDataProvider';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
@@ -94,7 +95,7 @@ describe('Classes: Data: RedisDataProvider', () => {
       ['key3', [1, 2, 3]]
     ];
 
-    beforeEach(async() => {
+    beforeEach(async () => {
       for (const [k, v] of data) {
         await provider.set(guild, k as string, v);
       }
@@ -102,7 +103,7 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('get()', () => {
-      it('should resolve the value stored.', async() => {
+      it('should resolve the value stored.', async () => {
         const val1 = await provider.get(guild, 'key1');
         const val2 = await provider.get(guild, 'key2');
         const val3 = await provider.get(guild, 'key3');
@@ -112,13 +113,13 @@ describe('Classes: Data: RedisDataProvider', () => {
         expect(val3).toEqual(data[2][1]);
       });
 
-      it('should resolve with the default value if the key was not found.', async() => {
+      it('should resolve with the default value if the key was not found.', async () => {
         const val = await provider.get(guild, 'unknown', 'default');
 
         expect(val).toBe('default');
       });
 
-      it('should resolve undefined if the key was not found and no default value is given.', async() => {
+      it('should resolve undefined if the key was not found and no default value is given.', async () => {
         const val = await provider.get(guild, 'unknown');
 
         expect(val).toBeUndefined();
@@ -126,19 +127,19 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('getGlobal()', () => {
-      it('should resolve the value stored.', async() => {
+      it('should resolve the value stored.', async () => {
         const val = await provider.getGlobal('globalKey');
 
         expect(val).toBe('globalValue');
       });
 
-      it('should resolve with the default value if the key was not found.', async() => {
+      it('should resolve with the default value if the key was not found.', async () => {
         const val = await provider.getGlobal('unknown', 'default');
 
         expect(val).toBe('default');
       });
 
-      it('should resolve undefined if the key was not found and no default value is given.', async() => {
+      it('should resolve undefined if the key was not found and no default value is given.', async () => {
         const val = await provider.getGlobal('unknown');
 
         expect(val).toBeUndefined();
@@ -146,14 +147,14 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('set()', () => {
-      it('should set new data.', async() => {
+      it('should set new data.', async () => {
         await provider.set(guild, 'newKey', 'newValue');
         const stored = await provider.get(guild, 'newKey');
 
         expect(stored).toBe('newValue');
       });
 
-      it('should replace old data.', async() => {
+      it('should replace old data.', async () => {
         const old = await provider.get(guild, 'key1');
         await provider.set(guild, 'key1', 'new_value');
         const stored = await provider.get(guild, 'key1');
@@ -164,14 +165,14 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('setGlobal()', () => {
-      it('should set new data.', async() => {
+      it('should set new data.', async () => {
         await provider.setGlobal('newKey', 'newValue');
         const stored = await provider.getGlobal('newKey');
 
         expect(stored).toBe('newValue');
       });
 
-      it('should replace old data.', async() => {
+      it('should replace old data.', async () => {
         const old = await provider.getGlobal('key1');
         await provider.setGlobal('key1', 'new_value');
         const stored = await provider.getGlobal('key1');
@@ -182,7 +183,7 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('delete()', () => {
-      it('should delete existing data.', async() => {
+      it('should delete existing data.', async () => {
         const old = await provider.get(guild, 'key1');
         await provider.delete(guild, 'key1');
         const stored = await provider.get(guild, 'key1');
@@ -191,7 +192,7 @@ describe('Classes: Data: RedisDataProvider', () => {
         expect(stored).toBeUndefined();
       });
 
-      it('should resolve the deleted data.', async() => {
+      it('should resolve the deleted data.', async () => {
         const old = await provider.get(guild, 'key1');
         const deleted = await provider.delete(guild, 'key1');
 
@@ -200,7 +201,7 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('deleteGlobal()', () => {
-      it('should delete existing data.', async() => {
+      it('should delete existing data.', async () => {
         const old = await provider.getGlobal('globalKey');
         await provider.deleteGlobal('globalKey');
         const stored = await provider.getGlobal('globalKey');
@@ -209,7 +210,7 @@ describe('Classes: Data: RedisDataProvider', () => {
         expect(stored).toBeUndefined();
       });
 
-      it('should resolve the deleted data.', async() => {
+      it('should resolve the deleted data.', async () => {
         const old = await provider.getGlobal('globalKey');
         const deleted = await provider.deleteGlobal('globalKey');
 
@@ -218,7 +219,7 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('clear()', () => {
-      it('should delete all entries.', async() => {
+      it('should delete all entries.', async () => {
         await provider.clear(guild);
 
         expect(await provider.get(guild, 'key1')).toBeUndefined();
@@ -226,13 +227,13 @@ describe('Classes: Data: RedisDataProvider', () => {
         expect(await provider.get(guild, 'key3')).toBeUndefined();
       });
 
-      it('should not modify the rest of the data.', async() => {
+      it('should not modify the rest of the data.', async () => {
         await provider.clear(guild);
 
         expect(await provider.getGlobal('globalKey')).toBe('globalValue');
       });
 
-      it('should emit a dataProviderClear event.', async() => {
+      it('should emit a dataProviderClear event.', async () => {
         await provider.clear(guild);
 
         expect(clientMock.emit).toHaveBeenCalledWith('dataProviderClear', guild);
@@ -240,13 +241,13 @@ describe('Classes: Data: RedisDataProvider', () => {
     });
 
     describe('clearGlobal()', () => {
-      it('should delete all entries.', async() => {
+      it('should delete all entries.', async () => {
         await provider.clearGlobal();
 
         expect(await provider.getGlobal('globalKey')).toBeUndefined();
       });
 
-      it('should not modify the rest of the data.', async() => {
+      it('should not modify the rest of the data.', async () => {
         await provider.clearGlobal();
 
         expect(await provider.get(guild, 'key1')).toEqual(data[0][1]);
@@ -254,7 +255,7 @@ describe('Classes: Data: RedisDataProvider', () => {
         expect(await provider.get(guild, 'key3')).toEqual(data[2][1]);
       });
 
-      it('should emit a dataProviderClear event.', async() => {
+      it('should emit a dataProviderClear event.', async () => {
         await provider.clearGlobal();
 
         expect(clientMock.emit).toHaveBeenCalledWith('dataProviderClear', null);

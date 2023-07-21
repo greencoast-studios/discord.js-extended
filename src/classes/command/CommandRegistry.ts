@@ -24,7 +24,7 @@ class CommandRegistry {
    * @type {Discord.Collection<string, Command>}
    * @memberof CommandRegistry
    */
-  public commands: Discord.Collection<string, Command<CommandTrigger>>
+  public commands: Discord.Collection<string, Command<CommandTrigger>>;
 
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the groups registered
@@ -32,7 +32,7 @@ class CommandRegistry {
    * @type {Discord.Collection<string, CommandGroup>}
    * @memberof CommandRegistry
    */
-  public groups: Discord.Collection<string, CommandGroup>
+  public groups: Discord.Collection<string, CommandGroup>;
 
   /**
    * @param client The client that this command registry will be used by.

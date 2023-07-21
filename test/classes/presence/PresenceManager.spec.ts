@@ -134,7 +134,7 @@ describe('Classes: Presence: PresenceManager', () => {
       expect(clearIntervalSpy).toHaveBeenCalledWith(oldHandle);
     });
 
-    it('should update presence when interval hits.', async() => {
+    it('should update presence when interval hits.', async () => {
       const updateSpy = jest.spyOn(manager, 'update');
 
       manager.setRefreshInterval(1000);

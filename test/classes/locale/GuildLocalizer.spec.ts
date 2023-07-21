@@ -16,7 +16,7 @@ describe('Classes: Locale: GuildLocalizer', () => {
   let getSpy: jest.SpyInstance;
   let setSpy: jest.SpyInstance;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     await clientMock.setDataProvider(new ConcreteDataProvider(clientMock));
     getSpy = jest.spyOn(clientMock.dataProvider!, 'get');
     setSpy = jest.spyOn(clientMock.dataProvider!, 'set');

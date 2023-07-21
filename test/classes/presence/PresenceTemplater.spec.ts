@@ -39,25 +39,25 @@ describe('Classes: Presence: PresenceTemplater', () => {
         });
     });
 
-    it('should resolve the string for custom key.', async() => {
+    it('should resolve the string for custom key.', async () => {
       const outScopeObj = {
         key: 'whatever'
       };
 
       templater = new PresenceTemplater(clientMock, {
-        custom: async() => 'custom_value',
-        customOuter: async() => outScopeObj.key
+        custom: async () => 'custom_value',
+        customOuter: async () => outScopeObj.key
       });
 
       expect(await templater.get('custom')).toBe('custom_value');
       expect(await templater.get('customOuter')).toBe('whatever');
     });
 
-    it('should resolve the string for key: num_guilds.', async() => {
+    it('should resolve the string for key: num_guilds.', async () => {
       expect(await templater.get('num_guilds')).toBe('3');
     });
 
-    it('should resolve the string for key: num_guilds for a sharded client.', async() => {
+    it('should resolve the string for key: num_guilds for a sharded client.', async () => {
       clientMock.shard = new ShardClientUtilMock() as unknown as Discord.ShardClientUtil;
       const fetchMock = clientMock.shard.fetchClientValues as jest.Mock;
       fetchMock.mockResolvedValue([3, 3, 1]);
@@ -65,35 +65,35 @@ describe('Classes: Presence: PresenceTemplater', () => {
       expect(await templater.get('num_guilds')).toBe('7');
     });
 
-    it('should resolve the string for key: prefix.', async() => {
+    it('should resolve the string for key: prefix.', async () => {
       expect(await templater.get('prefix')).toBe('?');
     });
 
-    it('should resolve the string for key: cur_time.', async() => {
+    it('should resolve the string for key: cur_time.', async () => {
       expect(await templater.get('cur_time')).toBe('12:24:32 AM');
     });
 
-    it('should resolve the string for key: owner_name.', async() => {
+    it('should resolve the string for key: owner_name.', async () => {
       expect(await templater.get('owner_name')).toBe('owner');
     });
 
-    it('should resolve the string for key: client_name.', async() => {
+    it('should resolve the string for key: client_name.', async () => {
       expect(await templater.get('client_name')).toBe('client');
     });
 
-    it('should resolve the string for key: uptime.', async() => {
+    it('should resolve the string for key: uptime.', async () => {
       expect(await templater.get('uptime')).toBe('177 days, 13 hours and 27 minutes');
     });
 
-    it('should resolve the string for key: ready_time.', async() => {
+    it('should resolve the string for key: ready_time.', async () => {
       expect(await templater.get('ready_time')).toBe('Mon, 14/08/71 @05:08:AM');
     });
 
-    it('should resolve the string for key: num_members.', async() => {
+    it('should resolve the string for key: num_members.', async () => {
       expect(await templater.get('num_members')).toBe('17');
     });
 
-    it('should resolve the string for key: num_members for a sharded client.', async() => {
+    it('should resolve the string for key: num_members for a sharded client.', async () => {
       clientMock.shard = new ShardClientUtilMock() as unknown as Discord.ShardClientUtil;
       const fetchMock = clientMock.shard.fetchClientValues as jest.Mock;
       fetchMock.mockResolvedValue([clientMock.guilds.cache, clientMock.guilds.cache, clientMock.guilds.cache]);
@@ -102,7 +102,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
       expect(await templater.get('num_members')).toBe(expected.toString());
     });
 
-    it('should resolve the string for key: num_commands.', async() => {
+    it('should resolve the string for key: num_commands.', async () => {
       expect(await templater.get('num_commands')).toBe('3');
     });
   });

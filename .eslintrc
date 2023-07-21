@@ -1,17 +1,10 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "globals": {
+    "NodeJS": true
+  },
   "extends": [
     "greencoast/node",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "rules": {
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "one-var": "off"
-  }
+    "greencoast/typescript"
+  ]
 }
