@@ -1,5 +1,4 @@
-import { REST } from '@discordjs/rest';
-import { Routes } from 'discord-api-types/v9';
+import Discord from 'discord.js';
 import ExtendedClient from '../ExtendedClient';
 
 /**
@@ -17,17 +16,17 @@ class SlashCommandDeployer {
 
   /**
    * A rest client to interact with the Discord API.
-   * @type {REST}
+   * @type {Discord.REST}
    * @memberof SlashCommandDeployer
    */
-  public readonly rest: REST;
+  public readonly rest: Discord.REST;
 
   /**
    * @param client The client that this deployer will use.
    */
   constructor(client: ExtendedClient) {
     this.client = client;
-    this.rest = new REST({ version: '9' }).setToken(this.client.token!);
+    this.rest = new Discord.REST({ version: '9' }).setToken(this.client.token!);
 
     if (!this.client.testingGuildID) {
       this.client.emit('warn', 'You have not set a testingGuildID for your client. It is recommended to have one set up to automatically deploy slash commands to the testing server.');
@@ -45,7 +44,7 @@ class SlashCommandDeployer {
     const commands = this.client.registry.getSlashCommands();
     const commandBodies = commands.flatMap((command) => command.getAllDataBuilders());
 
-    return this.rest.put(Routes.applicationCommands(this.client.user!.id), { body: commandBodies })
+    return this.rest.put(Discord.Routes.applicationCommands(this.client.user!.id), { body: commandBodies })
       .then(() => {
         this.client.emit('commandsDeployed', commands, null);
       })
@@ -66,7 +65,7 @@ class SlashCommandDeployer {
     const commands = this.client.registry.getSlashCommands();
     const commandBodies = commands.flatMap((command) => command.getAllDataBuilders());
 
-    return this.rest.put(Routes.applicationGuildCommands(this.client.user!.id, guildID), { body: commandBodies })
+    return this.rest.put(Discord.Routes.applicationGuildCommands(this.client.user!.id, guildID), { body: commandBodies })
       .then(() => {
         this.client.emit('commandsDeployed', commands, guildID);
       })

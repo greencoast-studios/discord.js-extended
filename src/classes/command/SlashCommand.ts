@@ -1,8 +1,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-len */
 import Discord from 'discord.js';
-import _ from 'lodash';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import cloneDeep from 'lodash.clonedeep';
 import { stripIndents } from 'common-tags';
 import ExtendedClient from '../ExtendedClient';
 import Command from './Command';
@@ -18,10 +17,10 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
    * The data builder for this slash command.
    * You do not need to set its name or description, the constructor
    * will automatically set these based on the command info.
-   * @type SlashCommandBuilder
+   * @type Discord.SlashCommandBuilder
    * @memberof SlashCommand
    */
-  public dataBuilder: SlashCommandBuilder;
+  public dataBuilder: Discord.SlashCommandBuilder;
 
   /**
    * @param client The client that this command will be used by.
@@ -47,7 +46,7 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
    * Get this command's data builder.
    * @returns This command's data builder.
    */
-  public getDataBuilder(): SlashCommandBuilder {
+  public getDataBuilder(): Discord.SlashCommandBuilder {
     return this.dataBuilder;
   }
 
@@ -57,9 +56,9 @@ abstract class SlashCommand extends Command<Discord.CommandInteraction> {
    * command alias.
    * @returns An array of this command's data builders.
    */
-  public getAllDataBuilders(): SlashCommandBuilder[] {
+  public getAllDataBuilders(): Discord.SlashCommandBuilder[] {
     const aliasBuilders = this.aliases.map((alias) => {
-      const builder: SlashCommandBuilder = _.cloneDeep(this.dataBuilder);
+      const builder: Discord.SlashCommandBuilder = cloneDeep(this.dataBuilder);
       builder.setName(alias);
       return builder;
     });

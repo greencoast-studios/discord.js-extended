@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
 import CommandInfo from './CommandInfo';
 
 /**
@@ -9,7 +9,7 @@ interface SlashCommandInfo extends CommandInfo {
   /**
    * The data builder for this slash command.
    */
-  dataBuilder: SlashCommandBuilder;
+  dataBuilder: Discord.SlashCommandBuilder;
 }
 
 export default SlashCommandInfo;

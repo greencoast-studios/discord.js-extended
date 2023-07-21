@@ -1,5 +1,4 @@
 import Discord from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import SlashCommand from '../../SlashCommand';
 import ExtendedClient from '../../../ExtendedClient';
 
@@ -21,12 +20,12 @@ class SetLocaleSlashCommand extends SlashCommand {
       description: 'Update the locale for this guild.',
       guildOnly: true,
       userPermissions: [Discord.Permissions.FLAGS.MANAGE_GUILD],
-      dataBuilder: new SlashCommandBuilder().addStringOption((input) => {
+      dataBuilder: new Discord.SlashCommandBuilder().addStringOption((input) => {
         return input
           .setName('locale')
           .setDescription('The new locale to be used.')
           .setRequired(true);
-      }) as SlashCommandBuilder
+      }) as Discord.SlashCommandBuilder
     });
   }
 

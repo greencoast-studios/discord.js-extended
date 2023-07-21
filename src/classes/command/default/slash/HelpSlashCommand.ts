@@ -1,5 +1,4 @@
 import Discord from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import SlashCommand from '../../SlashCommand';
 import ExtendedClient from '../../../ExtendedClient';
 
@@ -35,7 +34,7 @@ class HelpSlashCommand extends SlashCommand {
       description: 'Get a description of all the commands that this bot can run.',
       guildOnly: false,
       ownerOnly: false,
-      dataBuilder: new SlashCommandBuilder()
+      dataBuilder: new Discord.SlashCommandBuilder()
     });
 
     this.embedColor = '#43aa8b';
