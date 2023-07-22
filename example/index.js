@@ -1,8 +1,8 @@
 require('dotenv').config();
 const path = require('path');
 const logger = require('@greencoast/logger');
+const { IntentsBitField } = require('discord.js');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
-const RedisDataProvider = require('@greencoast/discord.js-extended/dist/providers/RedisDataProvider').default;
 const locales = require('./locale');
 
 // The environment object contains the property: DISCORD_TOKEN with the bot's token.
@@ -32,6 +32,8 @@ const config = new ConfigProvider({
   }
 });
 
+const intents = new IntentsBitField([IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages]);
+
 const client = new ExtendedClient({
   prefix: config.get('PREFIX'),
   owner: '191330192868769793',
@@ -47,16 +49,12 @@ const client = new ExtendedClient({
   },
   config,
   errorOwnerReporting: true,
-  intents: ['GUILDS', 'GUILD_MESSAGES'],
+  intents: intents.bitfield,
   testingGuildID: '756628171494916098',
   localizer: {
     defaultLocale: 'en',
     localeStrings: locales
   }
-});
-
-const dataProvider = new RedisDataProvider(client, {
-  url: 'redis://localhost:6379'
 });
 
 client.registerDefaultEvents()
@@ -73,7 +71,6 @@ client.registry
 client.on('ready', async() => {
   logger.info(`Listening for commands with prefix: ${client.prefix}`);
 
-  await client.setDataProvider(dataProvider); // It would be recommended to set the data provider once the client is ready.
   await client.localizer.init(); // Initialize the localizer after setting up the data provider.
 
   client.deployer.rest.setToken(config.get('TOKEN'));
