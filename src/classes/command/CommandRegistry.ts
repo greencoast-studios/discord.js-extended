@@ -1,16 +1,16 @@
 import { Collection } from 'discord.js';
 import requireAll from 'require-all';
-import Command from './Command';
-import CommandGroup from './CommandGroup';
-import SlashCommand from './SlashCommand';
-import ExtendedClient from '../ExtendedClient';
+import { Command } from './Command';
+import { CommandGroup } from './CommandGroup';
+import { SlashCommand } from './SlashCommand';
+import { ExtendedClient } from '../ExtendedClient';
 import * as DefaultCommands from './default';
 import { CommandTrigger } from '../../types';
 
 /**
  * A command registry. This keeps track of all the commands and command groups registered in the client.
  */
-class CommandRegistry {
+export class CommandRegistry {
   /**
    * The client that this command registry will be used by.
    * @type {ExtendedClient}
@@ -233,5 +233,3 @@ class CommandRegistry {
     return this;
   }
 }
-
-export default CommandRegistry;

@@ -1,6 +1,6 @@
 import { ColorResolvable, EmbedField, EmbedBuilder, Message } from 'discord.js';
-import RegularCommand from '../../RegularCommand';
-import ExtendedClient from '../../../ExtendedClient';
+import { RegularCommand } from '../../RegularCommand';
+import { ExtendedClient } from '../../../ExtendedClient';
 
 /**
  * The default help message. This regular command is part of the `misc` group.
@@ -8,7 +8,7 @@ import ExtendedClient from '../../../ExtendedClient';
  * The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
  * @category misc - Miscellaneous Commands
  */
-class HelpRegularCommand extends RegularCommand {
+export class HelpRegularCommand extends RegularCommand {
   /**
    * The color of the embed for the help message.
    * @type {ColorResolvable}
@@ -75,5 +75,3 @@ class HelpRegularCommand extends RegularCommand {
     return message.channel.send({ embeds: [embed] });
   }
 }
-
-export default HelpRegularCommand;

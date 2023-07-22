@@ -1,16 +1,16 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder, Message, DMChannel, GuildMember } from 'discord.js';
 import cloneDeep from 'lodash.clonedeep';
 import { stripIndents } from 'common-tags';
-import ExtendedClient from '../ExtendedClient';
-import Command from './Command';
-import SlashCommandInfo from '../../interfaces/SlashCommandInfo';
-import SlashCommandValidator from './SlashCommandValidator';
+import { ExtendedClient } from '../ExtendedClient';
+import { Command } from './Command';
+import { SlashCommandInfo } from '../../interfaces/SlashCommandInfo';
+import { SlashCommandValidator } from './SlashCommandValidator';
 
 /**
  * An abstract interaction based command class. Extend this class to define your command's functionality.
  * This class serves as a base for interaction based commands (slash commands).
  */
-abstract class SlashCommand extends Command<ChatInputCommandInteraction> {
+export abstract class SlashCommand extends Command<ChatInputCommandInteraction> {
   /**
    * The data builder for this slash command.
    * You do not need to set its name or description, the constructor
@@ -151,5 +151,3 @@ abstract class SlashCommand extends Command<ChatInputCommandInteraction> {
     }
   }
 }
-
-export default SlashCommand;

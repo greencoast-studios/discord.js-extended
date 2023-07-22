@@ -3,7 +3,7 @@
  * values computed asynchronously.
  * Wrap the template in curly braces inside the string you want to apply the template to.
  */
-abstract class AsyncTemplater {
+export abstract class AsyncTemplater {
   /**
    * The keys handled by this async templater. They don't include the curly braces.
    * @type {string[]}
@@ -44,5 +44,3 @@ abstract class AsyncTemplater {
     }, Promise.resolve(str));
   }
 }
-
-export default AsyncTemplater;

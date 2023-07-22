@@ -1,6 +1,6 @@
 import { PermissionsBitField, Message } from 'discord.js';
-import RegularCommand from '../../RegularCommand';
-import ExtendedClient from '../../../ExtendedClient';
+import { RegularCommand } from '../../RegularCommand';
+import { ExtendedClient } from '../../../ExtendedClient';
 
 /**
  * The default set locale command. This regular command is part of the `config` group.
@@ -8,7 +8,7 @@ import ExtendedClient from '../../../ExtendedClient';
  * This command updates the locale for the current guild.
  * @category config - Configuration Commands
  */
-class SetLocaleRegularCommand extends RegularCommand {
+export class SetLocaleRegularCommand extends RegularCommand {
   /**
    * @param client The client that this command will be used by.
    */
@@ -47,5 +47,3 @@ class SetLocaleRegularCommand extends RegularCommand {
     return message.reply(`Successfully updated locale to ${newLocale}.`);
   }
 }
-
-export default SetLocaleRegularCommand;

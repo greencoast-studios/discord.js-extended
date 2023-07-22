@@ -1,6 +1,6 @@
 import fs from 'fs';
-import ConfigProviderOptions from '../../interfaces/ConfigProviderOptions';
-import ConfigValidator from './ConfigValidator';
+import { ConfigProviderOptions } from '../../interfaces/ConfigProviderOptions';
+import { ConfigValidator } from './ConfigValidator';
 import { ConfigValue } from '../../types';
 
 /**
@@ -63,7 +63,7 @@ import { ConfigValue } from '../../types';
  *
  * It is also recommended specifying the types of the config. Check {@link ConfigValidator} for more information.
  */
-class ConfigProvider {
+export class ConfigProvider {
   /**
    * The options for this config provider.
    * @type {ConfigProviderOptions}
@@ -172,5 +172,3 @@ class ConfigProvider {
     }
   }
 }
-
-export default ConfigProvider;

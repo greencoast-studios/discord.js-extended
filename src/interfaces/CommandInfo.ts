@@ -3,7 +3,7 @@ import { PermissionResolvable } from 'discord.js';
 /**
  * The command's information object. This defines the command's properties.
  */
-interface CommandInfo {
+export interface CommandInfo {
   /**
    * The command's name.
    */
@@ -62,5 +62,3 @@ interface CommandInfo {
    */
   aliases?: string[]
 }
-
-export default CommandInfo;

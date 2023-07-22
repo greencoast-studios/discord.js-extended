@@ -3,8 +3,8 @@ import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import ExtendedClient from '../ExtendedClient';
-import AsyncTemplater from '../abstract/AsyncTemplater';
+import { ExtendedClient } from '../ExtendedClient';
+import { AsyncTemplater } from '../abstract/AsyncTemplater';
 import { PresenceTemplaterGetters } from '../../types';
 
 dayjs.extend(utc);
@@ -27,7 +27,7 @@ dayjs.extend(timezone);
  * | `{num_members}`  | Get the total number of members across all the guilds that the client is connected to.                                      |
  * | `{num_commands}` | Get the number of commands registered to this client.                                                                       |
  */
-class PresenceTemplater extends AsyncTemplater {
+export class PresenceTemplater extends AsyncTemplater {
   /**
    * The client that this presence async templater will use as a data source.
    * @type {ExtendedClient}
@@ -209,5 +209,3 @@ class PresenceTemplater extends AsyncTemplater {
     return Promise.resolve(this.client.registry.commands.size.toString());
   }
 }
-
-export default PresenceTemplater;

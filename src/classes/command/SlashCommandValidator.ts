@@ -1,10 +1,10 @@
-import SlashCommand from './SlashCommand';
+import { SlashCommand } from './SlashCommand';
 
 /**
  * A validator class to verify if the information of a slash command valid
  * and can be deployed.
  */
-class SlashCommandValidator {
+export class SlashCommandValidator {
   private static readonly NAME_REGEX: RegExp = /^[\P{Lu}\p{N}_-]+$/u;
   private static readonly NAME_MIN: number = 1;
   private static readonly NAME_MAX: number = 32;
@@ -62,5 +62,3 @@ class SlashCommandValidator {
     }
   }
 }
-
-export default SlashCommandValidator;

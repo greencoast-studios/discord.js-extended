@@ -1,6 +1,6 @@
 import { ColorResolvable, SlashCommandBuilder, EmbedField, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
-import SlashCommand from '../../SlashCommand';
-import ExtendedClient from '../../../ExtendedClient';
+import { SlashCommand } from '../../SlashCommand';
+import { ExtendedClient } from '../../../ExtendedClient';
 
 /**
  * The default help message. This slash command is part of the `misc` group.
@@ -8,7 +8,7 @@ import ExtendedClient from '../../../ExtendedClient';
  * The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
  * @category misc - Miscellaneous Commands
  */
-class HelpSlashCommand extends SlashCommand {
+export class HelpSlashCommand extends SlashCommand {
   /**
    * The color of the embed for the help message.
    * @type {ColorResolvable}
@@ -75,5 +75,3 @@ class HelpSlashCommand extends SlashCommand {
     await interaction.reply({ embeds: [embed] });
   }
 }
-
-export default HelpSlashCommand;

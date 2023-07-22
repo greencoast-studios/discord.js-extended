@@ -4,7 +4,7 @@ import logger from '@greencoast/logger';
 /**
  * The default event handlers for {@link ExtendedClient}.
  */
-class ClientDefaultHandlers {
+export class ClientDefaultHandlers {
   /**
    * Log the client's debug messages.
    * @param info The debug info.
@@ -78,5 +78,3 @@ class ClientDefaultHandlers {
     logger.warn(info);
   }
 }
-
-export default ClientDefaultHandlers;

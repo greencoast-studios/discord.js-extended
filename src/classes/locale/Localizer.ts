@@ -1,8 +1,8 @@
 import { Collection, Snowflake, Guild } from 'discord.js';
 import IntlMessageFormat from 'intl-messageformat';
-import ExtendedClient from '../ExtendedClient';
-import GuildLocalizer from './GuildLocalizer';
-import LocalizerOptions from '../../interfaces/LocalizerOptions';
+import { ExtendedClient } from '../ExtendedClient';
+import { GuildLocalizer } from './GuildLocalizer';
+import { LocalizerOptions } from '../../interfaces/LocalizerOptions';
 
 /**
  * A class to help with the localization of your bot. This handles string translation based on the
@@ -11,7 +11,7 @@ import LocalizerOptions from '../../interfaces/LocalizerOptions';
  * It is recommended to have a data provider set in the client for the locale settings to be saved
  * persistently for each guild.
  */
-class Localizer {
+export class Localizer {
   /**
    * The client that this localizer will be used by.
    * @type {ExtendedClient}
@@ -225,5 +225,3 @@ class Localizer {
     return new IntlMessageFormat(message);
   }
 }
-
-export default Localizer;

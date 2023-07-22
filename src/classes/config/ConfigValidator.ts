@@ -25,7 +25,7 @@ import { ConfigValue, ConfigCustomValidators } from '../../types';
  * because, while JSON properties can be typed, the validator will default them to `string`,
  * which will make the validation throw an error during the ConfigProvider creation.
  */
-class ConfigValidator {
+export class ConfigValidator {
   /**
    * The valid types that can be used. It is also possible to have an array of these types.
    * @static
@@ -261,5 +261,3 @@ class ConfigValidator {
     });
   }
 }
-
-export default ConfigValidator;

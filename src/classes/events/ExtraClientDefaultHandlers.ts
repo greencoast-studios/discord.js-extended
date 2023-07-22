@@ -1,14 +1,14 @@
 import { Guild, Message, GuildMember } from 'discord.js';
 import logger from '@greencoast/logger';
-import Command from '../command/Command';
-import CommandGroup from '../command/CommandGroup';
+import { Command } from '../command/Command';
+import { CommandGroup } from '../command/CommandGroup';
 import { CommandTrigger } from '../../types';
-import SlashCommand from '../command/SlashCommand';
+import { SlashCommand } from '../command/SlashCommand';
 
 /**
  * The default event handlers for the custom events of {@link ExtendedClient}.
  */
-class ExtraClientDefaultHandlers {
+export class ExtraClientDefaultHandlers {
   /**
    * Log that a data provider has been added to the client.
    */
@@ -132,5 +132,3 @@ class ExtraClientDefaultHandlers {
     }
   }
 }
-
-export default ExtraClientDefaultHandlers;

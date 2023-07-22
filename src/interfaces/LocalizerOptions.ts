@@ -1,7 +1,7 @@
 /**
  * The options used to create a {@link Localizer}.
  */
-interface LocalizerOptions {
+export interface LocalizerOptions {
   /**
    * An object that maps the name of the locale to another object that contains
    * all the available messages mapped by their keys. The messages should follow
@@ -44,5 +44,3 @@ interface LocalizerOptions {
    */
   dataProviderKey?: string
 }
-
-export default LocalizerOptions;

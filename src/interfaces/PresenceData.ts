@@ -4,7 +4,7 @@ import { ActivityType } from 'discord-api-types/v10';
 /**
  * The data to be passed to the presence manager's update method.
  */
-interface PresenceData {
+export interface PresenceData {
   /**
    * The [activity type](https://discord.js.org/#/docs/main/stable/typedef/ActivityType) to be used.
    * @defaultValue `PLAYING`
@@ -23,5 +23,3 @@ interface PresenceData {
    */
   afk?: boolean
 }
-
-export default PresenceData;

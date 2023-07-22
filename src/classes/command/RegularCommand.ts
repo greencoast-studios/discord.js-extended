@@ -1,13 +1,13 @@
 import { Message, DMChannel } from 'discord.js';
 import { stripIndents } from 'common-tags';
-import Command from './Command';
+import { Command } from './Command';
 
 /**
  * An abstract message based command class. Extend this class to define your command's functionality.
  * This class serves as a base for message based commands. You should always prefer to use {@link SlashCommand}
  * instead of this one.
  */
-abstract class RegularCommand extends Command<Message> {
+export abstract class RegularCommand extends Command<Message> {
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
@@ -87,5 +87,3 @@ abstract class RegularCommand extends Command<Message> {
     return message.reply(`An error has occurred when running the command ${this.name}.${contactOwner}`);
   }
 }
-
-export default RegularCommand;

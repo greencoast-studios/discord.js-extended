@@ -1,14 +1,14 @@
 import { ActivityType } from 'discord-api-types/v10';
-import ExtendedClient from '../ExtendedClient';
-import PresenceTemplater from './PresenceTemplater';
+import { ExtendedClient } from '../ExtendedClient';
+import { PresenceTemplater } from './PresenceTemplater';
 import { randomArrayItem } from '../../utils/array';
-import PresenceManagerOptions from '../../interfaces/PresenceManagerOptions';
-import PresenceData from '../../interfaces/PresenceData';
+import { PresenceManagerOptions } from '../../interfaces/PresenceManagerOptions';
+import { PresenceData } from '../../interfaces/PresenceData';
 
 /**
  * A class to manage the client's presence statuses.
  */
-class PresenceManager {
+export class PresenceManager {
   /**
    * The client that this presence manager will be used by.
    * @type {ExtendedClient}
@@ -158,5 +158,3 @@ class PresenceManager {
     return this.update(randomArrayItem(this.options.templates!));
   }
 }
-
-export default PresenceManager;

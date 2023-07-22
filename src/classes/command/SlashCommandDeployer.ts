@@ -1,12 +1,12 @@
 import { REST, Routes } from 'discord.js';
-import ExtendedClient from '../ExtendedClient';
+import { ExtendedClient } from '../ExtendedClient';
 
 /**
  * A class to deploy slash commands to Discord. It can deploy globally or to a single
  * guild. Keep in mind that deploying globally can take up to 1 hour for changes to take effect,
  * while deploying for a single guild is immediate.
  */
-class SlashCommandDeployer {
+export class SlashCommandDeployer {
   /**
    * The client that this deployer will use.
    * @type {ExtendedClient}
@@ -101,5 +101,3 @@ class SlashCommandDeployer {
     return this.deployToGuild(this.client.testingGuildID);
   }
 }
-
-export default SlashCommandDeployer;

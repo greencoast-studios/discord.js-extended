@@ -4,7 +4,7 @@ import { ConfigCustomValidators, ConfigValue } from '../types';
  * The config provider's options object. This defines where the config will be pulled from
  * and the default values for the config.
  */
-interface ConfigProviderOptions {
+export interface ConfigProviderOptions {
   /**
    * The resolved path where the JSON config file is located.
    * This should resolve to the actual JSON file.
@@ -40,5 +40,3 @@ interface ConfigProviderOptions {
    */
   customValidators?: ConfigCustomValidators
 }
-
-export default ConfigProviderOptions;

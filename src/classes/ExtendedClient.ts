@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client, User, UserResolvable, IntentsBitField } from 'discord.js';
-import PresenceManager from './presence/PresenceManager';
-import ConfigProvider from './config/ConfigProvider';
-import DataProvider from './data/DataProvider';
-import CommandRegistry from './command/CommandRegistry';
-import CommandDispatcher from './command/CommandDispatcher';
-import SlashCommandDeployer from './command/SlashCommandDeployer';
-import Localizer from './locale/Localizer';
-import ClientDefaultHandlers from './events/ClientDefaultHandlers';
-import ExtraClientDefaultHandlers from './events/ExtraClientDefaultHandlers';
-import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
-import ExtendedClientEvents from '../interfaces/ExtendedClientEvents';
+import { PresenceManager } from './presence/PresenceManager';
+import { ConfigProvider } from './config/ConfigProvider';
+import { DataProvider } from './data/DataProvider';
+import { CommandRegistry } from './command/CommandRegistry';
+import { CommandDispatcher } from './command/CommandDispatcher';
+import { SlashCommandDeployer } from './command/SlashCommandDeployer';
+import { Localizer } from './locale/Localizer';
+import { ClientDefaultHandlers } from './events/ClientDefaultHandlers';
+import { ExtraClientDefaultHandlers } from './events/ExtraClientDefaultHandlers';
+import { ExtendedClientOptions } from '../interfaces/ExtendedClientOptions';
+import { ExtendedClientEvents } from '../interfaces/ExtendedClientEvents';
 
 // Interface declaration to extend events emitted by ExtendedClient.
 export declare interface ExtendedClient {
@@ -375,5 +375,3 @@ export class ExtendedClient extends Client {
    */
   public static readonly presenceRefreshInterval = 'presenceRefreshInterval';
 }
-
-export default ExtendedClient;

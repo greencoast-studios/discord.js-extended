@@ -1,12 +1,12 @@
 import { ClientOptions, IntentsBitField } from 'discord.js';
-import ConfigProvider from '../classes/config/ConfigProvider';
-import PresenceManagerOptions from './PresenceManagerOptions';
-import LocalizerOptions from './LocalizerOptions';
+import { ConfigProvider } from '../classes/config/ConfigProvider';
+import { PresenceManagerOptions } from './PresenceManagerOptions';
+import { LocalizerOptions } from './LocalizerOptions';
 
 /**
  * The options used to create a {@link ExtendedClient}.
  */
-interface ExtendedClientOptions extends ClientOptions {
+export interface ExtendedClientOptions extends ClientOptions {
   /**
    * The client's prefix.
    * @defaultValue `!`
@@ -60,5 +60,3 @@ interface ExtendedClientOptions extends ClientOptions {
    */
   intents: IntentsBitField
 }
-
-export default ExtendedClientOptions;

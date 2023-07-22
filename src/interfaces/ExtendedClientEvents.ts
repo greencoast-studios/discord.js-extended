@@ -1,15 +1,15 @@
 import { ClientEvents, Guild } from 'discord.js';
-import DataProvider from '../classes/data/DataProvider';
-import Command from '../classes/command/Command';
-import SlashCommand from '../classes/command/SlashCommand';
-import CommandGroup from '../classes/command/CommandGroup';
-import PresenceData from '../interfaces/PresenceData';
+import { DataProvider } from '../classes/data/DataProvider';
+import { Command } from '../classes/command/Command';
+import { SlashCommand } from '../classes/command/SlashCommand';
+import { CommandGroup } from '../classes/command/CommandGroup';
+import { PresenceData } from '../interfaces/PresenceData';
 import { CommandTrigger } from '../types';
 
 /**
  * The events handled by the {@link ExtendedClient}.
  */
-interface ExtendedClientEvents extends ClientEvents {
+export interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever the data provider is added to this client.
    */
@@ -70,5 +70,3 @@ interface ExtendedClientEvents extends ClientEvents {
    */
   commandsDeployed: [SlashCommand[], string | null]
 }
-
-export default ExtendedClientEvents;

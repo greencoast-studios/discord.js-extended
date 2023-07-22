@@ -1,10 +1,10 @@
 import { Guild } from 'discord.js';
-import ExtendedClient from '../ExtendedClient';
+import { ExtendedClient } from '../ExtendedClient';
 
 /**
  * An abstract DataProvider, it contains all the methods that need to be implemented for any DataProvider with a custom backend.
  */
-abstract class DataProvider {
+export abstract class DataProvider {
   /**
    * The client that this data provider will be used by.
    * @type {ExtendedClient}
@@ -99,5 +99,3 @@ abstract class DataProvider {
    */
   public abstract clearGlobal(): Promise<void>;
 }
-
-export default DataProvider;

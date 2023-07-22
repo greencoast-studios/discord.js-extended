@@ -1,11 +1,11 @@
 import { Collection } from 'discord.js';
-import Command from './Command';
+import { Command } from './Command';
 import { CommandTrigger } from '../../types';
 
 /**
  * A command group, contains all the commands related to a group.
  */
-class CommandGroup {
+export class CommandGroup {
   /**
    * The ID of this group.
    * @type {string}
@@ -55,5 +55,3 @@ class CommandGroup {
     return this;
   }
 }
-
-export default CommandGroup;

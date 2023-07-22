@@ -1,6 +1,6 @@
 import { PermissionsBitField, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import SlashCommand from '../../SlashCommand';
-import ExtendedClient from '../../../ExtendedClient';
+import { SlashCommand } from '../../SlashCommand';
+import { ExtendedClient } from '../../../ExtendedClient';
 
 /**
  * The default set locale command. This slash command is part of the `config` group.
@@ -8,7 +8,7 @@ import ExtendedClient from '../../../ExtendedClient';
  * This command updates the locale for the current guild.
  * @category config - Configuration Commands
  */
-class SetLocaleSlashCommand extends SlashCommand {
+export class SetLocaleSlashCommand extends SlashCommand {
   /**
    * @param client The client that this command will be used by.
    */
@@ -49,5 +49,3 @@ class SetLocaleSlashCommand extends SlashCommand {
     await interaction.reply(`Successfully updated locale to ${newLocale}.`);
   }
 }
-
-export default SetLocaleSlashCommand;

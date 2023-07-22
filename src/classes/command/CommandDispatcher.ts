@@ -1,13 +1,13 @@
 import { Message, TextChannel, Interaction } from 'discord.js';
-import ExtendedClient from '../ExtendedClient';
-import CommandRegistry from './CommandRegistry';
-import RegularCommand from './RegularCommand';
-import SlashCommand from './SlashCommand';
+import { ExtendedClient } from '../ExtendedClient';
+import { CommandRegistry } from './CommandRegistry';
+import { RegularCommand } from './RegularCommand';
+import { SlashCommand } from './SlashCommand';
 
 /**
  * A command dispatcher. This handles command fetching and execution.
  */
-class CommandDispatcher {
+export class CommandDispatcher {
   /**
    * The client that this command dispatcher will be used by.
    * @type {ExtendedClient}
@@ -112,5 +112,3 @@ class CommandDispatcher {
     }
   }
 }
-
-export default CommandDispatcher;

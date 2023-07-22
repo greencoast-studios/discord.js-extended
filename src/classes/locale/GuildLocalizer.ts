@@ -1,11 +1,11 @@
 import { Guild } from 'discord.js';
-import Localizer from './Localizer';
+import { Localizer } from './Localizer';
 
 /**
  * A class to help with localization of your bot. This handles string translation from the context of the
  * guild. For more information, check {@link Localizer}.
  */
-class GuildLocalizer {
+export class GuildLocalizer {
   /**
    * The main localizer for this guild localizer.
    * @type {Localizer}
@@ -121,5 +121,3 @@ class GuildLocalizer {
     return this.translate(key, values);
   }
 }
-
-export default GuildLocalizer;

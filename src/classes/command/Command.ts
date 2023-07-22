@@ -1,14 +1,14 @@
 import { PermissionResolvable, Message } from 'discord.js';
-import ExtendedClient from '../ExtendedClient';
-import CommandGroup from './CommandGroup';
-import CommandInfo from '../../interfaces/CommandInfo';
+import { ExtendedClient } from '../ExtendedClient';
+import { CommandGroup } from './CommandGroup';
+import { CommandInfo } from '../../interfaces/CommandInfo';
 import { CommandTrigger } from '../../types';
 
 /**
  * An abstract base command class. You should probably not extend this yourself
  * and instead should extend {@link RegularCommand} or {@link SlashCommand}.
  */
-abstract class Command<T extends CommandTrigger> {
+export abstract class Command<T extends CommandTrigger> {
   /**
    * The client that this command will be used by.
    * @type {ExtendedClient}
@@ -140,5 +140,3 @@ abstract class Command<T extends CommandTrigger> {
    */
   public abstract onError(error: unknown, trigger: T): Promise<Message | void>;
 }
-
-export default Command;
