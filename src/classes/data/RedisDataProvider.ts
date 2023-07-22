@@ -1,5 +1,5 @@
-import * as Redis from 'redis';
-import Discord from 'discord.js';
+import { createClient, RedisClientOptions, RedisClientType, RedisScripts } from 'redis';
+import { Guild } from 'discord.js';
 import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
 
@@ -13,16 +13,16 @@ class RedisDataProvider extends DataProvider {
    * @private
    * @type {Redis.RedisClientType<any, any, Redis.RedisScripts>>}
    */
-  private redis: Redis.RedisClientType<any, any, Redis.RedisScripts>;
+  private redis: RedisClientType<any, any, RedisScripts>;
 
   /**
    * @param client The client that this data provider will be used by.
    * @param options The options passed to the Redis client.
    */
-  constructor(client: ExtendedClient, options: Redis.RedisClientOptions<any, any>) {
+  constructor(client: ExtendedClient, options: RedisClientOptions<any, any>) {
     super(client);
 
-    this.redis = Redis.createClient(options);
+    this.redis = createClient(options);
   }
 
   /**
@@ -84,7 +84,7 @@ class RedisDataProvider extends DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public override get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any> {
+  public override get(guild: Guild, key: string, defaultValue?: any): Promise<any> {
     const { id } = guild;
     return this._get(`${id}:${key}`, defaultValue);
   }
@@ -117,7 +117,7 @@ class RedisDataProvider extends DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public override set(guild: Discord.Guild, key: string, value: any): Promise<any> {
+  public override set(guild: Guild, key: string, value: any): Promise<any> {
     const { id } = guild;
     return this._set(`${id}:${key}`, value);
   }
@@ -148,7 +148,7 @@ class RedisDataProvider extends DataProvider {
    * @param key The key to delete.
    * @returns A promise that resolves the data that has been deleted.
    */
-  public override delete(guild: Discord.Guild, key: string): Promise<any> {
+  public override delete(guild: Guild, key: string): Promise<any> {
     const { id } = guild;
     return this._delete(`${id}:${key}`);
   }
@@ -184,7 +184,7 @@ class RedisDataProvider extends DataProvider {
    * @returns A promise that resolves once all data has been deleted.
    * @emits `client#dataProviderClear`
    */
-  public override async clear(guild: Discord.Guild): Promise<void> {
+  public override async clear(guild: Guild): Promise<void> {
     const { id } = guild;
     await this._clear(`${id}:`);
 

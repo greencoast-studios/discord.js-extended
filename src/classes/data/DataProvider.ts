@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Guild } from 'discord.js';
 import ExtendedClient from '../ExtendedClient';
 
 /**
@@ -42,7 +42,7 @@ abstract class DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public abstract get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any>;
+  public abstract get(guild: Guild, key: string, defaultValue?: any): Promise<any>;
 
   /**
    * Get a value for a key in a global scope.
@@ -59,7 +59,7 @@ abstract class DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public abstract set(guild: Discord.Guild, key: string, value: any): Promise<void>;
+  public abstract set(guild: Guild, key: string, value: any): Promise<void>;
 
   /**
    * Set a value for a key in a global scope.
@@ -75,7 +75,7 @@ abstract class DataProvider {
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
-  public abstract delete(guild: Discord.Guild, key: string): Promise<any>;
+  public abstract delete(guild: Guild, key: string): Promise<any>;
 
   /**
    * Delete a key-value pair in a global scope.
@@ -90,7 +90,7 @@ abstract class DataProvider {
    * @returns A promise that resolves once all data is deleted.
    * @emits `client#dataProviderClear`
    */
-  public abstract clear(guild: Discord.Guild): Promise<void>;
+  public abstract clear(guild: Guild): Promise<void>;
 
   /**
    * Clear all data in a global scope.

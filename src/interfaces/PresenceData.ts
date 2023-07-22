@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { PresenceStatusData } from 'discord.js';
 import { ActivityType } from 'discord-api-types/v10';
 
 /**
@@ -15,7 +15,7 @@ interface PresenceData {
    * The [presence status data](https://discord.js.org/#/docs/main/stable/typedef/PresenceStatusData) to be used.
    * @defaultValue `online`
    */
-  status?: Discord.PresenceStatusData,
+  status?: PresenceStatusData,
 
   /**
    * Whether the presence should display the client is AFK.

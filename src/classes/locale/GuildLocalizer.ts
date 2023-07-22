@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Guild } from 'discord.js';
 import Localizer from './Localizer';
 
 /**
@@ -15,10 +15,10 @@ class GuildLocalizer {
 
   /**
    * The guild that corresponds to this guild localizer.
-   * @type {Discord.Guild}
+   * @type {Guild}
    * @memberof GuildLocalizer
    */
-  public readonly guild: Discord.Guild;
+  public readonly guild: Guild;
 
   /**
    * The key to be used to save the guild's locale in the client's
@@ -41,7 +41,7 @@ class GuildLocalizer {
    * @param localizer The main localizer for this guild localizer.
    * @param guild The guild that corresponds to this guild localizer.
    */
-  constructor(localizer: Localizer, guild: Discord.Guild) {
+  constructor(localizer: Localizer, guild: Guild) {
     this.localizer = localizer;
     this.guild = guild;
 

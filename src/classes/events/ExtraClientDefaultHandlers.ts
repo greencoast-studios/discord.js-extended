@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Guild, Message, GuildMember } from 'discord.js';
 import logger from '@greencoast/logger';
 import Command from '../command/Command';
 import CommandGroup from '../command/CommandGroup';
@@ -21,7 +21,7 @@ class ExtraClientDefaultHandlers {
    * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which
    * the data has been cleared.
    */
-  static onDataProviderClear(guild: Discord.Guild | null): void {
+  static onDataProviderClear(guild: Guild | null): void {
     logger.warn(`Cleared data in data provider for ${guild?.name || 'global keys'}.`);
   }
 
@@ -47,10 +47,10 @@ class ExtraClientDefaultHandlers {
    * triggered the command execution.
    */
   static onCommandExecute(command: Command<CommandTrigger>, trigger: CommandTrigger): void {
-    if (trigger instanceof Discord.Message) {
+    if (trigger instanceof Message) {
       logger.info(`User ${trigger.member?.displayName || trigger.author.username} issued command ${command.name} in ${trigger.guild?.name || 'DM'}`);
     } else {
-      const authorDisplayName = trigger.member instanceof Discord.GuildMember ?
+      const authorDisplayName = trigger.member instanceof GuildMember ?
         trigger.member.displayName :
         trigger.member?.nick;
 
@@ -69,7 +69,7 @@ class ExtraClientDefaultHandlers {
   static onCommandError(error: unknown, command: Command<CommandTrigger>, trigger: CommandTrigger): void {
     logger.error(`Something happened when executing ${command.name} in ${trigger.guild?.name || 'DM'}.`);
 
-    if (trigger instanceof Discord.Message) {
+    if (trigger instanceof Message) {
       logger.error(`Triggering message: ${trigger.content}`);
     } else {
       logger.error(`Triggering interaction had an ID of ${trigger.id}`);

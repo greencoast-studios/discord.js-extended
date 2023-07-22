@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { PermissionsBitField, Message } from 'discord.js';
 import RegularCommand from '../../RegularCommand';
 import ExtendedClient from '../../../ExtendedClient';
 
@@ -19,7 +19,7 @@ class SetLocaleRegularCommand extends RegularCommand {
       group: 'config',
       description: 'Update the locale for this guild.',
       guildOnly: true,
-      userPermissions: [Discord.PermissionsBitField.Flags.ManageGuild]
+      userPermissions: [PermissionsBitField.Flags.ManageGuild]
     });
   }
 
@@ -31,7 +31,7 @@ class SetLocaleRegularCommand extends RegularCommand {
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
-  public async run(message: Discord.Message, args: string[]): Promise<Discord.Message> {
+  public async run(message: Message, args: string[]): Promise<Message> {
     const localizer = this.client.localizer!.getLocalizer(message.guild!)!; // We know it comes from a guild because of guildOnly.
     const [newLocale] = args;
 

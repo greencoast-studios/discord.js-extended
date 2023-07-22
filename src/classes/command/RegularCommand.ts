@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Message, DMChannel } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import Command from './Command';
 
@@ -7,20 +7,20 @@ import Command from './Command';
  * This class serves as a base for message based commands. You should always prefer to use {@link SlashCommand}
  * instead of this one.
  */
-abstract class RegularCommand extends Command<Discord.Message> {
+abstract class RegularCommand extends Command<Message> {
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
-  public abstract run(message: Discord.Message, args: string[]): Promise<Discord.Message | void>;
+  public abstract run(message: Message, args: string[]): Promise<Message | void>;
 
   /**
    * Check whether the message author can execute this command.
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
-  public override hasPermission(message: Discord.Message): boolean | string {
+  public override hasPermission(message: Message): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {
       return true;
     }
@@ -34,7 +34,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
     }
 
     if (this.userPermissions && message.channel.isTextBased()) {
-      if (message.channel instanceof Discord.DMChannel || message.channel.partial) {
+      if (message.channel instanceof DMChannel || message.channel.partial) {
         return true;
       }
 
@@ -61,7 +61,7 @@ abstract class RegularCommand extends Command<Discord.Message> {
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public override async onError(error: unknown, message: Discord.Message): Promise<Discord.Message | void> {
+  public override async onError(error: unknown, message: Message): Promise<Message | void> {
     this.client.emit('commandError', error, this, message);
 
     let contactOwner = '';

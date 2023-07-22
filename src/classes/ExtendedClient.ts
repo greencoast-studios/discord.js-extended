@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Client, User, UserResolvable } from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
@@ -41,7 +41,7 @@ export declare interface ExtendedClient {
 /**
  * A Discord.js Client extension.
  */
-export class ExtendedClient extends Discord.Client {
+export class ExtendedClient extends Client {
   /**
    * This client's options.
    * @memberof ExtendedClient
@@ -145,11 +145,11 @@ export class ExtendedClient extends Discord.Client {
   /**
    * The client's owner (if any).
    * @readonly
-   * @type {(Discord.User | undefined)}
+   * @type {(User | undefined)}
    * @memberof ExtendedClient
    * @defaultValue `null`
    */
-  get owner(): Discord.User | undefined {
+  get owner(): User | undefined {
     if (!this.options.owner) {
       return;
     }
@@ -210,7 +210,7 @@ export class ExtendedClient extends Discord.Client {
    * @returns Whether the tested user is the client's owner.
    * @throws Throws if the user cannot be resolved.
    */
-  public isOwner(user: Discord.UserResolvable): boolean {
+  public isOwner(user: UserResolvable): boolean {
     if (!this.options.owner) {
       return false;
     }

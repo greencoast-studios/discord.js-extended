@@ -1,4 +1,4 @@
-import Discord, { ClientEvents } from 'discord.js';
+import { ClientEvents, Guild } from 'discord.js';
 import DataProvider from '../classes/data/DataProvider';
 import Command from '../classes/command/Command';
 import SlashCommand from '../classes/command/SlashCommand';
@@ -18,7 +18,7 @@ interface ExtendedClientEvents extends ClientEvents {
   /**
    * Emitted whenever the client's data provider is cleared.
    */
-  dataProviderClear: [Discord.Guild | null],
+  dataProviderClear: [Guild | null],
 
   /**
    * Emitted whenever the client's data provider is initialized.

@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { PermissionResolvable, Message } from 'discord.js';
 import ExtendedClient from '../ExtendedClient';
 import CommandGroup from './CommandGroup';
 import CommandInfo from '../../interfaces/CommandInfo';
@@ -72,11 +72,11 @@ abstract class Command<T extends CommandTrigger> {
   /**
    * The [permissions resolvable](https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable) that
    * defines the permissions that a user requires to execute this command.
-   * @type {(Discord.PermissionResolvable | null)}
+   * @type {(PermissionResolvable | null)}
    * @memberof Command
    * @defaultValue `null`
    */
-  public userPermissions: Discord.PermissionResolvable | null;
+  public userPermissions: PermissionResolvable | null;
 
   /**
    * Whether the bot's owner can execute this command even if they don't have the required permissions.
@@ -138,7 +138,7 @@ abstract class Command<T extends CommandTrigger> {
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public abstract onError(error: unknown, trigger: T): Promise<Discord.Message | void>;
+  public abstract onError(error: unknown, trigger: T): Promise<Message | void>;
 }
 
 export default Command;

@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { PermissionsBitField, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 import SlashCommand from '../../SlashCommand';
 import ExtendedClient from '../../../ExtendedClient';
 
@@ -19,13 +19,13 @@ class SetLocaleSlashCommand extends SlashCommand {
       group: 'config',
       description: 'Update the locale for this guild.',
       guildOnly: true,
-      userPermissions: [Discord.PermissionsBitField.Flags.ManageGuild],
-      dataBuilder: new Discord.SlashCommandBuilder().addStringOption((input) => {
+      userPermissions: [PermissionsBitField.Flags.ManageGuild],
+      dataBuilder: new SlashCommandBuilder().addStringOption((input) => {
         return input
           .setName('locale')
           .setDescription('The new locale to be used.')
           .setRequired(true);
-      }) as Discord.SlashCommandBuilder
+      }) as SlashCommandBuilder
     });
   }
 
@@ -36,7 +36,7 @@ class SetLocaleSlashCommand extends SlashCommand {
    * ```
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    */
-  public async run(interaction: Discord.ChatInputCommandInteraction): Promise<void> {
+  public async run(interaction: ChatInputCommandInteraction): Promise<void> {
     const localizer = this.client.localizer!.getLocalizer(interaction.guild!)!; // We know it comes from a guild because of guildOnly.
     const newLocale = interaction.options.getString('locale')!; // We know it's not null because it is required.
 

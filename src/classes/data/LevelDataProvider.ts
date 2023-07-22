@@ -1,5 +1,5 @@
-import level from 'level';
-import Discord from 'discord.js';
+import { Level } from 'level';
+import { Guild } from 'discord.js';
 import DataProvider from './DataProvider';
 import ExtendedClient from '../ExtendedClient';
 
@@ -18,10 +18,10 @@ class LevelDataProvider extends DataProvider {
   /**
    * The Level instance for this data provider.
    * @private
-   * @type {(level.Level<string, any> | null)}
+   * @type {(Level<string, any> | null)}
    * @memberof LevelDataProvider
    */
-  private db: level.Level<string, any> | null;
+  private db: Level<string, any> | null;
 
   /**
    * @param client The client that this data provider will be used by.
@@ -41,7 +41,7 @@ class LevelDataProvider extends DataProvider {
    */
   public override async init(): Promise<this> {
     if (!this.db) {
-      this.db = new level.Level(this.location);
+      this.db = new Level(this.location);
       this.client.emit('dataProviderInit', this);
     }
 
@@ -88,7 +88,7 @@ class LevelDataProvider extends DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public override async get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any> {
+  public override async get(guild: Guild, key: string, defaultValue?: any): Promise<any> {
     const { id } = guild;
     return this._get(`${id}:${key}`, defaultValue);
   }
@@ -114,7 +114,7 @@ class LevelDataProvider extends DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public override async set(guild: Discord.Guild, key: string, value: any): Promise<void> {
+  public override async set(guild: Guild, key: string, value: any): Promise<void> {
     const { id } = guild;
     return this._set(`${id}:${key}`, value);
   }
@@ -148,7 +148,7 @@ class LevelDataProvider extends DataProvider {
    * @param key The key to delete.
    * @returns A promise that resolves the data that has been deleted.
    */
-  public override async delete(guild: Discord.Guild, key: string): Promise<any> {
+  public override async delete(guild: Guild, key: string): Promise<any> {
     const { id } = guild;
     return this._delete(`${id}:${key}`);
   }
@@ -181,7 +181,7 @@ class LevelDataProvider extends DataProvider {
    * @returns A promise that resolves once all data has been deleted.
    * @emits `client#dataProviderClear`
    */
-  public override async clear(guild: Discord.Guild): Promise<void> {
+  public override async clear(guild: Guild): Promise<void> {
     const { id } = guild;
     await this._clear(id);
 

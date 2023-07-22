@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder, Message, DMChannel, GuildMember } from 'discord.js';
 import cloneDeep from 'lodash.clonedeep';
 import { stripIndents } from 'common-tags';
 import ExtendedClient from '../ExtendedClient';
@@ -10,15 +10,15 @@ import SlashCommandValidator from './SlashCommandValidator';
  * An abstract interaction based command class. Extend this class to define your command's functionality.
  * This class serves as a base for interaction based commands (slash commands).
  */
-abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction> {
+abstract class SlashCommand extends Command<ChatInputCommandInteraction> {
   /**
    * The data builder for this slash command.
    * You do not need to set its name or description, the constructor
    * will automatically set these based on the command info.
-   * @type Discord.SlashCommandBuilder
+   * @type SlashCommandBuilder
    * @memberof SlashCommand
    */
-  public dataBuilder: Discord.SlashCommandBuilder;
+  public dataBuilder: SlashCommandBuilder;
 
   /**
    * @param client The client that this command will be used by.
@@ -44,7 +44,7 @@ abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction>
    * Get this command's data builder.
    * @returns This command's data builder.
    */
-  public getDataBuilder(): Discord.SlashCommandBuilder {
+  public getDataBuilder(): SlashCommandBuilder {
     return this.dataBuilder;
   }
 
@@ -54,9 +54,9 @@ abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction>
    * command alias.
    * @returns An array of this command's data builders.
    */
-  public getAllDataBuilders(): Discord.SlashCommandBuilder[] {
+  public getAllDataBuilders(): SlashCommandBuilder[] {
     const aliasBuilders = this.aliases.map((alias) => {
-      const builder: Discord.SlashCommandBuilder = cloneDeep(this.dataBuilder);
+      const builder: SlashCommandBuilder = cloneDeep(this.dataBuilder);
       builder.setName(alias);
       return builder;
     });
@@ -68,14 +68,14 @@ abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction>
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
    */
-  public abstract run(interaction: Discord.ChatInputCommandInteraction): Promise<Discord.Message | void>;
+  public abstract run(interaction: ChatInputCommandInteraction): Promise<Message | void>;
 
   /**
    * Check whether the interaction author can execute this command.
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
-  public override hasPermission(interaction: Discord.ChatInputCommandInteraction): boolean | string {
+  public override hasPermission(interaction: ChatInputCommandInteraction): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {
       return true;
     }
@@ -89,7 +89,7 @@ abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction>
     }
 
     if (this.userPermissions && interaction.channel) {
-      if (interaction.channel instanceof Discord.DMChannel || interaction.channel.partial) {
+      if (interaction.channel instanceof DMChannel || interaction.channel.partial) {
         return true;
       }
 
@@ -116,7 +116,7 @@ abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction>
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public override async onError(error: unknown, interaction: Discord.ChatInputCommandInteraction): Promise<Discord.Message | void> {
+  public override async onError(error: unknown, interaction: ChatInputCommandInteraction): Promise<Message | void> {
     this.client.emit('commandError', error, this, interaction);
 
     let contactOwner = '';
@@ -124,7 +124,7 @@ abstract class SlashCommand extends Command<Discord.ChatInputCommandInteraction>
       contactOwner = ` If you've received this message, contact ${this.client.owner}.`;
 
       if (this.client.errorOwnerReporting) {
-        const authorDisplayName = interaction.member instanceof Discord.GuildMember ?
+        const authorDisplayName = interaction.member instanceof GuildMember ?
           interaction.member.displayName :
           interaction.member?.nick;
 

@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Guild, InvalidRequestWarningData } from 'discord.js';
 import logger from '@greencoast/logger';
 
 /**
@@ -25,7 +25,7 @@ class ClientDefaultHandlers {
    * Log the guild that the client has entered.
    * @param guild The created [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild).
    */
-  static onGuildCreate(guild: Discord.Guild): void {
+  static onGuildCreate(guild: Guild): void {
     logger.info(`Joined guild ${guild.name}`);
   }
 
@@ -33,7 +33,7 @@ class ClientDefaultHandlers {
    * Log the guild that the client has left.
    * @param guild The deleted [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild).
    */
-  static onGuildDelete(guild: Discord.Guild): void {
+  static onGuildDelete(guild: Guild): void {
     logger.info(`Left guild ${guild.name}`);
   }
 
@@ -41,7 +41,7 @@ class ClientDefaultHandlers {
    * Log the guild that is currently unavailable.
    * @param guild The unavailable [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild).
    */
-  static onGuildUnavailable(guild: Discord.Guild): void {
+  static onGuildUnavailable(guild: Guild): void {
     logger.warn(`Guild ${guild.name} is unavailable.`);
   }
 
@@ -58,7 +58,7 @@ class ClientDefaultHandlers {
    * to Discord in less than 10 minutes to avoid a ban.
    * @param data The invalid request information.
    */
-  static onInvalidRequestWarning(data: Discord.InvalidRequestWarningData): void {
+  static onInvalidRequestWarning(data: InvalidRequestWarningData): void {
     logger.warn('Invalid data sent to Discord!');
     logger.warn(data);
   }

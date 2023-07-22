@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Collection } from 'discord.js';
 import Command from './Command';
 import { CommandTrigger } from '../../types';
 
@@ -23,10 +23,10 @@ class CommandGroup {
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the commands
    * registered to this group, mapped by the command's name and the command.
-   * @type {Discord.Collection<string, Command>}
+   * @type {Collection<string, Command>}
    * @memberof CommandGroup
    */
-  public commands: Discord.Collection<string, Command<CommandTrigger>>;
+  public commands: Collection<string, Command<CommandTrigger>>;
 
   /**
    * @param id The ID of this group.
@@ -35,7 +35,7 @@ class CommandGroup {
   constructor(id: string, name: string) {
     this.id = id;
     this.name = name;
-    this.commands = new Discord.Collection();
+    this.commands = new Collection();
   }
 
   /**

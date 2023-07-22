@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Collection, Snowflake, Guild } from 'discord.js';
 import IntlMessageFormat from 'intl-messageformat';
 import ExtendedClient from '../ExtendedClient';
 import GuildLocalizer from './GuildLocalizer';
@@ -70,7 +70,7 @@ class Localizer {
    * @type {Discord.Collection<Discord.Snowflake, GuildLocalizer>}
    * @memberof Localizer
    */
-  public readonly guildLocalizers: Discord.Collection<Discord.Snowflake, GuildLocalizer>;
+  public readonly guildLocalizers: Collection<Snowflake, GuildLocalizer>;
 
   /**
    * @param client The client that this localizer will be used by.
@@ -87,7 +87,7 @@ class Localizer {
 
     this.defaultLocale = options.defaultLocale;
     this.options = options;
-    this.guildLocalizers = new Discord.Collection();
+    this.guildLocalizers = new Collection();
   }
 
   /**
@@ -118,7 +118,7 @@ class Localizer {
    * @throws Rejects if the guild localizer was being initialized with an unsupported locale retrieved
    * from the data provider. This may happen if the locale saved in the data provider was updated manually.
    */
-  private handleGuildCreate(guild: Discord.Guild): Promise<string> {
+  private handleGuildCreate(guild: Guild): Promise<string> {
     const localizer = new GuildLocalizer(this, guild);
     this.guildLocalizers.set(guild.id, localizer);
 
@@ -132,7 +132,7 @@ class Localizer {
    * @returns A promise that resolves once the guild localizer has been removed from both this and the data
    * provider (if any).
    */
-  private handleGuildDelete(guild: Discord.Guild): Promise<void> {
+  private handleGuildDelete(guild: Guild): Promise<void> {
     this.guildLocalizers.delete(guild.id);
 
     if (!this.client.dataProvider) {
@@ -151,7 +151,7 @@ class Localizer {
    * @param guild
    * @returns The guild localizer for the given guild.
    */
-  public getLocalizer(guild: Discord.Guild): GuildLocalizer | undefined {
+  public getLocalizer(guild: Guild): GuildLocalizer | undefined {
     return this.guildLocalizers.get(guild.id);
   }
 

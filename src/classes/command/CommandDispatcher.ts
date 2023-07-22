@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Message, TextChannel, Interaction } from 'discord.js';
 import ExtendedClient from '../ExtendedClient';
 import CommandRegistry from './CommandRegistry';
 import RegularCommand from './RegularCommand';
@@ -39,7 +39,7 @@ class CommandDispatcher {
    * Otherwise, the promise resolves to nothing.
    * @emits `client#commandExecute`
    */
-  public async handleMessage(message: Discord.Message): Promise<Discord.Message | void> {
+  public async handleMessage(message: Message): Promise<Message | void> {
     if (message.partial || message.author.bot || !message.content.startsWith(this.client.prefix)) {
       return;
     }
@@ -53,7 +53,7 @@ class CommandDispatcher {
       return;
     }
 
-    if (command.nsfw && (message.channel instanceof Discord.TextChannel && !message.channel.nsfw)) {
+    if (command.nsfw && (message.channel instanceof TextChannel && !message.channel.nsfw)) {
       await message.reply('This command may only be used in a NSFW channel.');
       return;
     }
@@ -81,7 +81,7 @@ class CommandDispatcher {
    * Otherwise, the promise resolves to nothing.
    * @emits `client#commandExecute`
    */
-  public async handleInteraction(interaction: Discord.Interaction): Promise<Discord.Message | void> {
+  public async handleInteraction(interaction: Interaction): Promise<Message | void> {
     if (!interaction.isChatInputCommand()) {
       return;
     }
@@ -92,7 +92,7 @@ class CommandDispatcher {
       return;
     }
 
-    if (command.nsfw && (interaction.channel instanceof Discord.TextChannel && !interaction.channel.nsfw)) {
+    if (command.nsfw && (interaction.channel instanceof TextChannel && !interaction.channel.nsfw)) {
       await interaction.reply('This command may only be used in a NSFW channel.');
       return;
     }
