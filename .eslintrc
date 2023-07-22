@@ -15,6 +15,8 @@
         "camelcase": "off",
         "dot-notation": "off",
         "prefer-destructuring": "off",
+        "no-global-assign": "off",
+        "max-lines": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires": "off"
       }

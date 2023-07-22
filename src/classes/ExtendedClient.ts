@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client, User, UserResolvable } from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
