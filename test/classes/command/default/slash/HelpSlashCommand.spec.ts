@@ -3,7 +3,7 @@ import HelpSlashCommand from '../../../../../src/classes/command/default/slash/H
 import ExtendedClient from '../../../../../src/classes/ExtendedClient';
 import { InteractionMock } from '../../../../../__mocks__/discordMocks';
 
-const clientMock = new ExtendedClient({ intents: [] });
+const clientMock = new ExtendedClient();
 const interactionMock = new InteractionMock() as unknown as ChatInputCommandInteraction;
 
 describe('Classes: Command: Default: Slash: HelpSlashCommand', () => {

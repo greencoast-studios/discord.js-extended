@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Client, User, UserResolvable } from 'discord.js';
+import { Client, User, UserResolvable, IntentsBitField } from 'discord.js';
 import PresenceManager from './presence/PresenceManager';
 import ConfigProvider from './config/ConfigProvider';
 import DataProvider from './data/DataProvider';
@@ -95,7 +95,7 @@ export class ExtendedClient extends Client {
   /**
    * @param options The client's options. Defaults to an empty object.
    */
-  constructor(options: ExtendedClientOptions) {
+  constructor(options: ExtendedClientOptions = { intents: new IntentsBitField() }) {
     if (!options.prefix) {
       options.prefix = '!';
     }

@@ -1,3 +1,4 @@
+import { IntentsBitField } from 'discord.js';
 import { ActivityType } from 'discord-api-types/v10';
 import PresenceManager from '../../../src/classes/presence/PresenceManager';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
@@ -11,7 +12,7 @@ describe('Classes: Presence: PresenceManager', () => {
   let manager: PresenceManager;
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ prefix: '?', owner: '123', debug: true, intents: [] });
+    clientMock = new ExtendedClient({ prefix: '?', owner: '123', debug: true, intents: new IntentsBitField() });
     setPresenceSpy = clientMock.user?.setPresence as jest.Mock;
 
     manager = new PresenceManager(clientMock, { templates: mockedTemplates });

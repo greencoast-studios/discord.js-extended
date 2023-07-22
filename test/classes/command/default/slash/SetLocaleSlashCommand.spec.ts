@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Guild } from 'discord.js';
+import { ChatInputCommandInteraction, Guild, IntentsBitField } from 'discord.js';
 import SetLocaleSlashCommand from '../../../../../src/classes/command/default/slash/SetLocaleSlashCommand';
 import ExtendedClient from '../../../../../src/classes/ExtendedClient';
 import GuildLocalizer from '../../../../../src/classes/locale/GuildLocalizer';
@@ -14,7 +14,7 @@ describe('Classes: Command: Default: Slash: SetLocaleSlashCommand', () => {
   let guildLocalizerMock: GuildLocalizer;
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ intents: [], localizer: { defaultLocale: 'en', localeStrings: mockedLocaleStrings } });
+    clientMock = new ExtendedClient({ intents: new IntentsBitField(), localizer: { defaultLocale: 'en', localeStrings: mockedLocaleStrings } });
     interactionMock = new InteractionMock() as unknown as ChatInputCommandInteraction;
 
     guildMock = new GuildMock() as Guild;

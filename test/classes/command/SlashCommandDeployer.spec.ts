@@ -1,8 +1,9 @@
+import { IntentsBitField } from 'discord.js';
 import SlashCommandDeployer from '../../../src/classes/command/SlashCommandDeployer';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { ConcreteSlashCommand } from '../../../__mocks__/command';
 
-let clientMock = new ExtendedClient({ testingGuildID: '123', intents: [] });
+let clientMock = new ExtendedClient({ testingGuildID: '123', intents: new IntentsBitField() });
 const slashCommandMocks = [new ConcreteSlashCommand(clientMock), new ConcreteSlashCommand(clientMock)];
 
 describe('Classes: Command: SlashCommandDeployer', () => {
@@ -10,7 +11,7 @@ describe('Classes: Command: SlashCommandDeployer', () => {
   let restPutSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ testingGuildID: '123', intents: [] });
+    clientMock = new ExtendedClient({ testingGuildID: '123', intents: new IntentsBitField() });
     deployer = new SlashCommandDeployer(clientMock);
     restPutSpy = jest.spyOn(deployer.rest, 'put').mockResolvedValue(null);
 
@@ -19,14 +20,14 @@ describe('Classes: Command: SlashCommandDeployer', () => {
 
   describe('constructor()', function() {
     it('should emit a warn event if no testingGuildID is present in client.', () => {
-      clientMock = new ExtendedClient({ intents: [] });
+      clientMock = new ExtendedClient();
       deployer = new SlashCommandDeployer(clientMock);
 
       expect(clientMock.emit).toHaveBeenCalledWith('warn', expect.anything());
     });
 
     it('should not emit a warn event if no testingGuildID is present in client.', () => {
-      clientMock = new ExtendedClient({ testingGuildID: '123', intents: [] });
+      clientMock = new ExtendedClient({ testingGuildID: '123', intents: new IntentsBitField() });
       deployer = new SlashCommandDeployer(clientMock);
 
       expect(clientMock.emit).not.toHaveBeenCalledWith('warn', expect.anything());
@@ -90,7 +91,7 @@ describe('Classes: Command: SlashCommandDeployer', () => {
 
   describe('deployToTestingGuild()', () => {
     it('should reject if no testingGuildID is present in client.', () => {
-      clientMock = new ExtendedClient({ intents: [] });
+      clientMock = new ExtendedClient();
       deployer = new SlashCommandDeployer(clientMock);
       expect.assertions(1);
 

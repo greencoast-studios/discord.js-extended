@@ -1,4 +1,4 @@
-import { Message, Interaction, ChatInputCommandInteraction } from 'discord.js';
+import { Message, Interaction, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
 import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
@@ -9,7 +9,7 @@ import SlashCommand from '../../../src/classes/command/SlashCommand';
 
 jest.mock('discord.js');
 
-const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
+const clientMock = new ExtendedClient({ prefix: '!', intents: new IntentsBitField() });
 
 describe('Classes: Command: CommandDispatcher', () => {
   let dispatcher: CommandDispatcher;

@@ -3,7 +3,7 @@ import RegularCommand from '../../../src/classes/command/RegularCommand';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { ConcreteRegularCommand } from '../../../__mocks__/command';
 
-const clientMock = new ExtendedClient({ intents: [] });
+const clientMock = new ExtendedClient();
 
 describe('Classes: Command: CommandGroup', () => {
   let group: CommandGroup;

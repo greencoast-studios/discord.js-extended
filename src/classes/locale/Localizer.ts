@@ -67,7 +67,7 @@ class Localizer {
 
   /**
    * The {@link GuildLocalizer}s for each guild.
-   * @type {Discord.Collection<Discord.Snowflake, GuildLocalizer>}
+   * @type {Collection<Snowflake, GuildLocalizer>}
    * @memberof Localizer
    */
   public readonly guildLocalizers: Collection<Snowflake, GuildLocalizer>;
@@ -139,7 +139,7 @@ class Localizer {
       return Promise.resolve();
     }
 
-    return this.client.dataProvider.delete(guild, this.options.dataProviderKey || 'locale')
+    return this.client.dataProvider.delete<void>(guild, this.options.dataProviderKey || 'locale')
       .catch((error) => {
         this.client.emit('warn', `Could not delete locale settings for ${guild.id} from data provider.`);
         this.client.emit('error', error);

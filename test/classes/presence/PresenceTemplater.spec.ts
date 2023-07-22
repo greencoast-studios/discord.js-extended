@@ -1,5 +1,5 @@
+import { ShardClientUtil, IntentsBitField } from 'discord.js';
 import * as dayjs from 'dayjs';
-import { ShardClientUtil } from 'discord.js';
 import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { ConcreteRegularCommand } from '../../../__mocks__/command';
@@ -20,7 +20,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
   });
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ prefix: '?', owner: '123', intents: [] });
+    clientMock = new ExtendedClient({ prefix: '?', owner: '123', intents: new IntentsBitField() });
     templater = new PresenceTemplater(clientMock, {});
 
     for (let i = 0; i < 3; i++) {

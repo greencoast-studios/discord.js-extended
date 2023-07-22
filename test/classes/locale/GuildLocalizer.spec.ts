@@ -6,7 +6,7 @@ import { GuildMock } from '../../../__mocks__/discordMocks';
 import ConcreteDataProvider from '../../../__mocks__/dataProvider';
 import { mockedLocaleStrings } from '../../../__mocks__/locale';
 
-const clientMock = new ExtendedClient({ intents: [] });
+const clientMock = new ExtendedClient();
 const mainLocalizerMock = new Localizer(clientMock, { defaultLocale: 'en', localeStrings: mockedLocaleStrings });
 const guildMock = new GuildMock() as Guild;
 
@@ -28,7 +28,7 @@ describe('Classes: Locale: GuildLocalizer', () => {
 
   describe('init()', () => {
     it('should resolve the default locale if no data provider is present in client.', () => {
-      const client = new ExtendedClient({ intents: [] });
+      const client = new ExtendedClient();
       const mainLocalizer = new Localizer(client, { defaultLocale: 'en', localeStrings: mockedLocaleStrings });
       const guildLocalizer = new GuildLocalizer(mainLocalizer, guildMock);
 

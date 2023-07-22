@@ -1,4 +1,4 @@
-import { User, Message } from 'discord.js';
+import { User, Message, IntentsBitField } from 'discord.js';
 import RegularCommand from '../../../src/classes/command/RegularCommand';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { ConcreteRegularCommand } from '../../../__mocks__/command';
@@ -14,7 +14,7 @@ describe('Classes: Command: RegularCommand', () => {
   let message: Message;
 
   beforeEach(() => {
-    client = new ExtendedClient({ intents: [] });
+    client = new ExtendedClient();
     command = new ConcreteRegularCommand(client);
     message = new MessageMock() as unknown as Message;
   });
@@ -89,7 +89,7 @@ describe('Classes: Command: RegularCommand', () => {
     });
 
     it('should reply with the correct message if no owner is set on the client.', () => {
-      client = new ExtendedClient({ intents: [] });
+      client = new ExtendedClient();
       command = new ConcreteRegularCommand(client);
 
       command.onError(new Error(), message);
@@ -99,7 +99,7 @@ describe('Classes: Command: RegularCommand', () => {
     });
 
     it('should reply with the correct message if an owner is set on the client.', () => {
-      client = new ExtendedClient({ owner: '123', intents: [] });
+      client = new ExtendedClient({ owner: '123', intents: new IntentsBitField() });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteRegularCommand(client);
 
@@ -110,7 +110,7 @@ describe('Classes: Command: RegularCommand', () => {
     });
 
     it('should send the error to the owner if errorReporting is enabled.', () => {
-      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
+      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: new IntentsBitField() });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteRegularCommand(client);
 

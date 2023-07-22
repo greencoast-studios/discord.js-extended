@@ -1,4 +1,4 @@
-import { User, ChatInputCommandInteraction } from 'discord.js';
+import { User, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
 import SlashCommand from '../../../src/classes/command/SlashCommand';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { ConcreteSlashCommand } from '../../../__mocks__/command';
@@ -14,7 +14,7 @@ describe('Classes: Command: SlashCommand', () => {
   let interaction: ChatInputCommandInteraction;
 
   beforeEach(() => {
-    client = new ExtendedClient({ intents: [] });
+    client = new ExtendedClient();
     command = new ConcreteSlashCommand(client);
     interaction = new InteractionMock() as unknown as ChatInputCommandInteraction;
   });
@@ -146,7 +146,7 @@ describe('Classes: Command: SlashCommand', () => {
     });
 
     it('should reply with the correct message if no owner is set on the client.', async () => {
-      client = new ExtendedClient({ intents: [] });
+      client = new ExtendedClient();
       command = new ConcreteSlashCommand(client);
 
       await command.onError(new Error(), interaction);
@@ -157,7 +157,7 @@ describe('Classes: Command: SlashCommand', () => {
     });
 
     it('should reply with the correct message if an owner is set on the client.', async () => {
-      client = new ExtendedClient({ owner: '123', intents: [] });
+      client = new ExtendedClient({ owner: '123', intents: new IntentsBitField() });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
@@ -169,7 +169,7 @@ describe('Classes: Command: SlashCommand', () => {
     });
 
     it('should send the error to the owner if errorReporting is enabled.', async () => {
-      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
+      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: new IntentsBitField() });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
@@ -179,7 +179,7 @@ describe('Classes: Command: SlashCommand', () => {
     });
 
     it('should editReply if the interaction has been already replied.', async () => {
-      client = new ExtendedClient({ intents: [] });
+      client = new ExtendedClient();
       command = new ConcreteSlashCommand(client);
       interaction.replied = true;
 
@@ -192,7 +192,7 @@ describe('Classes: Command: SlashCommand', () => {
     });
 
     it('should editReply if the interaction has been already deferred.', async () => {
-      client = new ExtendedClient({ intents: [] });
+      client = new ExtendedClient();
       command = new ConcreteSlashCommand(client);
       interaction.deferred = true;
 

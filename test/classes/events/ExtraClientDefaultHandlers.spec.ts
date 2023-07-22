@@ -11,7 +11,7 @@ jest.mock('@greencoast/logger');
 
 const mockedLogger = mocked(logger, { shallow: true });
 
-const clientMock = new ExtendedClient({ intents: [] });
+const clientMock = new ExtendedClient();
 const guildMock = new GuildMock() as Guild;
 const messageMock = new MessageMock() as unknown as Message;
 const interactionMock = new InteractionMock() as unknown as ChatInputCommandInteraction;

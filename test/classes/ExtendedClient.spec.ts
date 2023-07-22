@@ -1,3 +1,4 @@
+import { IntentsBitField } from 'discord.js';
 import ExtendedClient from '../../src/classes/ExtendedClient';
 import ConcreteDataProvider from '../../__mocks__/dataProvider';
 
@@ -7,7 +8,7 @@ describe('Classes: ExtendedClient', () => {
   let client: ExtendedClient;
 
   beforeEach(() => {
-    client = new ExtendedClient({ owner: MOCKED_OWNER_ID, intents: [] });
+    client = new ExtendedClient({ owner: MOCKED_OWNER_ID, intents: new IntentsBitField() });
   });
 
   it('should have an options property.', () => {
@@ -48,7 +49,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should not fetch the owner in the constructor if no owner was provided.', () => {
-      client = new ExtendedClient({ intents: [] });
+      client = new ExtendedClient();
       expect(client.once).not.toHaveBeenCalledWith('ready', expect.anything());
     });
 
@@ -89,7 +90,7 @@ describe('Classes: ExtendedClient', () => {
 
   describe('get owner()', () => {
     it('should return undefined if no owner is provided.', () => {
-      client = new ExtendedClient({ intents: [] });
+      client = new ExtendedClient();
       expect(client.owner).toBeUndefined();
     });
 
@@ -133,7 +134,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should return false if no owner is provided.', () => {
-      client = new ExtendedClient({ intents: [] });
+      client = new ExtendedClient();
       expect(client.isOwner('22')).toBe(false);
     });
 
@@ -171,7 +172,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register debug event if debug is enabled.', () => {
-      client = new ExtendedClient({ debug: true, intents: [] });
+      client = new ExtendedClient({ debug: true, intents: new IntentsBitField() });
       client.registerDefaultEvents();
 
       expect(client.on).toHaveBeenCalledWith('debug', expect.anything());

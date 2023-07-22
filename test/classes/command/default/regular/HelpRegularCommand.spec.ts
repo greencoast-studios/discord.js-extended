@@ -1,9 +1,9 @@
-import { Message, EmbedBuilder } from 'discord.js';
+import { Message, EmbedBuilder, IntentsBitField } from 'discord.js';
 import HelpRegularCommand from '../../../../../src/classes/command/default/regular/HelpRegularCommand';
 import ExtendedClient from '../../../../../src/classes/ExtendedClient';
 import { MessageMock } from '../../../../../__mocks__/discordMocks';
 
-const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
+const clientMock = new ExtendedClient({ prefix: '!', intents: new IntentsBitField() });
 const messageMock = new MessageMock() as unknown as Message;
 
 describe('Classes: Command: Default: Regular: HelpRegularCommand', () => {
