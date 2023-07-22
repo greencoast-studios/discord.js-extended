@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
-import Discord from 'discord.js';
+import * as dayjs from 'dayjs';
+import { ShardClientUtil } from 'discord.js';
 import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { ConcreteRegularCommand } from '../../../__mocks__/command';
@@ -58,7 +58,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
     });
 
     it('should resolve the string for key: num_guilds for a sharded client.', async () => {
-      clientMock.shard = new ShardClientUtilMock() as unknown as Discord.ShardClientUtil;
+      clientMock.shard = new ShardClientUtilMock() as unknown as ShardClientUtil;
       const fetchMock = clientMock.shard.fetchClientValues as jest.Mock;
       fetchMock.mockResolvedValue([3, 3, 1]);
 
@@ -94,7 +94,7 @@ describe('Classes: Presence: PresenceTemplater', () => {
     });
 
     it('should resolve the string for key: num_members for a sharded client.', async () => {
-      clientMock.shard = new ShardClientUtilMock() as unknown as Discord.ShardClientUtil;
+      clientMock.shard = new ShardClientUtilMock() as unknown as ShardClientUtil;
       const fetchMock = clientMock.shard.fetchClientValues as jest.Mock;
       fetchMock.mockResolvedValue([clientMock.guilds.cache, clientMock.guilds.cache, clientMock.guilds.cache]);
 

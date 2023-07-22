@@ -19,7 +19,7 @@ describe('Classes: Command: SlashCommandDeployer', () => {
 
   describe('constructor()', function() {
     it('should emit a warn event if no testingGuildID is present in client.', () => {
-      clientMock = new ExtendedClient();
+      clientMock = new ExtendedClient({ intents: [] });
       deployer = new SlashCommandDeployer(clientMock);
 
       expect(clientMock.emit).toHaveBeenCalledWith('warn', expect.anything());
@@ -90,7 +90,7 @@ describe('Classes: Command: SlashCommandDeployer', () => {
 
   describe('deployToTestingGuild()', () => {
     it('should reject if no testingGuildID is present in client.', () => {
-      clientMock = new ExtendedClient();
+      clientMock = new ExtendedClient({ intents: [] });
       deployer = new SlashCommandDeployer(clientMock);
       expect.assertions(1);
 

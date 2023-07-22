@@ -1,11 +1,11 @@
-import Discord from 'discord.js';
+import { Guild } from 'discord.js';
 import RedisDataProvider from '../../../src/classes/data/RedisDataProvider';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { GuildMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('redis');
 
-const clientMock = new ExtendedClient();
+const clientMock = new ExtendedClient({ intents: [] });
 
 describe('Classes: Data: RedisDataProvider', () => {
   const emitSpy = clientMock.emit as jest.Mock;
@@ -84,7 +84,7 @@ describe('Classes: Data: RedisDataProvider', () => {
   });
 
   describe('Data methods:', () => {
-    const guild = new GuildMock() as Discord.Guild;
+    const guild = new GuildMock() as Guild;
 
     const data = [
       ['key1', 'value1'],

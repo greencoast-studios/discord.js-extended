@@ -48,7 +48,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should not fetch the owner in the constructor if no owner was provided.', () => {
-      client = new ExtendedClient();
+      client = new ExtendedClient({ intents: [] });
       expect(client.once).not.toHaveBeenCalledWith('ready', expect.anything());
     });
 
@@ -89,7 +89,7 @@ describe('Classes: ExtendedClient', () => {
 
   describe('get owner()', () => {
     it('should return undefined if no owner is provided.', () => {
-      client = new ExtendedClient();
+      client = new ExtendedClient({ intents: [] });
       expect(client.owner).toBeUndefined();
     });
 
@@ -133,7 +133,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should return false if no owner is provided.', () => {
-      client = new ExtendedClient();
+      client = new ExtendedClient({ intents: [] });
       expect(client.isOwner('22')).toBe(false);
     });
 

@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Message, Interaction, ChatInputCommandInteraction } from 'discord.js';
 import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
 import CommandRegistry from '../../../src/classes/command/CommandRegistry';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
@@ -17,8 +17,8 @@ describe('Classes: Command: CommandDispatcher', () => {
   let registryGetCommandSpy: jest.SpyInstance;
   let regularCommand: RegularCommand;
   let slashCommand: SlashCommand;
-  let message: Discord.Message;
-  let interaction: Discord.Interaction;
+  let message: Message;
+  let interaction: Interaction;
 
   beforeEach(() => {
     regularCommand = new ConcreteRegularCommand(clientMock);
@@ -32,10 +32,10 @@ describe('Classes: Command: CommandDispatcher', () => {
     registry = new CommandRegistry(clientMock);
     dispatcher = new CommandDispatcher(clientMock, registry);
 
-    message = new MessageMock() as unknown as Discord.Message;
+    message = new MessageMock() as unknown as Message;
     message.content = '!command';
 
-    interaction = new InteractionMock() as unknown as Discord.Interaction;
+    interaction = new InteractionMock() as unknown as Interaction;
     const isCommandSpy = interaction.isCommand as jest.Mock;
     isCommandSpy.mockReturnValue(true);
   });
@@ -217,7 +217,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
-          const commandInteraction = interaction as Discord.CommandInteraction;
+          const commandInteraction = interaction as ChatInputCommandInteraction;
           expect(commandInteraction.reply).toHaveBeenCalledWith('Oops...');
         });
     });
@@ -265,7 +265,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
-          const commandInteraction = interaction as Discord.CommandInteraction;
+          const commandInteraction = interaction as ChatInputCommandInteraction;
           expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
           expect(commandInteraction.reply).toHaveBeenCalledWith('This command may only be used in a NSFW channel.');
         });

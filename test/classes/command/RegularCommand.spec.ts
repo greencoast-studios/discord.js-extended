@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { User, Message } from 'discord.js';
 import RegularCommand from '../../../src/classes/command/RegularCommand';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { ConcreteRegularCommand } from '../../../__mocks__/command';
@@ -6,17 +6,17 @@ import { MessageMock, UserMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');
 
-const userMock = new UserMock() as unknown as Discord.User;
+const userMock = new UserMock() as unknown as User;
 
 describe('Classes: Command: RegularCommand', () => {
   let client: ExtendedClient;
   let command: RegularCommand;
-  let message: Discord.Message;
+  let message: Message;
 
   beforeEach(() => {
-    client = new ExtendedClient();
+    client = new ExtendedClient({ intents: [] });
     command = new ConcreteRegularCommand(client);
-    message = new MessageMock() as unknown as Discord.Message;
+    message = new MessageMock() as unknown as Message;
   });
 
   describe('hasPermission()', () => {
@@ -89,7 +89,7 @@ describe('Classes: Command: RegularCommand', () => {
     });
 
     it('should reply with the correct message if no owner is set on the client.', () => {
-      client = new ExtendedClient();
+      client = new ExtendedClient({ intents: [] });
       command = new ConcreteRegularCommand(client);
 
       command.onError(new Error(), message);

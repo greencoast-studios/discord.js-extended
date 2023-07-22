@@ -1,14 +1,13 @@
 import { mocked } from 'jest-mock';
-import level from 'level';
-import LevelUP from 'levelup';
-import Discord from 'discord.js';
+import * as level from 'level';
+import { Guild } from 'discord.js';
 import LevelDataProvider from '../../../src/classes/data/LevelDataProvider';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import { GuildMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('level');
 
-const mockedLevel = mocked(level, true);
+const { Level: mockedLevel } = mocked(level, { shallow: true });
 
 const clientMock = new ExtendedClient({ debug: true, intents: [] });
 
@@ -38,7 +37,7 @@ describe('Classes: Data: LevelDataProvider', () => {
 
       return provider.init()
         .then(() => {
-          expect(provider['db']).toBeInstanceOf(LevelUP);
+          expect(provider['db']).toBeInstanceOf(level.Level);
         });
     });
 
@@ -126,7 +125,7 @@ describe('Classes: Data: LevelDataProvider', () => {
   });
 
   describe('Data methods:', () => {
-    const guild = new GuildMock() as Discord.Guild;
+    const guild = new GuildMock() as Guild;
 
     const data = [
       ['key1', 'value1'],

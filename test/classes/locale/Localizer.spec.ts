@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Guild } from 'discord.js';
 import Localizer from '../../../src/classes/locale/Localizer';
 import GuildLocalizer from '../../../src/classes/locale/GuildLocalizer';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
@@ -7,8 +7,8 @@ import { GuildMock } from '../../../__mocks__/discordMocks';
 
 jest.mock('discord.js');
 
-const clientMock = new ExtendedClient();
-const guildMock = new GuildMock() as Discord.Guild;
+const clientMock = new ExtendedClient({ intents: [] });
+const guildMock = new GuildMock() as Guild;
 
 describe('Classes: Locale: Localizer', () => {
   let localizer: Localizer;

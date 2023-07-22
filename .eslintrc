@@ -10,9 +10,13 @@
   ],
   "overrides": [
     {
-      "files": ["__mocks__/*", "test/*"],
+      "files": ["__mocks__/**/*","test/**/*"],
       "rules": {
-        "@typescript-eslint/no-explicit-any": "off"
+        "camelcase": "off",
+        "dot-notation": "off",
+        "prefer-destructuring": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-var-requires": "off"
       }
     }
   ]

@@ -1,6 +1,6 @@
 import { mocked } from 'jest-mock';
-import Discord from 'discord.js';
-import logger from '@greencoast/logger';
+import { Guild, Message, ChatInputCommandInteraction } from 'discord.js';
+import * as logger from '@greencoast/logger';
 import ExtraClientDefaultHandlers from '../../../src/classes/events/ExtraClientDefaultHandlers';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import CommandGroup from '../../../src/classes/command/CommandGroup';
@@ -9,12 +9,12 @@ import { GuildMock, MessageMock, InteractionMock } from '../../../__mocks__/disc
 
 jest.mock('@greencoast/logger');
 
-const mockedLogger = mocked(logger, true);
+const mockedLogger = mocked(logger, { shallow: true });
 
-const clientMock = new ExtendedClient();
-const guildMock = new GuildMock() as Discord.Guild;
-const messageMock = new MessageMock() as unknown as Discord.Message;
-const interactionMock = new InteractionMock() as unknown as Discord.CommandInteraction;
+const clientMock = new ExtendedClient({ intents: [] });
+const guildMock = new GuildMock() as Guild;
+const messageMock = new MessageMock() as unknown as Message;
+const interactionMock = new InteractionMock() as unknown as ChatInputCommandInteraction;
 const commandMock = new ConcreteRegularCommand(clientMock);
 const groupMock = new CommandGroup('group', 'Group');
 

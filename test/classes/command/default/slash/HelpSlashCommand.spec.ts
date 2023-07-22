@@ -1,10 +1,10 @@
-import Discord from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import HelpSlashCommand from '../../../../../src/classes/command/default/slash/HelpSlashCommand';
 import ExtendedClient from '../../../../../src/classes/ExtendedClient';
 import { InteractionMock } from '../../../../../__mocks__/discordMocks';
 
-const clientMock = new ExtendedClient();
-const interactionMock = new InteractionMock() as unknown as Discord.CommandInteraction;
+const clientMock = new ExtendedClient({ intents: [] });
+const interactionMock = new InteractionMock() as unknown as ChatInputCommandInteraction;
 
 describe('Classes: Command: Default: Slash: HelpSlashCommand', () => {
   let command: HelpSlashCommand;
@@ -34,7 +34,7 @@ describe('Classes: Command: Default: Slash: HelpSlashCommand', () => {
       return command.run(interactionMock)
         .then(() => {
           expect(sendSpy).toHaveBeenCalledTimes(1);
-          expect(sendSpy.mock.calls[0][0].embeds[0]).toBeInstanceOf(Discord.MessageEmbed);
+          expect(sendSpy.mock.calls[0][0].embeds[0]).toBeInstanceOf(EmbedBuilder);
         });
     });
   });

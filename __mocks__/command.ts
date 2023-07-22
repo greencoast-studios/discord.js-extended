@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Message, ChatInputCommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import ExtendedClient from '../src/classes/ExtendedClient';
 import RegularCommand from '../src/classes/command/RegularCommand';
@@ -16,7 +16,7 @@ export class ConcreteRegularCommand extends RegularCommand {
     });
   }
 
-  override run(message: Discord.Message): Promise<Discord.Message> {
+  override run(message: Message): Promise<Message> {
     return Promise.resolve(message);
   }
 }
@@ -32,7 +32,7 @@ export class ConcreteSlashCommand extends SlashCommand {
     });
   }
 
-  override run(interaction: Discord.CommandInteraction): Promise<void> {
-    return interaction.reply('hi');
+  override async run(interaction: ChatInputCommandInteraction): Promise<void> {
+    await interaction.reply('hi');
   }
 }

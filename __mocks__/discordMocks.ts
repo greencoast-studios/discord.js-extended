@@ -1,14 +1,3 @@
-import Discord from 'discord.js';
-
-export const rateLimitMock: Discord.RateLimitData = {
-  timeout: 123,
-  limit: 123,
-  method: 'method',
-  path: 'path',
-  route: 'route',
-  global: true
-};
-
 export class GuildMock {
   public name: string;
   public id: string;

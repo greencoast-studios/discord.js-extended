@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Message } from 'discord.js';
 import ExtendedClient from '../../../src/classes/ExtendedClient';
 import RegularCommand from '../../../src/classes/command/RegularCommand';
 
@@ -14,7 +14,7 @@ class Group1TSCommand extends RegularCommand {
     });
   }
 
-  run(message: Discord.Message): Promise<Discord.Message> {
+  run(message: Message): Promise<Message> {
     return Promise.resolve(message);
   }
 }
