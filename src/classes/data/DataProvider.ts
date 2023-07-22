@@ -42,7 +42,7 @@ abstract class DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public abstract get(guild: Guild, key: string, defaultValue?: any): Promise<any>;
+  public abstract get<T>(guild: Guild, key: string, defaultValue?: T): Promise<T>;
 
   /**
    * Get a value for a key in a global scope.
@@ -50,7 +50,7 @@ abstract class DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public abstract getGlobal(key: string, defaultValue?: any): Promise<any>;
+  public abstract getGlobal<T>(key: string, defaultValue?: T): Promise<T>;
 
   /**
    * Set a value for a key in a guild.
@@ -59,7 +59,7 @@ abstract class DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public abstract set(guild: Guild, key: string, value: any): Promise<void>;
+  public abstract set<T>(guild: Guild, key: string, value: T): Promise<void>;
 
   /**
    * Set a value for a key in a global scope.
@@ -67,7 +67,7 @@ abstract class DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public abstract setGlobal(key: string, value: any): Promise<void>;
+  public abstract setGlobal<T>(key: string, value: T): Promise<void>;
 
   /**
    * Delete a key-value pair in a guild.
@@ -75,14 +75,14 @@ abstract class DataProvider {
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
-  public abstract delete(guild: Guild, key: string): Promise<any>;
+  public abstract delete<T>(guild: Guild, key: string): Promise<T>;
 
   /**
    * Delete a key-value pair in a global scope.
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
-  public abstract deleteGlobal(key: string): Promise<any>;
+  public abstract deleteGlobal<T>(key: string): Promise<T>;
 
   /**
    * Clear all data in a guild.
