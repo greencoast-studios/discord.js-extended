@@ -1,4 +1,4 @@
-const { RegularCommand } = require('../../../dist');
+const { RegularCommand } = require('../../../../dist');
 
 class Group2Command extends RegularCommand {
   constructor(client, info = {}) {

@@ -1,6 +1,6 @@
-import DataProvider from '../src/classes/data/DataProvider';
+import { DataProvider } from '../../src';
 
-class ConcreteDataProvider extends DataProvider {
+export class ConcreteDataProvider extends DataProvider {
   public override init(): Promise<this> {
     return Promise.resolve(this);
   }
@@ -32,5 +32,3 @@ class ConcreteDataProvider extends DataProvider {
     return Promise.resolve();
   }
 }
-
-export default ConcreteDataProvider;

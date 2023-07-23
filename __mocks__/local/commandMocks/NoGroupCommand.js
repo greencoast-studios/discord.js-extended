@@ -1,11 +1,11 @@
 const { RegularCommand } = require('../../../dist');
 
-class Group1JSCommand extends RegularCommand {
+class NoGroupCommand extends RegularCommand {
   constructor(client, info = {}) {
     super(client, {
-      name: 'Group1JSCommand',
+      name: 'NoGroupCommand',
       description: 'description',
-      group: 'group1',
+      group: 'noGroup',
       ...info
     });
   }
@@ -15,4 +15,4 @@ class Group1JSCommand extends RegularCommand {
   }
 }
 
-module.exports = Group1JSCommand;
+module.exports = NoGroupCommand;

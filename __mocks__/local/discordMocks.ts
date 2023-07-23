@@ -1,3 +1,5 @@
+const RealDiscord = jest.requireActual('discord.js');
+
 export class GuildMock {
   public name: string;
   public id: string;
@@ -86,13 +88,13 @@ export class TextChannelMock {
   public permissionsFor: jest.Mock;
   public send: jest.Mock;
   public nsfw: boolean;
-  public isText: jest.Mock;
+  public isTextBased: jest.Mock;
 
   constructor() {
     this.permissionsFor = jest.fn(() => mockedPermissionsFor);
     this.send = jest.fn(() => Promise.resolve());
     this.nsfw = false;
-    this.isText = jest.fn(() => true);
+    this.isTextBased = jest.fn(() => true);
   }
 }
 
@@ -151,6 +153,7 @@ export class InteractionMock {
   public member: GuildMemberMock;
   public channel: TextChannelMock;
   public isCommand: jest.Mock;
+  public isChatInputCommand: jest.Mock;
   public inGuild: jest.Mock;
   public reply: jest.Mock;
   public editReply: jest.Mock;
@@ -163,6 +166,7 @@ export class InteractionMock {
     this.member = new GuildMemberMock();
     this.channel = new TextChannelMock();
     this.isCommand = jest.fn();
+    this.isChatInputCommand = jest.fn();
     this.inGuild = jest.fn();
     this.reply = jest.fn();
     this.editReply = jest.fn();
@@ -173,3 +177,29 @@ export class InteractionMock {
     this.deferred = false;
   }
 }
+
+export const mockDiscordJs = () => {
+  jest.mock('discord.js', () => {
+    const mock = {
+      ...RealDiscord,
+      Client: ClientMock,
+      Guild: GuildMock,
+      GuildMember: GuildMemberMock,
+      TextChannel: TextChannelMock,
+      DMChannel: DMChannelMock,
+      User: UserMock,
+      Message: MessageMock,
+      MessageEmbed: MessageEmbedMock,
+      ShardClientUtil: ShardClientUtilMock,
+      Interaction: InteractionMock,
+      Collection: RealDiscord.Collection,
+      Permissions: RealDiscord.Permissions
+    };
+
+    return {
+      __esModule: true,
+      ...mock,
+      default: mock
+    };
+  });
+};

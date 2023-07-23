@@ -1,6 +1,5 @@
 import { Message } from 'discord.js';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import RegularCommand from '../../../src/classes/command/RegularCommand';
+import { ExtendedClient, RegularCommand } from '../../../../src';
 
 jest.mock('discord.js');
 

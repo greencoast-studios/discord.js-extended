@@ -1,10 +1,5 @@
-import { Message, ChatInputCommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import ExtendedClient from '../src/classes/ExtendedClient';
-import RegularCommand from '../src/classes/command/RegularCommand';
-import SlashCommand from '../src/classes/command/SlashCommand';
-
-jest.mock('discord.js');
+import { Message, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ExtendedClient, RegularCommand, SlashCommand } from '../../src';
 
 export class ConcreteRegularCommand extends RegularCommand {
   constructor(client: ExtendedClient, info: Record<string, any> = {}) {
