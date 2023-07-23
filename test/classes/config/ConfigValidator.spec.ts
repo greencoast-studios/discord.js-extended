@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import ConfigValidator from '../../../src/classes/config/ConfigValidator';
+import { ConfigValidator } from '../../../src';
 
 const mockedConfig = {
   TOKEN: '123123123',

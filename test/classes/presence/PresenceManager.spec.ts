@@ -1,7 +1,8 @@
-/* eslint-disable dot-notation */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import PresenceManager from '../../../src/classes/presence/PresenceManager';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
+import { mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
+
+import { PresenceManager, ExtendedClient } from '../../../src';
+import { ActivityType } from 'discord-api-types/v10';
 
 const mockedTemplates = ['1 servers!', 'hello', 'client'];
 
@@ -38,12 +39,12 @@ describe('Classes: Presence: PresenceManager', () => {
     it('should call setPresence with the correct options if partial data is provided.', () => {
       expect.assertions(1);
 
-      return manager.update('status', { type: 'LISTENING' })!
+      return manager.update('status', { type: ActivityType.Listening })!
         .then(() => {
           expect(setPresenceSpy).toHaveBeenCalledWith({
             activities: [{
               name: 'status',
-              type: 'LISTENING'
+              type: ActivityType.Listening
             }],
             status: manager.options.status,
             afk: manager.options.afk
@@ -134,7 +135,7 @@ describe('Classes: Presence: PresenceManager', () => {
       expect(clearIntervalSpy).toHaveBeenCalledWith(oldHandle);
     });
 
-    it('should update presence when interval hits.', async() => {
+    it('should update presence when interval hits.', async () => {
       const updateSpy = jest.spyOn(manager, 'update');
 
       manager.setRefreshInterval(1000);

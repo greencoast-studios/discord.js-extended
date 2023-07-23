@@ -1,27 +1,26 @@
-/* eslint-disable max-statements */
-import Discord from 'discord.js';
+import { Message, DMChannel } from 'discord.js';
 import { stripIndents } from 'common-tags';
-import Command from './Command';
+import { Command } from './Command';
 
 /**
  * An abstract message based command class. Extend this class to define your command's functionality.
  * This class serves as a base for message based commands. You should always prefer to use {@link SlashCommand}
  * instead of this one.
  */
-abstract class RegularCommand extends Command<Discord.Message> {
+export abstract class RegularCommand extends Command<Message> {
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
-  public abstract run(message: Discord.Message, args: string[]): Promise<Discord.Message | void>;
+  public abstract run(message: Message, args: string[]): Promise<void>;
 
   /**
    * Check whether the message author can execute this command.
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
-  public override hasPermission(message: Discord.Message): boolean | string {
+  public override hasPermission(message: Message): boolean | string {
     if (!this.ownerOnly && !this.userPermissions) {
       return true;
     }
@@ -34,8 +33,8 @@ abstract class RegularCommand extends Command<Discord.Message> {
       return `The command ${this.name} may only be used by the bot's owner.`;
     }
 
-    if (this.userPermissions && message.channel.isText()) {
-      if (message.channel instanceof Discord.DMChannel || message.channel.partial) {
+    if (this.userPermissions && message.channel.isTextBased()) {
+      if (message.channel instanceof DMChannel || message.channel.partial) {
         return true;
       }
 
@@ -59,10 +58,9 @@ abstract class RegularCommand extends Command<Discord.Message> {
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
-   * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public override async onError(error: unknown, message: Discord.Message): Promise<Discord.Message | void> {
+  public override async onError(error: unknown, message: Message): Promise<void> {
     this.client.emit('commandError', error, this, message);
 
     let contactOwner = '';
@@ -85,8 +83,6 @@ abstract class RegularCommand extends Command<Discord.Message> {
       }
     }
 
-    return message.reply(`An error has occurred when running the command ${this.name}.${contactOwner}`);
+    await message.reply(`An error has occurred when running the command ${this.name}.${contactOwner}`);
   }
 }
-
-export default RegularCommand;

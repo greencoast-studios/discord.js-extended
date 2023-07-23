@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const { RegularCommand } = require('../../../dist');
+const { RegularCommand } = require('../../../../dist');
 
 class UnregisteredGroupCommand extends RegularCommand {
   constructor(client, info = {}) {
@@ -13,8 +10,8 @@ class UnregisteredGroupCommand extends RegularCommand {
     });
   }
 
-  run(message) {
-    return Promise.resolve(message);
+  run() {
+    return Promise.resolve();
   }
 }
 

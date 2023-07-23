@@ -1,14 +1,12 @@
-import Discord from 'discord.js';
-import GuildLocalizer from '../../../src/classes/locale/GuildLocalizer';
-import Localizer from '../../../src/classes/locale/Localizer';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { GuildMock } from '../../../__mocks__/discordMocks';
-import ConcreteDataProvider from '../../../__mocks__/dataProvider';
-import { mockedLocaleStrings } from '../../../__mocks__/locale';
+import { GuildLocalizer, Localizer, ExtendedClient } from '../../../src';
+import { Guild } from 'discord.js';
+import { GuildMock } from '../../../__mocks__/local/discordMocks';
+import { ConcreteDataProvider } from '../../../__mocks__/local/dataProvider';
+import { mockedLocaleStrings } from '../../../__mocks__/local/locale';
 
 const clientMock = new ExtendedClient();
 const mainLocalizerMock = new Localizer(clientMock, { defaultLocale: 'en', localeStrings: mockedLocaleStrings });
-const guildMock = new GuildMock() as Discord.Guild;
+const guildMock = new GuildMock() as Guild;
 
 describe('Classes: Locale: GuildLocalizer', () => {
   let localizer: GuildLocalizer;
@@ -16,7 +14,7 @@ describe('Classes: Locale: GuildLocalizer', () => {
   let getSpy: jest.SpyInstance;
   let setSpy: jest.SpyInstance;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     await clientMock.setDataProvider(new ConcreteDataProvider(clientMock));
     getSpy = jest.spyOn(clientMock.dataProvider!, 'get');
     setSpy = jest.spyOn(clientMock.dataProvider!, 'set');

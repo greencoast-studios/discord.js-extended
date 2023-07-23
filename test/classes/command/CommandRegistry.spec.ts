@@ -1,10 +1,10 @@
-import path from 'path';
-import CommandRegistry from '../../../src/classes/command/CommandRegistry';
-import CommandGroup from '../../../src/classes/command/CommandGroup';
-import SlashCommand from '../../../src/classes/command/SlashCommand';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
+import { mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
+
+import * as path from 'path';
+import { CommandRegistry, CommandGroup, SlashCommand, ExtendedClient } from '../../../src';
 import * as DefaultCommands from '../../../src/classes/command/default';
-import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/command';
+import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
 describe('Classes: Command: CommandRegistry', () => {
   let clientMock: ExtendedClient;
@@ -158,7 +158,7 @@ describe('Classes: Command: CommandRegistry', () => {
           ['group1', 'Group1'],
           ['group2', 'Group2']
         ]);
-        registry.registerCommandsIn(path.join(__dirname, '../../../__mocks__/commandMocks'));
+        registry.registerCommandsIn(path.join(__dirname, '../../../__mocks__/local/commandMocks'));
 
         ['Group1JSCommand', 'Group1TSCommand', 'Group2Command'].forEach((commandName) => {
           expect(registry.commands.has(commandName)).toBe(true);

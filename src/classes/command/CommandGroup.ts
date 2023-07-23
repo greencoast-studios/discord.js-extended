@@ -1,11 +1,11 @@
-import Discord from 'discord.js';
-import Command from './Command';
+import { Collection } from 'discord.js';
+import { Command } from './Command';
 import { CommandTrigger } from '../../types';
 
 /**
  * A command group, contains all the commands related to a group.
  */
-class CommandGroup {
+export class CommandGroup {
   /**
    * The ID of this group.
    * @type {string}
@@ -18,24 +18,24 @@ class CommandGroup {
    * @type {string}
    * @memberof CommandGroup
    */
-  public name: string;
+  public readonly name: string;
 
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the commands
    * registered to this group, mapped by the command's name and the command.
-   * @type {Discord.Collection<string, Command>}
+   * @type {Collection<string, Command>}
    * @memberof CommandGroup
    */
-  public commands: Discord.Collection<string, Command<CommandTrigger>>;
+  public readonly commands: Collection<string, Command<CommandTrigger>>;
 
   /**
    * @param id The ID of this group.
    * @param name The name of this group.
    */
-  constructor(id: string, name: string) {
+  public constructor(id: string, name: string) {
     this.id = id;
     this.name = name;
-    this.commands = new Discord.Collection();
+    this.commands = new Collection();
   }
 
   /**
@@ -55,5 +55,3 @@ class CommandGroup {
     return this;
   }
 }
-
-export default CommandGroup;

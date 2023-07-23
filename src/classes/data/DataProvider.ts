@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
-import ExtendedClient from '../ExtendedClient';
+import { Guild } from 'discord.js';
+import { ExtendedClient } from '../ExtendedClient';
 
 /**
  * An abstract DataProvider, it contains all the methods that need to be implemented for any DataProvider with a custom backend.
  */
-abstract class DataProvider {
+export abstract class DataProvider {
   /**
    * The client that this data provider will be used by.
    * @type {ExtendedClient}
@@ -17,7 +15,7 @@ abstract class DataProvider {
   /**
    * @param client The client that this data provider will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     this.client = client;
   }
 
@@ -44,7 +42,7 @@ abstract class DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public abstract get(guild: Discord.Guild, key: string, defaultValue?: any): Promise<any>;
+  public abstract get<T>(guild: Guild, key: string, defaultValue?: T): Promise<T>;
 
   /**
    * Get a value for a key in a global scope.
@@ -52,7 +50,7 @@ abstract class DataProvider {
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public abstract getGlobal(key: string, defaultValue?: any): Promise<any>;
+  public abstract getGlobal<T>(key: string, defaultValue?: T): Promise<T>;
 
   /**
    * Set a value for a key in a guild.
@@ -61,7 +59,7 @@ abstract class DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public abstract set(guild: Discord.Guild, key: string, value: any): Promise<void>;
+  public abstract set<T>(guild: Guild, key: string, value: T): Promise<void>;
 
   /**
    * Set a value for a key in a global scope.
@@ -69,7 +67,7 @@ abstract class DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public abstract setGlobal(key: string, value: any): Promise<void>;
+  public abstract setGlobal<T>(key: string, value: T): Promise<void>;
 
   /**
    * Delete a key-value pair in a guild.
@@ -77,14 +75,14 @@ abstract class DataProvider {
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
-  public abstract delete(guild: Discord.Guild, key: string): Promise<any>;
+  public abstract delete<T>(guild: Guild, key: string): Promise<T>;
 
   /**
    * Delete a key-value pair in a global scope.
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
-  public abstract deleteGlobal(key: string): Promise<any>;
+  public abstract deleteGlobal<T>(key: string): Promise<T>;
 
   /**
    * Clear all data in a guild.
@@ -92,7 +90,7 @@ abstract class DataProvider {
    * @returns A promise that resolves once all data is deleted.
    * @emits `client#dataProviderClear`
    */
-  public abstract clear(guild: Discord.Guild): Promise<void>;
+  public abstract clear(guild: Guild): Promise<void>;
 
   /**
    * Clear all data in a global scope.
@@ -101,5 +99,3 @@ abstract class DataProvider {
    */
   public abstract clearGlobal(): Promise<void>;
 }
-
-export default DataProvider;

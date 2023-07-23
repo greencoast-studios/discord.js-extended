@@ -1,14 +1,14 @@
-import Discord from 'discord.js';
-import ExtendedClient from '../ExtendedClient';
-import CommandGroup from './CommandGroup';
-import CommandInfo from '../../interfaces/CommandInfo';
+import { PermissionResolvable, Message } from 'discord.js';
+import { ExtendedClient } from '../ExtendedClient';
+import { CommandGroup } from './CommandGroup';
+import { CommandInfo } from '../../interfaces/CommandInfo';
 import { CommandTrigger } from '../../types';
 
 /**
  * An abstract base command class. You should probably not extend this yourself
  * and instead should extend {@link RegularCommand} or {@link SlashCommand}.
  */
-abstract class Command<T extends CommandTrigger> {
+export abstract class Command<T extends CommandTrigger> {
   /**
    * The client that this command will be used by.
    * @type {ExtendedClient}
@@ -21,15 +21,15 @@ abstract class Command<T extends CommandTrigger> {
    * @type {string}
    * @memberof Command
    */
-  public name: string;
+  public readonly name: string;
 
   /**
-   * The emoji of this command. This is used by the default {@link HelpCommand}.
+   * The emoji of this command. This is used by the default {@link HelpSlashCommand}.
    * @type {string}
    * @memberof Command
    * @defaultValue 🤖
    */
-  public emoji: string;
+  public readonly emoji: string;
 
   /**
    * The group that this command is registered to.
@@ -44,14 +44,14 @@ abstract class Command<T extends CommandTrigger> {
    * @type {string}
    * @memberof Command
    */
-  public groupID: string;
+  public readonly groupID: string;
 
   /**
    * The description of this command.
    * @type {string}
    * @memberof Command
    */
-  public description: string;
+  public readonly description: string;
 
   /**
    * Whether this command may only be used in a guild.
@@ -59,7 +59,7 @@ abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `false`
    */
-  public guildOnly: boolean;
+  public readonly guildOnly: boolean;
 
   /**
    * Whether this command may only be used by the bot's owner.
@@ -67,16 +67,16 @@ abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `false`
    */
-  public ownerOnly: boolean;
+  public readonly ownerOnly: boolean;
 
   /**
    * The [permissions resolvable](https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable) that
    * defines the permissions that a user requires to execute this command.
-   * @type {(Discord.PermissionResolvable | null)}
+   * @type {(PermissionResolvable | null)}
    * @memberof Command
    * @defaultValue `null`
    */
-  public userPermissions: Discord.PermissionResolvable | null;
+  public readonly userPermissions: PermissionResolvable | null;
 
   /**
    * Whether the bot's owner can execute this command even if they don't have the required permissions.
@@ -84,7 +84,7 @@ abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `true`
    */
-  public ownerOverride: boolean;
+  public readonly ownerOverride: boolean;
 
   /**
    * Whether this command may only be used in a NSFW channel.
@@ -92,7 +92,7 @@ abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `false`
    */
-  public nsfw: boolean;
+  public readonly nsfw: boolean;
 
   /**
    * Aliases for this command.
@@ -100,13 +100,13 @@ abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `[]`
    */
-  public aliases: string[];
+  public readonly aliases: string[];
 
   /**
    * @param client The client that this command will be used by.
    * @param info This command's specific information.
    */
-  constructor(client: ExtendedClient, info: CommandInfo) {
+  protected constructor(client: ExtendedClient, info: CommandInfo) {
     this.client = client;
 
     this.name = info.name;
@@ -138,7 +138,5 @@ abstract class Command<T extends CommandTrigger> {
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public abstract onError(error: unknown, trigger: T): Promise<Discord.Message | void>;
+  public abstract onError(error: unknown, trigger: T): Promise<Message | void>;
 }
-
-export default Command;

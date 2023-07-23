@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import ExtendedClient from '../../src/classes/ExtendedClient';
-import ConcreteDataProvider from '../../__mocks__/dataProvider';
+import { mockDiscordJs } from '../../__mocks__/local/discordMocks';
+mockDiscordJs();
+
+import { ExtendedClient } from '../../src';
+import { ConcreteDataProvider } from '../../__mocks__/local/dataProvider';
 
 const MOCKED_OWNER_ID = '123';
 
@@ -162,7 +164,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register all default events.', () => {
-      const DEFAULT_EVENTS = ['error', 'guildCreate', 'guildDelete', 'guildUnavailable', 'invalidated', 'invalidRequestWarning', 'rateLimit', 'ready', 'warn'];
+      const DEFAULT_EVENTS = ['error', 'guildCreate', 'guildDelete', 'guildUnavailable', 'invalidated', 'invalidRequestWarning', 'ready', 'warn'];
 
       client.registerDefaultEvents();
 

@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
-import HelpRegularCommand from '../../../../../src/classes/command/default/regular/HelpRegularCommand';
-import ExtendedClient from '../../../../../src/classes/ExtendedClient';
-import { MessageMock } from '../../../../../__mocks__/discordMocks';
+import { HelpRegularCommand } from '../../../../../src/classes/command/default';
+import { Message, EmbedBuilder } from 'discord.js';
+import { ExtendedClient } from '../../../../../src';
+import { MessageMock } from '../../../../../__mocks__/local/discordMocks';
 
 const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
-const messageMock = new MessageMock() as unknown as Discord.Message;
+const messageMock = new MessageMock() as unknown as Message;
 
 describe('Classes: Command: Default: Regular: HelpRegularCommand', () => {
   let command: HelpRegularCommand;
@@ -22,8 +21,9 @@ describe('Classes: Command: Default: Regular: HelpRegularCommand', () => {
       const result = command.prepareFields();
 
       expect(result).toEqual([{
-        title: 'Misc',
-        text: `${command.emoji} **${clientMock.prefix}${command.name}** - ${command.description}\n`
+        name: 'Misc',
+        value: `${command.emoji} **${clientMock.prefix}${command.name}** - ${command.description}\n`,
+        inline: false
       }]);
     });
   });
@@ -35,7 +35,7 @@ describe('Classes: Command: Default: Regular: HelpRegularCommand', () => {
       return command.run(messageMock)
         .then(() => {
           expect(sendSpy).toHaveBeenCalledTimes(1);
-          expect(sendSpy.mock.calls[0][0].embeds[0]).toBeInstanceOf(Discord.MessageEmbed);
+          expect(sendSpy.mock.calls[0][0].embeds[0]).toBeInstanceOf(EmbedBuilder);
         });
     });
   });

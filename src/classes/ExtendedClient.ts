@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
-import PresenceManager from './presence/PresenceManager';
-import ConfigProvider from './config/ConfigProvider';
-import DataProvider from './data/DataProvider';
-import CommandRegistry from './command/CommandRegistry';
-import CommandDispatcher from './command/CommandDispatcher';
-import SlashCommandDeployer from './command/SlashCommandDeployer';
-import Localizer from './locale/Localizer';
-import ClientDefaultHandlers from './events/ClientDefaultHandlers';
-import ExtraClientDefaultHandlers from './events/ExtraClientDefaultHandlers';
-import ExtendedClientOptions from '../interfaces/ExtendedClientOptions';
-import ExtendedClientEvents from '../interfaces/ExtendedClientEvents';
+import { Client, User, UserResolvable, IntentsBitField } from 'discord.js';
+import { PresenceManager } from './presence/PresenceManager';
+import { ConfigProvider } from './config/ConfigProvider';
+import { DataProvider } from './data/DataProvider';
+import { CommandRegistry } from './command/CommandRegistry';
+import { CommandDispatcher } from './command/CommandDispatcher';
+import { SlashCommandDeployer } from './command/SlashCommandDeployer';
+import { Localizer } from './locale/Localizer';
+import { ClientDefaultHandlers } from './events/ClientDefaultHandlers';
+import { ExtraClientDefaultHandlers } from './events/ExtraClientDefaultHandlers';
+import { ExtendedClientOptions } from '../interfaces/ExtendedClientOptions';
+import { ExtendedClientEvents } from '../interfaces/ExtendedClientEvents';
 
 // Interface declaration to extend events emitted by ExtendedClient.
 export declare interface ExtendedClient {
@@ -42,19 +42,19 @@ export declare interface ExtendedClient {
 /**
  * A Discord.js Client extension.
  */
-export class ExtendedClient extends Discord.Client {
+export class ExtendedClient extends Client {
   /**
    * This client's options.
    * @memberof ExtendedClient
    */
-  public override options!: ExtendedClientOptions;
+  public override options!: Omit<ExtendedClientOptions, 'intents'> & { intents: IntentsBitField };
 
   /**
    * This client's presence manager.
    * @type {PresenceManager}
    * @memberof ExtendedClient
    */
-  public presenceManager: PresenceManager;
+  public readonly presenceManager: PresenceManager;
 
   /**
    * This client's data provider.
@@ -68,21 +68,21 @@ export class ExtendedClient extends Discord.Client {
    * @type {CommandRegistry}
    * @memberof ExtendedClient
    */
-  public registry: CommandRegistry;
+  public readonly registry: CommandRegistry;
 
   /**
    * This client's command dispatcher.
    * @type {CommandDispatcher}
    * @memberof ExtendedClient
    */
-  public dispatcher: CommandDispatcher;
+  public readonly dispatcher: CommandDispatcher;
 
   /**
    * This client's slash command deployer.
    * @type {SlashCommandDeployer}
    * @memberof ExtendedClient
    */
-  public deployer: SlashCommandDeployer;
+  public readonly deployer: SlashCommandDeployer;
 
   /**
    * This client's localizer. This value can be `null` if no `localizer` options are
@@ -90,13 +90,12 @@ export class ExtendedClient extends Discord.Client {
    * @type {Localizer}
    * @memberof ExtendedClient
    */
-  public localizer: Localizer | null;
+  public readonly localizer: Localizer | null;
 
   /**
    * @param options The client's options. Defaults to an empty object.
    */
-  // eslint-disable-next-line max-statements
-  constructor(options: ExtendedClientOptions = { intents: [] }) {
+  public constructor(options: ExtendedClientOptions = { intents: [] }) {
     if (!options.prefix) {
       options.prefix = '!';
     }
@@ -147,11 +146,11 @@ export class ExtendedClient extends Discord.Client {
   /**
    * The client's owner (if any).
    * @readonly
-   * @type {(Discord.User | undefined)}
+   * @type {(User | undefined)}
    * @memberof ExtendedClient
    * @defaultValue `null`
    */
-  get owner(): Discord.User | undefined {
+  get owner(): User | undefined {
     if (!this.options.owner) {
       return;
     }
@@ -212,7 +211,7 @@ export class ExtendedClient extends Discord.Client {
    * @returns Whether the tested user is the client's owner.
    * @throws Throws if the user cannot be resolved.
    */
-  public isOwner(user: Discord.UserResolvable): boolean {
+  public isOwner(user: UserResolvable): boolean {
     if (!this.options.owner) {
       return false;
     }
@@ -241,7 +240,6 @@ export class ExtendedClient extends Discord.Client {
     this.on('guildUnavailable', ClientDefaultHandlers.onGuildUnavailable);
     this.on('invalidated', ClientDefaultHandlers.onInvalidated);
     this.on('invalidRequestWarning', ClientDefaultHandlers.onInvalidRequestWarning);
-    this.on('rateLimit', ClientDefaultHandlers.onRateLimit);
     this.on('ready', ClientDefaultHandlers.onReady);
     this.on('warn', ClientDefaultHandlers.onWarn);
 
@@ -377,5 +375,3 @@ export class ExtendedClient extends Discord.Client {
    */
   public static readonly presenceRefreshInterval = 'presenceRefreshInterval';
 }
-
-export default ExtendedClient;

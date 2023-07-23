@@ -1,17 +1,25 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "ignorePatterns": ["example/*"],
+  "globals": {
+    "NodeJS": true
+  },
   "extends": [
     "greencoast/node",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "greencoast/typescript"
   ],
-  "rules": {
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "one-var": "off"
-  }
+  "overrides": [
+    {
+      "files": ["__mocks__/**/*","test/**/*"],
+      "rules": {
+        "camelcase": "off",
+        "dot-notation": "off",
+        "prefer-destructuring": "off",
+        "no-global-assign": "off",
+        "max-lines": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }

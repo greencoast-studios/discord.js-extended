@@ -1,13 +1,12 @@
-import { REST } from '@discordjs/rest';
-import { Routes } from 'discord-api-types/v9';
-import ExtendedClient from '../ExtendedClient';
+import { REST, Routes } from 'discord.js';
+import { ExtendedClient } from '../ExtendedClient';
 
 /**
  * A class to deploy slash commands to Discord. It can deploy globally or to a single
  * guild. Keep in mind that deploying globally can take up to 1 hour for changes to take effect,
  * while deploying for a single guild is immediate.
  */
-class SlashCommandDeployer {
+export class SlashCommandDeployer {
   /**
    * The client that this deployer will use.
    * @type {ExtendedClient}
@@ -25,9 +24,9 @@ class SlashCommandDeployer {
   /**
    * @param client The client that this deployer will use.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     this.client = client;
-    this.rest = new REST({ version: '9' }).setToken(this.client.token!);
+    this.rest = new REST({ version: '10' }).setToken(this.client.token!);
 
     if (!this.client.testingGuildID) {
       this.client.emit('warn', 'You have not set a testingGuildID for your client. It is recommended to have one set up to automatically deploy slash commands to the testing server.');
@@ -102,5 +101,3 @@ class SlashCommandDeployer {
     return this.deployToGuild(this.client.testingGuildID);
   }
 }
-
-export default SlashCommandDeployer;

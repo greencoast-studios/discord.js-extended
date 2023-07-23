@@ -1,10 +1,9 @@
-/* eslint-disable camelcase */
+import { ConfigProvider } from '../../../src';
 import { mocked } from 'jest-mock';
-import fs from 'fs';
-import ConfigProvider from '../../../src/classes/config/ConfigProvider';
+import * as fs from 'fs';
 
 jest.mock('fs');
-const mockedFs = mocked(fs, true);
+const mockedFs = mocked(fs, { shallow: true });
 
 describe('Classes: Config: ConfigProvider', () => {
   let config: ConfigProvider;

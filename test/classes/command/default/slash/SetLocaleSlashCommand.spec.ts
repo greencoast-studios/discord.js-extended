@@ -1,23 +1,22 @@
-import Discord from 'discord.js';
-import SetLocaleSlashCommand from '../../../../../src/classes/command/default/slash/SetLocaleSlashCommand';
-import ExtendedClient from '../../../../../src/classes/ExtendedClient';
-import GuildLocalizer from '../../../../../src/classes/locale/GuildLocalizer';
-import { InteractionMock, GuildMock } from '../../../../../__mocks__/discordMocks';
-import { mockedLocaleStrings } from '../../../../../__mocks__/locale';
+import { SetLocaleSlashCommand } from '../../../../../src/classes/command/default';
+import { ChatInputCommandInteraction, Guild } from 'discord.js';
+import { ExtendedClient, GuildLocalizer } from '../../../../../src';
+import { InteractionMock, GuildMock } from '../../../../../__mocks__/local/discordMocks';
+import { mockedLocaleStrings } from '../../../../../__mocks__/local/locale';
 
 describe('Classes: Command: Default: Slash: SetLocaleSlashCommand', () => {
   let command: SetLocaleSlashCommand;
 
   let clientMock: ExtendedClient;
-  let interactionMock: Discord.CommandInteraction;
-  let guildMock: Discord.Guild;
+  let interactionMock: ChatInputCommandInteraction;
+  let guildMock: Guild;
   let guildLocalizerMock: GuildLocalizer;
 
   beforeEach(() => {
     clientMock = new ExtendedClient({ intents: [], localizer: { defaultLocale: 'en', localeStrings: mockedLocaleStrings } });
-    interactionMock = new InteractionMock() as unknown as Discord.CommandInteraction;
+    interactionMock = new InteractionMock() as unknown as ChatInputCommandInteraction;
 
-    guildMock = new GuildMock() as Discord.Guild;
+    guildMock = new GuildMock() as Guild;
     guildLocalizerMock = new GuildLocalizer(clientMock.localizer!, guildMock);
 
     command = new SetLocaleSlashCommand(clientMock);

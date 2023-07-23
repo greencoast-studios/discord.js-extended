@@ -1,11 +1,11 @@
-import Discord from 'discord.js';
-import Localizer from './Localizer';
+import { Guild } from 'discord.js';
+import { Localizer } from './Localizer';
 
 /**
  * A class to help with localization of your bot. This handles string translation from the context of the
  * guild. For more information, check {@link Localizer}.
  */
-class GuildLocalizer {
+export class GuildLocalizer {
   /**
    * The main localizer for this guild localizer.
    * @type {Localizer}
@@ -15,10 +15,10 @@ class GuildLocalizer {
 
   /**
    * The guild that corresponds to this guild localizer.
-   * @type {Discord.Guild}
+   * @type {Guild}
    * @memberof GuildLocalizer
    */
-  public readonly guild: Discord.Guild;
+  public readonly guild: Guild;
 
   /**
    * The key to be used to save the guild's locale in the client's
@@ -41,7 +41,7 @@ class GuildLocalizer {
    * @param localizer The main localizer for this guild localizer.
    * @param guild The guild that corresponds to this guild localizer.
    */
-  constructor(localizer: Localizer, guild: Discord.Guild) {
+  public constructor(localizer: Localizer, guild: Guild) {
     this.localizer = localizer;
     this.guild = guild;
 
@@ -121,5 +121,3 @@ class GuildLocalizer {
     return this.translate(key, values);
   }
 }
-
-export default GuildLocalizer;

@@ -1,7 +1,6 @@
-import Discord from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import SlashCommand from '../../SlashCommand';
-import ExtendedClient from '../../../ExtendedClient';
+import { ColorResolvable, SlashCommandBuilder, EmbedField, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommand } from '../../SlashCommand';
+import { ExtendedClient } from '../../../ExtendedClient';
 
 /**
  * The default help message. This slash command is part of the `misc` group.
@@ -9,25 +8,25 @@ import ExtendedClient from '../../../ExtendedClient';
  * The help message will look like this: ![Preview](https://i.imgur.com/y0ffAjN.png)
  * @category misc - Miscellaneous Commands
  */
-class HelpSlashCommand extends SlashCommand {
+export class HelpSlashCommand extends SlashCommand {
   /**
    * The color of the embed for the help message.
-   * @type {Discord.ColorResolvable}
+   * @type {ColorResolvable}
    * @memberof HelpRegularCommand
    */
-  public embedColor: Discord.ColorResolvable;
+  private readonly embedColor: ColorResolvable;
 
   /**
    * The thumbnail of the embed for the help message.
    * @type {string}
    * @memberof HelpRegularCommand
    */
-  public embedThumbnail: string;
+  private readonly embedThumbnail: string;
 
   /**
    * @param client The client that this command will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     super(client, {
       name: 'help',
       emoji: ':question:',
@@ -47,13 +46,13 @@ class HelpSlashCommand extends SlashCommand {
    * The title of the field will be the group's name and the text will be the list of commands.
    * @returns An array of objects that contain the field's title and text.
    */
-  public prepareFields(): { title: string, text: string }[] {
+  public prepareFields(): EmbedField[] {
     return this.client.registry.groups.map((group) => {
       const listOfCommands = group.commands.reduce((text, command) => {
         return text.concat(`${command.emoji} **/${command.name}** - ${command.description}\n`);
       }, '');
 
-      return { title: group.name, text: listOfCommands };
+      return { name: group.name, value: listOfCommands, inline: false };
     });
   }
 
@@ -64,21 +63,15 @@ class HelpSlashCommand extends SlashCommand {
    * ```
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    */
-  public async run(interaction: Discord.CommandInteraction): Promise<void> {
-    const embed = new Discord.MessageEmbed();
-    const fields = this.prepareFields();
+  public async run(interaction: ChatInputCommandInteraction): Promise<void> {
+    const embed = new EmbedBuilder();
 
     embed.setTitle('Command List and Help');
     embed.setColor(this.embedColor);
     embed.setThumbnail(this.embedThumbnail);
 
-    for (const key in fields) {
-      const field = fields[key];
-      embed.addField(field.title, field.text);
-    }
+    embed.addFields(this.prepareFields());
 
-    return interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed] });
   }
 }
-
-export default HelpSlashCommand;
