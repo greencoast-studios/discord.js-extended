@@ -18,7 +18,7 @@ export class CommandGroup {
    * @type {string}
    * @memberof CommandGroup
    */
-  public name: string;
+  public readonly name: string;
 
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the commands
@@ -26,13 +26,13 @@ export class CommandGroup {
    * @type {Collection<string, Command>}
    * @memberof CommandGroup
    */
-  public commands: Collection<string, Command<CommandTrigger>>;
+  public readonly commands: Collection<string, Command<CommandTrigger>>;
 
   /**
    * @param id The ID of this group.
    * @param name The name of this group.
    */
-  constructor(id: string, name: string) {
+  public constructor(id: string, name: string) {
     this.id = id;
     this.name = name;
     this.commands = new Collection();

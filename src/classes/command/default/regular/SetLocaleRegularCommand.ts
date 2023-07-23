@@ -12,7 +12,7 @@ export class SetLocaleRegularCommand extends RegularCommand {
   /**
    * @param client The client that this command will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     super(client, {
       name: 'set_locale',
       emoji: ':earth_americas:',

@@ -32,7 +32,7 @@ export class ConfigValidator {
    * @type {string[]}
    * @memberof ConfigValidator
    */
-  public static VALID_TYPES: string[] = [
+  public static readonly VALID_TYPES: string[] = [
     'boolean',
     'number',
     'string',
@@ -47,7 +47,7 @@ export class ConfigValidator {
    * @type {(Record<string, string | string[]>)}
    * @memberof ConfigValidator
    */
-  public types: Record<string, string | string[]>;
+  private readonly types: Record<string, string | string[]>;
 
   /**
    * An object that maps a config key to a custom validator function.
@@ -58,13 +58,13 @@ export class ConfigValidator {
    * @type {ConfigCustomValidators}
    * @memberof ConfigValidator
    */
-  public customValidators: ConfigCustomValidators;
+  private readonly customValidators: ConfigCustomValidators;
 
   /**
    * @param types The types for this config validator.
    * @param customValidators An object that maps a config key to a custom validator function.
    */
-  constructor(types: Record<string, string | string[]>, customValidators: ConfigCustomValidators = {}) {
+  public constructor(types: Record<string, string | string[]>, customValidators: ConfigCustomValidators = {}) {
     this.validateTypes(types);
 
     this.types = types;

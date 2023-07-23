@@ -77,7 +77,7 @@ export class Localizer {
    * @param options The options for this localizer.
    * @throws Throws if the supplied default locale is not supported.
    */
-  constructor(client: ExtendedClient, options: LocalizerOptions) {
+  public constructor(client: ExtendedClient, options: LocalizerOptions) {
     this.client = client;
     this.localeStrings = options.localeStrings;
 

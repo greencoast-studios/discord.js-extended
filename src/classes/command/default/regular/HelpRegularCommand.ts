@@ -14,19 +14,19 @@ export class HelpRegularCommand extends RegularCommand {
    * @type {ColorResolvable}
    * @memberof HelpRegularCommand
    */
-  public embedColor: ColorResolvable;
+  private readonly embedColor: ColorResolvable;
 
   /**
    * The thumbnail of the embed for the help message.
    * @type {string}
    * @memberof HelpRegularCommand
    */
-  public embedThumbnail: string;
+  private readonly embedThumbnail: string;
 
   /**
    * @param client The client that this command will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     super(client, {
       name: 'help',
       emoji: ':question:',

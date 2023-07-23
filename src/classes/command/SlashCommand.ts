@@ -18,14 +18,14 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
    * @type SlashCommandBuilder
    * @memberof SlashCommand
    */
-  public dataBuilder: SlashCommandBuilder;
+  public readonly dataBuilder: SlashCommandBuilder;
 
   /**
    * @param client The client that this command will be used by.
    * @param info This command's specific information.
    * @throws Throws if no `info.dataBuilder` is not specified.
    */
-  constructor(client: ExtendedClient, info: SlashCommandInfo) {
+  protected constructor(client: ExtendedClient, info: SlashCommandInfo) {
     if (!info.dataBuilder) {
       throw new Error('Data builder is required for any slash command!');
     }

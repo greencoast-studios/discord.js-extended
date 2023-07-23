@@ -15,7 +15,7 @@ export abstract class DataProvider {
   /**
    * @param client The client that this data provider will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     this.client = client;
   }
 

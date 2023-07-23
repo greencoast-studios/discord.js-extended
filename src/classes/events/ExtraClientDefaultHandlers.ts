@@ -12,7 +12,7 @@ export class ExtraClientDefaultHandlers {
   /**
    * Log that a data provider has been added to the client.
    */
-  static onDataProviderAdd(): void {
+  public static onDataProviderAdd(): void {
     logger.info('Added data provider to client.');
   }
 
@@ -21,21 +21,21 @@ export class ExtraClientDefaultHandlers {
    * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which
    * the data has been cleared.
    */
-  static onDataProviderClear(guild: Guild | null): void {
+  public static onDataProviderClear(guild: Guild | null): void {
     logger.warn(`Cleared data in data provider for ${guild?.name || 'global keys'}.`);
   }
 
   /**
    * Log that the data provider has been initialized.
    */
-  static onDataProviderInit(): void {
+  public static onDataProviderInit(): void {
     logger.info('DataProvider has been initialized.');
   }
 
   /**
    * Log that the data provider has been destroyed.
    */
-  static onDataProviderDestroy(): void {
+  public static onDataProviderDestroy(): void {
     logger.warn('DataProvider has been destroyed.');
   }
 
@@ -46,7 +46,7 @@ export class ExtraClientDefaultHandlers {
    * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that
    * triggered the command execution.
    */
-  static onCommandExecute(command: Command<CommandTrigger>, trigger: CommandTrigger): void {
+  public static onCommandExecute(command: Command<CommandTrigger>, trigger: CommandTrigger): void {
     if (trigger instanceof Message) {
       logger.info(`User ${trigger.member?.displayName || trigger.author.username} issued command ${command.name} in ${trigger.guild?.name || 'DM'}`);
     } else {
@@ -66,7 +66,7 @@ export class ExtraClientDefaultHandlers {
    * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that
    * triggered the command execution.
    */
-  static onCommandError(error: unknown, command: Command<CommandTrigger>, trigger: CommandTrigger): void {
+  public static onCommandError(error: unknown, command: Command<CommandTrigger>, trigger: CommandTrigger): void {
     logger.error(`Something happened when executing ${command.name} in ${trigger.guild?.name || 'DM'}.`);
 
     if (trigger instanceof Message) {
@@ -82,7 +82,7 @@ export class ExtraClientDefaultHandlers {
    * Log that a group has been registered to the client.
    * @param group The command group that was registered.
    */
-  static onGroupRegistered(group: CommandGroup): void {
+  public static onGroupRegistered(group: CommandGroup): void {
     logger.info(`Registered ${group.name} (id: ${group.id}) command group.`);
   }
 
@@ -90,7 +90,7 @@ export class ExtraClientDefaultHandlers {
    * Log that a command has been registered to the client.
    * @param command The command that was registered.
    */
-  static onCommandRegistered(command: Command<CommandTrigger>): void {
+  public static onCommandRegistered(command: Command<CommandTrigger>): void {
     logger.info(`Registered ${command.name} in ${command.group?.name}.`);
   }
 
@@ -98,7 +98,7 @@ export class ExtraClientDefaultHandlers {
    * Log that the client's presence has been updated.
    * @param status The presence status.
    */
-  static onPresenceUpdated(status: string): void {
+  public static onPresenceUpdated(status: string): void {
     logger.info(`Presence updated to: ${status}`);
   }
 
@@ -106,7 +106,7 @@ export class ExtraClientDefaultHandlers {
    * Log the error that was thrown while updating the client's presence.
    * @param error The error that was thrown.
    */
-  static onPresenceUpdateError(error: unknown): void {
+  public static onPresenceUpdateError(error: unknown): void {
     logger.error('Could not update presence!');
     logger.error(error);
   }
@@ -115,7 +115,7 @@ export class ExtraClientDefaultHandlers {
    * Log that the presence manager's refresh interval has been updated.
    * @param interval The new presence manager's refresh interval.
    */
-  static onPresenceRefreshInterval(interval: number | null): void {
+  public static onPresenceRefreshInterval(interval: number | null): void {
     if (!interval) {
       logger.info('Refresh interval has been disabled.');
       return;
@@ -124,7 +124,7 @@ export class ExtraClientDefaultHandlers {
     logger.info(`Refresh interval updated, presence will be updated every ${interval}ms.`);
   }
 
-  static onCommandsDeployed(commands: SlashCommand[], guildID: string | null): void {
+  public static onCommandsDeployed(commands: SlashCommand[], guildID: string | null): void {
     if (guildID) {
       logger.info(`Successfully deployed ${commands.length} slash commands to ${guildID}`);
     } else {

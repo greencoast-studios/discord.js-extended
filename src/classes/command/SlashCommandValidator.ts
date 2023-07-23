@@ -12,7 +12,6 @@ export class SlashCommandValidator {
   private static readonly DESC_MIN: number = 1;
   private static readonly DESC_MAX: number = 100;
 
-
   /**
    * Validate a given slash command.
    * @param command The slash command to validate.

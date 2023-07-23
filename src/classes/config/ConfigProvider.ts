@@ -96,7 +96,7 @@ export class ConfigProvider {
    * @param options The options for this config provider.
    * @throws Throws if it is not possible to cast a value to its given type.
    */
-  constructor(options: ConfigProviderOptions = {}) {
+  public constructor(options: ConfigProviderOptions = {}) {
     this.options = options;
     this.default = options.default;
     this.config = {};
@@ -114,8 +114,8 @@ export class ConfigProvider {
    * @param key The key of the configuration. Keys are upper-cased.
    * @returns The corresponding value.
    */
-  public get(key: string): ConfigValue | undefined {
-    return this.config[key];
+  public get<T extends ConfigValue>(key: string): T | undefined {
+    return this.config[key] as T;
   }
 
   /**

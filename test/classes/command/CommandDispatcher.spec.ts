@@ -87,7 +87,7 @@ describe('Classes: Command: CommandDispatcher', () => {
     });
 
     it('should not run the command if command is guild only and message was not sent in a guild.', () => {
-      regularCommand.guildOnly = true;
+      Object.defineProperty(regularCommand, 'guildOnly', { value: true });
       Object.defineProperty(message, 'guild', { value: null });
 
       return dispatcher.handleMessage(message)
@@ -134,7 +134,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should not execute NSFW command in a non NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: false });
-      regularCommand.nsfw = true;
+      Object.defineProperty(regularCommand, 'nsfw', { value: true });
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -144,7 +144,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should reply that the NSFW command may not be executed in a non NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: false });
-      regularCommand.nsfw = true;
+      Object.defineProperty(regularCommand, 'nsfw', { value: true });
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -155,7 +155,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should execute the NSFW command in a NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: true });
-      regularCommand.nsfw = true;
+      Object.defineProperty(regularCommand, 'nsfw', { value: true });
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -198,7 +198,7 @@ describe('Classes: Command: CommandDispatcher', () => {
     });
 
     it('should not run the command if command is guild only and interaction was not sent in a guild.', () => {
-      slashCommand.guildOnly = true;
+      Object.defineProperty(slashCommand, 'guildOnly', { value: true });
       const inGuildSpy = interaction.inGuild as jest.Mock;
       inGuildSpy.mockReturnValue(false);
 
@@ -247,7 +247,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should not execute NSFW command in a non NSFW channel.', () => {
       Object.defineProperty(interaction.channel, 'nsfw', { value: false });
-      slashCommand.nsfw = true;
+      Object.defineProperty(slashCommand, 'nsfw', { value: true });
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
@@ -257,7 +257,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should reply that the NSFW command may not be executed in a non NSFW channel.', () => {
       Object.defineProperty(interaction.channel, 'nsfw', { value: false });
-      slashCommand.nsfw = true;
+      Object.defineProperty(slashCommand, 'nsfw', { value: true });
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
@@ -269,7 +269,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should execute the NSFW command in a NSFW channel.', () => {
       Object.defineProperty(interaction.channel, 'nsfw', { value: true });
-      slashCommand.nsfw = true;
+      Object.defineProperty(slashCommand, 'nsfw', { value: true });
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {

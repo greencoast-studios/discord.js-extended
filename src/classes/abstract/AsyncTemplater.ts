@@ -9,12 +9,12 @@ export abstract class AsyncTemplater {
    * @type {string[]}
    * @memberof AsyncTemplater
    */
-  public keys: string[];
+  public readonly keys: string[];
 
   /**
    * @param keys All the keys that should be replaced inside the string.
    */
-  constructor(keys: string[]) {
+  public constructor(keys: string[]) {
     this.keys = keys;
   }
 

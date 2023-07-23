@@ -41,7 +41,7 @@ export class GuildLocalizer {
    * @param localizer The main localizer for this guild localizer.
    * @param guild The guild that corresponds to this guild localizer.
    */
-  constructor(localizer: Localizer, guild: Guild) {
+  public constructor(localizer: Localizer, guild: Guild) {
     this.localizer = localizer;
     this.guild = guild;
 

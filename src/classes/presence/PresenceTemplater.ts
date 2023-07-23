@@ -42,13 +42,13 @@ export class PresenceTemplater extends AsyncTemplater {
    * @type {PresenceTemplaterGetters}
    * @memberof PresenceTemplater
    */
-  public customGetters: PresenceTemplaterGetters;
+  public readonly customGetters: PresenceTemplaterGetters;
 
   /**
    * @param client The client that this presence async templater will use as a data source.
    * @param customGetters The custom getters object to define custom templates.
    */
-  constructor(client: ExtendedClient, customGetters: PresenceTemplaterGetters) {
+  public constructor(client: ExtendedClient, customGetters: PresenceTemplaterGetters) {
     super([
       'num_guilds',
       'prefix',

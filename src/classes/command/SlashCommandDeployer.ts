@@ -24,9 +24,9 @@ export class SlashCommandDeployer {
   /**
    * @param client The client that this deployer will use.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     this.client = client;
-    this.rest = new REST({ version: '9' }).setToken(this.client.token!);
+    this.rest = new REST({ version: '10' }).setToken(this.client.token!);
 
     if (!this.client.testingGuildID) {
       this.client.emit('warn', 'You have not set a testingGuildID for your client. It is recommended to have one set up to automatically deploy slash commands to the testing server.');

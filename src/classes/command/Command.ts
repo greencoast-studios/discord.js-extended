@@ -21,15 +21,15 @@ export abstract class Command<T extends CommandTrigger> {
    * @type {string}
    * @memberof Command
    */
-  public name: string;
+  public readonly name: string;
 
   /**
-   * The emoji of this command. This is used by the default {@link HelpCommand}.
+   * The emoji of this command. This is used by the default {@link HelpSlashCommand}.
    * @type {string}
    * @memberof Command
    * @defaultValue 🤖
    */
-  public emoji: string;
+  public readonly emoji: string;
 
   /**
    * The group that this command is registered to.
@@ -44,14 +44,14 @@ export abstract class Command<T extends CommandTrigger> {
    * @type {string}
    * @memberof Command
    */
-  public groupID: string;
+  public readonly groupID: string;
 
   /**
    * The description of this command.
    * @type {string}
    * @memberof Command
    */
-  public description: string;
+  public readonly description: string;
 
   /**
    * Whether this command may only be used in a guild.
@@ -59,7 +59,7 @@ export abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `false`
    */
-  public guildOnly: boolean;
+  public readonly guildOnly: boolean;
 
   /**
    * Whether this command may only be used by the bot's owner.
@@ -67,7 +67,7 @@ export abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `false`
    */
-  public ownerOnly: boolean;
+  public readonly ownerOnly: boolean;
 
   /**
    * The [permissions resolvable](https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable) that
@@ -76,7 +76,7 @@ export abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `null`
    */
-  public userPermissions: PermissionResolvable | null;
+  public readonly userPermissions: PermissionResolvable | null;
 
   /**
    * Whether the bot's owner can execute this command even if they don't have the required permissions.
@@ -84,7 +84,7 @@ export abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `true`
    */
-  public ownerOverride: boolean;
+  public readonly ownerOverride: boolean;
 
   /**
    * Whether this command may only be used in a NSFW channel.
@@ -92,7 +92,7 @@ export abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `false`
    */
-  public nsfw: boolean;
+  public readonly nsfw: boolean;
 
   /**
    * Aliases for this command.
@@ -100,13 +100,13 @@ export abstract class Command<T extends CommandTrigger> {
    * @memberof Command
    * @defaultValue `[]`
    */
-  public aliases: string[];
+  public readonly aliases: string[];
 
   /**
    * @param client The client that this command will be used by.
    * @param info This command's specific information.
    */
-  constructor(client: ExtendedClient, info: CommandInfo) {
+  protected constructor(client: ExtendedClient, info: CommandInfo) {
     this.client = client;
 
     this.name = info.name;

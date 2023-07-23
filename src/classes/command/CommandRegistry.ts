@@ -24,7 +24,7 @@ export class CommandRegistry {
    * @type {Collection<string, Command>}
    * @memberof CommandRegistry
    */
-  public commands: Collection<string, Command<CommandTrigger>>;
+  public readonly commands: Collection<string, Command<CommandTrigger>>;
 
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the groups registered
@@ -32,12 +32,12 @@ export class CommandRegistry {
    * @type {Collection<string, CommandGroup>}
    * @memberof CommandRegistry
    */
-  public groups: Collection<string, CommandGroup>;
+  public readonly groups: Collection<string, CommandGroup>;
 
   /**
    * @param client The client that this command registry will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     this.client = client;
     this.commands = new Collection();
     this.groups = new Collection();

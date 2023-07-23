@@ -54,7 +54,7 @@ export class ExtendedClient extends Client {
    * @type {PresenceManager}
    * @memberof ExtendedClient
    */
-  public presenceManager: PresenceManager;
+  public readonly presenceManager: PresenceManager;
 
   /**
    * This client's data provider.
@@ -68,21 +68,21 @@ export class ExtendedClient extends Client {
    * @type {CommandRegistry}
    * @memberof ExtendedClient
    */
-  public registry: CommandRegistry;
+  public readonly registry: CommandRegistry;
 
   /**
    * This client's command dispatcher.
    * @type {CommandDispatcher}
    * @memberof ExtendedClient
    */
-  public dispatcher: CommandDispatcher;
+  public readonly dispatcher: CommandDispatcher;
 
   /**
    * This client's slash command deployer.
    * @type {SlashCommandDeployer}
    * @memberof ExtendedClient
    */
-  public deployer: SlashCommandDeployer;
+  public readonly deployer: SlashCommandDeployer;
 
   /**
    * This client's localizer. This value can be `null` if no `localizer` options are
@@ -90,12 +90,12 @@ export class ExtendedClient extends Client {
    * @type {Localizer}
    * @memberof ExtendedClient
    */
-  public localizer: Localizer | null;
+  public readonly localizer: Localizer | null;
 
   /**
    * @param options The client's options. Defaults to an empty object.
    */
-  constructor(options: ExtendedClientOptions = { intents: new IntentsBitField() }) {
+  public constructor(options: ExtendedClientOptions = { intents: new IntentsBitField() }) {
     if (!options.prefix) {
       options.prefix = '!';
     }

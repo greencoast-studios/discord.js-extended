@@ -26,7 +26,7 @@ export class CommandDispatcher {
    * @param client The client that this command dispatcher will be used by.
    * @param registry he command registry used by this command dispatcher.
    */
-  constructor(client: ExtendedClient, registry: CommandRegistry) {
+  public constructor(client: ExtendedClient, registry: CommandRegistry) {
     this.client = client;
     this.registry = registry;
   }

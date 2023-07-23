@@ -51,7 +51,7 @@ export class PresenceManager {
    * @param client The client that this presence manager will be used by.
    * @param options The options for this presence manager.
    */
-  constructor(client: ExtendedClient, options: PresenceManagerOptions = {}) {
+  public constructor(client: ExtendedClient, options: PresenceManagerOptions = {}) {
     if (!options.templates) {
       options.templates = ['{num_guilds} servers!'];
     }
