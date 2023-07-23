@@ -1,4 +1,4 @@
-[![ci-build-status](https://img.shields.io/github/workflow/status/greencoast-studios/discord.js-extended/CI?logo=github)](https://github.com/greencoast-studios/discord.js-extended)
+[![ci-build-status](https://img.shields.io/github/actions/workflow/status/greencoast-studios/discord.js-extended/push.yml?logo=github&label=build)](https://github.com/greencoast-studios/discord.js-extended)
 [![issues](https://img.shields.io/github/issues/greencoast-studios/discord.js-extended?logo=github)](https://github.com/greencoast-studios/discord.js-extended)
 [![bundle-size](https://img.shields.io/bundlephobia/min/@greencoast/discord.js-extended)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
 [![node-version](https://img.shields.io/node/v/@greencoast/discord.js-extended?logo=Node.js&color=green)](https://www.npmjs.com/package/@greencoast/discord.js-extended)
@@ -9,15 +9,15 @@
 
 # Discord.js - Extended
 
-[discord.js-extended](https://github.com/greencoast-studios/discord.js-extended) is a library that facilitates the repetitive tasks when creating Discord bots with [Discord.js](https://discord.js.org/#/). Used by [Greencoast Studios](https://greencoaststudios.com).
+[discord.js-extended](https://github.com/greencoast-studios/discord.js-extended) is a framework that facilitates the repetitive tasks when creating Discord bots with [Discord.js](https://discord.js.org/#/). Used by [Greencoast Studios](https://greencoaststudios.com).
 
-Heavily inspired by [discord.js-commando](https://www.npmjs.com/package/discord.js-commando), it includes similar design decisions, however this adds certain functionality that isn't available like a configuration provider and automatic presence management. This package does not include all functionality provided by Commando, in fact, Commando is way more powerful than this library. Nevertheless, this was built to make it easier for us to quickly build bots without having to repeat ourselves that much.
+Heavily inspired by [discord.js-commando](https://www.npmjs.com/package/discord.js-commando), it includes similar design decisions, however this adds certain functionality that isn't available like a configuration provider and automatic presence management. This package does not include all functionality provided by Commando, in fact, Commando is way more powerful than this framework. Nevertheless, this was built to make it easier for us to quickly build bots without having to repeat ourselves that much.
 
-This was made for [Discord.js](https://discord.js.org/#/) v13.5, however any v13 should work fine.
+This was made for [Discord.js](https://discord.js.org/#/) v14.11, however any v14 should work fine.
 
 ## Usage
 
-You can visit the [documentation site](https://docs.greencoaststudios.com/discord.js-extended/master) to see what this library offers, check the [example](https://github.com/greencoast-studios/discord.js-extended/tree/master/example) bot, or check the [bots using this section](#bots-using-this) to see even more examples.
+You can visit the [documentation site](https://docs.greencoaststudios.com/discord.js-extended/master) to see what this framework offers, check the [example bot](https://github.com/greencoast-studios/djs-extended-example), or check the [bots using this section](#bots-using-this) to see even more examples.
 
 ### Installation
 
@@ -86,7 +86,7 @@ This package exports an extension of the regular [Discord.js Client](https://dis
 ```js
 const path = require('path');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
-const { Intents } = require('discord.js');
+const { IntentsBitField } = require('discord.js');
 
 const config = new ConfigProvider({
   env: process.env,
@@ -109,7 +109,7 @@ const client = new ExtendedClient({
     }
   },
   errorOwnerReporting: true, // Sends DMs to the bot's owner whenever a command throws an error.
-  intents: [Intents.FLAGS.GUILDS]
+  intents: new IntentsBitField(IntentsBitField.Flags.Guilds).bitfield
 });
 
 client.login(<YOUR_DISCORD_TOKEN_HERE>);
@@ -126,7 +126,7 @@ You can register default handlers for the [Discord.js Client](https://docs.green
 client.registerDefaultEvents().registerExtraDefaultEvents();
 ```
 
-The package also comes with default commands that you can use on your bot. Check the [Default Commands](https://docs.greencoaststudios.com/discord.js-extended/master/modules/defaultcommands.html) to see the available commands you can register right away. You can register them like:
+The package also comes with default commands that you can use on your bot. Check the [Default Commands](https://docs.greencoaststudios.com/discord.js-extended/master/modules/defaultcommands.html) to see the available commands you can register right away. You can register them with:
 
 ```js
 client.registry.registerDefaults();
@@ -152,53 +152,7 @@ await client.dataProvider.clearGlobal(); // Clear all data in the global scope.
 
 > You need to set up a data provider before being able to use any of these methods.
 
-#### LevelDataProvider
-
-[LevelDataProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/dataproviders.leveldataprovider.html) is a data provider implemented with a [LevelDB](https://www.npmjs.com/package/level) backend. In order to use this, you need to install [level](https://www.npmjs.com/package/level).
-This data provider was made for `level@7.0.1` but any v7 should work.
-
-```text
-npm install level
-```
-
-In order to set up this data provider, you need to import it and add it to your client.
-
-```js
-const LevelDataProvider = require('@greencoast/discord.js-extended/dist/providers/LevelDataProvider').default;
-
-const provider = new LevelDataProvider(client, 'database_location');
-
-client.on('ready', async() => {
-  await client.setProvider(provider);
-});
-```
-
-#### RedisDataProvider
-
-[RedisDataProvider](https://docs.greencoaststudios.com/discord.js-extended/master/classes/dataproviders.redisdataprovider.html) is a data provider implemented with a [Redis](https://www.npmjs.com/package/redis) backend. In order to use this, you need to install [redis](https://www.npmjs.com/package/redis).
-This data provider was made for `redis@4.0.2` but any v4 should work.
-
-```text
-npm install redis
-```
-
-In order to set up this data provider, you need to import it and add it to your client.
-
-```js
-const RedisDataProvider = require('@greencoast/discord.js-extended/dist/providers/RedisDataProvider').default;
-
-const provider = new RedisDataProvider(client, { 
-  url: 'redis://alice:foobared@awesome.redis.server:6380'
-});
-
-client.on('ready', async() => {
-  await client.setProvider(provider);
-});
-```
-
-> Keep in mind that Redis was originally meant to be a cache, data is deleted by default across
-> service restarts. You can achieve persistence by [properly configuring](https://redis.io/topics/persistence) your
-> Redis instance.
+<!-- TODO: Add information on how to use concrete data providers. -->
 
 ### Localizing Your Bot
 
@@ -212,7 +166,7 @@ const client = new ExtendedClient({
     dataProviderKey: 'locale', // The key to be used to store the locale for each guild in the client's data provider.
     localeStrings: locales
   },
-  intents: ['GUILDS']
+  intents: new IntentsBitField(IntentsBitField.Flags.Guilds).bitfield
 });
 
 client.on('ready', async() => {
@@ -340,9 +294,8 @@ client.registry
 You can also use Slash Commands, the package contains a [SlashCommand](https://docs.greencoaststudios.com/discord.js-extended/master/classes/discord_js_extended.slashcommand.html) to facilitate the creation of slash commands. In order to create one, you need to create a class that extends SlashCommand and implements a `run()` method.
 
 ```js
-const { Permissions } = require('discord.js');
+const { PermissionsBitField, SlashCommandBuilder } = require('discord.js');
 const { SlashCommand } = require('@greencoast/discord.js-extended');
-const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = class MyCommand extends SlashCommand {
   constructor(client) {
@@ -355,7 +308,7 @@ module.exports = class MyCommand extends SlashCommand {
       guildOnly: true, // Whether the command may only be used in a guild. Defaults to false.
       nsfw: false, // Whether the command may only be used in a NSFW channel. Defaults to false.
       ownerOnly: false, // Whether the command may only be used by the owner. Defaults to false.
-      userPermissions: Permissions.FLAGS.MANAGE_CHANNELS, // The PermissionResolvable representing the permissions that users require to execute this command. Defaults to null.
+      userPermissions: PermissionsBitField.Flags.ManageChannels, // The PermissionResolvable representing the permissions that users require to execute this command. Defaults to null.
       ownerOverride: true, // Whether the owner may execute this command even if they don't have the required permissions. Defaults to true.
       dataBuilder: new SlashCommandBuilder() // You do not need to use .setName() and .setDescription(), they're handled internally with the data above.
     });
@@ -365,12 +318,6 @@ module.exports = class MyCommand extends SlashCommand {
     }
   }
 }
-```
-
-To use slash commands, you need to install the following package to access the `SlashCommandBuilder` class:
-
-```text
-npm install @discordjs/builders
 ```
 
 > Keep in mind that you do not need to use `SlashCommandBuilder.setName()` and `SlashCommandBuilder.setDescription()` as
@@ -402,6 +349,7 @@ can work as a potential deploy script.
 ```js
 require('dotenv').config();
 const path = require('path');
+const { IntentsBitField } = require('discord.js');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
 
 const config = new ConfigProvider({
@@ -414,7 +362,7 @@ const config = new ConfigProvider({
 
 const client = new ExtendedClient({
   config,
-  intents: []
+  intents: new IntentsBitField().bitfield
 });
 
 client.registry
