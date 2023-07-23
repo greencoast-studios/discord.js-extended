@@ -112,7 +112,7 @@ export class Localizer {
 
   /**
    * Handles the creation and initialization of a newly joined guild's localizer.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) that was joined.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) that was joined.
    * @private
    * @returns A promise that resolves once the guild localizer is ready.
    * @throws Rejects if the guild localizer was being initialized with an unsupported locale retrieved
@@ -127,7 +127,7 @@ export class Localizer {
 
   /**
    * Handles the deletion of the localizer of the guild that has been left.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) that was left.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) that was left.
    * @private
    * @returns A promise that resolves once the guild localizer has been removed from both this and the data
    * provider (if any).

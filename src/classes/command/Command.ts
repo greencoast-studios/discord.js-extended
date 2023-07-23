@@ -70,7 +70,7 @@ export abstract class Command<T extends CommandTrigger> {
   public readonly ownerOnly: boolean;
 
   /**
-   * The [permissions resolvable](https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable) that
+   * The [permissions resolvable](https://old.discordjs.dev/#/docs/discord.js/main/typedef/PermissionResolvablee) that
    * defines the permissions that a user requires to execute this command.
    * @type {(PermissionResolvable | null)}
    * @memberof Command
@@ -124,8 +124,8 @@ export abstract class Command<T extends CommandTrigger> {
 
   /**
    * Check whether the message author can execute this command.
-   * @param trigger The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) or
-   * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that triggered this command.
+   * @param trigger The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) or
+   * [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
   public abstract hasPermission(trigger: T): boolean | string;
@@ -133,8 +133,8 @@ export abstract class Command<T extends CommandTrigger> {
   /**
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
-   * @param trigger The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) or
-   * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that triggered this command.
+   * @param trigger The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) or
+   * [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that triggered this command.
    * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */

@@ -60,8 +60,8 @@ export class HelpRegularCommand extends RegularCommand {
    * ```text
    * $help
    * ```
-   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
-   * @returns The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) where the help message embed was sent.
+   * @param message The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) that triggered this command.
+   * @returns The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) where the help message embed was sent.
    */
   public async run(message: Message): Promise<void> {
     const embed = new EmbedBuilder();

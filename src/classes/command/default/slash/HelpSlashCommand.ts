@@ -61,7 +61,7 @@ export class HelpSlashCommand extends SlashCommand {
    * ```text
    * $help
    * ```
-   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that triggered this command.
    */
   public async run(interaction: ChatInputCommandInteraction): Promise<void> {
     const embed = new EmbedBuilder();

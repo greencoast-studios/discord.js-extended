@@ -28,7 +28,7 @@ export class SetLocaleRegularCommand extends RegularCommand {
    * ```text
    * /set_locale <locale>
    * ```
-   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
+   * @param message The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
   public async run(message: Message, args: string[]): Promise<void> {

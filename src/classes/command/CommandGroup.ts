@@ -21,7 +21,7 @@ export class CommandGroup {
   public readonly name: string;
 
   /**
-   * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the commands
+   * A [collection](https://discord.js.org/docs/packages/collection/main/Collection:Class) of the commands
    * registered to this group, mapped by the command's name and the command.
    * @type {Collection<string, Command>}
    * @memberof CommandGroup

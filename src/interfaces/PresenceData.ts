@@ -6,13 +6,13 @@ import { ActivityType } from 'discord-api-types/v10';
  */
 export interface PresenceData {
   /**
-   * The [activity type](https://discord.js.org/#/docs/main/stable/typedef/ActivityType) to be used.
-   * @defaultValue `PLAYING`
+   * The [activity type](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityType) to be used.
+   * @defaultValue `ActivityType.Playing`
    */
   type?: Exclude<ActivityType, ActivityType.Custom>,
 
   /**
-   * The [presence status data](https://discord.js.org/#/docs/main/stable/typedef/PresenceStatusData) to be used.
+   * The [presence status data](https://old.discordjs.dev/#/docs/discord.js/main/typedef/PresenceStatusData) to be used.
    * @defaultValue `online`
    */
   status?: PresenceStatusData,

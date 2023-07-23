@@ -19,7 +19,7 @@ export class CommandRegistry {
   public readonly client: ExtendedClient;
 
   /**
-   * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the commands registered
+   * A [collection](https://discord.js.org/docs/packages/collection/main/Collection:Class) of the commands registered
    * to this registry, mapped by the command's name and the command.
    * @type {Collection<string, Command>}
    * @memberof CommandRegistry
@@ -27,7 +27,7 @@ export class CommandRegistry {
   public readonly commands: Collection<string, Command<CommandTrigger>>;
 
   /**
-   * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the groups registered
+   * A [collection](https://discord.js.org/docs/packages/collection/main/Collection:Class) of the groups registered
    * to this registry, mapped by the group's ID and the group.
    * @type {Collection<string, CommandGroup>}
    * @memberof CommandRegistry

@@ -1,6 +1,6 @@
-import { DataProvider } from '../../src';
+import { DataProvider, ClearableDataProvider } from '../../src';
 
-export class ConcreteDataProvider extends DataProvider {
+export class ConcreteDataProvider extends DataProvider implements ClearableDataProvider {
   public override init(): Promise<this> {
     return Promise.resolve(this);
   }
@@ -25,10 +25,10 @@ export class ConcreteDataProvider extends DataProvider {
   public override deleteGlobal(): Promise<any> {
     return Promise.resolve();
   }
-  public override clear(): Promise<void> {
+  public clear(): Promise<void> {
     return Promise.resolve();
   }
-  public override clearGlobal(): Promise<void> {
+  public clearGlobal(): Promise<void> {
     return Promise.resolve();
   }
 }
