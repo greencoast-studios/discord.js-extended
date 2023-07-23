@@ -31,19 +31,21 @@ export class SetLocaleRegularCommand extends RegularCommand {
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
-  public async run(message: Message, args: string[]): Promise<Message> {
+  public async run(message: Message, args: string[]): Promise<void> {
     const localizer = this.client.localizer!.getLocalizer(message.guild!)!; // We know it comes from a guild because of guildOnly.
     const [newLocale] = args;
 
     if (!newLocale) {
-      return message.reply('You need to specify a locale.');
+      await message.reply('You need to specify a locale.');
+      return;
     }
 
     if (newLocale === localizer.locale) {
-      return message.reply(`Locale is already set to ${localizer.locale}.`);
+      await message.reply(`Locale is already set to ${localizer.locale}.`);
+      return;
     }
 
     await localizer.updateLocale(newLocale); // Failure caught by onError.
-    return message.reply(`Successfully updated locale to ${newLocale}.`);
+    await message.reply(`Successfully updated locale to ${newLocale}.`);
   }
 }

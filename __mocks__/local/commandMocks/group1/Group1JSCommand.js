@@ -10,8 +10,8 @@ class Group1JSCommand extends RegularCommand {
     });
   }
 
-  run(message) {
-    return Promise.resolve(message);
+  run() {
+    return Promise.resolve();
   }
 }
 

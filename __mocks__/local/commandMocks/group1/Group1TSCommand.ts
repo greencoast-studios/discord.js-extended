@@ -1,4 +1,3 @@
-import { Message } from 'discord.js';
 import { ExtendedClient, RegularCommand } from '../../../../src';
 
 jest.mock('discord.js');
@@ -13,8 +12,8 @@ class Group1TSCommand extends RegularCommand {
     });
   }
 
-  run(message: Message): Promise<Message> {
-    return Promise.resolve(message);
+  run(): Promise<void> {
+    return Promise.resolve();
   }
 }
 

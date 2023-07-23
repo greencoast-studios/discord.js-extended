@@ -63,7 +63,7 @@ export class HelpRegularCommand extends RegularCommand {
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @returns The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) where the help message embed was sent.
    */
-  public run(message: Message): Promise<Message> {
+  public async run(message: Message): Promise<void> {
     const embed = new EmbedBuilder();
 
     embed.setTitle('Command List and Help');
@@ -72,6 +72,6 @@ export class HelpRegularCommand extends RegularCommand {
 
     embed.addFields(this.prepareFields());
 
-    return message.channel.send({ embeds: [embed] });
+    await message.channel.send({ embeds: [embed] });
   }
 }

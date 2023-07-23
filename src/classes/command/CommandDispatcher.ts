@@ -34,12 +34,9 @@ export class CommandDispatcher {
   /**
    * Handles command fetching and execution for message based commands (RegularCommand).
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this handler.
-   * @returns A promise that resolves to the result of the command's run method.
-   * If an error occurs, the promise resolves to the error message reply.
-   * Otherwise, the promise resolves to nothing.
    * @emits `client#commandExecute`
    */
-  public async handleMessage(message: Message): Promise<Message | void> {
+  public async handleMessage(message: Message): Promise<void> {
     if (message.partial || message.author.bot || !message.content.startsWith(this.client.prefix)) {
       return;
     }
@@ -67,21 +64,18 @@ export class CommandDispatcher {
       }
 
       this.client.emit('commandExecute', command, message);
-      return await command.run(message, args);
+      await command.run(message, args);
     } catch (error) {
-      return await command.onError(error, message);
+      await command.onError(error, message);
     }
   }
 
   /**
    * Handles command fetching and execution for slash commands.
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that triggered this handler.
-   * @returns A promise that resolves to the result of the command's run method.
-   * If an error occurs, the promise resolves to the error message reply.
-   * Otherwise, the promise resolves to nothing.
    * @emits `client#commandExecute`
    */
-  public async handleInteraction(interaction: Interaction): Promise<Message | void> {
+  public async handleInteraction(interaction: Interaction): Promise<void> {
     if (!interaction.isChatInputCommand()) {
       return;
     }
@@ -106,9 +100,9 @@ export class CommandDispatcher {
       }
 
       this.client.emit('commandExecute', command, interaction);
-      return await command.run(interaction);
+      await command.run(interaction);
     } catch (error) {
-      return await command.onError(error, interaction);
+      await command.onError(error, interaction);
     }
   }
 }

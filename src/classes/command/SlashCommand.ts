@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder, Message, DMChannel, GuildMember } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder, DMChannel, GuildMember } from 'discord.js';
 import cloneDeep from 'lodash.clonedeep';
 import { stripIndents } from 'common-tags';
 import { ExtendedClient } from '../ExtendedClient';
@@ -68,7 +68,7 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
    */
-  public abstract run(interaction: ChatInputCommandInteraction): Promise<Message | void>;
+  public abstract run(interaction: ChatInputCommandInteraction): Promise<void>;
 
   /**
    * Check whether the interaction author can execute this command.
@@ -113,10 +113,9 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
-   * @returns A promise that resolves the message that was replied to the original message author (if available).
    * @emits `client#commandError`
    */
-  public override async onError(error: unknown, interaction: ChatInputCommandInteraction): Promise<Message | void> {
+  public override async onError(error: unknown, interaction: ChatInputCommandInteraction): Promise<void> {
     this.client.emit('commandError', error, this, interaction);
 
     let contactOwner = '';

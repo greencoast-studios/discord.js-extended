@@ -1,4 +1,4 @@
-import { Message, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { ExtendedClient, RegularCommand, SlashCommand } from '../../src';
 
 export class ConcreteRegularCommand extends RegularCommand {
@@ -11,8 +11,8 @@ export class ConcreteRegularCommand extends RegularCommand {
     });
   }
 
-  override run(message: Message): Promise<Message> {
-    return Promise.resolve(message);
+  override run(): Promise<void> {
+    return Promise.resolve();
   }
 }
 
