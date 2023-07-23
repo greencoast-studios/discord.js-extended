@@ -3,6 +3,27 @@ import { Guild } from 'discord.js';
 import { ExtendedClient } from '../ExtendedClient';
 
 /**
+ * An interface for clearable DataProviders, it contains the methods that need to be implemented for any DataProvider to clear its data.
+ * This is a separate interface as it is not guaranteed that a data provider implementation may be able to clear all data.
+ */
+export interface ClearableDataProvider {
+  /**
+   * Clear all data in a guild.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) to clear the data from.
+   * @returns A promise that resolves once all data is deleted.
+   * @emits `client#dataProviderClear`
+   */
+  clear(guild: Guild): Promise<void>;
+
+  /**
+   * Clear all data in a global scope.
+   * @returns A promise that resolves once all data is deleted.
+   * @emits `client#dataProviderClear`
+   */
+  clearGlobal(): Promise<void>;
+}
+
+/**
  * An abstract DataProvider, it contains all the methods that need to be implemented for any DataProvider with a custom backend.
  */
 export abstract class DataProvider {
@@ -112,19 +133,4 @@ export abstract class DataProvider {
    * @returns A promise that resolves the data that was deleted.
    */
   public abstract deleteGlobal<T = any>(key: string): Promise<T | undefined>;
-
-  /**
-   * Clear all data in a guild.
-   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) to clear the data from.
-   * @returns A promise that resolves once all data is deleted.
-   * @emits `client#dataProviderClear`
-   */
-  public abstract clear(guild: Guild): Promise<void>;
-
-  /**
-   * Clear all data in a global scope.
-   * @returns A promise that resolves once all data is deleted.
-   * @emits `client#dataProviderClear`
-   */
-  public abstract clearGlobal(): Promise<void>;
 }
