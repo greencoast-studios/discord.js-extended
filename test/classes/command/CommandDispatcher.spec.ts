@@ -2,10 +2,10 @@ import { MessageMock, InteractionMock, mockDiscordJs } from '../../../__mocks__/
 mockDiscordJs();
 
 import { CommandDispatcher, CommandRegistry, ExtendedClient, RegularCommand, SlashCommand } from '../../../src';
-import { Message, Interaction, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
+import { Message, Interaction, ChatInputCommandInteraction } from 'discord.js';
 import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
-const clientMock = new ExtendedClient({ prefix: '!', intents: new IntentsBitField() });
+const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
 
 describe('Classes: Command: CommandDispatcher', () => {
   let dispatcher: CommandDispatcher;

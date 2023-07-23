@@ -1,5 +1,5 @@
 import { SetLocaleRegularCommand } from '../../../../../src/classes/command/default';
-import { Message, Guild, IntentsBitField } from 'discord.js';
+import { Message, Guild } from 'discord.js';
 import { ExtendedClient, GuildLocalizer } from '../../../../../src';
 import { MessageMock, GuildMock } from '../../../../../__mocks__/local/discordMocks';
 import { mockedLocaleStrings } from '../../../../../__mocks__/local/locale';
@@ -13,7 +13,7 @@ describe('Classes: Command: Default: Regular: SetLocaleRegularCommand', () => {
   let guildLocalizerMock: GuildLocalizer;
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ prefix: '!', intents: new IntentsBitField(), localizer: { defaultLocale: 'en', localeStrings: mockedLocaleStrings } });
+    clientMock = new ExtendedClient({ prefix: '!', intents: [], localizer: { defaultLocale: 'en', localeStrings: mockedLocaleStrings } });
     messageMock = new MessageMock() as unknown as Message;
 
     guildMock = new GuildMock() as Guild;

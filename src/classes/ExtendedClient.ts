@@ -47,7 +47,7 @@ export class ExtendedClient extends Client {
    * This client's options.
    * @memberof ExtendedClient
    */
-  public override options!: ExtendedClientOptions;
+  public override options!: Omit<ExtendedClientOptions, 'intents'> & { intents: IntentsBitField };
 
   /**
    * This client's presence manager.
@@ -95,7 +95,7 @@ export class ExtendedClient extends Client {
   /**
    * @param options The client's options. Defaults to an empty object.
    */
-  public constructor(options: ExtendedClientOptions = { intents: new IntentsBitField() }) {
+  public constructor(options: ExtendedClientOptions = { intents: [] }) {
     if (!options.prefix) {
       options.prefix = '!';
     }

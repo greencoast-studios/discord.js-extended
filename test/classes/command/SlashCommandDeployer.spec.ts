@@ -1,11 +1,10 @@
 import { mockDiscordJs } from '../../../__mocks__/local/discordMocks';
 mockDiscordJs();
 
-import { IntentsBitField } from 'discord.js';
 import { SlashCommandDeployer, ExtendedClient } from '../../../src';
 import { ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
-let clientMock = new ExtendedClient({ testingGuildID: '123', intents: new IntentsBitField() });
+let clientMock = new ExtendedClient({ testingGuildID: '123', intents: [] });
 const slashCommandMocks = [new ConcreteSlashCommand(clientMock), new ConcreteSlashCommand(clientMock)];
 
 describe('Classes: Command: SlashCommandDeployer', () => {
@@ -13,7 +12,7 @@ describe('Classes: Command: SlashCommandDeployer', () => {
   let restPutSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ testingGuildID: '123', intents: new IntentsBitField() });
+    clientMock = new ExtendedClient({ testingGuildID: '123', intents: [] });
     deployer = new SlashCommandDeployer(clientMock);
     restPutSpy = jest.spyOn(deployer.rest, 'put').mockResolvedValue(null);
 
@@ -29,7 +28,7 @@ describe('Classes: Command: SlashCommandDeployer', () => {
     });
 
     it('should not emit a warn event if no testingGuildID is present in client.', () => {
-      clientMock = new ExtendedClient({ testingGuildID: '123', intents: new IntentsBitField() });
+      clientMock = new ExtendedClient({ testingGuildID: '123', intents: [] });
       deployer = new SlashCommandDeployer(clientMock);
 
       expect(clientMock.emit).not.toHaveBeenCalledWith('warn', expect.anything());

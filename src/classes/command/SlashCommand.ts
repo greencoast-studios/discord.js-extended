@@ -15,10 +15,10 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
    * The data builder for this slash command.
    * You do not need to set its name or description, the constructor
    * will automatically set these based on the command info.
-   * @type SlashCommandBuilder
+   * @type Partial<SlashCommandBuilder>
    * @memberof SlashCommand
    */
-  public readonly dataBuilder: SlashCommandBuilder;
+  public readonly dataBuilder: Partial<SlashCommandBuilder>;
 
   /**
    * @param client The client that this command will be used by.
@@ -36,15 +36,15 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
 
     this.dataBuilder = info.dataBuilder;
 
-    this.dataBuilder.setName(info.name);
-    this.dataBuilder.setDescription(info.description);
+    this.dataBuilder.setName!(info.name);
+    this.dataBuilder.setDescription!(info.description);
   }
 
   /**
    * Get this command's data builder.
    * @returns This command's data builder.
    */
-  public getDataBuilder(): SlashCommandBuilder {
+  public getDataBuilder(): Partial<SlashCommandBuilder> {
     return this.dataBuilder;
   }
 
@@ -54,10 +54,10 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
    * command alias.
    * @returns An array of this command's data builders.
    */
-  public getAllDataBuilders(): SlashCommandBuilder[] {
+  public getAllDataBuilders(): Partial<SlashCommandBuilder>[] {
     const aliasBuilders = this.aliases.map((alias) => {
-      const builder: SlashCommandBuilder = cloneDeep(this.dataBuilder);
-      builder.setName(alias);
+      const builder = cloneDeep(this.dataBuilder);
+      builder.setName!(alias);
       return builder;
     });
 

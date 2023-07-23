@@ -41,7 +41,7 @@ An example of a bot's configuration may be as follows:
 ```js
 const path = require('path');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
-const { Intents } = require('discord.js');
+const { IntentsBitField } = require('discord.js');
 
 const config = new ConfigProvider({
   env: process.env, // This adds the environment variables to the config.
@@ -73,7 +73,7 @@ const config = new ConfigProvider({
 
 const client = new ExtendedClient({
   config,
-  intents: [Intents.FLAGS.GUILDS]
+  intents: [IntentsBitField.Flags.Guilds]
 });
 ```
 
@@ -109,7 +109,7 @@ const client = new ExtendedClient({
     }
   },
   errorOwnerReporting: true, // Sends DMs to the bot's owner whenever a command throws an error.
-  intents: new IntentsBitField(IntentsBitField.Flags.Guilds).bitfield
+  intents: [IntentsBitField.Flags.Guilds]
 });
 
 client.login(<YOUR_DISCORD_TOKEN_HERE>);
@@ -166,7 +166,7 @@ const client = new ExtendedClient({
     dataProviderKey: 'locale', // The key to be used to store the locale for each guild in the client's data provider.
     localeStrings: locales
   },
-  intents: new IntentsBitField(IntentsBitField.Flags.Guilds).bitfield
+  intents: [IntentsBitField.Flags.Guilds]
 });
 
 client.on('ready', async() => {
@@ -349,7 +349,6 @@ can work as a potential deploy script.
 ```js
 require('dotenv').config();
 const path = require('path');
-const { IntentsBitField } = require('discord.js');
 const { ExtendedClient, ConfigProvider } = require('@greencoast/discord.js-extended');
 
 const config = new ConfigProvider({
@@ -362,7 +361,7 @@ const config = new ConfigProvider({
 
 const client = new ExtendedClient({
   config,
-  intents: new IntentsBitField().bitfield
+  intents: []
 });
 
 client.registry

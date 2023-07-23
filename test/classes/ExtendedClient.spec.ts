@@ -1,7 +1,6 @@
 import { mockDiscordJs } from '../../__mocks__/local/discordMocks';
 mockDiscordJs();
 
-import { IntentsBitField } from 'discord.js';
 import { ExtendedClient } from '../../src';
 import { ConcreteDataProvider } from '../../__mocks__/local/dataProvider';
 
@@ -11,7 +10,7 @@ describe('Classes: ExtendedClient', () => {
   let client: ExtendedClient;
 
   beforeEach(() => {
-    client = new ExtendedClient({ owner: MOCKED_OWNER_ID, intents: new IntentsBitField() });
+    client = new ExtendedClient({ owner: MOCKED_OWNER_ID, intents: [] });
   });
 
   it('should have an options property.', () => {
@@ -175,7 +174,7 @@ describe('Classes: ExtendedClient', () => {
     });
 
     it('should register debug event if debug is enabled.', () => {
-      client = new ExtendedClient({ debug: true, intents: new IntentsBitField() });
+      client = new ExtendedClient({ debug: true, intents: [] });
       client.registerDefaultEvents();
 
       expect(client.on).toHaveBeenCalledWith('debug', expect.anything());

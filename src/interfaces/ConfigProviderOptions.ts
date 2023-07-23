@@ -16,7 +16,7 @@ export interface ConfigProviderOptions {
    * This should generally be `process.env` unless your variables
    * are pre-processed.
    */
-  env?: Record<string, string>,
+  env?: NodeJS.ProcessEnv | Record<string, string>,
 
   /**
    * The default config values in case they weren't provided

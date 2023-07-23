@@ -1,7 +1,7 @@
 import { InteractionMock, UserMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
 mockDiscordJs();
 
-import { User, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
+import { User, ChatInputCommandInteraction } from 'discord.js';
 import { SlashCommand, ExtendedClient } from '../../../src';
 import { ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
@@ -156,7 +156,7 @@ describe('Classes: Command: SlashCommand', () => {
     });
 
     it('should reply with the correct message if an owner is set on the client.', async () => {
-      client = new ExtendedClient({ owner: '123', intents: new IntentsBitField() });
+      client = new ExtendedClient({ owner: '123', intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
@@ -168,7 +168,7 @@ describe('Classes: Command: SlashCommand', () => {
     });
 
     it('should send the error to the owner if errorReporting is enabled.', async () => {
-      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: new IntentsBitField() });
+      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 

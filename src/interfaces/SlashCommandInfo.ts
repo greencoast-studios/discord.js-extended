@@ -9,5 +9,5 @@ export interface SlashCommandInfo extends CommandInfo {
   /**
    * The data builder for this slash command.
    */
-  dataBuilder: SlashCommandBuilder;
+  dataBuilder: Partial<SlashCommandBuilder>;
 }

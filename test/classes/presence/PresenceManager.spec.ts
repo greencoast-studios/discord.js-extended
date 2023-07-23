@@ -2,7 +2,6 @@ import { mockDiscordJs } from '../../../__mocks__/local/discordMocks';
 mockDiscordJs();
 
 import { PresenceManager, ExtendedClient } from '../../../src';
-import { IntentsBitField } from 'discord.js';
 import { ActivityType } from 'discord-api-types/v10';
 
 const mockedTemplates = ['1 servers!', 'hello', 'client'];
@@ -14,7 +13,7 @@ describe('Classes: Presence: PresenceManager', () => {
   let manager: PresenceManager;
 
   beforeEach(() => {
-    clientMock = new ExtendedClient({ prefix: '?', owner: '123', debug: true, intents: new IntentsBitField() });
+    clientMock = new ExtendedClient({ prefix: '?', owner: '123', debug: true, intents: [] });
     setPresenceSpy = clientMock.user?.setPresence as jest.Mock;
 
     manager = new PresenceManager(clientMock, { templates: mockedTemplates });

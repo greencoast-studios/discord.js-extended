@@ -1,4 +1,4 @@
-import { ClientOptions, IntentsBitField } from 'discord.js';
+import { ClientOptions } from 'discord.js';
 import { ConfigProvider } from '../classes/config/ConfigProvider';
 import { PresenceManagerOptions } from './PresenceManagerOptions';
 import { LocalizerOptions } from './LocalizerOptions';
@@ -54,9 +54,4 @@ export interface ExtendedClientOptions extends ClientOptions {
    * The client's localizer's options.
    */
   localizer?: LocalizerOptions
-
-  /**
-   * The client's intents.
-   */
-  intents: IntentsBitField
 }

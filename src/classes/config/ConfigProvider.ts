@@ -114,8 +114,8 @@ export class ConfigProvider {
    * @param key The key of the configuration. Keys are upper-cased.
    * @returns The corresponding value.
    */
-  public get<T extends ConfigValue>(key: string): T | undefined {
-    return this.config[key] as T;
+  public get<T extends ConfigValue>(key: string): Extract<ConfigValue, T> | undefined {
+    return this.config[key] as Extract<ConfigValue, T>;
   }
 
   /**
@@ -154,7 +154,7 @@ export class ConfigProvider {
    * @param env The environment variables object.
    * @throws Throws if it is not possible to cast a value to its given type.
    */
-  private processEnv(env?: Record<string, ConfigValue>): void {
+  private processEnv(env?: NodeJS.ProcessEnv | Record<string, ConfigValue>): void {
     if (!env) {
       return;
     }

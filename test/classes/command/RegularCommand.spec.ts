@@ -1,7 +1,7 @@
 import { MessageMock, UserMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
 mockDiscordJs();
 
-import { User, Message, IntentsBitField } from 'discord.js';
+import { User, Message } from 'discord.js';
 import { RegularCommand, ExtendedClient } from '../../../src';
 import { ConcreteRegularCommand } from '../../../__mocks__/local/command';
 
@@ -98,7 +98,7 @@ describe('Classes: Command: RegularCommand', () => {
     });
 
     it('should reply with the correct message if an owner is set on the client.', () => {
-      client = new ExtendedClient({ owner: '123', intents: new IntentsBitField() });
+      client = new ExtendedClient({ owner: '123', intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteRegularCommand(client);
 
@@ -109,7 +109,7 @@ describe('Classes: Command: RegularCommand', () => {
     });
 
     it('should send the error to the owner if errorReporting is enabled.', () => {
-      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: new IntentsBitField() });
+      client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteRegularCommand(client);
 
