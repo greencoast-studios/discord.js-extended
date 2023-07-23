@@ -1,11 +1,9 @@
-import { Guild } from 'discord.js';
-import Localizer from '../../../src/classes/locale/Localizer';
-import GuildLocalizer from '../../../src/classes/locale/GuildLocalizer';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { mockedLocaleStrings } from '../../../__mocks__/locale';
-import { GuildMock } from '../../../__mocks__/discordMocks';
+import { GuildMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
 
-jest.mock('discord.js');
+import { Localizer, GuildLocalizer, ExtendedClient } from '../../../src';
+import { Guild } from 'discord.js';
+import { mockedLocaleStrings } from '../../../__mocks__/local/locale';
 
 const clientMock = new ExtendedClient();
 const guildMock = new GuildMock() as Guild;

@@ -1,9 +1,8 @@
+import { SetLocaleRegularCommand } from '../../../../../src/classes/command/default';
 import { Message, Guild, IntentsBitField } from 'discord.js';
-import SetLocaleRegularCommand from '../../../../../src/classes/command/default/regular/SetLocaleRegularCommand';
-import ExtendedClient from '../../../../../src/classes/ExtendedClient';
-import GuildLocalizer from '../../../../../src/classes/locale/GuildLocalizer';
-import { MessageMock, GuildMock } from '../../../../../__mocks__/discordMocks';
-import { mockedLocaleStrings } from '../../../../../__mocks__/locale';
+import { ExtendedClient, GuildLocalizer } from '../../../../../src';
+import { MessageMock, GuildMock } from '../../../../../__mocks__/local/discordMocks';
+import { mockedLocaleStrings } from '../../../../../__mocks__/local/locale';
 
 describe('Classes: Command: Default: Regular: SetLocaleRegularCommand', () => {
   let command: SetLocaleRegularCommand;

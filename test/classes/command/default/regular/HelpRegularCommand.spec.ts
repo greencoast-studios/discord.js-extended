@@ -1,7 +1,7 @@
+import { HelpRegularCommand } from '../../../../../src/classes/command/default';
 import { Message, EmbedBuilder, IntentsBitField } from 'discord.js';
-import HelpRegularCommand from '../../../../../src/classes/command/default/regular/HelpRegularCommand';
-import ExtendedClient from '../../../../../src/classes/ExtendedClient';
-import { MessageMock } from '../../../../../__mocks__/discordMocks';
+import { ExtendedClient } from '../../../../../src';
+import { MessageMock } from '../../../../../__mocks__/local/discordMocks';
 
 const clientMock = new ExtendedClient({ prefix: '!', intents: new IntentsBitField() });
 const messageMock = new MessageMock() as unknown as Message;
@@ -21,8 +21,9 @@ describe('Classes: Command: Default: Regular: HelpRegularCommand', () => {
       const result = command.prepareFields();
 
       expect(result).toEqual([{
-        title: 'Misc',
-        text: `${command.emoji} **${clientMock.prefix}${command.name}** - ${command.description}\n`
+        name: 'Misc',
+        value: `${command.emoji} **${clientMock.prefix}${command.name}** - ${command.description}\n`,
+        inline: false
       }]);
     });
   });

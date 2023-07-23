@@ -1,10 +1,9 @@
-import { User, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
-import SlashCommand from '../../../src/classes/command/SlashCommand';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { ConcreteSlashCommand } from '../../../__mocks__/command';
-import { InteractionMock, UserMock } from '../../../__mocks__/discordMocks';
+import { InteractionMock, UserMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
 
-jest.mock('discord.js');
+import { User, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
+import { SlashCommand, ExtendedClient } from '../../../src';
+import { ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
 const userMock = new UserMock() as unknown as User;
 

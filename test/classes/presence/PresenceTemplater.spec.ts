@@ -1,11 +1,10 @@
+import { ShardClientUtilMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
+
+import { PresenceTemplater, ExtendedClient } from '../../../src';
 import { ShardClientUtil, IntentsBitField } from 'discord.js';
 import * as dayjs from 'dayjs';
-import PresenceTemplater from '../../../src/classes/presence/PresenceTemplater';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { ConcreteRegularCommand } from '../../../__mocks__/command';
-import { ShardClientUtilMock } from '../../../__mocks__/discordMocks';
-
-jest.mock('discord.js');
+import { ConcreteRegularCommand } from '../../../__mocks__/local/command';
 
 dayjs.tz.setDefault('Europe/Paris');
 

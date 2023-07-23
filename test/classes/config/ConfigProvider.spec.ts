@@ -1,6 +1,6 @@
+import { ConfigProvider } from '../../../src';
 import { mocked } from 'jest-mock';
 import * as fs from 'fs';
-import ConfigProvider from '../../../src/classes/config/ConfigProvider';
 
 jest.mock('fs');
 const mockedFs = mocked(fs, { shallow: true });

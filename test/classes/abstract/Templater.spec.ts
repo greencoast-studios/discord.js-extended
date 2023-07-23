@@ -1,4 +1,4 @@
-import Templater from '../../../src/classes/abstract/Templater';
+import { Templater } from '../../../src';
 
 class ConcreteTemplater extends Templater {
   public get(): string {

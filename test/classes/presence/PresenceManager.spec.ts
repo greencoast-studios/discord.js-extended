@@ -1,7 +1,9 @@
+import { mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
+
+import { PresenceManager, ExtendedClient } from '../../../src';
 import { IntentsBitField } from 'discord.js';
 import { ActivityType } from 'discord-api-types/v10';
-import PresenceManager from '../../../src/classes/presence/PresenceManager';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
 
 const mockedTemplates = ['1 servers!', 'hello', 'client'];
 

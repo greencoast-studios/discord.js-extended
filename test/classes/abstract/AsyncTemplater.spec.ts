@@ -1,4 +1,4 @@
-import AsyncTemplater from '../../../src/classes/abstract/AsyncTemplater';
+import { AsyncTemplater } from '../../../src';
 
 class ConcreteAsyncTemplater extends AsyncTemplater {
   public get(): Promise<string> {

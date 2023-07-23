@@ -1,8 +1,8 @@
+import { ClientDefaultHandlers } from '../../../src';
 import { mocked } from 'jest-mock';
 import * as logger from '@greencoast/logger';
 import { Guild } from 'discord.js';
-import ClientDefaultHandlers from '../../../src/classes/events/ClientDefaultHandlers';
-import { GuildMock } from '../../../__mocks__/discordMocks';
+import { GuildMock } from '../../../__mocks__/local/discordMocks';
 
 jest.mock('@greencoast/logger');
 

@@ -1,13 +1,9 @@
-import { Message, Interaction, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
-import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
-import CommandRegistry from '../../../src/classes/command/CommandRegistry';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import RegularCommand from '../../../src/classes/command/RegularCommand';
-import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/command';
-import { MessageMock, InteractionMock } from '../../../__mocks__/discordMocks';
-import SlashCommand from '../../../src/classes/command/SlashCommand';
+import { MessageMock, InteractionMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
 
-jest.mock('discord.js');
+import { CommandDispatcher, CommandRegistry, ExtendedClient, RegularCommand, SlashCommand } from '../../../src';
+import { Message, Interaction, ChatInputCommandInteraction, IntentsBitField } from 'discord.js';
+import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
 const clientMock = new ExtendedClient({ prefix: '!', intents: new IntentsBitField() });
 
@@ -36,8 +32,8 @@ describe('Classes: Command: CommandDispatcher', () => {
     message.content = '!command';
 
     interaction = new InteractionMock() as unknown as Interaction;
-    const isCommandSpy = interaction.isCommand as jest.Mock;
-    isCommandSpy.mockReturnValue(true);
+    const isChatInputCommandSpy = interaction.isChatInputCommand as jest.Mock;
+    isChatInputCommandSpy.mockReturnValue(true);
   });
 
   describe('handleMessage()', () => {
@@ -174,8 +170,8 @@ describe('Classes: Command: CommandDispatcher', () => {
     });
 
     it('should not run command if interaction is not a CommandInteraction.', () => {
-      const isCommandSpy = interaction.isCommand as jest.Mock;
-      isCommandSpy.mockReturnValue(false);
+      const isChatInputCommandSpy = interaction.isChatInputCommand as jest.Mock;
+      isChatInputCommandSpy.mockReturnValue(false);
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {

@@ -1,7 +1,5 @@
-import CommandGroup from '../../../src/classes/command/CommandGroup';
-import RegularCommand from '../../../src/classes/command/RegularCommand';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { ConcreteRegularCommand } from '../../../__mocks__/command';
+import { CommandGroup, RegularCommand, ExtendedClient } from '../../../src';
+import { ConcreteRegularCommand } from '../../../__mocks__/local/command';
 
 const clientMock = new ExtendedClient();
 

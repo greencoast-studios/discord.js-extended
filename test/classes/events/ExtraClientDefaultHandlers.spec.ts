@@ -1,11 +1,11 @@
+import { GuildMock, MessageMock, InteractionMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
+
+import { ExtraClientDefaultHandlers, ExtendedClient, CommandGroup } from '../../../src';
 import { mocked } from 'jest-mock';
 import { Guild, Message, ChatInputCommandInteraction } from 'discord.js';
 import * as logger from '@greencoast/logger';
-import ExtraClientDefaultHandlers from '../../../src/classes/events/ExtraClientDefaultHandlers';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import CommandGroup from '../../../src/classes/command/CommandGroup';
-import { ConcreteRegularCommand } from '../../../__mocks__/command';
-import { GuildMock, MessageMock, InteractionMock } from '../../../__mocks__/discordMocks';
+import { ConcreteRegularCommand } from '../../../__mocks__/local/command';
 
 jest.mock('@greencoast/logger');
 
