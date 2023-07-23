@@ -37,7 +37,7 @@ export abstract class DataProvider {
 
   /**
    * Get a value for a key in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the data will be queried.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the data will be queried.
    * @param key The key of the data to be queried.
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
@@ -54,7 +54,7 @@ export abstract class DataProvider {
 
   /**
    * Set a value for a key in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the data will be set.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the data will be set.
    * @param key The key of the data to be set.
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
@@ -71,7 +71,7 @@ export abstract class DataProvider {
 
   /**
    * Delete a key-value pair in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the key-value pair will be deleted.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the key-value pair will be deleted.
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
@@ -86,7 +86,7 @@ export abstract class DataProvider {
 
   /**
    * Clear all data in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) to clear the data from.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) to clear the data from.
    * @returns A promise that resolves once all data is deleted.
    * @emits `client#dataProviderClear`
    */

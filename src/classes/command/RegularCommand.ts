@@ -10,14 +10,14 @@ import { Command } from './Command';
 export abstract class RegularCommand extends Command<Message> {
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
-   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
+   * @param message The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
   public abstract run(message: Message, args: string[]): Promise<void>;
 
   /**
    * Check whether the message author can execute this command.
-   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
+   * @param message The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
   public override hasPermission(message: Message): boolean | string {
@@ -57,7 +57,7 @@ export abstract class RegularCommand extends Command<Message> {
   /**
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
-   * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
+   * @param message The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) that triggered this command.
    * @emits `client#commandError`
    */
   public override async onError(error: unknown, message: Message): Promise<void> {

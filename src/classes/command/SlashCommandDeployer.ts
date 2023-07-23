@@ -56,7 +56,7 @@ export class SlashCommandDeployer {
 
   /**
    * Deploy the commands registered to this deployer's client registry to a given guild.
-   * @param guildID The ID of the [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) to deploy the commands to.
+   * @param guildID The ID of the [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) to deploy the commands to.
    * @returns A promise that resolves once all the commands have been deployed.
    * @emits `client#commandDeployed`
    * @emits `client#error`
@@ -77,7 +77,7 @@ export class SlashCommandDeployer {
 
   /**
    * Deploy the commands registered to this deployer's client registry to multiple guilds.
-   * @param guildIDs An array with the IDs of the [guilds](https://discord.js.org/#/docs/discord.js/stable/class/Guild) to deploy the commands to.
+   * @param guildIDs An array with the IDs of the [guilds](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) to deploy the commands to.
    * @returns A promise that resolves once all the commands have been deployed.
    * @emits `client#commandDeployed`
    * @emits `client#error`

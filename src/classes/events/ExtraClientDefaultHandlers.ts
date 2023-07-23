@@ -18,7 +18,7 @@ export class ExtraClientDefaultHandlers {
 
   /**
    * Log that the data provider has cleared the data for a guild or on the global scope.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which
    * the data has been cleared.
    */
   public static onDataProviderClear(guild: Guild | null): void {
@@ -42,8 +42,8 @@ export class ExtraClientDefaultHandlers {
   /**
    * Logged who executed a command and in which guild.
    * @param command The command that was executed.
-   * @param trigger The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) or
-   * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that
+   * @param trigger The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) or
+   * [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that
    * triggered the command execution.
    */
   public static onCommandExecute(command: Command<CommandTrigger>, trigger: CommandTrigger): void {
@@ -62,8 +62,8 @@ export class ExtraClientDefaultHandlers {
    * Log that a command has thrown an error.
    * @param error The error that was thrown in the command's run method.
    * @param command The command that was executed.
-   * @param trigger The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) or
-   * [interaction](https://discord.js.org/#/docs/discord.js/stable/class/Interaction) that
+   * @param trigger The [message](https://old.discordjs.dev/#/docs/discord.js/main/class/Message) or
+   * [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that
    * triggered the command execution.
    */
   public static onCommandError(error: unknown, command: Command<CommandTrigger>, trigger: CommandTrigger): void {

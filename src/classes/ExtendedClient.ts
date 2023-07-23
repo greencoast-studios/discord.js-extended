@@ -207,7 +207,7 @@ export class ExtendedClient extends Client {
 
   /**
    * Test whether the specified user is the client's owner.
-   * @param user The [user](https://discord.js.org/#/docs/discord.js/stable/class/User) to test.
+   * @param user The [user](https://old.discordjs.dev/#/docs/discord.js/main/class/User) to test.
    * @returns Whether the tested user is the client's owner.
    * @throws Throws if the user cannot be resolved.
    */

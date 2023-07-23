@@ -66,13 +66,13 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
 
   /**
    * Abstract method. You need to implement this method in order for the command to work. This defines the execution behavior of the command.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that triggered this command.
    */
   public abstract run(interaction: ChatInputCommandInteraction): Promise<void>;
 
   /**
    * Check whether the interaction author can execute this command.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that triggered this command.
    * @returns `true` if the user has enough permissions, or a string with the reason why they cannot execute this command.
    */
   public override hasPermission(interaction: ChatInputCommandInteraction): boolean | string {
@@ -112,7 +112,7 @@ export abstract class SlashCommand extends Command<ChatInputCommandInteraction> 
   /**
    * Handle command error.
    * @param error The error that was thrown inside the command's run method.
-   * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/ChatInputCommandInteraction) that triggered this command.
+   * @param interaction The [interaction](https://old.discordjs.dev/#/docs/discord.js/main/class/ChatInputCommandInteraction) that triggered this command.
    * @emits `client#commandError`
    */
   public override async onError(error: unknown, interaction: ChatInputCommandInteraction): Promise<void> {
