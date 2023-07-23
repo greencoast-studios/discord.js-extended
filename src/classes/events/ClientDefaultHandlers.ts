@@ -23,7 +23,7 @@ export class ClientDefaultHandlers {
 
   /**
    * Log the guild that the client has entered.
-   * @param guild The created [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild).
+   * @param guild The created [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild).
    */
   public static onGuildCreate(guild: Guild): void {
     logger.info(`Joined guild ${guild.name}`);
@@ -31,7 +31,7 @@ export class ClientDefaultHandlers {
 
   /**
    * Log the guild that the client has left.
-   * @param guild The deleted [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild).
+   * @param guild The deleted [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild).
    */
   public static onGuildDelete(guild: Guild): void {
     logger.info(`Left guild ${guild.name}`);
@@ -39,7 +39,7 @@ export class ClientDefaultHandlers {
 
   /**
    * Log the guild that is currently unavailable.
-   * @param guild The unavailable [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild).
+   * @param guild The unavailable [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild).
    */
   public static onGuildUnavailable(guild: Guild): void {
     logger.warn(`Guild ${guild.name} is unavailable.`);

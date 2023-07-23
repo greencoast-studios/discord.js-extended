@@ -1,5 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Guild } from 'discord.js';
 import { ExtendedClient } from '../ExtendedClient';
+
+/**
+ * An interface for clearable DataProviders, it contains the methods that need to be implemented for any DataProvider to clear its data.
+ * This is a separate interface as it is not guaranteed that a data provider implementation may be able to clear all data.
+ */
+export interface ClearableDataProvider {
+  /**
+   * Clear all data in a guild.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) to clear the data from.
+   * @returns A promise that resolves once all data is deleted.
+   * @emits `client#dataProviderClear`
+   */
+  clear(guild: Guild): Promise<void>;
+
+  /**
+   * Clear all data in a global scope.
+   * @returns A promise that resolves once all data is deleted.
+   * @emits `client#dataProviderClear`
+   */
+  clearGlobal(): Promise<void>;
+}
 
 /**
  * An abstract DataProvider, it contains all the methods that need to be implemented for any DataProvider with a custom backend.
@@ -36,30 +58,58 @@ export abstract class DataProvider {
   public abstract destroy(): Promise<void>;
 
   /**
-   * Get a value for a key in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the data will be queried.
+   * Get a value for a key in a guild. If no value is found, this method should return `undefined` if no `defaultValue` is provided.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the data will be queried.
+   * @param key The key of the data to be queried.
+   * @returns A promise that resolves the queried data.
+   */
+  public abstract get<T = any>(guild: Guild, key: string): Promise<T | undefined>;
+  /**
+   * Get a value for a key in a guild. If no value is found, this method should return `undefined` if no `defaultValue` is provided.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the data will be queried.
    * @param key The key of the data to be queried.
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public abstract get<T>(guild: Guild, key: string, defaultValue?: T): Promise<T>;
+  public abstract get<T = any>(guild: Guild, key: string, defaultValue: T): Promise<T>;
+  /**
+   * Get a value for a key in a guild. If no value is found, this method should return `undefined` if no `defaultValue` is provided.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the data will be queried.
+   * @param key The key of the data to be queried.
+   * @param defaultValue The default value in case there is no entry found.
+   * @returns A promise that resolves the queried data.
+   */
+  public abstract get<T = any>(guild: Guild, key: string, defaultValue?: T): Promise<T | undefined>;
 
   /**
-   * Get a value for a key in a global scope.
+   * Get a value for a key in a global scope. If no value is found, this method should return `undefined` if no `defaultValue` is provided.
+   * @param key The key of the data to be queried.
+   * @returns A promise that resolves the queried data.
+   */
+  public abstract getGlobal<T = any>(key: string): Promise<T | undefined>;
+  /**
+   * Get a value for a key in a global scope. If no value is found, this method should return `undefined` if no `defaultValue` is provided.
    * @param key The key of the data to be queried.
    * @param defaultValue The default value in case there is no entry found.
    * @returns A promise that resolves the queried data.
    */
-  public abstract getGlobal<T>(key: string, defaultValue?: T): Promise<T>;
+  public abstract getGlobal<T = any>(key: string, defaultValue: T): Promise<T>;
+  /**
+   * Get a value for a key in a global scope. If no value is found, this method should return `undefined` if no `defaultValue` is provided.
+   * @param key The key of the data to be queried.
+   * @param defaultValue The default value in case there is no entry found.
+   * @returns A promise that resolves the queried data.
+   */
+  public abstract getGlobal<T = any>(key: string, defaultValue?: T): Promise<T | undefined>;
 
   /**
    * Set a value for a key in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the data will be set.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the data will be set.
    * @param key The key of the data to be set.
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public abstract set<T>(guild: Guild, key: string, value: T): Promise<void>;
+  public abstract set<T = any>(guild: Guild, key: string, value: T): Promise<void>;
 
   /**
    * Set a value for a key in a global scope.
@@ -67,35 +117,20 @@ export abstract class DataProvider {
    * @param value The value to set.
    * @returns A promise that resolves once the data is saved.
    */
-  public abstract setGlobal<T>(key: string, value: T): Promise<void>;
+  public abstract setGlobal<T = any>(key: string, value: T): Promise<void>;
 
   /**
-   * Delete a key-value pair in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) for which the key-value pair will be deleted.
+   * Delete a key-value pair in a guild and return the old value. If the key does not exist, this function should return `undefined`.
+   * @param guild The [guild](https://old.discordjs.dev/#/docs/discord.js/main/class/Guild) for which the key-value pair will be deleted.
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
-  public abstract delete<T>(guild: Guild, key: string): Promise<T>;
+  public abstract delete<T = any>(guild: Guild, key: string): Promise<T | undefined>;
 
   /**
-   * Delete a key-value pair in a global scope.
+   * Delete a key-value pair in a global scope and return the old value. If the key does not exist, this function should return `undefined`.
    * @param key The key to delete.
    * @returns A promise that resolves the data that was deleted.
    */
-  public abstract deleteGlobal<T>(key: string): Promise<T>;
-
-  /**
-   * Clear all data in a guild.
-   * @param guild The [guild](https://discord.js.org/#/docs/discord.js/stable/class/Guild) to clear the data from.
-   * @returns A promise that resolves once all data is deleted.
-   * @emits `client#dataProviderClear`
-   */
-  public abstract clear(guild: Guild): Promise<void>;
-
-  /**
-   * Clear all data in a global scope.
-   * @returns A promise that resolves once all data is deleted.
-   * @emits `client#dataProviderClear`
-   */
-  public abstract clearGlobal(): Promise<void>;
+  public abstract deleteGlobal<T = any>(key: string): Promise<T | undefined>;
 }

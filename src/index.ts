@@ -11,7 +11,7 @@ import { PresenceTemplater } from './classes/presence/PresenceTemplater';
 import { PresenceManager } from './classes/presence/PresenceManager';
 import { ConfigProvider } from './classes/config/ConfigProvider';
 import { ConfigValidator } from './classes/config/ConfigValidator';
-import { DataProvider } from './classes/data/DataProvider';
+import { DataProvider, ClearableDataProvider } from './classes/data/DataProvider';
 import { Command } from './classes/command/Command';
 import { RegularCommand } from './classes/command/RegularCommand';
 import { SlashCommand } from './classes/command/SlashCommand';
@@ -47,6 +47,7 @@ export {
   ConfigProvider,
   ConfigValidator,
   DataProvider,
+  ClearableDataProvider,
   Command,
   RegularCommand,
   SlashCommand,
