@@ -1,16 +1,16 @@
-import Discord from 'discord.js';
+import { Collection } from 'discord.js';
 import requireAll from 'require-all';
-import Command from './Command';
-import CommandGroup from './CommandGroup';
-import SlashCommand from './SlashCommand';
-import ExtendedClient from '../ExtendedClient';
+import { Command } from './Command';
+import { CommandGroup } from './CommandGroup';
+import { SlashCommand } from './SlashCommand';
+import { ExtendedClient } from '../ExtendedClient';
 import * as DefaultCommands from './default';
 import { CommandTrigger } from '../../types';
 
 /**
  * A command registry. This keeps track of all the commands and command groups registered in the client.
  */
-class CommandRegistry {
+export class CommandRegistry {
   /**
    * The client that this command registry will be used by.
    * @type {ExtendedClient}
@@ -21,26 +21,26 @@ class CommandRegistry {
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the commands registered
    * to this registry, mapped by the command's name and the command.
-   * @type {Discord.Collection<string, Command>}
+   * @type {Collection<string, Command>}
    * @memberof CommandRegistry
    */
-  public commands: Discord.Collection<string, Command<CommandTrigger>>
+  public readonly commands: Collection<string, Command<CommandTrigger>>;
 
   /**
    * A [collection](https://discord.js.org/#/docs/collection/master/class/Collection) of the groups registered
    * to this registry, mapped by the group's ID and the group.
-   * @type {Discord.Collection<string, CommandGroup>}
+   * @type {Collection<string, CommandGroup>}
    * @memberof CommandRegistry
    */
-  public groups: Discord.Collection<string, CommandGroup>
+  public readonly groups: Collection<string, CommandGroup>;
 
   /**
    * @param client The client that this command registry will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     this.client = client;
-    this.commands = new Discord.Collection();
-    this.groups = new Discord.Collection();
+    this.commands = new Collection();
+    this.groups = new Collection();
   }
 
   /**
@@ -233,5 +233,3 @@ class CommandRegistry {
     return this;
   }
 }
-
-export default CommandRegistry;

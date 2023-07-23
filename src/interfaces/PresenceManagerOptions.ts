@@ -1,10 +1,10 @@
-import PresenceData from './PresenceData';
+import { PresenceData } from './PresenceData';
 import { PresenceTemplaterGetters } from '../types';
 
 /**
  * The presence manager's options.
  */
-interface PresenceManagerOptions extends PresenceData {
+export interface PresenceManagerOptions extends PresenceData {
   /**
    * The templates to be used by the presence manager refresh updated.
    * For more information, check {@link PresenceTemplater}.
@@ -25,5 +25,3 @@ interface PresenceManagerOptions extends PresenceData {
    */
   customGetters?: PresenceTemplaterGetters
 }
-
-export default PresenceManagerOptions;

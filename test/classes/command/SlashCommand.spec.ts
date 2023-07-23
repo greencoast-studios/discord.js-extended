@@ -1,24 +1,21 @@
-/* eslint-disable no-extra-parens */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
-import SlashCommand from '../../../src/classes/command/SlashCommand';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { ConcreteSlashCommand } from '../../../__mocks__/command';
-import { InteractionMock, UserMock } from '../../../__mocks__/discordMocks';
+import { InteractionMock, UserMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
 
-jest.mock('discord.js');
+import { User, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommand, ExtendedClient } from '../../../src';
+import { ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
-const userMock = new UserMock() as unknown as Discord.User;
+const userMock = new UserMock() as unknown as User;
 
 describe('Classes: Command: SlashCommand', () => {
   let client: ExtendedClient;
   let command: SlashCommand;
-  let interaction: Discord.CommandInteraction;
+  let interaction: ChatInputCommandInteraction;
 
   beforeEach(() => {
     client = new ExtendedClient();
     command = new ConcreteSlashCommand(client);
-    interaction = new InteractionMock() as unknown as Discord.CommandInteraction;
+    interaction = new InteractionMock() as unknown as ChatInputCommandInteraction;
   });
 
   describe('constructor', () => {
@@ -140,37 +137,37 @@ describe('Classes: Command: SlashCommand', () => {
   });
 
   describe('onError()', () => {
-    it('should emit a commandError event.', async() => {
+    it('should emit a commandError event.', async () => {
       const expectedError = new Error('oops');
       await command.onError(expectedError, interaction);
 
       expect(client.emit).toHaveBeenCalledWith('commandError', expectedError, command, interaction);
     });
 
-    it('should reply with the correct message if no owner is set on the client.', async() => {
+    it('should reply with the correct message if no owner is set on the client.', async () => {
       client = new ExtendedClient();
       command = new ConcreteSlashCommand(client);
 
       await command.onError(new Error(), interaction);
 
-      const commandInteraction = interaction as Discord.CommandInteraction;
+      const commandInteraction = interaction as ChatInputCommandInteraction;
       expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
       expect((commandInteraction.reply as jest.Mock).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
     });
 
-    it('should reply with the correct message if an owner is set on the client.', async() => {
+    it('should reply with the correct message if an owner is set on the client.', async () => {
       client = new ExtendedClient({ owner: '123', intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
 
       await command.onError(new Error(), interaction);
 
-      const commandInteraction = interaction as Discord.CommandInteraction;
+      const commandInteraction = interaction as ChatInputCommandInteraction;
       expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
       expect((commandInteraction.reply as jest.Mock).mock.calls[0][0].content.endsWith('contact User.')).toBe(true);
     });
 
-    it('should send the error to the owner if errorReporting is enabled.', async() => {
+    it('should send the error to the owner if errorReporting is enabled.', async () => {
       client = new ExtendedClient({ owner: '123', errorOwnerReporting: true, intents: [] });
       (client.users.cache.get as jest.Mock).mockReturnValue(userMock);
       command = new ConcreteSlashCommand(client);
@@ -180,27 +177,27 @@ describe('Classes: Command: SlashCommand', () => {
       expect(client.owner!.send).toHaveBeenCalledTimes(1);
     });
 
-    it('should editReply if the interaction has been already replied.', async() => {
+    it('should editReply if the interaction has been already replied.', async () => {
       client = new ExtendedClient();
       command = new ConcreteSlashCommand(client);
       interaction.replied = true;
 
       await command.onError(new Error(), interaction);
 
-      const commandInteraction = interaction as Discord.CommandInteraction;
+      const commandInteraction = interaction as ChatInputCommandInteraction;
 
       expect(commandInteraction.editReply).toHaveBeenCalledTimes(1);
       expect((commandInteraction.editReply as jest.Mock).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);
     });
 
-    it('should editReply if the interaction has been already deferred.', async() => {
+    it('should editReply if the interaction has been already deferred.', async () => {
       client = new ExtendedClient();
       command = new ConcreteSlashCommand(client);
       interaction.deferred = true;
 
       await command.onError(new Error(), interaction);
 
-      const commandInteraction = interaction as Discord.CommandInteraction;
+      const commandInteraction = interaction as ChatInputCommandInteraction;
 
       expect(commandInteraction.editReply).toHaveBeenCalledTimes(1);
       expect((commandInteraction.editReply as jest.Mock).mock.calls[0][0].content.endsWith(`the command ${command.name}.`)).toBe(true);

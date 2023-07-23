@@ -1,23 +1,22 @@
-import Discord from 'discord.js';
-import SetLocaleRegularCommand from '../../../../../src/classes/command/default/regular/SetLocaleRegularCommand';
-import ExtendedClient from '../../../../../src/classes/ExtendedClient';
-import GuildLocalizer from '../../../../../src/classes/locale/GuildLocalizer';
-import { MessageMock, GuildMock } from '../../../../../__mocks__/discordMocks';
-import { mockedLocaleStrings } from '../../../../../__mocks__/locale';
+import { SetLocaleRegularCommand } from '../../../../../src/classes/command/default';
+import { Message, Guild } from 'discord.js';
+import { ExtendedClient, GuildLocalizer } from '../../../../../src';
+import { MessageMock, GuildMock } from '../../../../../__mocks__/local/discordMocks';
+import { mockedLocaleStrings } from '../../../../../__mocks__/local/locale';
 
 describe('Classes: Command: Default: Regular: SetLocaleRegularCommand', () => {
   let command: SetLocaleRegularCommand;
 
   let clientMock: ExtendedClient;
-  let messageMock: Discord.Message;
-  let guildMock: Discord.Guild;
+  let messageMock: Message;
+  let guildMock: Guild;
   let guildLocalizerMock: GuildLocalizer;
 
   beforeEach(() => {
     clientMock = new ExtendedClient({ prefix: '!', intents: [], localizer: { defaultLocale: 'en', localeStrings: mockedLocaleStrings } });
-    messageMock = new MessageMock() as unknown as Discord.Message;
+    messageMock = new MessageMock() as unknown as Message;
 
-    guildMock = new GuildMock() as Discord.Guild;
+    guildMock = new GuildMock() as Guild;
     guildLocalizerMock = new GuildLocalizer(clientMock.localizer!, guildMock);
 
     command = new SetLocaleRegularCommand(clientMock);

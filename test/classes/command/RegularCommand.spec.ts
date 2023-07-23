@@ -1,24 +1,21 @@
-/* eslint-disable no-extra-parens */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
-import RegularCommand from '../../../src/classes/command/RegularCommand';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { ConcreteRegularCommand } from '../../../__mocks__/command';
-import { MessageMock, UserMock } from '../../../__mocks__/discordMocks';
+import { MessageMock, UserMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
 
-jest.mock('discord.js');
+import { User, Message } from 'discord.js';
+import { RegularCommand, ExtendedClient } from '../../../src';
+import { ConcreteRegularCommand } from '../../../__mocks__/local/command';
 
-const userMock = new UserMock() as unknown as Discord.User;
+const userMock = new UserMock() as unknown as User;
 
 describe('Classes: Command: RegularCommand', () => {
   let client: ExtendedClient;
   let command: RegularCommand;
-  let message: Discord.Message;
+  let message: Message;
 
   beforeEach(() => {
     client = new ExtendedClient();
     command = new ConcreteRegularCommand(client);
-    message = new MessageMock() as unknown as Discord.Message;
+    message = new MessageMock() as unknown as Message;
   });
 
   describe('hasPermission()', () => {
@@ -53,7 +50,7 @@ describe('Classes: Command: RegularCommand', () => {
     it('should return true if channel is not text based (absurd).', () => {
       const channel = message.channel as any;
       channel.permissionsFor().missing.mockReturnValue(['dont matter']);
-      (channel.isText as jest.Mock).mockReturnValue(false);
+      (channel.isTextBased as jest.Mock).mockReturnValue(false);
       command = new ConcreteRegularCommand(client, { userPermissions: 'YES' });
 
       expect(command.hasPermission(message)).toBe(true);

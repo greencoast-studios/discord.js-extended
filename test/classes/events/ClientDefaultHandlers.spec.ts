@@ -1,15 +1,15 @@
+import { ClientDefaultHandlers } from '../../../src';
 import { mocked } from 'jest-mock';
-import logger from '@greencoast/logger';
-import Discord from 'discord.js';
-import ClientDefaultHandlers from '../../../src/classes/events/ClientDefaultHandlers';
-import { GuildMock, rateLimitMock } from '../../../__mocks__/discordMocks';
+import * as logger from '@greencoast/logger';
+import { Guild } from 'discord.js';
+import { GuildMock } from '../../../__mocks__/local/discordMocks';
 
 jest.mock('@greencoast/logger');
 
-const mockedLogger = mocked(logger, true);
+const mockedLogger = mocked(logger, { shallow: true });
 const processExitSpy = jest.spyOn(process, 'exit');
 
-const guildMock = new GuildMock() as Discord.Guild;
+const guildMock = new GuildMock() as Guild;
 
 describe('Classes: Events: ClientDefaultHandlers', () => {
   beforeAll(() => {
@@ -89,13 +89,6 @@ describe('Classes: Events: ClientDefaultHandlers', () => {
       ClientDefaultHandlers.onInvalidRequestWarning(data);
       expect(mockedLogger.warn).toBeCalledTimes(2);
       expect(mockedLogger.warn.mock.calls[1][0]).toBe(data);
-    });
-  });
-
-  describe('onRateLimit()', () => {
-    it('should call logger.warn twice.', () => {
-      ClientDefaultHandlers.onRateLimit(rateLimitMock);
-      expect(mockedLogger.warn).toHaveBeenCalledTimes(2);
     });
   });
 

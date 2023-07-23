@@ -1,6 +1,6 @@
 import fs from 'fs';
-import ConfigProviderOptions from '../../interfaces/ConfigProviderOptions';
-import ConfigValidator from './ConfigValidator';
+import { ConfigProviderOptions } from '../../interfaces/ConfigProviderOptions';
+import { ConfigValidator } from './ConfigValidator';
 import { ConfigValue } from '../../types';
 
 /**
@@ -63,7 +63,7 @@ import { ConfigValue } from '../../types';
  *
  * It is also recommended specifying the types of the config. Check {@link ConfigValidator} for more information.
  */
-class ConfigProvider {
+export class ConfigProvider {
   /**
    * The options for this config provider.
    * @type {ConfigProviderOptions}
@@ -96,7 +96,7 @@ class ConfigProvider {
    * @param options The options for this config provider.
    * @throws Throws if it is not possible to cast a value to its given type.
    */
-  constructor(options: ConfigProviderOptions = {}) {
+  public constructor(options: ConfigProviderOptions = {}) {
     this.options = options;
     this.default = options.default;
     this.config = {};
@@ -114,8 +114,8 @@ class ConfigProvider {
    * @param key The key of the configuration. Keys are upper-cased.
    * @returns The corresponding value.
    */
-  public get(key: string): ConfigValue | undefined {
-    return this.config[key];
+  public get<T extends ConfigValue>(key: string): Extract<ConfigValue, T> | undefined {
+    return this.config[key] as Extract<ConfigValue, T>;
   }
 
   /**
@@ -154,7 +154,7 @@ class ConfigProvider {
    * @param env The environment variables object.
    * @throws Throws if it is not possible to cast a value to its given type.
    */
-  private processEnv(env?: Record<string, ConfigValue>): void {
+  private processEnv(env?: NodeJS.ProcessEnv | Record<string, ConfigValue>): void {
     if (!env) {
       return;
     }
@@ -172,5 +172,3 @@ class ConfigProvider {
     }
   }
 }
-
-export default ConfigProvider;

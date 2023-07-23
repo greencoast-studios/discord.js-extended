@@ -1,14 +1,14 @@
-/* eslint-disable max-statements */
-import ExtendedClient from '../ExtendedClient';
-import PresenceTemplater from './PresenceTemplater';
+import { ActivityType } from 'discord-api-types/v10';
+import { ExtendedClient } from '../ExtendedClient';
+import { PresenceTemplater } from './PresenceTemplater';
 import { randomArrayItem } from '../../utils/array';
-import PresenceManagerOptions from '../../interfaces/PresenceManagerOptions';
-import PresenceData from '../../interfaces/PresenceData';
+import { PresenceManagerOptions } from '../../interfaces/PresenceManagerOptions';
+import { PresenceData } from '../../interfaces/PresenceData';
 
 /**
  * A class to manage the client's presence statuses.
  */
-class PresenceManager {
+export class PresenceManager {
   /**
    * The client that this presence manager will be used by.
    * @type {ExtendedClient}
@@ -51,7 +51,7 @@ class PresenceManager {
    * @param client The client that this presence manager will be used by.
    * @param options The options for this presence manager.
    */
-  constructor(client: ExtendedClient, options: PresenceManagerOptions = {}) {
+  public constructor(client: ExtendedClient, options: PresenceManagerOptions = {}) {
     if (!options.templates) {
       options.templates = ['{num_guilds} servers!'];
     }
@@ -59,7 +59,7 @@ class PresenceManager {
       options.status = 'online';
     }
     if (!options.type) {
-      options.type = 'PLAYING';
+      options.type = ActivityType.Playing;
     }
     if (!options.afk) {
       options.afk = false;
@@ -158,5 +158,3 @@ class PresenceManager {
     return this.update(randomArrayItem(this.options.templates!));
   }
 }
-
-export default PresenceManager;

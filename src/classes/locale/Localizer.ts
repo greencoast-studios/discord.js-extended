@@ -1,8 +1,8 @@
-import Discord from 'discord.js';
+import { Collection, Snowflake, Guild } from 'discord.js';
 import IntlMessageFormat from 'intl-messageformat';
-import ExtendedClient from '../ExtendedClient';
-import GuildLocalizer from './GuildLocalizer';
-import LocalizerOptions from '../../interfaces/LocalizerOptions';
+import { ExtendedClient } from '../ExtendedClient';
+import { GuildLocalizer } from './GuildLocalizer';
+import { LocalizerOptions } from '../../interfaces/LocalizerOptions';
 
 /**
  * A class to help with the localization of your bot. This handles string translation based on the
@@ -11,7 +11,7 @@ import LocalizerOptions from '../../interfaces/LocalizerOptions';
  * It is recommended to have a data provider set in the client for the locale settings to be saved
  * persistently for each guild.
  */
-class Localizer {
+export class Localizer {
   /**
    * The client that this localizer will be used by.
    * @type {ExtendedClient}
@@ -67,17 +67,17 @@ class Localizer {
 
   /**
    * The {@link GuildLocalizer}s for each guild.
-   * @type {Discord.Collection<Discord.Snowflake, GuildLocalizer>}
+   * @type {Collection<Snowflake, GuildLocalizer>}
    * @memberof Localizer
    */
-  public readonly guildLocalizers: Discord.Collection<Discord.Snowflake, GuildLocalizer>;
+  public readonly guildLocalizers: Collection<Snowflake, GuildLocalizer>;
 
   /**
    * @param client The client that this localizer will be used by.
    * @param options The options for this localizer.
    * @throws Throws if the supplied default locale is not supported.
    */
-  constructor(client: ExtendedClient, options: LocalizerOptions) {
+  public constructor(client: ExtendedClient, options: LocalizerOptions) {
     this.client = client;
     this.localeStrings = options.localeStrings;
 
@@ -87,7 +87,7 @@ class Localizer {
 
     this.defaultLocale = options.defaultLocale;
     this.options = options;
-    this.guildLocalizers = new Discord.Collection();
+    this.guildLocalizers = new Collection();
   }
 
   /**
@@ -118,7 +118,7 @@ class Localizer {
    * @throws Rejects if the guild localizer was being initialized with an unsupported locale retrieved
    * from the data provider. This may happen if the locale saved in the data provider was updated manually.
    */
-  private handleGuildCreate(guild: Discord.Guild): Promise<string> {
+  private handleGuildCreate(guild: Guild): Promise<string> {
     const localizer = new GuildLocalizer(this, guild);
     this.guildLocalizers.set(guild.id, localizer);
 
@@ -132,14 +132,14 @@ class Localizer {
    * @returns A promise that resolves once the guild localizer has been removed from both this and the data
    * provider (if any).
    */
-  private handleGuildDelete(guild: Discord.Guild): Promise<void> {
+  private handleGuildDelete(guild: Guild): Promise<void> {
     this.guildLocalizers.delete(guild.id);
 
     if (!this.client.dataProvider) {
       return Promise.resolve();
     }
 
-    return this.client.dataProvider.delete(guild, this.options.dataProviderKey || 'locale')
+    return this.client.dataProvider.delete<void>(guild, this.options.dataProviderKey || 'locale')
       .catch((error) => {
         this.client.emit('warn', `Could not delete locale settings for ${guild.id} from data provider.`);
         this.client.emit('error', error);
@@ -151,7 +151,7 @@ class Localizer {
    * @param guild
    * @returns The guild localizer for the given guild.
    */
-  public getLocalizer(guild: Discord.Guild): GuildLocalizer | undefined {
+  public getLocalizer(guild: Guild): GuildLocalizer | undefined {
     return this.guildLocalizers.get(guild.id);
   }
 
@@ -225,5 +225,3 @@ class Localizer {
     return new IntlMessageFormat(message);
   }
 }
-
-export default Localizer;

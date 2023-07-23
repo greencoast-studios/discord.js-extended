@@ -1,6 +1,6 @@
-import Discord from 'discord.js';
-import RegularCommand from '../../RegularCommand';
-import ExtendedClient from '../../../ExtendedClient';
+import { PermissionsBitField, Message } from 'discord.js';
+import { RegularCommand } from '../../RegularCommand';
+import { ExtendedClient } from '../../../ExtendedClient';
 
 /**
  * The default set locale command. This regular command is part of the `config` group.
@@ -8,18 +8,18 @@ import ExtendedClient from '../../../ExtendedClient';
  * This command updates the locale for the current guild.
  * @category config - Configuration Commands
  */
-class SetLocaleRegularCommand extends RegularCommand {
+export class SetLocaleRegularCommand extends RegularCommand {
   /**
    * @param client The client that this command will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     super(client, {
       name: 'set_locale',
       emoji: ':earth_americas:',
       group: 'config',
       description: 'Update the locale for this guild.',
       guildOnly: true,
-      userPermissions: [Discord.Permissions.FLAGS.MANAGE_GUILD]
+      userPermissions: [PermissionsBitField.Flags.ManageGuild]
     });
   }
 
@@ -31,21 +31,21 @@ class SetLocaleRegularCommand extends RegularCommand {
    * @param message The [message](https://discord.js.org/#/docs/discord.js/stable/class/Message) that triggered this command.
    * @param args The arguments passed to this command.
    */
-  public async run(message: Discord.Message, args: string[]): Promise<Discord.Message> {
+  public async run(message: Message, args: string[]): Promise<void> {
     const localizer = this.client.localizer!.getLocalizer(message.guild!)!; // We know it comes from a guild because of guildOnly.
     const [newLocale] = args;
 
     if (!newLocale) {
-      return message.reply('You need to specify a locale.');
+      await message.reply('You need to specify a locale.');
+      return;
     }
 
     if (newLocale === localizer.locale) {
-      return message.reply(`Locale is already set to ${localizer.locale}.`);
+      await message.reply(`Locale is already set to ${localizer.locale}.`);
+      return;
     }
 
     await localizer.updateLocale(newLocale); // Failure caught by onError.
-    return message.reply(`Successfully updated locale to ${newLocale}.`);
+    await message.reply(`Successfully updated locale to ${newLocale}.`);
   }
 }
-
-export default SetLocaleRegularCommand;

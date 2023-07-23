@@ -1,9 +1,9 @@
-import Discord from 'discord.js';
+import { PermissionResolvable } from 'discord.js';
 
 /**
  * The command's information object. This defines the command's properties.
  */
-interface CommandInfo {
+export interface CommandInfo {
   /**
    * The command's name.
    */
@@ -42,7 +42,7 @@ interface CommandInfo {
    * defines the permissions that a user requires to execute this command.
    * @defaultValue `null`
    */
-  userPermissions?: Discord.PermissionResolvable,
+  userPermissions?: PermissionResolvable,
 
   /**
    * Whether the bot's owner can execute this command even if they don't have the required permissions.
@@ -62,5 +62,3 @@ interface CommandInfo {
    */
   aliases?: string[]
 }
-
-export default CommandInfo;

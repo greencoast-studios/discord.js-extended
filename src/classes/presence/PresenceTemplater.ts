@@ -1,10 +1,10 @@
-import Discord from 'discord.js';
+import { Collection, Snowflake, Guild } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import ExtendedClient from '../ExtendedClient';
-import AsyncTemplater from '../abstract/AsyncTemplater';
+import { ExtendedClient } from '../ExtendedClient';
+import { AsyncTemplater } from '../abstract/AsyncTemplater';
 import { PresenceTemplaterGetters } from '../../types';
 
 dayjs.extend(utc);
@@ -27,7 +27,7 @@ dayjs.extend(timezone);
  * | `{num_members}`  | Get the total number of members across all the guilds that the client is connected to.                                      |
  * | `{num_commands}` | Get the number of commands registered to this client.                                                                       |
  */
-class PresenceTemplater extends AsyncTemplater {
+export class PresenceTemplater extends AsyncTemplater {
   /**
    * The client that this presence async templater will use as a data source.
    * @type {ExtendedClient}
@@ -42,13 +42,13 @@ class PresenceTemplater extends AsyncTemplater {
    * @type {PresenceTemplaterGetters}
    * @memberof PresenceTemplater
    */
-  public customGetters: PresenceTemplaterGetters;
+  public readonly customGetters: PresenceTemplaterGetters;
 
   /**
    * @param client The client that this presence async templater will use as a data source.
    * @param customGetters The custom getters object to define custom templates.
    */
-  constructor(client: ExtendedClient, customGetters: PresenceTemplaterGetters) {
+  public constructor(client: ExtendedClient, customGetters: PresenceTemplaterGetters) {
     super([
       'num_guilds',
       'prefix',
@@ -192,9 +192,9 @@ class PresenceTemplater extends AsyncTemplater {
 
     return this.client.shard.fetchClientValues('guilds.cache')
       .then((results) => {
-        const castedResults = results as Discord.Collection<Discord.Snowflake, Discord.Guild>[];
+        const castedResults = results as Collection<Snowflake, Guild>[];
         return castedResults.reduce((sum, guildCache) => {
-          const memberCounts = guildCache.reduce((sum: number, guild: Discord.Guild) => sum + guild.memberCount, 0);
+          const memberCounts = guildCache.reduce((sum: number, guild: Guild) => sum + guild.memberCount, 0);
 
           return sum + memberCounts;
         }, 0).toString();
@@ -209,5 +209,3 @@ class PresenceTemplater extends AsyncTemplater {
     return Promise.resolve(this.client.registry.commands.size.toString());
   }
 }
-
-export default PresenceTemplater;

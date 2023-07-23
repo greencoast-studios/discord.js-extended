@@ -2,18 +2,18 @@
  * An abstract class that helps with the application of templates in strings.
  * Wrap the template in curly braces inside the string you want to apply the template to.
  */
-abstract class Templater {
+export abstract class Templater {
   /**
    * The keys handled by this templater. They don't include the curly braces.
    * @type {string[]}
    * @memberof Templater
    */
-  public keys: string[];
+  public readonly keys: string[];
 
   /**
    * @param keys All the keys that should be replaced inside the string.
    */
-  constructor(keys: string[]) {
+  public constructor(keys: string[]) {
     this.keys = keys;
   }
 
@@ -42,5 +42,3 @@ abstract class Templater {
     }, str);
   }
 }
-
-export default Templater;

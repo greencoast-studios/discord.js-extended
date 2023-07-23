@@ -1,14 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
-import CommandDispatcher from '../../../src/classes/command/CommandDispatcher';
-import CommandRegistry from '../../../src/classes/command/CommandRegistry';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import RegularCommand from '../../../src/classes/command/RegularCommand';
-import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/command';
-import { MessageMock, InteractionMock } from '../../../__mocks__/discordMocks';
-import SlashCommand from '../../../src/classes/command/SlashCommand';
+import { MessageMock, InteractionMock, mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
 
-jest.mock('discord.js');
+import { CommandDispatcher, CommandRegistry, ExtendedClient, RegularCommand, SlashCommand } from '../../../src';
+import { Message, Interaction, ChatInputCommandInteraction } from 'discord.js';
+import { ConcreteRegularCommand, ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
 const clientMock = new ExtendedClient({ prefix: '!', intents: [] });
 
@@ -18,8 +13,8 @@ describe('Classes: Command: CommandDispatcher', () => {
   let registryGetCommandSpy: jest.SpyInstance;
   let regularCommand: RegularCommand;
   let slashCommand: SlashCommand;
-  let message: Discord.Message;
-  let interaction: Discord.Interaction;
+  let message: Message;
+  let interaction: Interaction;
 
   beforeEach(() => {
     regularCommand = new ConcreteRegularCommand(clientMock);
@@ -33,12 +28,12 @@ describe('Classes: Command: CommandDispatcher', () => {
     registry = new CommandRegistry(clientMock);
     dispatcher = new CommandDispatcher(clientMock, registry);
 
-    message = new MessageMock() as unknown as Discord.Message;
+    message = new MessageMock() as unknown as Message;
     message.content = '!command';
 
-    interaction = new InteractionMock() as unknown as Discord.Interaction;
-    const isCommandSpy = interaction.isCommand as jest.Mock;
-    isCommandSpy.mockReturnValue(true);
+    interaction = new InteractionMock() as unknown as Interaction;
+    const isChatInputCommandSpy = interaction.isChatInputCommand as jest.Mock;
+    isChatInputCommandSpy.mockReturnValue(true);
   });
 
   describe('handleMessage()', () => {
@@ -92,7 +87,7 @@ describe('Classes: Command: CommandDispatcher', () => {
     });
 
     it('should not run the command if command is guild only and message was not sent in a guild.', () => {
-      regularCommand.guildOnly = true;
+      Object.defineProperty(regularCommand, 'guildOnly', { value: true });
       Object.defineProperty(message, 'guild', { value: null });
 
       return dispatcher.handleMessage(message)
@@ -139,7 +134,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should not execute NSFW command in a non NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: false });
-      regularCommand.nsfw = true;
+      Object.defineProperty(regularCommand, 'nsfw', { value: true });
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -149,7 +144,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should reply that the NSFW command may not be executed in a non NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: false });
-      regularCommand.nsfw = true;
+      Object.defineProperty(regularCommand, 'nsfw', { value: true });
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -160,7 +155,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should execute the NSFW command in a NSFW channel.', () => {
       Object.defineProperty(message.channel, 'nsfw', { value: true });
-      regularCommand.nsfw = true;
+      Object.defineProperty(regularCommand, 'nsfw', { value: true });
 
       return dispatcher.handleMessage(message)
         .then(() => {
@@ -175,8 +170,8 @@ describe('Classes: Command: CommandDispatcher', () => {
     });
 
     it('should not run command if interaction is not a CommandInteraction.', () => {
-      const isCommandSpy = interaction.isCommand as jest.Mock;
-      isCommandSpy.mockReturnValue(false);
+      const isChatInputCommandSpy = interaction.isChatInputCommand as jest.Mock;
+      isChatInputCommandSpy.mockReturnValue(false);
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
@@ -203,7 +198,7 @@ describe('Classes: Command: CommandDispatcher', () => {
     });
 
     it('should not run the command if command is guild only and interaction was not sent in a guild.', () => {
-      slashCommand.guildOnly = true;
+      Object.defineProperty(slashCommand, 'guildOnly', { value: true });
       const inGuildSpy = interaction.inGuild as jest.Mock;
       inGuildSpy.mockReturnValue(false);
 
@@ -218,7 +213,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
-          const commandInteraction = interaction as Discord.CommandInteraction;
+          const commandInteraction = interaction as ChatInputCommandInteraction;
           expect(commandInteraction.reply).toHaveBeenCalledWith('Oops...');
         });
     });
@@ -252,7 +247,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should not execute NSFW command in a non NSFW channel.', () => {
       Object.defineProperty(interaction.channel, 'nsfw', { value: false });
-      slashCommand.nsfw = true;
+      Object.defineProperty(slashCommand, 'nsfw', { value: true });
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
@@ -262,11 +257,11 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should reply that the NSFW command may not be executed in a non NSFW channel.', () => {
       Object.defineProperty(interaction.channel, 'nsfw', { value: false });
-      slashCommand.nsfw = true;
+      Object.defineProperty(slashCommand, 'nsfw', { value: true });
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {
-          const commandInteraction = interaction as Discord.CommandInteraction;
+          const commandInteraction = interaction as ChatInputCommandInteraction;
           expect(commandInteraction.reply).toHaveBeenCalledTimes(1);
           expect(commandInteraction.reply).toHaveBeenCalledWith('This command may only be used in a NSFW channel.');
         });
@@ -274,7 +269,7 @@ describe('Classes: Command: CommandDispatcher', () => {
 
     it('should execute the NSFW command in a NSFW channel.', () => {
       Object.defineProperty(interaction.channel, 'nsfw', { value: true });
-      slashCommand.nsfw = true;
+      Object.defineProperty(slashCommand, 'nsfw', { value: true });
 
       return dispatcher.handleInteraction(interaction)
         .then(() => {

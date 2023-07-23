@@ -3,18 +3,18 @@
  * values computed asynchronously.
  * Wrap the template in curly braces inside the string you want to apply the template to.
  */
-abstract class AsyncTemplater {
+export abstract class AsyncTemplater {
   /**
    * The keys handled by this async templater. They don't include the curly braces.
    * @type {string[]}
    * @memberof AsyncTemplater
    */
-  public keys: string[];
+  public readonly keys: string[];
 
   /**
    * @param keys All the keys that should be replaced inside the string.
    */
-  constructor(keys: string[]) {
+  public constructor(keys: string[]) {
     this.keys = keys;
   }
 
@@ -32,7 +32,7 @@ abstract class AsyncTemplater {
    * @returns A promise that resolves to the string with the templates replaced.
    */
   public async apply(str: string): Promise<string> {
-    return this.keys.reduce(async(curPromise, key) => {
+    return this.keys.reduce(async (curPromise, key) => {
       const cur = await curPromise;
       const regex = new RegExp(`{${key}}`, 'gi');
 
@@ -44,5 +44,3 @@ abstract class AsyncTemplater {
     }, Promise.resolve(str));
   }
 }
-
-export default AsyncTemplater;

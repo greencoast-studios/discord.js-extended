@@ -1,6 +1,8 @@
-import SlashCommandDeployer from '../../../src/classes/command/SlashCommandDeployer';
-import ExtendedClient from '../../../src/classes/ExtendedClient';
-import { ConcreteSlashCommand } from '../../../__mocks__/command';
+import { mockDiscordJs } from '../../../__mocks__/local/discordMocks';
+mockDiscordJs();
+
+import { SlashCommandDeployer, ExtendedClient } from '../../../src';
+import { ConcreteSlashCommand } from '../../../__mocks__/local/command';
 
 let clientMock = new ExtendedClient({ testingGuildID: '123', intents: [] });
 const slashCommandMocks = [new ConcreteSlashCommand(clientMock), new ConcreteSlashCommand(clientMock)];

@@ -1,11 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Discord from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import ExtendedClient from '../src/classes/ExtendedClient';
-import RegularCommand from '../src/classes/command/RegularCommand';
-import SlashCommand from '../src/classes/command/SlashCommand';
-
-jest.mock('discord.js');
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ExtendedClient, RegularCommand, SlashCommand } from '../../src';
 
 export class ConcreteRegularCommand extends RegularCommand {
   constructor(client: ExtendedClient, info: Record<string, any> = {}) {
@@ -17,8 +11,8 @@ export class ConcreteRegularCommand extends RegularCommand {
     });
   }
 
-  override run(message: Discord.Message): Promise<Discord.Message> {
-    return Promise.resolve(message);
+  override run(): Promise<void> {
+    return Promise.resolve();
   }
 }
 
@@ -33,7 +27,7 @@ export class ConcreteSlashCommand extends SlashCommand {
     });
   }
 
-  override run(interaction: Discord.CommandInteraction): Promise<void> {
-    return interaction.reply('hi');
+  override async run(interaction: ChatInputCommandInteraction): Promise<void> {
+    await interaction.reply('hi');
   }
 }

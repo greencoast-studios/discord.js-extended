@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import { ConfigValue, ConfigCustomValidators } from '../../types';
 
 /**
@@ -26,14 +25,14 @@ import { ConfigValue, ConfigCustomValidators } from '../../types';
  * because, while JSON properties can be typed, the validator will default them to `string`,
  * which will make the validation throw an error during the ConfigProvider creation.
  */
-class ConfigValidator {
+export class ConfigValidator {
   /**
    * The valid types that can be used. It is also possible to have an array of these types.
    * @static
    * @type {string[]}
    * @memberof ConfigValidator
    */
-  public static VALID_TYPES: string[] = [
+  public static readonly VALID_TYPES: string[] = [
     'boolean',
     'number',
     'string',
@@ -48,7 +47,7 @@ class ConfigValidator {
    * @type {(Record<string, string | string[]>)}
    * @memberof ConfigValidator
    */
-  public types: Record<string, string | string[]>;
+  private readonly types: Record<string, string | string[]>;
 
   /**
    * An object that maps a config key to a custom validator function.
@@ -59,13 +58,13 @@ class ConfigValidator {
    * @type {ConfigCustomValidators}
    * @memberof ConfigValidator
    */
-  public customValidators: ConfigCustomValidators;
+  private readonly customValidators: ConfigCustomValidators;
 
   /**
    * @param types The types for this config validator.
    * @param customValidators An object that maps a config key to a custom validator function.
    */
-  constructor(types: Record<string, string | string[]>, customValidators: ConfigCustomValidators = {}) {
+  public constructor(types: Record<string, string | string[]>, customValidators: ConfigCustomValidators = {}) {
     this.validateTypes(types);
 
     this.types = types;
@@ -262,5 +261,3 @@ class ConfigValidator {
     });
   }
 }
-
-export default ConfigValidator;

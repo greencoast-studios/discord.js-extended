@@ -1,7 +1,6 @@
-import Discord from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import SlashCommand from '../../SlashCommand';
-import ExtendedClient from '../../../ExtendedClient';
+import { PermissionsBitField, SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommand } from '../../SlashCommand';
+import { ExtendedClient } from '../../../ExtendedClient';
 
 /**
  * The default set locale command. This slash command is part of the `config` group.
@@ -9,18 +8,18 @@ import ExtendedClient from '../../../ExtendedClient';
  * This command updates the locale for the current guild.
  * @category config - Configuration Commands
  */
-class SetLocaleSlashCommand extends SlashCommand {
+export class SetLocaleSlashCommand extends SlashCommand {
   /**
    * @param client The client that this command will be used by.
    */
-  constructor(client: ExtendedClient) {
+  public constructor(client: ExtendedClient) {
     super(client, {
       name: 'set_locale',
       emoji: ':earth_americas:',
       group: 'config',
       description: 'Update the locale for this guild.',
       guildOnly: true,
-      userPermissions: [Discord.Permissions.FLAGS.MANAGE_GUILD],
+      userPermissions: [PermissionsBitField.Flags.ManageGuild],
       dataBuilder: new SlashCommandBuilder().addStringOption((input) => {
         return input
           .setName('locale')
@@ -37,7 +36,7 @@ class SetLocaleSlashCommand extends SlashCommand {
    * ```
    * @param interaction The [interaction](https://discord.js.org/#/docs/discord.js/stable/class/CommandInteraction) that triggered this command.
    */
-  public async run(interaction: Discord.CommandInteraction): Promise<void> {
+  public async run(interaction: ChatInputCommandInteraction): Promise<void> {
     const localizer = this.client.localizer!.getLocalizer(interaction.guild!)!; // We know it comes from a guild because of guildOnly.
     const newLocale = interaction.options.getString('locale')!; // We know it's not null because it is required.
 
@@ -50,5 +49,3 @@ class SetLocaleSlashCommand extends SlashCommand {
     await interaction.reply(`Successfully updated locale to ${newLocale}.`);
   }
 }
-
-export default SetLocaleSlashCommand;
