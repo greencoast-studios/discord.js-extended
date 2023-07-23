@@ -1,6 +1,6 @@
 {
   "name": "@greencoast/discord.js-extended",
-  "version": "2.2.3",
+  "version": "3.0.0",
   "description": "An utility to facilitate the repetitive tasks when creating discord bots. Used by Greencoast Studios.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
